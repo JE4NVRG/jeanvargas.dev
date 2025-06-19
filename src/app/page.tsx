@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { FeatureBlockCard } from "../components/ui/feature-block-card";
 import { WhatsAppButton } from "../components/ui/whatsapp-button";
+import FeedbacksSection from "../components/ui/feedbacks-section";
 
 // Dados dos projetos reais de Jean Carlos Vargas
 const projetosDestaque = [
@@ -814,6 +815,9 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Seção de Feedbacks & Resultados */}
+      <FeedbacksSection />
 
       {/* Seção Serviços - Bento Grid */}
       <section
