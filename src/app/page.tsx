@@ -325,72 +325,33 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Nome com efeito hover animado */}
+            {/* Nome com efeito glow animado e responsividade */}
             <motion.div
-              className="mb-4 h-32 flex items-center justify-center"
+              className="mb-4 flex items-center justify-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="relative w-full max-w-4xl h-full">
-                <svg
-                  width="100%"
-                  height="100%"
-                  viewBox="0 0 800 120"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="select-none"
+              <div className="relative inline-block">
+                {/* Efeito glow animado por trás */}
+                <motion.span
+                  className="absolute inset-0 blur-[8px] bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-lg z-[-1]"
+                  animate={{
+                    opacity: [0.3, 0.6, 0.3],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                 >
-                  <defs>
-                    <linearGradient
-                      id="nameGradient"
-                      gradientUnits="userSpaceOnUse"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="0%"
-                    >
-                      <stop offset="0%" stopColor="#eab308" />
-                      <stop offset="25%" stopColor="#ef4444" />
-                      <stop offset="50%" stopColor="#3b82f6" />
-                      <stop offset="75%" stopColor="#06b6d4" />
-                      <stop offset="100%" stopColor="#8b5cf6" />
-                    </linearGradient>
-                  </defs>
+                  Jean Carlos Vargas
+                </motion.span>
 
-                  {/* Texto de fundo */}
-                  <motion.text
-                    x="50%"
-                    y="50%"
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    className="fill-transparent stroke-white/30 font-bold text-4xl sm:text-6xl"
-                    strokeWidth="1"
-                    initial={{ strokeDashoffset: 2000, strokeDasharray: 2000 }}
-                    animate={{
-                      strokeDashoffset: 0,
-                      strokeDasharray: 2000,
-                    }}
-                    transition={{
-                      duration: 3,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    JEAN CARLOS VARGAS
-                  </motion.text>
-
-                  {/* Texto com gradiente */}
-                  <text
-                    x="50%"
-                    y="50%"
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    className="fill-transparent font-bold text-4xl sm:text-6xl"
-                    stroke="url(#nameGradient)"
-                    strokeWidth="1"
-                  >
-                    JEAN CARLOS VARGAS
-                  </text>
-                </svg>
+                {/* Texto principal com responsividade */}
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-center text-white">
+                  Jean Carlos Vargas
+                </h1>
               </div>
             </motion.div>
 
