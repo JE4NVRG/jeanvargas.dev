@@ -19,7 +19,17 @@ import { WhatsAppButton } from "../components/ui/whatsapp-button";
 import FeedbacksSection from "../components/ui/feedbacks-section";
 import { BackgroundBeamsWithCollision } from "../components/ui/background-beams-with-collision";
 
-// Dados dos projetos reais de Jean Carlos Vargas
+// ====================================
+// DADOS DOS PROJETOS EM DESTAQUE
+// ====================================
+// Para alterar/adicionar projetos:
+// 1. titulo: Nome do projeto
+// 2. descricao: Descrição breve (máximo 50 caracteres)
+// 3. tecnologias: Array com as tecnologias utilizadas
+// 4. resultados: Array com métricas do projeto (valor, label, icon)
+// 5. gradiente: Classes Tailwind para gradiente (from-cor-500 to-cor-600)
+// 6. link: URL do repositório GitHub ou site do projeto
+
 const projetosDestaque = [
   {
     id: 1,
@@ -62,7 +72,16 @@ const projetosDestaque = [
   },
 ];
 
-// Dados dos serviços oferecidos
+// ====================================
+// DADOS DOS SERVIÇOS OFERECIDOS
+// ====================================
+// Para alterar/adicionar serviços:
+// 1. titulo: Nome do serviço
+// 2. descricao: Descrição detalhada do serviço
+// 3. icon: Ícone do Lucide React (Globe, Server, Smartphone, etc.)
+// 4. destaque: true para destacar o serviço (background diferenciado)
+// 5. tamanho: "normal" | "wide" | "tall" (define o tamanho do card no grid)
+
 const servicos = [
   {
     id: 1,
@@ -114,7 +133,15 @@ const servicos = [
   },
 ];
 
-// Dados das tecnologias
+// ====================================
+// DADOS DAS TECNOLOGIAS UTILIZADAS
+// ====================================
+// Para alterar/adicionar tecnologias:
+// 1. nome: Nome da tecnologia ou ferramenta
+// 2. emoji: Emoji representativo da tecnologia
+// 3. categoria: "Frontend" | "Backend" | "Database" | "Mobile" | "IA" | "Blockchain" | "DevOps" | "Cloud" | "Linguagem"
+// Dica: Organize por categoria para melhor visualização
+
 const tecnologias = [
   { nome: "Next.js", emoji: "⚛️", categoria: "Frontend" },
   { nome: "TypeScript", emoji: "📘", categoria: "Linguagem" },

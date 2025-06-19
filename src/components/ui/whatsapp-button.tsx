@@ -5,6 +5,14 @@ import { MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function WhatsAppButton() {
+  // ====================================
+  // CONFIGURAÇÃO DO WHATSAPP
+  // ====================================
+  // Para alterar o número do WhatsApp:
+  // 1. Substitua o número após "wa.me/" pelo seu número com código do país
+  // 2. Formato: https://wa.me/5511999999999 (55 = Brasil, 11 = DDD, 999999999 = número)
+  // 3. NÃO inclua espaços, hífens ou parênteses no número
+
   const whatsappUrl = "https://wa.me/5511948477047";
 
   return (

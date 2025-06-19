@@ -6,41 +6,58 @@ import {
   LucideIcon,
 } from "lucide-react";
 
+// ====================================
+// INTERFACES PARA TIPAGEM
+// ====================================
+
 export interface Feedback {
   id: number;
   nome: string;
   cargo: string;
   empresa?: string;
-  avatar: string;
-  avaliacao: number;
+  avatar: string; // URL da imagem do avatar (pode usar pravatar.cc ou imagens próprias)
+  avaliacao: number; // Nota de 1 a 5 (aceita decimais como 4.8)
   depoimento: string;
 }
 
 export interface Metrica {
   id: number;
-  icone: LucideIcon;
-  valor: string;
-  valorNumerico: number;
-  sufixo?: string;
-  prefixo?: string;
-  decimais?: number;
-  separador?: string;
+  icone: LucideIcon; // Ícone do Lucide React
+  valor: string; // Valor formatado para exibição (ex: "+120k", "99.8%")
+  valorNumerico: number; // Valor numérico para animação do contador
+  sufixo?: string; // Texto após o número (ex: "%", "k+")
+  prefixo?: string; // Texto antes do número (ex: "+", "$")
+  decimais?: number; // Quantidade de casas decimais
+  separador?: string; // Separador de milhares
   descricao: string;
-  destaque?: boolean;
+  destaque?: boolean; // Se true, aplica estilo especial destacado
 }
 
 export interface Selo {
   id: number;
   texto: string;
-  icone: string;
-  cor: "emerald" | "blue" | "purple" | "orange" | "cyan";
+  icone: string; // Emoji ou símbolo
+  cor: "emerald" | "blue" | "purple" | "orange" | "cyan"; // Cores predefinidas
 }
+
+// ====================================
+// DADOS DOS FEEDBACKS
+// ====================================
+// Para alterar/adicionar depoimentos:
+// 1. avatar: Use https://i.pravatar.cc/150?img=NUMERO (1-70) ou sua própria URL
+// 2. avaliacao: Número de 1 a 5 (pode usar decimais como 4.8)
+// 3. nome, cargo, empresa: Informações do cliente
+// 4. depoimento: Texto do feedback (máximo recomendado: 200 caracteres)
 
 export const feedbacks: Feedback[] = [
   {
     id: 1,
     nome: "Carlos Henrique",
     cargo: "CEO da Innova Marketing",
+    // AVATARES: Opções para trocar a imagem:
+    // 1. Pravatar: https://i.pravatar.cc/150?img=1 até ?img=70 (números diferentes = pessoas diferentes)
+    // 2. Unsplash: https://images.unsplash.com/photo-ID?w=150&h=150&fit=crop&crop=face
+    // 3. Sua própria imagem: coloque na pasta /public/ e use "/nome-da-imagem.jpg"
     avatar: "https://i.pravatar.cc/150?img=10",
     avaliacao: 5,
     depoimento:
@@ -112,6 +129,16 @@ export const feedbacks: Feedback[] = [
   },
 ];
 
+// ====================================
+// MÉTRICAS E NÚMEROS DE IMPACTO
+// ====================================
+// Para alterar métricas:
+// 1. icone: Escolha ícones do Lucide React (MessageCircle, Users, etc.)
+// 2. valor: String formatada como será exibida (ex: "+120k", "99.8%")
+// 3. valorNumerico: Número para a animação (sem formatação)
+// 4. sufixo/prefixo: Adicione símbolos se necessário
+// 5. destaque: true para destacar a métrica principal
+
 export const metricas: Metrica[] = [
   {
     id: 1,
@@ -147,6 +174,14 @@ export const metricas: Metrica[] = [
     descricao: "Uptime médio das aplicações",
   },
 ];
+
+// ====================================
+// SELOS DE CONFIANÇA
+// ====================================
+// Para alterar selos:
+// 1. texto: Descrição da garantia/certificação
+// 2. icone: Emoji ou símbolo visual
+// 3. cor: "emerald" | "blue" | "purple" | "orange" | "cyan"
 
 export const selos: Selo[] = [
   {

@@ -1,3 +1,14 @@
+// ====================================
+// CONFIGURAÇÕES DO EFEITO MOUSE GLOW
+// ====================================
+// Este arquivo controla o efeito de brilho que segue o cursor do mouse
+// Para personalizar:
+// 1. enabled: true/false para ativar/desativar o efeito
+// 2. showOnMobile: true/false para mostrar em dispositivos móveis
+// 3. showOnLightMode: true/false para mostrar no modo claro
+// 4. opacity: controla a intensidade geral (0-1)
+// 5. colors.base: RGB do brilho [R, G, B] (ex: [255, 255, 255] = branco)
+
 export interface MouseGlowConfig {
   // Configurações gerais
   enabled: boolean;
