@@ -87,8 +87,6 @@ const projetosDestaque = [
 // 1. titulo: Nome do serviço
 // 2. descricao: Descrição detalhada do serviço
 // 3. icon: Ícone do Lucide React (Globe, Server, Smartphone, etc.)
-// 4. destaque: true para destacar o serviço (background diferenciado)
-// 5. tamanho: "normal" | "wide" | "tall" (define o tamanho do card no grid)
 
 const servicos = [
   {
@@ -96,48 +94,36 @@ const servicos = [
     titulo: "Sites & Landing Pages",
     descricao: "Sites modernos e responsivos com foco em conversão",
     icon: Globe,
-    destaque: false,
-    tamanho: "normal",
   },
   {
     id: 2,
     titulo: "Plataformas SaaS",
     descricao: "Sistemas completos escaláveis para seu negócio",
     icon: Server,
-    destaque: true,
-    tamanho: "wide",
   },
   {
     id: 3,
     titulo: "Apps FlutterFlow",
     descricao: "Aplicativos mobile nativos sem código",
     icon: Smartphone,
-    destaque: false,
-    tamanho: "normal",
   },
   {
     id: 4,
     titulo: "Bots com IA",
     descricao: "Automações inteligentes para atendimento",
     icon: Bot,
-    destaque: true,
-    tamanho: "tall",
   },
   {
     id: 5,
     titulo: "Integrações APIs",
     descricao: "Conecte sistemas e automatize processos",
     icon: Plug,
-    destaque: false,
-    tamanho: "normal",
   },
   {
     id: 6,
     titulo: "Automação",
     descricao: "Fluxos automatizados para produtividade",
     icon: Repeat,
-    destaque: false,
-    tamanho: "normal",
   },
 ];
 
@@ -262,53 +248,45 @@ const ServiceCard = ({
   servico: (typeof servicos)[0];
   index: number;
 }) => {
-  const getGridClasses = () => {
-    switch (servico.tamanho) {
-      case "wide":
-        return "md:col-span-2";
-      case "tall":
-        return "md:row-span-2";
-      default:
-        return "";
-    }
-  };
-
   return (
     <motion.div
-      className={`group relative overflow-hidden rounded-2xl bg-gray-800 border border-gray-700 hover:border-gray-600 transition-all duration-300 ${getGridClasses()}`}
-      initial={{ opacity: 0, y: 30 }}
+      className="h-full min-h-[200px] group relative overflow-hidden rounded-2xl bg-gray-800 border border-gray-700 hover:border-gray-600 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500"
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.02, y: -2 }}
     >
-      <div className="p-6 h-full flex flex-col justify-between">
-        <div>
-          <div className="mb-4">
-            <servico.icon
-              size={servico.destaque ? 48 : 32}
-              className="text-blue-400 mb-4"
-            />
+      <div className="h-full min-h-[200px] flex flex-col justify-between p-6">
+        {/* Conteúdo principal */}
+        <div className="flex-1">
+          {/* Ícone e título alinhados horizontalmente */}
+          <div className="flex items-center gap-2 mb-3">
+            <servico.icon size={28} className="text-blue-400 flex-shrink-0" />
+            <h3 className="font-semibold text-lg text-white leading-tight">
+              {servico.titulo}
+            </h3>
           </div>
-          <h3
-            className={`font-bold text-white mb-3 ${
-              servico.destaque ? "text-xl" : "text-lg"
-            }`}
-          >
-            {servico.titulo}
-          </h3>
+
+          {/* Descrição */}
           <p className="text-gray-300 text-sm leading-relaxed">
             {servico.descricao}
           </p>
         </div>
 
-        <motion.button
-          className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200"
+        {/* Botão com WhatsApp personalizado */}
+        <motion.a
+          href={`https://wa.me/5511948477047?text=Olá Jean! Quero saber mais sobre ${encodeURIComponent(
+            servico.titulo
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-200 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-400 block"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
           Saiba Mais
-        </motion.button>
+        </motion.a>
       </div>
     </motion.div>
   );
@@ -873,8 +851,8 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
+          {/* Grade Responsiva de Serviços */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 auto-rows-[1fr]">
             {servicos.map((servico, index) => (
               <ServiceCard key={servico.id} servico={servico} index={index} />
             ))}
