@@ -311,7 +311,11 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-800 text-white">
+      <section
+        data-hero
+        data-dark-section
+        className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-800 text-white"
+      >
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative container mx-auto px-6 py-24 sm:py-32">
           <motion.div
@@ -443,7 +447,12 @@ export default function Home() {
       </section>
 
       {/* Projetos em Destaque Section */}
-      <section id="projetos" className="py-20 px-6">
+      <section
+        id="projetos"
+        data-section="projects"
+        data-dark-section
+        className="py-20 px-6"
+      >
         <div className="container mx-auto max-w-7xl">
           <motion.div
             className="text-center mb-16"
@@ -516,7 +525,10 @@ export default function Home() {
       </section>
 
       {/* Preview Sobre Mim */}
-      <section className="py-16 px-6 bg-gradient-to-br from-gray-800 to-gray-900">
+      <section
+        data-dark-section
+        className="py-16 px-6 bg-gradient-to-br from-gray-800 to-gray-900"
+      >
         <div className="container mx-auto max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -650,7 +662,11 @@ export default function Home() {
       </section>
 
       {/* Seção de Destaque Tecnológico com IA */}
-      <section className="py-20 px-6 bg-gray-50 dark:bg-gray-900">
+      <section
+        data-section="tech-showcase"
+        data-dark-section
+        className="py-20 px-6 bg-gray-50 dark:bg-gray-900"
+      >
         <div className="container mx-auto max-w-6xl">
           <motion.div
             className="text-center mb-16"
@@ -742,7 +758,11 @@ export default function Home() {
       </section>
 
       {/* Stacks e Tecnologias */}
-      <section className="py-20 px-6 bg-gray-50 dark:bg-gray-900">
+      <section
+        data-section="stacks"
+        data-dark-section
+        className="py-20 px-6 bg-gray-50 dark:bg-gray-900"
+      >
         <div className="container mx-auto max-w-7xl">
           <motion.div
             className="text-center mb-16"
@@ -796,7 +816,12 @@ export default function Home() {
       </section>
 
       {/* Seção Serviços - Bento Grid */}
-      <section id="servicos" className="py-20 px-6 bg-gray-900 dark:bg-black">
+      <section
+        id="servicos"
+        data-section="services"
+        data-dark-section
+        className="py-20 px-6 bg-gray-900 dark:bg-black"
+      >
         <div className="container mx-auto max-w-7xl">
           <motion.div
             className="text-center mb-16"
@@ -856,6 +881,7 @@ export default function Home() {
       {/* Seção de Contato - Placeholder para formulário futuro */}
       <section
         id="contato"
+        data-dark-section
         className="py-20 px-6 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-800"
       >
         <div className="container mx-auto max-w-4xl">
