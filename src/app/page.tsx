@@ -363,55 +363,12 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="relative inline-block">
-                {/* Glow animado de fundo - múltiplas camadas */}
-                <motion.div
-                  className="absolute inset-0 blur-[12px] bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-lg z-[-3]"
-                  animate={{
-                    opacity: [0.3, 0.7, 0.3],
-                    scale: [1, 1.05, 1],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-
-                {/* Glow meio - segunda camada */}
-                <motion.div
-                  className="absolute inset-0 blur-[6px] bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 rounded-lg z-[-2]"
-                  animate={{
-                    opacity: [0.4, 0.8, 0.4],
-                    scale: [1, 1.03, 1],
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.5,
-                  }}
-                />
-
-                {/* Glow próximo - terceira camada */}
-                <motion.div
-                  className="absolute inset-0 blur-[3px] bg-gradient-to-r from-purple-300 via-pink-300 to-cyan-300 rounded-lg z-[-1]"
-                  animate={{
-                    opacity: [0.5, 0.9, 0.5],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1,
-                  }}
-                />
-
-                {/* Texto principal com responsividade melhorada */}
-                <h1 className="relative z-10 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-center text-white leading-tight">
+              {/* Título principal com efeito de contorno animado */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-wide text-center leading-tight">
+                <span className="text-outline-gradient">
                   Jean Carlos Vargas
-                </h1>
-              </div>
+                </span>
+              </h1>
             </motion.div>
 
             <motion.h2
