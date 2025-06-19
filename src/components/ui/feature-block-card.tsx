@@ -95,13 +95,33 @@ export function FeatureBlockCard() {
 
 // Sparkles component
 function Sparkles() {
-  const sparkles = Array.from({ length: 8 }, (_, i) => ({
-    id: i,
-    size: Math.random() * 3 + 2,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    delay: Math.random() * 2,
-  }));
+  const [mounted, setMounted] = React.useState(false);
+  const [sparkles, setSparkles] = React.useState<
+    Array<{
+      id: number;
+      size: number;
+      x: number;
+      y: number;
+      delay: number;
+    }>
+  >([]);
+
+  React.useEffect(() => {
+    setMounted(true);
+    setSparkles(
+      Array.from({ length: 8 }, (_, i) => ({
+        id: i,
+        size: Math.random() * 3 + 2,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        delay: Math.random() * 2,
+      }))
+    );
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="absolute inset-0 overflow-hidden">

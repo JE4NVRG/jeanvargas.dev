@@ -17,6 +17,7 @@ import {
 import { FeatureBlockCard } from "../components/ui/feature-block-card";
 import { WhatsAppButton } from "../components/ui/whatsapp-button";
 import FeedbacksSection from "../components/ui/feedbacks-section";
+import { BackgroundBeamsWithCollision } from "../components/ui/background-beams-with-collision";
 
 // Dados dos projetos reais de Jean Carlos Vargas
 const projetosDestaque = [
@@ -310,49 +311,62 @@ export default function Home() {
   )}`;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900/50">
       {/* Hero Section */}
       <section
         data-hero
         data-dark-section
-        className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-800 text-white"
+        className="relative overflow-hidden text-white bg-gradient-to-br from-gray-900/80 via-black/80 to-gray-800/80 min-h-screen"
       >
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative container mx-auto px-6 py-24 sm:py-32">
+        {/* Background Beams With Collision - Fundo animado para toda a tela */}
+        <BackgroundBeamsWithCollision className="z-0">
+          <div></div>
+        </BackgroundBeamsWithCollision>
+
+        <div className="relative container mx-auto px-6 py-24 sm:py-32 z-10">
           <motion.div
             className="text-center max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Nome com efeito glow animado e responsividade */}
+            {/* Nome com efeito neon simples */}
             <motion.div
-              className="mb-4 flex items-center justify-center"
+              className="mb-4 flex items-center justify-center relative"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="relative inline-block">
-                {/* Efeito glow animado por trás */}
-                <motion.span
-                  className="absolute inset-0 blur-[8px] bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-lg z-[-1]"
-                  animate={{
-                    opacity: [0.3, 0.6, 0.3],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  Jean Carlos Vargas
-                </motion.span>
-
-                {/* Texto principal com responsividade */}
+              {/* Texto principal com borda neon */}
+              <motion.div
+                className="relative inline-block border-2 px-6 py-3 rounded-xl bg-black/30 backdrop-blur-sm"
+                style={{
+                  borderColor: "rgba(147, 51, 234, 0.8)",
+                  boxShadow:
+                    "0 0 20px rgba(147, 51, 234, 0.6), inset 0 0 20px rgba(147, 51, 234, 0.1)",
+                }}
+                animate={{
+                  boxShadow: [
+                    "0 0 20px rgba(147, 51, 234, 0.6), inset 0 0 20px rgba(147, 51, 234, 0.1)",
+                    "0 0 25px rgba(236, 72, 153, 0.6), inset 0 0 25px rgba(236, 72, 153, 0.1)",
+                    "0 0 20px rgba(147, 51, 234, 0.6), inset 0 0 20px rgba(147, 51, 234, 0.1)",
+                  ],
+                  borderColor: [
+                    "rgba(147, 51, 234, 0.8)",
+                    "rgba(236, 72, 153, 0.8)",
+                    "rgba(147, 51, 234, 0.8)",
+                  ],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-center text-white">
                   Jean Carlos Vargas
                 </h1>
-              </div>
+              </motion.div>
             </motion.div>
 
             <motion.h2
@@ -413,7 +427,7 @@ export default function Home() {
         id="projetos"
         data-section="projects"
         data-dark-section
-        className="py-20 px-6"
+        className="py-20 px-6 relative"
       >
         <div className="container mx-auto max-w-7xl">
           <motion.div
@@ -489,7 +503,7 @@ export default function Home() {
       {/* Preview Sobre Mim */}
       <section
         data-dark-section
-        className="py-16 px-6 bg-gradient-to-br from-gray-800 to-gray-900"
+        className="py-16 px-6 bg-gradient-to-br from-gray-800/80 to-gray-900/80 relative"
       >
         <div className="container mx-auto max-w-4xl">
           <motion.div
@@ -723,7 +737,7 @@ export default function Home() {
       <section
         data-section="stacks"
         data-dark-section
-        className="py-20 px-6 bg-gray-50 dark:bg-gray-900"
+        className="py-20 px-6 bg-gray-50 dark:bg-gray-900/80 relative"
       >
         <div className="container mx-auto max-w-7xl">
           <motion.div
@@ -785,7 +799,7 @@ export default function Home() {
         id="servicos"
         data-section="services"
         data-dark-section
-        className="py-20 px-6 bg-gray-900 dark:bg-black"
+        className="py-20 px-6 bg-gray-900/80 dark:bg-black/80 relative"
       >
         <div className="container mx-auto max-w-7xl">
           <motion.div
@@ -847,7 +861,7 @@ export default function Home() {
       <section
         id="contato"
         data-dark-section
-        className="py-20 px-6 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-800"
+        className="py-20 px-6 bg-gradient-to-br from-blue-600/80 via-purple-600/80 to-indigo-800/80 relative"
       >
         <div className="container mx-auto max-w-4xl">
           <motion.div
@@ -902,10 +916,10 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 dark:bg-black text-white py-8">
+      <footer className="bg-gray-900/90 dark:bg-black/90 text-white py-8 relative">
         <div className="container mx-auto px-6 text-center">
           <p className="text-gray-400">
-            © 2024 Jean Carlos Vargas. Desenvolvido com Next.js, Tailwind CSS e
+            © 2025 Jean Carlos Vargas. Desenvolvido com Next.js, Tailwind CSS e
             Framer Motion.
           </p>
         </div>
