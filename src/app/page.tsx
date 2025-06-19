@@ -1,9 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ExternalLink,
-  MessageCircle,
   Smartphone,
   Zap,
   Users,
@@ -18,6 +18,14 @@ import { FeatureBlockCard } from "../components/ui/feature-block-card";
 import { WhatsAppButton } from "../components/ui/whatsapp-button";
 import FeedbacksSection from "../components/ui/feedbacks-section";
 import { BackgroundBeamsWithCollision } from "../components/ui/background-beams-with-collision";
+import { ProjectModal } from "../components/ui/project-modal";
+import { projetosDetalhados } from "../data/projetos-detalhados";
+import {
+  WhatsAppProjetos,
+  WhatsAppServicos,
+  WhatsAppContato,
+} from "../components/ui/whatsapp-personalized";
+import type { ProjetoDetalhado } from "../components/ui/project-modal";
 
 // ====================================
 // DADOS DOS PROJETOS EM DESTAQUE
@@ -162,18 +170,23 @@ const tecnologias = [
 const ProjectCard = ({
   projeto,
   index,
+  onOpenModal,
 }: {
   projeto: (typeof projetosDestaque)[0];
   index: number;
+  onOpenModal: (projeto: ProjetoDetalhado) => void;
 }) => {
+  const projetoDetalhado = projetosDetalhados.find((p) => p.id === projeto.id);
+
   return (
     <motion.div
-      className="group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-300"
+      className="group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       whileHover={{ y: -5 }}
+      onClick={() => projetoDetalhado && onOpenModal(projetoDetalhado)}
     >
       {/* Header com gradiente */}
       <div
@@ -331,11 +344,19 @@ const TechCard = ({
 };
 
 export default function Home() {
-  const whatsappMessage =
-    "Olá! Gostaria de solicitar um orçamento para desenvolvimento de projeto.";
-  const whatsappUrl = `https://wa.me/5511948477047?text=${encodeURIComponent(
-    whatsappMessage
-  )}`;
+  const [selectedProject, setSelectedProject] =
+    useState<ProjetoDetalhado | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = (projeto: ProjetoDetalhado) => {
+    setSelectedProject(projeto);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900/50">
@@ -357,43 +378,62 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Nome com efeito neon simples */}
+            {/* Nome com glow animado melhorado */}
             <motion.div
               className="mb-4 flex items-center justify-center relative"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              {/* Texto principal com borda neon */}
-              <motion.div
-                className="relative inline-block border-2 px-6 py-3 rounded-xl bg-black/30 backdrop-blur-sm"
-                style={{
-                  borderColor: "rgba(147, 51, 234, 0.8)",
-                  boxShadow:
-                    "0 0 20px rgba(147, 51, 234, 0.6), inset 0 0 20px rgba(147, 51, 234, 0.1)",
-                }}
-                animate={{
-                  boxShadow: [
-                    "0 0 20px rgba(147, 51, 234, 0.6), inset 0 0 20px rgba(147, 51, 234, 0.1)",
-                    "0 0 25px rgba(236, 72, 153, 0.6), inset 0 0 25px rgba(236, 72, 153, 0.1)",
-                    "0 0 20px rgba(147, 51, 234, 0.6), inset 0 0 20px rgba(147, 51, 234, 0.1)",
-                  ],
-                  borderColor: [
-                    "rgba(147, 51, 234, 0.8)",
-                    "rgba(236, 72, 153, 0.8)",
-                    "rgba(147, 51, 234, 0.8)",
-                  ],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-center text-white">
+              <div className="relative inline-block">
+                {/* Glow animado de fundo - múltiplas camadas */}
+                <motion.div
+                  className="absolute inset-0 blur-[12px] bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-lg z-[-3]"
+                  animate={{
+                    opacity: [0.3, 0.7, 0.3],
+                    scale: [1, 1.05, 1],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
+                {/* Glow meio - segunda camada */}
+                <motion.div
+                  className="absolute inset-0 blur-[6px] bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 rounded-lg z-[-2]"
+                  animate={{
+                    opacity: [0.4, 0.8, 0.4],
+                    scale: [1, 1.03, 1],
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5,
+                  }}
+                />
+
+                {/* Glow próximo - terceira camada */}
+                <motion.div
+                  className="absolute inset-0 blur-[3px] bg-gradient-to-r from-purple-300 via-pink-300 to-cyan-300 rounded-lg z-[-1]"
+                  animate={{
+                    opacity: [0.5, 0.9, 0.5],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1,
+                  }}
+                />
+
+                {/* Texto principal com responsividade melhorada */}
+                <h1 className="relative z-10 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-center text-white leading-tight">
                   Jean Carlos Vargas
                 </h1>
-              </motion.div>
+              </div>
             </motion.div>
 
             <motion.h2
@@ -427,14 +467,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <motion.a
-                href="#contato"
-                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-4 px-8 rounded-lg hover:from-blue-600 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200 scroll-smooth"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Solicitar Projeto
-              </motion.a>
+              <WhatsAppContato />
 
               <motion.a
                 href="#servicos"
@@ -477,7 +510,12 @@ export default function Home() {
           {/* Grid de Projetos */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             {projetosDestaque.map((projeto, index) => (
-              <ProjectCard key={projeto.id} projeto={projeto} index={index} />
+              <ProjectCard
+                key={projeto.id}
+                projeto={projeto}
+                index={index}
+                onOpenModal={handleOpenModal}
+              />
             ))}
           </div>
 
@@ -498,17 +536,7 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <motion.a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-lg transition-colors duration-200"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <MessageCircle size={20} className="mr-2" />
-                  Solicitar Orçamento
-                </motion.a>
+                <WhatsAppProjetos />
 
                 <motion.a
                   href="https://github.com/JE4NVRG"
@@ -545,9 +573,9 @@ export default function Home() {
 
             {/* Grid com imagem e conteúdo */}
             <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-8 items-center">
-              {/* Imagem de perfil - Visível apenas em sm+ */}
+              {/* Imagem de perfil - Visível em todas as telas */}
               <motion.div
-                className="hidden sm:flex justify-center lg:justify-end lg:col-span-1"
+                className="flex justify-center lg:justify-end lg:col-span-1 mb-6 lg:mb-0"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -583,12 +611,12 @@ export default function Home() {
                     <div className="w-full h-full rounded-full bg-gray-800" />
                   </motion.div>
 
-                  {/* Imagem do GitHub */}
+                  {/* Imagem do GitHub - Melhorada para mobile */}
                   <motion.img
                     src="https://avatars.githubusercontent.com/u/106420077?v=4"
                     alt="Jean Carlos Vargas"
                     loading="lazy"
-                    className="relative w-36 h-36 sm:w-40 sm:h-40 rounded-full object-cover border-4 border-white/30 shadow-2xl z-10 group-hover:scale-105 transition-transform duration-300"
+                    className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full object-cover border-4 border-white/30 shadow-2xl z-10 group-hover:scale-105 transition-transform duration-300"
                     whileHover={{ scale: 1.05 }}
                     onError={(e) => {
                       // Fallback para o placeholder SVG
@@ -868,17 +896,7 @@ export default function Home() {
                 Cada projeto é único. Vamos conversar sobre suas necessidades e
                 criar a solução ideal.
               </p>
-              <motion.a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center bg-white text-gray-900 font-semibold py-4 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <MessageCircle size={20} className="mr-2" />
-                Conversar no WhatsApp
-              </motion.a>
+              <WhatsAppServicos />
             </div>
           </motion.div>
         </div>
@@ -926,17 +944,7 @@ export default function Home() {
               </p>
 
               {/* Botão WhatsApp */}
-              <motion.a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <MessageCircle size={24} className="mr-3" />
-                Falar no WhatsApp
-              </motion.a>
+              <WhatsAppContato />
             </motion.div>
           </motion.div>
         </div>
@@ -954,6 +962,13 @@ export default function Home() {
 
       {/* Botão Flutuante do WhatsApp */}
       <WhatsAppButton />
+
+      {/* Modal de Projeto */}
+      <ProjectModal
+        projeto={selectedProject}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 }
