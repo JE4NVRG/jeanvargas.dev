@@ -1,41 +1,213 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌟 Portfolio Jean Carlos Vargas
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-15.3.4-black?style=for-the-badge&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
+![Tailwind](https://img.shields.io/badge/Tailwind-4.0-06B6D4?style=for-the-badge&logo=tailwindcss)
+![Framer Motion](https://img.shields.io/badge/Framer%20Motion-12.18.1-pink?style=for-the-badge&logo=framer)
 
-First, run the development server:
+## 🚀 Sobre o Projeto
+
+Portfólio profissional desenvolvido para showcasear projetos reais, serviços oferecidos e expertise em tecnologias modernas. O site apresenta uma interface moderna e responsiva com animações fluidas e componentes interativos.
+
+**🌐 Site em Produção:** [www.je4ndev.com](https://www.je4ndev.com)
+
+## ✨ Características Principais
+
+- 🎨 **Design Moderno**: Interface limpa com gradientes e efeitos visuais
+- 📱 **Totalmente Responsivo**: Adaptado para desktop, tablet e mobile
+- ⚡ **Performance Otimizada**: Built com Next.js 15 e Turbopack
+- 🌙 **Dark/Light Mode**: Tema adaptável
+- 🎭 **Animações Fluidas**: Powered by Framer Motion
+- 🔧 **Componentes Reutilizáveis**: Arquitetura modular e escalável
+- 📊 **Métricas Interativas**: Contadores animados e cards dinâmicos
+- 💬 **Integração WhatsApp**: Botão de contato direto
+
+## 🛠️ Tecnologias Utilizadas
+
+### Frontend
+
+- **Next.js 15.3.4** - Framework React com App Router
+- **TypeScript** - Tipagem estática para JavaScript
+- **Tailwind CSS 4.0** - Framework CSS utilitário
+- **Framer Motion** - Biblioteca de animações
+
+### Componentes e UI
+
+- **Lucide React** - Ícones modernos
+- **React CountUp** - Contadores animados
+- **React Icons** - Biblioteca de ícones
+- **Clsx & Tailwind Merge** - Gerenciamento de classes CSS
+
+### Ferramentas de Desenvolvimento
+
+- **ESLint** - Linter para qualidade de código
+- **PostCSS** - Processador CSS
+- **TypeScript** - Sistema de tipos
+
+## 📂 Estrutura do Projeto
+
+```
+portfolio-jean/
+├── src/
+│   ├── app/              # App Router (Next.js 15)
+│   │   ├── globals.css   # Estilos globais
+│   │   ├── layout.tsx    # Layout principal
+│   │   └── page.tsx      # Página home
+│   ├── components/       # Componentes reutilizáveis
+│   │   └── ui/          # Componentes de interface
+│   ├── data/            # Dados estáticos
+│   └── lib/             # Utilitários
+├── docs/                # Documentação técnica
+├── public/              # Assets estáticos
+└── README.md           # Documentação principal
+```
+
+## 🚀 Como Executar Localmente
+
+### Pré-requisitos
+
+- Node.js 18+
+- npm, yarn, pnpm ou bun
+
+### Instalação
+
+1. **Clone o repositório:**
+
+```bash
+git clone https://github.com/JE4NVRG/portfolio-jean.git
+cd portfolio-jean
+```
+
+2. **Instale as dependências:**
+
+```bash
+npm install
+# ou
+yarn install
+# ou
+pnpm install
+```
+
+3. **Execute o servidor de desenvolvimento:**
 
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
-# or
+# ou
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. **Acesse no navegador:**
+   Abra [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📜 Scripts Disponíveis
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev        # Servidor de desenvolvimento com Turbopack
+npm run build      # Build de produção
+npm run start      # Servidor de produção
+npm run lint       # Verificação de código com ESLint
+```
 
-## Learn More
+## 🎯 Funcionalidades Implementadas
 
-To learn more about Next.js, take a look at the following resources:
+### 📋 Seções Principais
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **🏠 Hero Section**: Apresentação com animações e call-to-action
+- **👨‍💻 Sobre**: Informações profissionais e expertise
+- **🚀 Projetos**: Showcase de projetos reais com métricas
+- **🛠️ Serviços**: Catálogo de serviços oferecidos
+- **💼 Tecnologias**: Stack tecnológico com categorias
+- **💬 Depoimentos**: Feedbacks de clientes reais
+- **📞 Contato**: Formulário e integração WhatsApp
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🎨 Componentes Especiais
 
-## Deploy on Vercel
+- **Background Beams**: Efeito visual de feixes luminosos
+- **Animated Counter**: Contadores com animação
+- **Feature Cards**: Cards responsivos com diferentes layouts
+- **Feedback Cards**: Depoimentos com avaliações
+- **Trust Badges**: Indicadores de confiança
+- **Mouse Glow**: Efeito de brilho seguindo o cursor
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 📊 Projetos em Destaque
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-=======
-# jeanvargas.dev
-Meu portfólio profissional como desenvolvedor full stack, com projetos reais, serviços oferecidos e integrações com IA, blockchain e automações. Criado com Next.js, Tailwind, Framer Motion e paixão por tecnologia.
->>>>>>> 6c421ddeb2cae20e1b92fe82397f9687c46e614d
+1. **MepChat** - Plataforma WhatsApp com chatbot e painel CNPJ
+2. **PetConnect** - Sistema de adoção de pets com gestão
+3. **Criptopto** - Bot de trading com IA e integração Bybit
+
+## 🔧 Configurações de Desenvolvimento
+
+### ESLint
+
+O projeto utiliza ESLint com configurações do Next.js para manter a qualidade do código.
+
+### TypeScript
+
+Configurado com strict mode para máxima segurança de tipos.
+
+### Tailwind CSS
+
+Utiliza a versão 4.0 com PostCSS para processamento otimizado.
+
+## 📈 Performance
+
+- ⚡ **Core Web Vitals** otimizados
+- 🏎️ **Turbopack** para builds ultrarrápidos
+- 📦 **Code Splitting** automático
+- 🖼️ **Image Optimization** com Next.js
+- 🎯 **Tree Shaking** para bundle mínimo
+
+## 🌐 Deploy
+
+### Vercel (Recomendado)
+
+1. Conecte seu repositório GitHub à Vercel
+2. Configure as variáveis de ambiente se necessário
+3. Deploy automático a cada push
+
+### Outras Plataformas
+
+O projeto pode ser deployado em qualquer plataforma que suporte Next.js:
+
+- Netlify
+- AWS Amplify
+- Railway
+- Render
+
+## 📝 Próximas Melhorias
+
+- [ ] Sistema de blog integrado
+- [ ] Modo offline com PWA
+- [ ] Integração com CMS headless
+- [ ] Analytics e métricas avançadas
+- [ ] Testes automatizados (Jest/Cypress)
+- [ ] Internacionalização (i18n)
+
+## 🤝 Contribuições
+
+Contribuições são bem-vindas! Para contribuir:
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+## 📞 Contato
+
+**Jean Carlos Vargas**
+
+- 🌐 Website: [www.je4ndev.com](https://www.je4ndev.com)
+- 💼 LinkedIn: [Jean Carlos Vargas](https://linkedin.com/in/jean-carlos-vargas)
+- 📧 Email: contato@je4ndev.com
+- 📱 WhatsApp: [Conversar no WhatsApp](https://wa.me/5511999999999)
+
+---
+
+**⚡ Desenvolvido com Next.js, TypeScript e muito ☕**
