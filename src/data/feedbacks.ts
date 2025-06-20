@@ -104,7 +104,7 @@ export const feedbacks: Feedback[] = [
     id: 6,
     nome: "Fabiana Souza",
     cargo: "Gerente de Produto na ZenAI",
-    avatar: "https://i.pravatar.cc/150?img=1", // Mulher jovem - adequada para gerente de produto
+    avatar: "https://i.pravatar.cc/150?img=24", // Mulher jovem profissional - adequada para gerente de produto
     avaliacao: 4.9,
     depoimento:
       "O painel com IA integrado nos ajudou a tomar decisões 3x mais rápido. Jean entende de verdade do assunto!",
@@ -122,7 +122,7 @@ export const feedbacks: Feedback[] = [
     id: 8,
     nome: "Luana Martins",
     cargo: "CMO da ShopX",
-    avatar: "https://i.pravatar.cc/150?img=2", // Mulher marketing - adequada para CMO
+    avatar: "https://i.pravatar.cc/150?img=20", // Mulher profissional - adequada para CMO
     avaliacao: 4.7,
     depoimento:
       "A integração com APIs externas foi perfeita. Jean tem um olhar técnico afiado e foco no resultado.",
