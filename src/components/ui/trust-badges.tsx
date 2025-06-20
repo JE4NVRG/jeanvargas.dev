@@ -15,31 +15,41 @@ const TrustBadges = ({ selos }: TrustBadgesProps) => {
         bg: "bg-emerald-700/20 dark:bg-emerald-500/10",
         text: "text-emerald-300 dark:text-emerald-400",
         border: "border-emerald-600/30 dark:border-emerald-400/20",
-        hover: "hover:bg-emerald-600/30 dark:hover:bg-emerald-500/20",
+        hover:
+          "hover:bg-emerald-600/30 dark:hover:bg-emerald-500/20 hover:shadow-emerald-500/20",
+        glow: "hover:shadow-lg hover:shadow-emerald-500/25",
       },
       blue: {
         bg: "bg-blue-700/20 dark:bg-blue-500/10",
         text: "text-blue-300 dark:text-blue-400",
         border: "border-blue-600/30 dark:border-blue-400/20",
-        hover: "hover:bg-blue-600/30 dark:hover:bg-blue-500/20",
+        hover:
+          "hover:bg-blue-600/30 dark:hover:bg-blue-500/20 hover:shadow-blue-500/20",
+        glow: "hover:shadow-lg hover:shadow-blue-500/25",
       },
       purple: {
         bg: "bg-purple-700/20 dark:bg-purple-500/10",
         text: "text-purple-300 dark:text-purple-400",
         border: "border-purple-600/30 dark:border-purple-400/20",
-        hover: "hover:bg-purple-600/30 dark:hover:bg-purple-500/20",
+        hover:
+          "hover:bg-purple-600/30 dark:hover:bg-purple-500/20 hover:shadow-purple-500/20",
+        glow: "hover:shadow-lg hover:shadow-purple-500/25",
       },
       orange: {
         bg: "bg-orange-700/20 dark:bg-orange-500/10",
         text: "text-orange-300 dark:text-orange-400",
         border: "border-orange-600/30 dark:border-orange-400/20",
-        hover: "hover:bg-orange-600/30 dark:hover:bg-orange-500/20",
+        hover:
+          "hover:bg-orange-600/30 dark:hover:bg-orange-500/20 hover:shadow-orange-500/20",
+        glow: "hover:shadow-lg hover:shadow-orange-500/25",
       },
       cyan: {
         bg: "bg-cyan-700/20 dark:bg-cyan-500/10",
         text: "text-cyan-300 dark:text-cyan-400",
         border: "border-cyan-600/30 dark:border-cyan-400/20",
-        hover: "hover:bg-cyan-600/30 dark:hover:bg-cyan-500/20",
+        hover:
+          "hover:bg-cyan-600/30 dark:hover:bg-cyan-500/20 hover:shadow-cyan-500/20",
+        glow: "hover:shadow-lg hover:shadow-cyan-500/25",
       },
     };
 
@@ -63,8 +73,8 @@ const TrustBadges = ({ selos }: TrustBadgesProps) => {
             className={`
               group relative inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-sm
               transition-all duration-300 cursor-default
-              ${colors.bg} ${colors.text} ${colors.border} ${colors.hover}
-              hover:scale-105 hover:shadow-lg hover:shadow-black/10
+              ${colors.bg} ${colors.text} ${colors.border} ${colors.hover} ${colors.glow}
+              hover:scale-105 hover:-translate-y-1
             `}
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -83,7 +93,7 @@ const TrustBadges = ({ selos }: TrustBadgesProps) => {
             {/* Efeito de brilho no hover */}
             <div className="absolute inset-0 rounded-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-            {/* Ícone */}
+            {/* Ícone com animação */}
             <motion.span
               className="text-lg"
               whileHover={{
@@ -100,7 +110,7 @@ const TrustBadges = ({ selos }: TrustBadgesProps) => {
               {selo.texto}
             </span>
 
-            {/* Pulse effect para alguns selos */}
+            {/* Pulse effect para alguns selos especiais */}
             {(selo.id === 1 || selo.id === 2) && (
               <motion.div
                 className={`absolute inset-0 rounded-full ${colors.border}`}

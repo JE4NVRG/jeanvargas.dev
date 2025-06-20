@@ -11,7 +11,7 @@ interface MetricsPanelProps {
 const MetricsPanel = ({ metricas }: MetricsPanelProps) => {
   return (
     <motion.div
-      className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
+      className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -24,13 +24,13 @@ const MetricsPanel = ({ metricas }: MetricsPanelProps) => {
           <motion.div
             key={metrica.id}
             className={`
-              relative group p-6 rounded-xl border transition-all duration-300 hover:scale-105
+              relative group p-6 rounded-xl border transition-all duration-300 hover:scale-[1.03] 
               ${
                 metrica.destaque
                   ? "bg-gradient-to-br from-blue-600/20 to-purple-600/20 border-blue-500/30 hover:border-blue-400/50"
                   : "bg-white/5 dark:bg-gray-800/30 border-gray-200/10 dark:border-gray-700/30 hover:border-gray-300/20 dark:hover:border-gray-600/40"
               }
-              backdrop-blur-sm hover:shadow-lg dark:hover:shadow-gray-900/20
+              backdrop-blur-sm hover:shadow-lg/10 dark:hover:shadow-gray-900/20 ring-1 ring-white/10
             `}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -44,10 +44,10 @@ const MetricsPanel = ({ metricas }: MetricsPanelProps) => {
             )}
 
             <div className="text-center">
-              {/* Ícone com animação */}
+              {/* Ícone com animação e pulse sutil */}
               <motion.div
                 className={`
-                  inline-flex items-center justify-center w-12 h-12 rounded-lg mb-4 transition-colors duration-300
+                  inline-flex items-center justify-center w-12 h-12 rounded-lg mb-4 transition-colors duration-300 relative
                   ${
                     metrica.destaque
                       ? "bg-blue-500/20 text-blue-400 group-hover:bg-blue-500/30"
@@ -61,16 +61,32 @@ const MetricsPanel = ({ metricas }: MetricsPanelProps) => {
                 }}
               >
                 <IconeComponente className="w-6 h-6" />
+
+                {/* Pulse effect para métricas destaque */}
+                {metrica.destaque && (
+                  <motion.div
+                    className="absolute inset-0 rounded-lg bg-blue-400/20"
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      opacity: [0.3, 0.6, 0.3],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                )}
               </motion.div>
 
-              {/* Valor em destaque */}
+              {/* Valor em destaque com gradiente de texto */}
               <motion.div
                 className={`
                   text-2xl lg:text-3xl font-bold mb-2 transition-colors duration-300
                   ${
                     metrica.destaque
-                      ? "text-blue-400 group-hover:text-blue-300"
-                      : "text-gray-900 dark:text-white group-hover:text-blue-400"
+                      ? "bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent group-hover:from-blue-300 group-hover:via-purple-300 group-hover:to-cyan-300"
+                      : "text-gray-900 dark:text-white group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 group-hover:bg-clip-text group-hover:text-transparent"
                   }
                 `}
                 initial={{ scale: 0.8 }}
@@ -95,11 +111,11 @@ const MetricsPanel = ({ metricas }: MetricsPanelProps) => {
               </p>
             </div>
 
-            {/* Indicator de destaque */}
+            {/* Indicator de destaque com brilho sutil */}
             {metrica.destaque && (
               <div className="absolute top-2 right-2">
                 <motion.div
-                  className="w-2 h-2 bg-blue-400 rounded-full"
+                  className="w-2 h-2 bg-blue-400 rounded-full shadow-lg shadow-blue-400/50"
                   animate={{
                     scale: [1, 1.2, 1],
                     opacity: [0.7, 1, 0.7],

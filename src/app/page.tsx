@@ -26,6 +26,7 @@ import {
   WhatsAppContato,
 } from "../components/ui/whatsapp-personalized";
 import type { ProjetoDetalhado } from "../components/ui/project-modal";
+import AnimatedCounter from "@/components/ui/animated-counter";
 
 // ====================================
 // DADOS DOS PROJETOS EM DESTAQUE
@@ -753,7 +754,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Estatística adicional */}
+          {/* Estatística adicional com contadores animados */}
           <motion.div
             className="mt-16 text-center"
             initial={{ opacity: 0, y: 20 }}
@@ -761,20 +762,68 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                  <div className="text-3xl font-bold mb-2">50+</div>
+                <motion.div
+                  className="text-center"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                >
+                  <motion.div
+                    className="text-3xl font-bold mb-2 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <AnimatedCounter
+                      to={50}
+                      duration={2}
+                      suffix="+"
+                      preserveValue={true}
+                    />
+                  </motion.div>
                   <div className="text-blue-200">Projetos Entregues</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold mb-2">12+</div>
+                </motion.div>
+                <motion.div
+                  className="text-center"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                >
+                  <motion.div
+                    className="text-3xl font-bold mb-2 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <AnimatedCounter
+                      to={12}
+                      duration={2}
+                      suffix="+"
+                      preserveValue={true}
+                    />
+                  </motion.div>
                   <div className="text-blue-200">Tecnologias Dominadas</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold mb-2">10+</div>
+                </motion.div>
+                <motion.div
+                  className="text-center"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                >
+                  <motion.div
+                    className="text-3xl font-bold mb-2 bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <AnimatedCounter
+                      to={10}
+                      duration={2}
+                      suffix="+"
+                      preserveValue={true}
+                    />
+                  </motion.div>
                   <div className="text-blue-200">Anos de Experiência</div>
-                </div>
+                </motion.div>
               </div>
             </div>
           </motion.div>
@@ -837,13 +886,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Seção de Contato - Placeholder para formulário futuro */}
+      {/* Seção de Contato - CTA Final Aprimorado */}
       <section
         id="contato"
         data-dark-section
-        className="py-20 px-6 bg-gradient-to-br from-blue-600/80 via-purple-600/80 to-indigo-800/80 relative"
+        className="py-20 px-6 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 relative overflow-hidden"
       >
-        <div className="container mx-auto max-w-4xl">
+        {/* Background decorativo */}
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse [animation-delay:2s]" />
+
+        <div className="container mx-auto max-w-4xl relative z-10">
           <motion.div
             className="text-center"
             initial={{ opacity: 0, y: 30 }}
@@ -854,32 +908,110 @@ export default function Home() {
             <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
               Vamos Trabalhar Juntos?
             </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Entre em contato diretamente comigo para tirar dúvidas ou iniciar
-              um projeto.
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Transforme suas ideias em soluções digitais de alto impacto com
+              tecnologia de ponta e resultados comprovados.
             </p>
 
-            {/* Placeholder para formulário futuro */}
+            {/* Badge de destaque */}
             <motion.div
-              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-8"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <p className="text-white text-lg mb-6">
-                📋{" "}
-                <strong>
-                  Formulário de contato será adicionado aqui em breve
-                </strong>
-              </p>
-              <p className="text-blue-200 mb-6">
-                Por enquanto, você pode entrar em contato diretamente pelo
-                WhatsApp:
-              </p>
+              <span className="text-lg">✨</span>
+              <span className="text-white font-medium text-sm">
+                Garantia de resultado comprovado
+              </span>
+            </motion.div>
 
-              {/* Botão WhatsApp */}
-              <WhatsAppContato />
+            {/* Botões CTA */}
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              {/* Botão Iniciar Projeto */}
+              <motion.a
+                href="https://wa.me/5511948477047?text=Olá Jean! Quero iniciar um projeto e transformar minha ideia em realidade digital."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 bg-white text-purple-600 font-bold py-4 px-8 rounded-lg transition-all duration-300 hover:bg-gray-100 shadow-lg hover:shadow-xl"
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 20px 40px rgba(255,255,255,0.3)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Iniciar projeto via WhatsApp"
+              >
+                <motion.span
+                  className="text-xl"
+                  animate={{
+                    rotate: [0, -10, 10, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  🚀
+                </motion.span>
+                Iniciar Projeto
+              </motion.a>
+
+              {/* Botão Ver Serviços */}
+              <motion.a
+                href="#servicos"
+                className="group inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/30 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 hover:bg-white/20 hover:border-white/50"
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: "rgba(255,255,255,0.2)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Ver todos os serviços oferecidos"
+              >
+                <motion.span
+                  className="text-xl"
+                  whileHover={{
+                    rotate: 360,
+                    transition: { duration: 0.5 },
+                  }}
+                >
+                  📋
+                </motion.span>
+                Ver Serviços
+              </motion.a>
+            </motion.div>
+
+            {/* Estatísticas rápidas */}
+            <motion.div
+              className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-12 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              <div className="text-center">
+                <div className="text-2xl font-bold text-white mb-1">24h</div>
+                <div className="text-white/80 text-sm">Resposta Garantida</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-white mb-1">100%</div>
+                <div className="text-white/80 text-sm">Projetos Entregues</div>
+              </div>
+              <div className="text-center col-span-2 md:col-span-1">
+                <div className="text-2xl font-bold text-white mb-1">3 Anos</div>
+                <div className="text-white/80 text-sm">Garantia Suporte</div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
