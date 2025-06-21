@@ -10,27 +10,25 @@ export function FaviconHead() {
     if (isLoadedRef.current) return;
     isLoadedRef.current = true;
 
-    // Carregamento síncrono e otimizado dos favicons
-    const loadFavicons = () => {
-      // Remove apenas favicons antigos, não todos os links
+    // Força favicon personalizado sobre o da Vercel
+    const forceFavicon = () => {
+      // Remove favicons existentes da Vercel
       const existingFavicons = document.querySelectorAll(
-        'link[rel*="icon"], link[rel="apple-touch-icon"]'
+        'link[rel*="icon"], link[rel="apple-touch-icon"], link[rel="shortcut"]'
       );
       existingFavicons.forEach((icon) => icon.remove());
 
-      // Configurações dos favicons otimizadas
+      // Configuração simplificada para Vercel
       const faviconConfigs = [
         {
-          rel: "icon",
+          rel: "shortcut icon",
           href: "/favicon.ico",
-          sizes: "any",
           type: "image/x-icon",
         },
         {
           rel: "icon",
-          href: "/favicon-16x16.png",
-          sizes: "16x16",
-          type: "image/png",
+          href: "/favicon.ico",
+          type: "image/x-icon",
         },
         {
           rel: "icon",
@@ -42,45 +40,40 @@ export function FaviconHead() {
           rel: "apple-touch-icon",
           href: "/apple-touch-icon.png",
           sizes: "180x180",
-          type: "image/png",
         },
       ];
 
-      // Cria um fragment para inserção em batch (mais performance)
-      const fragment = document.createDocumentFragment();
-
+      // Inserção imediata no head
       faviconConfigs.forEach((config) => {
         const link = document.createElement("link");
         Object.entries(config).forEach(([key, value]) => {
           link.setAttribute(key, value);
         });
-
-        // Adiciona cache-busting apenas na primeira carga
-        if (!sessionStorage.getItem("favicon-loaded")) {
-          const href = link.getAttribute("href");
-          link.setAttribute("href", `${href}?v=${Date.now()}`);
-        }
-
-        fragment.appendChild(link);
+        document.head.appendChild(link);
       });
 
-      // Inserção em batch para melhor performance
-      document.head.appendChild(fragment);
-
-      // Marca como carregado na sessão atual
-      sessionStorage.setItem("favicon-loaded", "true");
+      // Força atualização do favicon na aba
+      setTimeout(() => {
+        const links = document.querySelectorAll('link[rel*="icon"]');
+        links.forEach((link) => {
+          const href = link.getAttribute("href");
+          if (href) {
+            link.setAttribute("href", href + "?v=" + Date.now());
+          }
+        });
+      }, 100);
     };
 
-    // Executa imediatamente se o DOM está pronto
+    // Executa quando DOM estiver pronto
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", loadFavicons);
+      document.addEventListener("DOMContentLoaded", forceFavicon);
     } else {
-      loadFavicons();
+      forceFavicon();
     }
 
     // Cleanup
     return () => {
-      document.removeEventListener("DOMContentLoaded", loadFavicons);
+      document.removeEventListener("DOMContentLoaded", forceFavicon);
     };
   }, []);
 

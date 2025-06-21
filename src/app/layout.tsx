@@ -44,11 +44,11 @@ export const metadata: Metadata = {
   publisher: "Je4nDev",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.ico", sizes: "any", type: "image/x-icon" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
-    shortcut: "/favicon.ico",
+    shortcut: [{ url: "/favicon.ico", type: "image/x-icon" }],
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
@@ -92,7 +92,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        {/* Preload crítico dos favicons para carregamento instantâneo */}
+        {/* Favicon prioritário - Vercel Override */}
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+        {/* Preload crítico apenas para performance */}
         <link
           rel="preload"
           href="/favicon.ico"
@@ -101,42 +105,17 @@ export default function RootLayout({
         />
         <link
           rel="preload"
-          href="/favicon-16x16.png"
-          as="image"
-          type="image/png"
-        />
-        <link
-          rel="preload"
           href="/favicon-32x32.png"
           as="image"
           type="image/png"
         />
-        <link
-          rel="preload"
-          href="/apple-touch-icon.png"
-          as="image"
-          type="image/png"
-        />
-
-        {/* Favicons principais - carregamento imediato */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link
-          rel="icon"
-          href="/favicon-16x16.png"
-          sizes="16x16"
-          type="image/png"
-        />
-        <link
-          rel="icon"
-          href="/favicon-32x32.png"
-          sizes="32x32"
-          type="image/png"
-        />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
 
         {/* DNS prefetch para melhor performance */}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
+        {/* Meta para forçar favicon personalizado */}
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="theme-color" content="#000000" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
