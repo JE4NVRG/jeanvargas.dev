@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { MouseGlow } from "../components/ui/mouse-glow";
+import { SimpleCursor } from "../components/ui/simple-cursor";
 import { FaviconHead } from "../components/ui/favicon-head";
 import { ServiceWorkerRegister } from "../components/ui/service-worker-register";
 
@@ -141,7 +141,7 @@ export default function RootLayout({
       >
         <ServiceWorkerRegister />
         <FaviconHead />
-        <MouseGlow />
+        <SimpleCursor />
         {children}
       </body>
     </html>
