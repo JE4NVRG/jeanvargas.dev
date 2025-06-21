@@ -1,0 +1,181 @@
+/* ===== CURSOR CUSTOMIZADO - ESTILOS OTIMIZADOS ===== */
+
+/* GPU Acceleration e Performance */
+.cursor-element {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  contain: layout style paint;
+}
+
+/* Reset do cursor padrão */
+.cursor-none {
+  cursor: none !important;
+}
+
+/* Cursor Principal Otimizado */
+.custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 50%;
+  transition: none;
+}
+
+/* Performance Helper Classes */
+.cursor-performance {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  contain: strict;
+}
+
+/* Variantes Simplificadas */
+.cursor-default {
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.7) 0%,
+    transparent 70%
+  );
+  border: 2px solid rgba(59, 130, 246, 1);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+.cursor-button {
+  background: radial-gradient(
+    circle,
+    rgba(16, 185, 129, 0.5) 0%,
+    transparent 70%
+  );
+  border: 2px solid rgba(16, 185, 129, 1);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.cursor-card {
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.4) 0%,
+    transparent 70%
+  );
+  border: 2px solid rgba(139, 92, 246, 1);
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.3);
+}
+
+.cursor-text {
+  background: rgba(245, 158, 11, 1);
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+}
+
+.cursor-image {
+  background: radial-gradient(
+    circle,
+    rgba(236, 72, 153, 0.3) 0%,
+    transparent 70%
+  );
+  border: 2px solid rgba(236, 72, 153, 0.8);
+  box-shadow: 0 0 30px rgba(236, 72, 153, 0.2);
+}
+
+/* Animações Essenciais */
+@keyframes cursor-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes cursor-text-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes cursor-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Estados de Interação */
+.cursor-hover {
+  filter: brightness(1.1);
+}
+
+.cursor-pressed {
+  transform: scale(0.9);
+}
+
+/* Responsividade */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor,
+  .cursor-element {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor,
+  .cursor-element {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .cursor-card,
+  .cursor-button {
+    animation: none !important;
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .cursor-default {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+  }
+
+  .cursor-button {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+  }
+
+  .cursor-image {
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.4);
+  }
+}
+
+/* Utilitários de Performance */
+.cursor-gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.cursor-smooth {
+  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Trail otimizado */
+.cursor-trail {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  contain: strict;
+}
+
+/* Compositing layers para performance */
+.cursor-composite {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  isolation: isolate;
+}

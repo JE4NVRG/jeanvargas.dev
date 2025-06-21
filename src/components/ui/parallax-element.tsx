@@ -1,204 +1,260 @@
 "use client";
 
-import { useRef, useEffect, ReactNode } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useCursor } from "@/hooks/use-cursor";
+import { useEffect, useState, useRef, ReactNode } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 interface ParallaxElementProps {
   children: ReactNode;
-  intensity?: number;
   className?: string;
-  enableScale?: boolean;
-  enableRotation?: boolean;
+  intensity?: number;
   scaleIntensity?: number;
-  rotationIntensity?: number;
+  rotateIntensity?: number;
+  triggerDistance?: number;
+  disabled?: boolean;
 }
 
 export const ParallaxElement = ({
   children,
-  intensity = 0.1,
   className = "",
-  enableScale = true,
-  enableRotation = false,
-  scaleIntensity = 0.05,
-  rotationIntensity = 5,
+  intensity = 0.5,
+  scaleIntensity = 0.02,
+  rotateIntensity = 1,
+  triggerDistance = 200,
+  disabled = false,
 }: ParallaxElementProps) => {
-  const { position, prefersReducedMotion, isTouchDevice, getHoverProps } =
-    useCursor();
   const elementRef = useRef<HTMLDivElement>(null);
+  const [elementPosition, setElementPosition] = useState({ x: 0, y: 0 });
+  const [shouldAnimate, setShouldAnimate] = useState(false);
 
-  // Motion values para o parallax
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const scale = useMotionValue(1);
-  const rotateX = useMotionValue(0);
-  const rotateY = useMotionValue(0);
+  // Motion values para suavizar animações
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-  // Springs suaves para as animações
-  const springX = useSpring(x, { stiffness: 400, damping: 40 });
-  const springY = useSpring(y, { stiffness: 400, damping: 40 });
-  const springScale = useSpring(scale, { stiffness: 400, damping: 40 });
-  const springRotateX = useSpring(rotateX, { stiffness: 400, damping: 40 });
-  const springRotateY = useSpring(rotateY, { stiffness: 400, damping: 40 });
+  // Springs para movimentos suaves
+  const springX = useSpring(mouseX, { damping: 20, stiffness: 300 });
+  const springY = useSpring(mouseY, { damping: 20, stiffness: 300 });
 
-  // Calcular posições relativas para parallax
+  // Transforms para efeitos de parallax
+  const translateX = useTransform(
+    springX,
+    [-triggerDistance, triggerDistance],
+    [-intensity * 10, intensity * 10]
+  );
+  const translateY = useTransform(
+    springY,
+    [-triggerDistance, triggerDistance],
+    [-intensity * 10, intensity * 10]
+  );
+  const scale = useTransform(
+    springX,
+    [-triggerDistance, triggerDistance],
+    [1 - scaleIntensity, 1 + scaleIntensity]
+  );
+  const rotateX = useTransform(
+    springY,
+    [-triggerDistance, triggerDistance],
+    [-rotateIntensity, rotateIntensity]
+  );
+  const rotateY = useTransform(
+    springX,
+    [-triggerDistance, triggerDistance],
+    [rotateIntensity, -rotateIntensity]
+  );
+
+  // Verificar se deve renderizar efeitos
   useEffect(() => {
-    if (prefersReducedMotion || isTouchDevice) return;
+    const isTouchDevice =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-    const updateParallax = () => {
-      if (!elementRef.current) return;
+    setShouldAnimate(!disabled && !isTouchDevice && !prefersReducedMotion);
+  }, [disabled]);
 
-      const rect = elementRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      // Calcular distância do mouse em relação ao centro do elemento
-      const deltaX = (position.x - centerX) * intensity;
-      const deltaY = (position.y - centerY) * intensity;
-
-      // Aplicar transformações suaves
-      x.set(deltaX);
-      y.set(deltaY);
-
-      // Escala baseada na proximidade do mouse
-      if (enableScale) {
-        const distance = Math.sqrt(
-          Math.pow(position.x - centerX, 2) + Math.pow(position.y - centerY, 2)
-        );
-        const maxDistance = Math.sqrt(
-          rect.width * rect.width + rect.height * rect.height
-        );
-        const scaleValue =
-          1 + (1 - Math.min(distance / maxDistance, 1)) * scaleIntensity;
-        scale.set(scaleValue);
-      }
-
-      // Rotação 3D baseada na posição do mouse
-      if (enableRotation) {
-        const rotateXValue =
-          ((position.y - centerY) / rect.height) * rotationIntensity;
-        const rotateYValue =
-          ((position.x - centerX) / rect.width) * -rotationIntensity;
-        rotateX.set(rotateXValue);
-        rotateY.set(rotateYValue);
+  // Atualizar posição do elemento quando a página é redimensionada
+  useEffect(() => {
+    const updateElementPosition = () => {
+      if (elementRef.current) {
+        const rect = elementRef.current.getBoundingClientRect();
+        setElementPosition({
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
+        });
       }
     };
 
-    // Listener para movimento do mouse
-    const handleMouseMove = () => {
-      requestAnimationFrame(updateParallax);
+    updateElementPosition();
+    window.addEventListener("resize", updateElementPosition);
+    window.addEventListener("scroll", updateElementPosition);
+
+    return () => {
+      window.removeEventListener("resize", updateElementPosition);
+      window.removeEventListener("scroll", updateElementPosition);
+    };
+  }, []);
+
+  // Handler para movimento do mouse
+  useEffect(() => {
+    if (!shouldAnimate) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const distanceX = e.clientX - elementPosition.x;
+      const distanceY = e.clientY - elementPosition.y;
+      const distance = Math.sqrt(distanceX ** 2 + distanceY ** 2);
+
+      // Só aplicar efeito se o mouse estiver próximo do elemento
+      if (distance <= triggerDistance) {
+        mouseX.set(distanceX);
+        mouseY.set(distanceY);
+      } else {
+        // Suavemente retornar à posição original
+        mouseX.set(0);
+        mouseY.set(0);
+      }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [
-    position,
-    intensity,
-    prefersReducedMotion,
-    isTouchDevice,
-    enableScale,
-    enableRotation,
-    scaleIntensity,
-    rotationIntensity,
-    x,
-    y,
-    scale,
-    rotateX,
-    rotateY,
-  ]);
+    document.addEventListener("mousemove", handleMouseMove);
 
-  // Reset quando o mouse sai do elemento
-  const handleMouseLeave = () => {
-    if (prefersReducedMotion || isTouchDevice) return;
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [shouldAnimate, elementPosition, triggerDistance, mouseX, mouseY]);
 
-    x.set(0);
-    y.set(0);
-    scale.set(1);
-    rotateX.set(0);
-    rotateY.set(0);
-  };
-
-  const hoverProps = getHoverProps();
+  if (!shouldAnimate) {
+    return (
+      <div ref={elementRef} className={className}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <motion.div
       ref={elementRef}
-      className={className}
+      className={`${className} transform-gpu`}
       style={{
-        x: springX,
-        y: springY,
-        scale: springScale,
-        rotateX: springRotateX,
-        rotateY: springRotateY,
+        x: translateX,
+        y: translateY,
+        scale,
+        rotateX,
+        rotateY,
         transformStyle: "preserve-3d",
       }}
-      onMouseEnter={hoverProps.onMouseEnter}
-      onMouseLeave={() => {
-        handleMouseLeave();
-        if (hoverProps.onMouseLeave) {
-          hoverProps.onMouseLeave();
-        }
-      }}
-      onClick={hoverProps.onClick}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
     >
       {children}
     </motion.div>
   );
 };
 
-// Componente específico para cards com efeitos predefinidos
+// Versão específica para cards de projeto
 export const ParallaxCard = ({
   children,
   className = "",
-}: {
-  children: ReactNode;
-  className?: string;
-}) => (
-  <ParallaxElement
-    intensity={0.15}
-    enableScale={true}
-    enableRotation={true}
-    scaleIntensity={0.03}
-    rotationIntensity={3}
-    className={className}
-  >
-    {children}
-  </ParallaxElement>
-);
+  ...props
+}: Omit<
+  ParallaxElementProps,
+  "intensity" | "scaleIntensity" | "rotateIntensity"
+>) => {
+  return (
+    <ParallaxElement
+      className={`group ${className}`}
+      intensity={0.8}
+      scaleIntensity={0.03}
+      rotateIntensity={2}
+      triggerDistance={150}
+      {...props}
+    >
+      <motion.div
+        className="relative transform-gpu"
+        whileHover={{
+          scale: 1.02,
+          transition: { duration: 0.3, ease: "easeOut" },
+        }}
+        whileTap={{
+          scale: 0.98,
+          transition: { duration: 0.1 },
+        }}
+      >
+        {children}
 
-// Componente para imagens com parallax suave
+        {/* Efeito de glow sutil no hover */}
+        <motion.div
+          className="absolute inset-0 rounded-inherit opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, transparent 70%)",
+            filter: "blur(20px)",
+          }}
+        />
+      </motion.div>
+    </ParallaxElement>
+  );
+};
+
+// Versão para imagens
 export const ParallaxImage = ({
   children,
   className = "",
-}: {
-  children: ReactNode;
-  className?: string;
-}) => (
-  <ParallaxElement
-    intensity={0.08}
-    enableScale={true}
-    enableRotation={false}
-    scaleIntensity={0.02}
-    className={className}
-  >
-    {children}
-  </ParallaxElement>
-);
+  ...props
+}: Omit<
+  ParallaxElementProps,
+  "intensity" | "scaleIntensity" | "rotateIntensity"
+>) => {
+  return (
+    <ParallaxElement
+      className={`overflow-hidden ${className}`}
+      intensity={0.3}
+      scaleIntensity={0.05}
+      rotateIntensity={0.5}
+      triggerDistance={100}
+      {...props}
+    >
+      <motion.div
+        className="transform-gpu"
+        whileHover={{
+          scale: 1.05,
+          transition: { duration: 0.4, ease: "easeOut" },
+        }}
+      >
+        {children}
+      </motion.div>
+    </ParallaxElement>
+  );
+};
 
-// Componente para títulos com efeito magnético suave
-export const ParallaxTitle = ({
+// Versão para texto/títulos
+export const ParallaxText = ({
   children,
   className = "",
-}: {
-  children: ReactNode;
-  className?: string;
-}) => (
-  <ParallaxElement
-    intensity={0.05}
-    enableScale={false}
-    enableRotation={false}
-    className={className}
-  >
-    {children}
-  </ParallaxElement>
-);
+  ...props
+}: Omit<
+  ParallaxElementProps,
+  "intensity" | "scaleIntensity" | "rotateIntensity"
+>) => {
+  return (
+    <ParallaxElement
+      className={className}
+      intensity={0.2}
+      scaleIntensity={0.01}
+      rotateIntensity={0.5}
+      triggerDistance={300}
+      {...props}
+    >
+      <motion.div
+        className="transform-gpu"
+        whileHover={{
+          scale: 1.01,
+          transition: { duration: 0.2 },
+        }}
+      >
+        {children}
+      </motion.div>
+    </ParallaxElement>
+  );
+};
+
+export default ParallaxElement;

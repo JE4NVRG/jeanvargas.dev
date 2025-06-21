@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SimpleCursor } from "../components/ui/simple-cursor";
+import { CustomCursor } from "../components/ui/custom-cursor";
+import { CursorProvider } from "../contexts/cursor-context";
 import { FaviconHead } from "../components/ui/favicon-head";
 import { ServiceWorkerRegister } from "../components/ui/service-worker-register";
+import "../styles/cursor.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -138,11 +140,14 @@ export default function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
+        style={{ cursor: "none" }}
       >
-        <ServiceWorkerRegister />
-        <FaviconHead />
-        <SimpleCursor />
-        {children}
+        <CursorProvider>
+          <ServiceWorkerRegister />
+          <FaviconHead />
+          <CustomCursor />
+          {children}
+        </CursorProvider>
       </body>
     </html>
   );

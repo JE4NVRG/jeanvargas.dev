@@ -27,6 +27,8 @@ import {
 } from "../components/ui/whatsapp-personalized";
 import type { ProjetoDetalhado } from "../components/ui/project-modal";
 import AnimatedCounter from "@/components/ui/animated-counter";
+import { ParallaxText } from "../components/ui/parallax-element";
+import { useCardCursor } from "../hooks/use-cursor-hover";
 
 // ====================================
 // DADOS DOS PROJETOS EM DESTAQUE
@@ -164,10 +166,12 @@ const ProjectCard = ({
   onOpenModal: (projeto: ProjetoDetalhado) => void;
 }) => {
   const projetoDetalhado = projetosDetalhados.find((p) => p.id === projeto.id);
+  const cardCursor = useCardCursor();
 
   return (
     <motion.div
       className="group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
+      {...cardCursor}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -252,6 +256,7 @@ const ServiceCard = ({
   return (
     <motion.div
       className="h-full min-h-[200px] group relative overflow-hidden rounded-2xl bg-gray-800 border border-gray-700 hover:border-gray-600 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500"
+      data-cursor="card"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -283,6 +288,7 @@ const ServiceCard = ({
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-200 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-400 block"
+          data-cursor="button"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -303,6 +309,7 @@ const TechCard = ({
   return (
     <motion.div
       className="group p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 hover:shadow-lg"
+      data-cursor="card"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -408,6 +415,7 @@ export default function Home() {
               <motion.a
                 href="#servicos"
                 className="bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold py-4 px-8 rounded-lg hover:bg-white/20 transition-all duration-200"
+                data-cursor="button"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -426,22 +434,23 @@ export default function Home() {
         className="py-20 px-6 relative"
       >
         <div className="container mx-auto max-w-7xl">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-              Projetos em Destaque
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Conheça alguns dos meus trabalhos mais recentes, desenvolvidos com
-              as melhores tecnologias e focados em resultados reais para o
-              negócio.
-            </p>
-          </motion.div>
+          <ParallaxText className="text-center mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                Projetos em Destaque
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Conheça alguns dos meus trabalhos mais recentes, desenvolvidos
+                com as melhores tecnologias e focados em resultados reais para o
+                negócio.
+              </p>
+            </motion.div>
+          </ParallaxText>
 
           {/* Grid de Projetos */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
