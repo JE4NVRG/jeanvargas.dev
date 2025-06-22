@@ -5,38 +5,20 @@ import {
   SiReact,
   SiNextdotjs,
   SiTypescript,
-  SiJavascript,
   SiTailwindcss,
-  SiFramer,
   SiNodedotjs,
   SiPython,
   SiExpress,
-  SiNestjs,
-  SiFastapi,
-  SiDjango,
   SiFlutter,
-  SiKotlin,
-  SiSwift,
   SiPostgresql,
-  SiMongodb,
-  SiMysql,
-  SiRedis,
   SiFirebase,
   SiSupabase,
-  SiPrisma,
-  SiAmazon,
   SiVercel,
   SiDocker,
-  SiKubernetes,
-  SiGit,
-  SiGithub,
-  SiSolidity,
-  SiEthereum,
-  SiWeb3Dotjs,
   SiOpenai,
-  SiTensorflow,
-  SiPytorch,
-  SiGooglecloud,
+  SiN8N,
+  SiZapier,
+  SiGithubactions,
 } from "react-icons/si";
 
 interface TechItem {
@@ -45,11 +27,9 @@ interface TechItem {
   categoria:
     | "Frontend"
     | "Backend"
-    | "Mobile"
     | "Banco de Dados"
-    | "Cloud & DevOps"
-    | "Blockchain"
-    | "IA & Automação";
+    | "IA & Automação"
+    | "Outros";
   corBadge: string;
   descricao?: string;
 }
@@ -78,13 +58,6 @@ const tecnologiasStack: TechItem[] = [
     descricao: "JavaScript com tipagem estática",
   },
   {
-    nome: "JavaScript",
-    icone: SiJavascript,
-    categoria: "Frontend",
-    corBadge: "bg-yellow-500/20 text-yellow-400 border-yellow-400/30",
-    descricao: "Linguagem de programação web",
-  },
-  {
     nome: "Tailwind CSS",
     icone: SiTailwindcss,
     categoria: "Frontend",
@@ -92,11 +65,11 @@ const tecnologiasStack: TechItem[] = [
     descricao: "Framework CSS utilitário",
   },
   {
-    nome: "Framer Motion",
-    icone: SiFramer,
+    nome: "FlutterFlow",
+    icone: SiFlutter,
     categoria: "Frontend",
-    corBadge: "bg-pink-500/20 text-pink-400 border-pink-400/30",
-    descricao: "Biblioteca de animações React",
+    corBadge: "bg-sky-500/20 text-sky-400 border-sky-400/30",
+    descricao: "Plataforma no-code para Flutter",
   },
 
   // Backend
@@ -121,86 +94,14 @@ const tecnologiasStack: TechItem[] = [
     corBadge: "bg-gray-600/20 text-gray-400 border-gray-400/30",
     descricao: "Framework web para Node.js",
   },
-  {
-    nome: "NestJS",
-    icone: SiNestjs,
-    categoria: "Backend",
-    corBadge: "bg-red-600/20 text-red-400 border-red-400/30",
-    descricao: "Framework Node.js escalável",
-  },
-  {
-    nome: "FastAPI",
-    icone: SiFastapi,
-    categoria: "Backend",
-    corBadge: "bg-teal-600/20 text-teal-400 border-teal-400/30",
-    descricao: "Framework Python moderno",
-  },
-  {
-    nome: "Django",
-    icone: SiDjango,
-    categoria: "Backend",
-    corBadge: "bg-green-700/20 text-green-500 border-green-500/30",
-    descricao: "Framework Python robusto",
-  },
-
-  // Mobile
-  {
-    nome: "Flutter",
-    icone: SiFlutter,
-    categoria: "Mobile",
-    corBadge: "bg-sky-500/20 text-sky-400 border-sky-400/30",
-    descricao: "Framework multiplataforma",
-  },
-  {
-    nome: "React Native",
-    icone: SiReact,
-    categoria: "Mobile",
-    corBadge: "bg-blue-600/20 text-blue-400 border-blue-400/30",
-    descricao: "Apps mobile com React",
-  },
-  {
-    nome: "Kotlin",
-    icone: SiKotlin,
-    categoria: "Mobile",
-    corBadge: "bg-indigo-500/20 text-indigo-400 border-indigo-400/30",
-    descricao: "Linguagem moderna para Android",
-  },
-  {
-    nome: "Swift",
-    icone: SiSwift,
-    categoria: "Mobile",
-    corBadge: "bg-orange-500/20 text-orange-400 border-orange-400/30",
-    descricao: "Linguagem para iOS",
-  },
 
   // Banco de Dados
   {
-    nome: "PostgreSQL",
-    icone: SiPostgresql,
+    nome: "Supabase",
+    icone: SiSupabase,
     categoria: "Banco de Dados",
-    corBadge: "bg-blue-700/20 text-blue-500 border-blue-500/30",
-    descricao: "Banco relacional avançado",
-  },
-  {
-    nome: "MongoDB",
-    icone: SiMongodb,
-    categoria: "Banco de Dados",
-    corBadge: "bg-green-600/20 text-green-500 border-green-500/30",
-    descricao: "Banco NoSQL flexível",
-  },
-  {
-    nome: "MySQL",
-    icone: SiMysql,
-    categoria: "Banco de Dados",
-    corBadge: "bg-orange-600/20 text-orange-500 border-orange-500/30",
-    descricao: "Banco relacional popular",
-  },
-  {
-    nome: "Redis",
-    icone: SiRedis,
-    categoria: "Banco de Dados",
-    corBadge: "bg-red-600/20 text-red-500 border-red-500/30",
-    descricao: "Cache e banco em memória",
+    corBadge: "bg-emerald-500/20 text-emerald-400 border-emerald-400/30",
+    descricao: "Backend-as-a-Service open source",
   },
   {
     nome: "Firebase",
@@ -210,85 +111,11 @@ const tecnologiasStack: TechItem[] = [
     descricao: "Plataforma Google completa",
   },
   {
-    nome: "Supabase",
-    icone: SiSupabase,
+    nome: "PostgreSQL",
+    icone: SiPostgresql,
     categoria: "Banco de Dados",
-    corBadge: "bg-emerald-500/20 text-emerald-400 border-emerald-400/30",
-    descricao: "Backend-as-a-Service open source",
-  },
-  {
-    nome: "Prisma",
-    icone: SiPrisma,
-    categoria: "Banco de Dados",
-    corBadge: "bg-indigo-600/20 text-indigo-400 border-indigo-400/30",
-    descricao: "ORM moderno para TypeScript",
-  },
-
-  // Cloud & DevOps
-  {
-    nome: "AWS",
-    icone: SiAmazon,
-    categoria: "Cloud & DevOps",
-    corBadge: "bg-orange-600/20 text-orange-500 border-orange-500/30",
-    descricao: "Serviços de nuvem Amazon",
-  },
-  {
-    nome: "Vercel",
-    icone: SiVercel,
-    categoria: "Cloud & DevOps",
-    corBadge: "bg-black/20 text-gray-300 border-gray-300/30",
-    descricao: "Plataforma de deploy moderna",
-  },
-  {
-    nome: "Docker",
-    icone: SiDocker,
-    categoria: "Cloud & DevOps",
-    corBadge: "bg-blue-500/20 text-blue-400 border-blue-400/30",
-    descricao: "Containerização de aplicações",
-  },
-  {
-    nome: "Kubernetes",
-    icone: SiKubernetes,
-    categoria: "Cloud & DevOps",
-    corBadge: "bg-blue-600/20 text-blue-500 border-blue-500/30",
-    descricao: "Orquestração de containers",
-  },
-  {
-    nome: "Git",
-    icone: SiGit,
-    categoria: "Cloud & DevOps",
-    corBadge: "bg-red-500/20 text-red-400 border-red-400/30",
-    descricao: "Sistema de controle de versão",
-  },
-  {
-    nome: "GitHub",
-    icone: SiGithub,
-    categoria: "Cloud & DevOps",
-    corBadge: "bg-gray-600/20 text-gray-400 border-gray-400/30",
-    descricao: "Plataforma de código",
-  },
-
-  // Blockchain
-  {
-    nome: "Solidity",
-    icone: SiSolidity,
-    categoria: "Blockchain",
-    corBadge: "bg-gray-700/20 text-gray-400 border-gray-400/30",
-    descricao: "Linguagem para smart contracts",
-  },
-  {
-    nome: "Ethereum",
-    icone: SiEthereum,
-    categoria: "Blockchain",
-    corBadge: "bg-purple-600/20 text-purple-400 border-purple-400/30",
-    descricao: "Plataforma blockchain",
-  },
-  {
-    nome: "Web3.js",
-    icone: SiWeb3Dotjs,
-    categoria: "Blockchain",
-    corBadge: "bg-orange-500/20 text-orange-400 border-orange-400/30",
-    descricao: "Biblioteca para interação Web3",
+    corBadge: "bg-blue-700/20 text-blue-500 border-blue-500/30",
+    descricao: "Banco relacional avançado",
   },
 
   // IA & Automação
@@ -300,25 +127,41 @@ const tecnologiasStack: TechItem[] = [
     descricao: "API de inteligência artificial",
   },
   {
-    nome: "TensorFlow",
-    icone: SiTensorflow,
-    categoria: "IA & Automação",
-    corBadge: "bg-orange-500/20 text-orange-400 border-orange-400/30",
-    descricao: "Framework de machine learning",
-  },
-  {
-    nome: "PyTorch",
-    icone: SiPytorch,
+    nome: "n8n",
+    icone: SiN8N,
     categoria: "IA & Automação",
     corBadge: "bg-red-500/20 text-red-400 border-red-400/30",
-    descricao: "Framework de deep learning",
+    descricao: "Automação de fluxos de trabalho",
   },
   {
-    nome: "Google Cloud",
-    icone: SiGooglecloud,
+    nome: "Zapier",
+    icone: SiZapier,
     categoria: "IA & Automação",
+    corBadge: "bg-orange-500/20 text-orange-400 border-orange-400/30",
+    descricao: "Plataforma de integração e automação",
+  },
+
+  // Outros
+  {
+    nome: "Docker",
+    icone: SiDocker,
+    categoria: "Outros",
     corBadge: "bg-blue-500/20 text-blue-400 border-blue-400/30",
-    descricao: "Serviços IA do Google",
+    descricao: "Containerização de aplicações",
+  },
+  {
+    nome: "Vercel",
+    icone: SiVercel,
+    categoria: "Outros",
+    corBadge: "bg-black/20 text-gray-300 border-gray-300/30",
+    descricao: "Plataforma de deploy moderna",
+  },
+  {
+    nome: "GitHub Actions",
+    icone: SiGithubactions,
+    categoria: "Outros",
+    corBadge: "bg-gray-600/20 text-gray-400 border-gray-400/30",
+    descricao: "CI/CD integrado ao GitHub",
   },
 ];
 
@@ -373,11 +216,9 @@ export default function TechStackEnhanced() {
   const categorias = [
     "Frontend",
     "Backend",
-    "Mobile",
     "Banco de Dados",
-    "Cloud & DevOps",
-    "Blockchain",
     "IA & Automação",
+    "Outros",
   ] as const;
 
   const techPorCategoria = categorias.map((categoria) => ({
@@ -412,8 +253,8 @@ export default function TechStackEnhanced() {
             Stacks & Tecnologias
           </motion.h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Ferramentas e tecnologias que domino para criar soluções digitais
-            robustas e inovadoras, organizadas por expertise.
+            Tecnologias e ferramentas que realmente domino para criar soluções
+            digitais robustas e inovadoras, focando na expertise comprovada.
           </p>
         </motion.div>
 

@@ -12,6 +12,8 @@ import {
   Bot,
   Plug,
   Repeat,
+  Github,
+  Linkedin,
 } from "lucide-react";
 
 import { WhatsAppButton } from "../components/ui/whatsapp-button";
@@ -220,56 +222,56 @@ const ProjectCard = ({
   );
 };
 
-const ServiceCard = ({
-  servico,
-  index,
-}: {
-  servico: (typeof servicos)[0];
-  index: number;
-}) => {
+const ServiceCard = ({ servico }: { servico: (typeof servicos)[0] }) => {
   return (
-    <motion.div
-      className="h-full min-h-[200px] group relative overflow-hidden rounded-2xl bg-gray-800 border border-gray-700 hover:border-gray-600 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500"
+    <div
+      className="group rounded-xl border bg-zinc-900 hover:border-blue-500 transition-all duration-300 p-6 h-full flex flex-col"
       data-cursor="card"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      viewport={{ once: true }}
-      whileHover={{ scale: 1.02, y: -2 }}
     >
-      <div className="h-full min-h-[200px] flex flex-col justify-between p-6">
-        {/* Conteúdo principal */}
-        <div className="flex-1">
-          {/* Ícone e título alinhados horizontalmente */}
-          <div className="flex items-center gap-2 mb-3">
-            <servico.icon size={28} className="text-blue-400 flex-shrink-0" />
-            <h3 className="font-semibold text-lg text-white leading-tight">
-              {servico.titulo}
-            </h3>
-          </div>
-
-          {/* Descrição */}
-          <p className="text-gray-300 text-sm leading-relaxed">
-            {servico.descricao}
-          </p>
-        </div>
-
-        {/* Botão com WhatsApp personalizado */}
-        <motion.a
-          href={`https://wa.me/5511948477047?text=Olá Jean! Quero saber mais sobre ${encodeURIComponent(
-            servico.titulo
-          )}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-200 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-400 block"
-          data-cursor="button"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          Saiba Mais
-        </motion.a>
+      {/* Ícone */}
+      <div className="mb-4">
+        <servico.icon
+          size={32}
+          className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300"
+        />
       </div>
-    </motion.div>
+
+      {/* Título */}
+      <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-50 transition-colors duration-300">
+        {servico.titulo}
+      </h3>
+
+      {/* Descrição */}
+      <p className="text-sm text-zinc-400 leading-relaxed mb-6 flex-1">
+        {servico.descricao}
+      </p>
+
+      {/* CTA Moderno */}
+      <a
+        href={`https://wa.me/5511948477047?text=Olá Jean! Quero saber mais sobre ${encodeURIComponent(
+          servico.titulo
+        )}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition-colors duration-300 group/cta"
+        data-cursor="button"
+      >
+        <span>Saiba Mais</span>
+        <svg
+          className="w-4 h-4 transition-transform duration-300 group-hover/cta:translate-x-1"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </a>
+    </div>
   );
 };
 
@@ -286,6 +288,30 @@ export default function Home() {
         <BackgroundBeamsWithCollision className="z-0">
           <div></div>
         </BackgroundBeamsWithCollision>
+
+        {/* Botões Sociais no Topo */}
+        <div className="absolute top-6 right-6 z-20 flex gap-3">
+          <a
+            href="https://github.com/JE4NVRG"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-white/20 rounded-full px-3 py-1 text-sm text-white hover:border-blue-500 transition inline-flex items-center gap-2"
+            aria-label="Ver perfil no GitHub"
+          >
+            <Github size={16} />
+            <span className="hidden sm:inline">GitHub</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/jean-vargas-93bbb31b4/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-white/20 rounded-full px-3 py-1 text-sm text-white hover:border-blue-500 transition inline-flex items-center gap-2"
+            aria-label="Ver perfil no LinkedIn"
+          >
+            <Linkedin size={16} />
+            <span className="hidden sm:inline">LinkedIn</span>
+          </a>
+        </div>
 
         <div className="relative container mx-auto px-6 py-24 sm:py-32 z-10">
           <motion.div
@@ -568,56 +594,40 @@ export default function Home() {
       {/* Seção de Feedbacks & Resultados */}
       <FeedbacksSection />
 
-      {/* Seção Serviços - Bento Grid */}
-      <section
-        id="servicos"
-        data-section="services"
-        data-dark-section
-        className="py-20 px-6 bg-gray-900/80 dark:bg-black/80 relative"
-      >
-        <div className="container mx-auto max-w-7xl">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+      {/* Seção Serviços */}
+      <section id="servicos" className="bg-zinc-950 py-24">
+        <div className="container mx-auto max-w-7xl px-6">
+          {/* Título Principal */}
+          <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
               Serviços
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
               Soluções completas em desenvolvimento para transformar suas ideias
               em produtos digitais de alto valor.
             </p>
-          </motion.div>
+          </div>
 
-          {/* Grade Responsiva de Serviços */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 auto-rows-[1fr]">
-            {servicos.map((servico, index) => (
-              <ServiceCard key={servico.id} servico={servico} index={index} />
+          {/* Grid Responsivo de Serviços */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {servicos.map((servico) => (
+              <ServiceCard key={servico.id} servico={servico} />
             ))}
           </div>
 
           {/* Call to Action adicional */}
-          <motion.div
-            className="text-center mt-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <div className="bg-gradient-to-r from-gray-800 to-gray-700 rounded-2xl p-8 border border-gray-600">
+          <div className="text-center mt-16">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8">
               <h3 className="text-2xl font-bold text-white mb-4">
                 Precisa de algo específico?
               </h3>
-              <p className="text-gray-300 mb-6 text-lg">
+              <p className="text-zinc-400 mb-6 text-lg">
                 Cada projeto é único. Vamos conversar sobre suas necessidades e
                 criar a solução ideal.
               </p>
               <WhatsAppServicos />
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 

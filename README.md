@@ -204,9 +204,9 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para de
 **Jean Carlos Vargas**
 
 - 🌐 Website: [www.je4ndev.com](https://www.je4ndev.com)
-- 💼 LinkedIn: [Jean Carlos Vargas](https://linkedin.com/in/jean-carlos-vargas)
-- 📧 Email: contato@je4ndev.com
-- 📱 WhatsApp: [Conversar no WhatsApp](https://wa.me/5511999999999)
+- 💼 LinkedIn: [Jean Carlos Vargas](https://www.linkedin.com/in/jean-vargas-93bbb31b4/)
+- 📧 Email: jean@je4ndev.com
+- 📱 WhatsApp: [Conversar no WhatsApp](https://wa.me/551194847-7047)
 
 ---
 
