@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "../styles/project-gallery.css";
+@import "../styles/trust-badges.css";
 
 :root {
   --background: #ffffff;

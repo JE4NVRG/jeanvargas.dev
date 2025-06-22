@@ -1,10 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { feedbacks, metricas, selos } from "@/data/feedbacks";
+import { feedbacks, metricas } from "@/data/feedbacks";
 import FeedbackCard from "./feedback-card";
 import MetricsPanel from "./metrics-panel";
-import TrustBadges from "./trust-badges";
+import TrustBadgesEnhanced from "./trust-badges-enhanced";
 import { BackgroundBeamsWithCollision } from "./background-beams-with-collision";
 
 const FeedbacksSection = () => {
@@ -117,24 +117,8 @@ const FeedbacksSection = () => {
         {/* Painel de Métricas */}
         <MetricsPanel metricas={metricas} />
 
-        {/* Título dos Selos */}
-        <motion.div
-          className="text-center mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-            Selos de Confiança
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
-            Garantias de qualidade e expertise técnica
-          </p>
-        </motion.div>
-
-        {/* Selos de Confiança */}
-        <TrustBadges selos={selos} />
+        {/* Selos de Confiança Melhorados */}
+        <TrustBadgesEnhanced />
 
         {/* Call-to-Action final */}
         <motion.div
