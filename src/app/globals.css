@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "../styles/project-gallery.css";
 @import "../styles/trust-badges.css";
 
