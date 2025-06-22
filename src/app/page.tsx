@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ExternalLink,
@@ -14,21 +13,19 @@ import {
   Plug,
   Repeat,
 } from "lucide-react";
-import { FeatureBlockCard } from "../components/ui/feature-block-card";
+
 import { WhatsAppButton } from "../components/ui/whatsapp-button";
 import FeedbacksSection from "../components/ui/feedbacks-section";
 import { BackgroundBeamsWithCollision } from "../components/ui/background-beams-with-collision";
-import { ProjectModal } from "../components/ui/project-modal";
-import { projetosDetalhados } from "../data/projetos-detalhados";
 import {
   WhatsAppProjetos,
   WhatsAppServicos,
   WhatsAppContato,
 } from "../components/ui/whatsapp-personalized";
-import type { ProjetoDetalhado } from "../components/ui/project-modal";
-import AnimatedCounter from "@/components/ui/animated-counter";
+
 import { ParallaxText } from "../components/ui/parallax-element";
 import { useCardCursor } from "../hooks/use-cursor-hover";
+import TechStackEnhanced from "../components/ui/tech-stack-enhanced";
 
 // ====================================
 // DADOS DOS PROJETOS EM DESTAQUE
@@ -131,41 +128,18 @@ const servicos = [
 ];
 
 // ====================================
-// DADOS DAS TECNOLOGIAS UTILIZADAS
+// DADOS DAS TECNOLOGIAS (ORGANIZADAS NO COMPONENTE TechStackEnhanced)
 // ====================================
-// Para alterar/adicionar tecnologias:
-// 1. nome: Nome da tecnologia ou ferramenta
-// 2. emoji: Emoji representativo da tecnologia
-// 3. categoria: "Frontend" | "Backend" | "Database" | "Mobile" | "IA" | "Blockchain" | "DevOps" | "Cloud" | "Linguagem"
-// Dica: Organize por categoria para melhor visualização
-
-const tecnologias = [
-  { nome: "Next.js", emoji: "⚛️", categoria: "Frontend" },
-  { nome: "TypeScript", emoji: "📘", categoria: "Linguagem" },
-  { nome: "Python", emoji: "🐍", categoria: "Backend" },
-  { nome: "Supabase", emoji: "🗄️", categoria: "Database" },
-  { nome: "FlutterFlow", emoji: "📱", categoria: "Mobile" },
-  { nome: "OpenAI", emoji: "🤖", categoria: "IA" },
-  { nome: "Solidity", emoji: "⛓️", categoria: "Blockchain" },
-  { nome: "Node.js", emoji: "🟢", categoria: "Backend" },
-  { nome: "React", emoji: "⚛️", categoria: "Frontend" },
-  { nome: "PostgreSQL", emoji: "🐘", categoria: "Database" },
-  { nome: "Docker", emoji: "🐳", categoria: "DevOps" },
-  { nome: "AWS/Vercel", emoji: "☁️", categoria: "Cloud" },
-];
 
 // Tipos TypeScript
 
 const ProjectCard = ({
   projeto,
   index,
-  onOpenModal,
 }: {
   projeto: (typeof projetosDestaque)[0];
   index: number;
-  onOpenModal: (projeto: ProjetoDetalhado) => void;
 }) => {
-  const projetoDetalhado = projetosDetalhados.find((p) => p.id === projeto.id);
   const cardCursor = useCardCursor();
 
   return (
@@ -177,7 +151,7 @@ const ProjectCard = ({
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       whileHover={{ y: -5 }}
-      onClick={() => projetoDetalhado && onOpenModal(projetoDetalhado)}
+      onClick={() => window.open(projeto.link, "_blank", "noopener,noreferrer")}
     >
       {/* Header com gradiente */}
       <div
@@ -299,51 +273,7 @@ const ServiceCard = ({
   );
 };
 
-const TechCard = ({
-  tech,
-  index,
-}: {
-  tech: (typeof tecnologias)[0];
-  index: number;
-}) => {
-  return (
-    <motion.div
-      className="group p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 hover:shadow-lg"
-      data-cursor="card"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.05 }}
-      whileHover={{ scale: 1.03 }}
-    >
-      <div className="text-center">
-        <div className="text-3xl mb-3">{tech.emoji}</div>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-          {tech.nome}
-        </h3>
-        <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full">
-          {tech.categoria}
-        </span>
-      </div>
-    </motion.div>
-  );
-};
-
 export default function Home() {
-  const [selectedProject, setSelectedProject] =
-    useState<ProjetoDetalhado | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleOpenModal = (projeto: ProjetoDetalhado) => {
-    setSelectedProject(projeto);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedProject(null);
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900/50">
       {/* Hero Section */}
@@ -455,12 +385,7 @@ export default function Home() {
           {/* Grid de Projetos */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             {projetosDestaque.map((projeto, index) => (
-              <ProjectCard
-                key={projeto.id}
-                projeto={projeto}
-                index={index}
-                onOpenModal={handleOpenModal}
-              />
+              <ProjectCard key={projeto.id} projeto={projeto} index={index} />
             ))}
           </div>
 
@@ -637,207 +562,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Seção de Destaque Tecnológico com IA */}
-      <section
-        data-section="tech-showcase"
-        data-dark-section
-        className="py-20 px-6 bg-gray-50 dark:bg-gray-900"
-      >
-        <div className="container mx-auto max-w-6xl">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-              Tecnologias de Ponta
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Ferramentas e tecnologias de IA que uso para criar soluções
-              digitais inovadoras e de alto impacto.
-            </p>
-          </motion.div>
-
-          {/* Card Animado de IA */}
-          <motion.div
-            className="flex justify-center mb-16"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <FeatureBlockCard />
-          </motion.div>
-
-          {/* Grid de Tecnologias Complementares */}
-          <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-6"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            {[
-              {
-                name: "Blockchain",
-                icon: Bot,
-                color: "text-yellow-400",
-                description: "Contratos Inteligentes",
-              },
-              {
-                name: "APIs",
-                icon: Plug,
-                color: "text-blue-400",
-                description: "Integrações",
-              },
-              {
-                name: "Automação",
-                icon: Repeat,
-                color: "text-green-400",
-                description: "Processos",
-              },
-              {
-                name: "Cloud",
-                icon: Server,
-                color: "text-purple-400",
-                description: "Infraestrutura",
-              },
-            ].map((tech, index) => (
-              <motion.div
-                key={tech.name}
-                className="group p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 hover:shadow-lg"
-                whileHover={{ scale: 1.05 }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="text-center">
-                  <div className="mb-4 flex justify-center">
-                    <tech.icon
-                      className={`w-8 h-8 ${tech.color} transition-transform duration-300 group-hover:scale-110`}
-                    />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    {tech.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {tech.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
       {/* Stacks e Tecnologias */}
-      <section
-        data-section="stacks"
-        data-dark-section
-        className="py-20 px-6 bg-gray-50 dark:bg-gray-900/80 relative"
-      >
-        <div className="container mx-auto max-w-7xl">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-              Stacks e Tecnologias
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Ferramentas e tecnologias que domino para criar soluções digitais
-              robustas e inovadoras.
-            </p>
-          </motion.div>
-
-          {/* Grid de Tecnologias */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {tecnologias.map((tech, index) => (
-              <TechCard key={index} tech={tech} index={index} />
-            ))}
-          </div>
-
-          {/* Estatística adicional com contadores animados */}
-          <motion.div
-            className="mt-16 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <motion.div
-                  className="text-center"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                >
-                  <motion.div
-                    className="text-3xl font-bold mb-2 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <AnimatedCounter
-                      to={50}
-                      duration={2}
-                      suffix="+"
-                      preserveValue={true}
-                    />
-                  </motion.div>
-                  <div className="text-blue-200">Projetos Entregues</div>
-                </motion.div>
-                <motion.div
-                  className="text-center"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                >
-                  <motion.div
-                    className="text-3xl font-bold mb-2 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <AnimatedCounter
-                      to={12}
-                      duration={2}
-                      suffix="+"
-                      preserveValue={true}
-                    />
-                  </motion.div>
-                  <div className="text-blue-200">Tecnologias Dominadas</div>
-                </motion.div>
-                <motion.div
-                  className="text-center"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                >
-                  <motion.div
-                    className="text-3xl font-bold mb-2 bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <AnimatedCounter
-                      to={10}
-                      duration={2}
-                      suffix="+"
-                      preserveValue={true}
-                    />
-                  </motion.div>
-                  <div className="text-blue-200">Anos de Experiência</div>
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <TechStackEnhanced />
 
       {/* Seção de Feedbacks & Resultados */}
       <FeedbacksSection />
@@ -1038,13 +764,6 @@ export default function Home() {
 
       {/* Botão Flutuante do WhatsApp */}
       <WhatsAppButton />
-
-      {/* Modal de Projeto */}
-      <ProjectModal
-        projeto={selectedProject}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-      />
     </div>
   );
 }
