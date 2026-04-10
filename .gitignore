@@ -112,3 +112,9 @@ pids
 # Temporary folders
 tmp/
 temp/
+
+# Claude / Superpowers
+.claude/
+.superpowers/
+.playwright-mcp/
+*.png
