@@ -2,6 +2,41 @@ import type { Project } from "@/types/project";
 
 export const projects: Project[] = [
   {
+    slug: "nexpanel",
+    title: "NexPanel",
+    description: {
+      en: "Complete SaaS management system for IPTV resellers",
+      pt: "Sistema SaaS completo de gestao para revendedores IPTV",
+    },
+    longDescription: {
+      en: "A full-featured SaaS platform for IPTV resellers to manage clients, servers, finances, and activations in one place. Features intelligent dashboard with real-time metrics, multi-tier subscription plans, team permissions, audit logs, and automated billing with credit tracking per server.",
+      pt: "Uma plataforma SaaS completa para revendedores IPTV gerenciarem clientes, servidores, financeiro e ativacoes em um so lugar. Dashboard inteligente com metricas em tempo real, planos de assinatura multi-nivel, permissoes de equipe, logs de auditoria e cobranca automatizada com rastreamento de creditos por servidor.",
+    },
+    status: "live",
+    dateRange: "2026 — Present",
+    category: "SaaS Platform",
+    technologies: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Stripe"],
+    problem: {
+      en: "IPTV resellers manage their business with spreadsheets and manual processes, leading to lost revenue, billing errors, and no visibility into real profitability.",
+      pt: "Revendedores IPTV gerenciam seus negocios com planilhas e processos manuais, levando a perda de receita, erros de cobranca e nenhuma visibilidade sobre a lucratividade real.",
+    },
+    solution: {
+      en: "Built a complete management platform with client tracking, server credit monitoring, automated financial control, team permissions, and an intelligent dashboard — replacing spreadsheets with professional business management.",
+      pt: "Construi uma plataforma completa de gestao com rastreamento de clientes, monitoramento de creditos de servidor, controle financeiro automatizado, permissoes de equipe e dashboard inteligente — substituindo planilhas por gestao profissional.",
+    },
+    metrics: [
+      { value: "247+", label: { en: "Clients managed", pt: "Clientes gerenciados" }, color: "purple" },
+      { value: "R$4.2k", label: { en: "Monthly revenue", pt: "Receita mensal" }, color: "cyan" },
+      { value: "3", label: { en: "Pricing tiers", pt: "Planos" }, color: "green" },
+      { value: "Live", label: { en: "Production", pt: "Producao" }, color: "pink" },
+    ],
+    links: {
+      live: "https://nexpanel.je4ndev.com",
+    },
+    gradient: "from-blue-900 to-indigo-900",
+    featured: true,
+  },
+  {
     slug: "vultrix-3d",
     title: "Vultrix 3D",
     description: {

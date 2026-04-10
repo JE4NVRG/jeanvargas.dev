@@ -59,6 +59,12 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 const terminalContent: Record<string, string[]> = {
+  nexpanel: [
+    "$ nexpanel dashboard",
+    "Clients: 247 | Active: 189",
+    "Revenue: R$4.2k | Profit: R$2.8k",
+    "Servers: 5 online | Credits: OK",
+  ],
   "vultrix-3d": [
     "$ vultrix calculate --file model.3mf",
     "Material: PLA 85g | Time: 4h 30min",
