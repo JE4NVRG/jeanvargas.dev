@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/i18n";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,11 +68,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-[#050505] text-white`}
       >
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );
