@@ -18,6 +18,7 @@ export interface Project {
     live?: string;
     github?: string;
   };
+  image?: string;
   gradient: string;
   featured: boolean;
 }

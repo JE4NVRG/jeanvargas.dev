@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, ArrowRight, ArrowLeft } from "lucide-react";
 import { SectionReveal } from "@/components/ui/section-reveal";
@@ -135,27 +136,40 @@ export function CaseStudy({ slug }: CaseStudyProps) {
           </p>
         </SectionReveal>
 
-        {/* Screenshot / Terminal mockup */}
+        {/* Screenshot */}
         <SectionReveal delay={0.1} className="mt-12">
-          <div
-            className={`flex min-h-[380px] items-center justify-center rounded-2xl bg-gradient-to-br ${project.gradient} p-10`}
-          >
-            <div className="w-full max-w-xl rounded-xl border border-white/[0.1] bg-black/60 p-6 font-mono text-sm shadow-2xl backdrop-blur-sm">
-              <div className="mb-4 flex items-center gap-2">
-                <span className="h-3 w-3 rounded-full bg-red-500/80" />
-                <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
-                <span className="h-3 w-3 rounded-full bg-green-500/80" />
-              </div>
-              {terminalLines.map((line, i) => (
-                <div
-                  key={i}
-                  className={`leading-loose ${i === 0 ? "text-green-400" : "text-zinc-400"}`}
-                >
-                  {line}
-                </div>
-              ))}
+          {project.image ? (
+            <div className="overflow-hidden rounded-2xl border border-white/[0.06]">
+              <Image
+                src={project.image}
+                alt={`${project.title} screenshot`}
+                width={1440}
+                height={900}
+                className="w-full object-cover"
+                priority
+              />
             </div>
-          </div>
+          ) : (
+            <div
+              className={`flex min-h-[380px] items-center justify-center rounded-2xl bg-gradient-to-br ${project.gradient} p-10`}
+            >
+              <div className="w-full max-w-xl rounded-xl border border-white/[0.1] bg-black/60 p-6 font-mono text-sm shadow-2xl backdrop-blur-sm">
+                <div className="mb-4 flex items-center gap-2">
+                  <span className="h-3 w-3 rounded-full bg-red-500/80" />
+                  <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
+                  <span className="h-3 w-3 rounded-full bg-green-500/80" />
+                </div>
+                {terminalLines.map((line, i) => (
+                  <div
+                    key={i}
+                    className={`leading-loose ${i === 0 ? "text-green-400" : "text-zinc-400"}`}
+                  >
+                    {line}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </SectionReveal>
 
         {/* Problem / Solution */}

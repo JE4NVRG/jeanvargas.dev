@@ -33,6 +33,7 @@ export const projects: Project[] = [
     links: {
       live: "https://nexpanel.je4ndev.com",
     },
+    image: "/projects/nexpanel.png",
     gradient: "from-blue-900 to-indigo-900",
     featured: true,
   },
@@ -69,6 +70,7 @@ export const projects: Project[] = [
       live: "https://www.vultrix3d.com.br",
       github: "https://github.com/JE4NVRG/Vultrix",
     },
+    image: "/projects/vultrix-3d.png",
     gradient: "from-blue-900 to-cyan-900",
     featured: true,
   },
@@ -104,6 +106,7 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/JE4NVRG/openclaw-gateway",
     },
+    image: "/projects/openclaw-gateway.png",
     gradient: "from-indigo-900 to-purple-900",
     featured: true,
   },
@@ -173,6 +176,7 @@ export const projects: Project[] = [
     links: {
       live: "https://hypefc.je4ndev.com",
     },
+    image: "/projects/hypefc.png",
     gradient: "from-green-900 to-emerald-900",
     featured: false,
   },

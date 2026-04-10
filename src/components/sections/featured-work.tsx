@@ -1,22 +1,35 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { useTranslation } from "@/i18n";
 import { projects } from "@/data/projects";
+import type { Project } from "@/types/project";
 
-function TerminalMockup({
-  lines,
-  gradient,
-}: {
-  lines: string[];
-  gradient: string;
-}) {
+function ProjectPreview({ project }: { project: Project }) {
+  if (project.image) {
+    return (
+      <div
+        className={`relative min-h-[280px] overflow-hidden rounded-2xl bg-gradient-to-br ${project.gradient}`}
+      >
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      </div>
+    );
+  }
+
   return (
     <div
-      className={`flex h-full min-h-[280px] items-center justify-center rounded-2xl bg-gradient-to-br ${gradient} p-8`}
+      className={`flex min-h-[280px] items-center justify-center rounded-2xl bg-gradient-to-br ${project.gradient} p-8`}
     >
       <div className="w-full max-w-md rounded-xl border border-white/[0.1] bg-black/60 p-6 font-mono text-sm shadow-2xl backdrop-blur-sm">
         <div className="mb-4 flex items-center gap-2">
@@ -24,14 +37,43 @@ function TerminalMockup({
           <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
           <span className="h-3 w-3 rounded-full bg-green-500/80" />
         </div>
-        {lines.map((line, i) => (
-          <div
-            key={i}
-            className={`${i === 0 ? "text-green-400" : "text-zinc-400"} leading-relaxed`}
-          >
-            {line}
-          </div>
-        ))}
+        <div className="text-green-400">$ {project.slug} status</div>
+        <div className="text-zinc-400">Running...</div>
+      </div>
+    </div>
+  );
+}
+
+function SmallProjectPreview({ project }: { project: Project }) {
+  if (project.image) {
+    return (
+      <div
+        className={`relative h-[200px] overflow-hidden bg-gradient-to-br ${project.gradient}`}
+      >
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={`flex h-[200px] items-center justify-center bg-gradient-to-br ${project.gradient} p-6`}
+    >
+      <div className="w-full rounded-xl border border-white/[0.1] bg-black/60 p-4 font-mono text-xs shadow-2xl backdrop-blur-sm">
+        <div className="mb-3 flex items-center gap-1.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
+          <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
+          <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
+        </div>
+        <div className="text-green-400">$ {project.slug} status</div>
+        <div className="text-zinc-400">Running...</div>
       </div>
     </div>
   );
@@ -58,38 +100,6 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-const terminalContent: Record<string, string[]> = {
-  nexpanel: [
-    "$ nexpanel dashboard",
-    "Clients: 247 | Active: 189",
-    "Revenue: R$4.2k | Profit: R$2.8k",
-    "Servers: 5 online | Credits: OK",
-  ],
-  "vultrix-3d": [
-    "$ vultrix calculate --file model.3mf",
-    "Material: PLA 85g | Time: 4h 30min",
-    "Cost: R$ 33.18 | Price: R$ 110.60",
-    "Profit margin: 50% | Net: R$ 55.30",
-  ],
-  "openclaw-gateway": [
-    "$ openclaw status",
-    "Gateway: running on port 3000",
-    "Routes: 12 active | Uptime: 99.9%",
-    "Automations: 8 workflows active",
-  ],
-  mepchat: [
-    "$ mepchat status",
-    "Bot: online | Responses: AI-powered",
-    "Conversations: 500+ handled",
-  ],
-  hypefc: [
-    "$ hypefc live --leagues all",
-    "Matches: 9 live | Goals: 27",
-    "Leagues: 8 tracked | Top: Arsenal FC",
-    "Refresh: real-time | Status: OK",
-  ],
-};
-
 export function FeaturedWork() {
   const { t, locale } = useTranslation();
   const featuredProjects = projects.filter((p) => p.featured);
@@ -109,19 +119,15 @@ export function FeaturedWork() {
 
         {/* Featured projects */}
         {featuredProjects.map((featured, idx) => (
-          <SectionReveal key={featured.slug} delay={0.1 + idx * 0.15} className="mt-14">
+          <SectionReveal
+            key={featured.slug}
+            delay={0.1 + idx * 0.15}
+            className="mt-14"
+          >
             <Link href={`/projects/${featured.slug}`}>
               <TiltCard className="group cursor-pointer overflow-hidden rounded-3xl border border-white/[0.06] bg-white/[0.02]">
                 <div className="grid gap-0 md:grid-cols-2">
-                  <TerminalMockup
-                    lines={
-                      terminalContent[featured.slug] || [
-                        "$ status",
-                        "Running...",
-                      ]
-                    }
-                    gradient={featured.gradient}
-                  />
+                  <ProjectPreview project={featured} />
                   <div className="flex flex-col justify-center p-8 md:p-10">
                     <div className="mb-4 flex items-center gap-3">
                       <StatusBadge status={featured.status} />
@@ -132,7 +138,7 @@ export function FeaturedWork() {
                     <h3 className="text-2xl font-bold text-white">
                       {featured.title}
                     </h3>
-                    <p className="mt-3 text-zinc-400 leading-relaxed">
+                    <p className="mt-3 leading-relaxed text-zinc-400">
                       {featured.description[locale]}
                     </p>
 
@@ -191,15 +197,7 @@ export function FeaturedWork() {
             <SectionReveal key={project.slug} delay={0.1 + i * 0.1}>
               <Link href={`/projects/${project.slug}`}>
                 <TiltCard className="group cursor-pointer overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] transition-colors hover:border-white/[0.1]">
-                  <TerminalMockup
-                    lines={
-                      terminalContent[project.slug] || [
-                        "$ status",
-                        "Running...",
-                      ]
-                    }
-                    gradient={project.gradient}
-                  />
+                  <SmallProjectPreview project={project} />
                   <div className="p-6">
                     <div className="mb-3 flex items-center gap-3">
                       <StatusBadge status={project.status} />
@@ -210,7 +208,7 @@ export function FeaturedWork() {
                     <h3 className="text-lg font-bold text-white">
                       {project.title}
                     </h3>
-                    <p className="mt-2 text-sm text-zinc-400 leading-relaxed">
+                    <p className="mt-2 text-sm leading-relaxed text-zinc-400">
                       {project.description[locale]}
                     </p>
                     <div className="mt-4 flex flex-wrap gap-2">
