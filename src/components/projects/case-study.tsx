@@ -7,6 +7,20 @@ import { useTranslation } from "@/i18n";
 import { getProjectBySlug, getNextProject } from "@/data/projects";
 
 const terminalContent: Record<string, string[]> = {
+  nexpanel: [
+    "$ nexpanel dashboard",
+    "Clients: 247 | Active: 189",
+    "Revenue: R$4.2k | Profit: R$2.8k",
+    "Servers: 5 online | Credits: OK",
+    "Plans: Starter | Pro | Business",
+  ],
+  "vultrix-3d": [
+    "$ vultrix calculate --file model.3mf",
+    "Material: PLA 85g | Time: 4h 30min",
+    "Cost: R$33.18 | Price: R$110.60",
+    "Profit margin: 50% | Net: R$55.30",
+    "Export: quote ready",
+  ],
   "openclaw-gateway": [
     "$ openclaw status",
     "Gateway: running on port 3000",
