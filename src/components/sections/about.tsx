@@ -87,7 +87,7 @@ export function About() {
                   <ExternalLink className="h-3 w-3" />
                 </a>
                 <a
-                  href="https://linkedin.com/in/je4nvrg"
+                  href="https://www.linkedin.com/in/jean-carlos-vargas-93bbb31b4/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] px-5 py-2.5 text-sm text-zinc-400 transition-colors hover:border-white/[0.15] hover:text-white"

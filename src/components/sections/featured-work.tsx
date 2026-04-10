@@ -59,6 +59,12 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 const terminalContent: Record<string, string[]> = {
+  "vultrix-3d": [
+    "$ vultrix calculate --file model.3mf",
+    "Material: PLA 85g | Time: 4h 30min",
+    "Cost: R$ 33.18 | Price: R$ 110.60",
+    "Profit margin: 50% | Net: R$ 55.30",
+  ],
   "openclaw-gateway": [
     "$ openclaw status",
     "Gateway: running on port 3000",
@@ -84,7 +90,7 @@ const terminalContent: Record<string, string[]> = {
 
 export function FeaturedWork() {
   const { t, locale } = useTranslation();
-  const featured = projects.find((p) => p.featured);
+  const featuredProjects = projects.filter((p) => p.featured);
   const others = projects.filter((p) => !p.featured);
 
   return (
@@ -99,9 +105,9 @@ export function FeaturedWork() {
           </h2>
         </SectionReveal>
 
-        {/* Featured project */}
-        {featured && (
-          <SectionReveal delay={0.1} className="mt-14">
+        {/* Featured projects */}
+        {featuredProjects.map((featured, idx) => (
+          <SectionReveal key={featured.slug} delay={0.1 + idx * 0.15} className="mt-14">
             <Link href={`/projects/${featured.slug}`}>
               <TiltCard className="group cursor-pointer overflow-hidden rounded-3xl border border-white/[0.06] bg-white/[0.02]">
                 <div className="grid gap-0 md:grid-cols-2">
@@ -175,7 +181,7 @@ export function FeaturedWork() {
               </TiltCard>
             </Link>
           </SectionReveal>
-        )}
+        ))}
 
         {/* Other projects grid */}
         <div className="mt-10 grid gap-6 md:grid-cols-2">

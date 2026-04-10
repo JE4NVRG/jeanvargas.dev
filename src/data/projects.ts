@@ -2,6 +2,42 @@ import type { Project } from "@/types/project";
 
 export const projects: Project[] = [
   {
+    slug: "vultrix-3d",
+    title: "Vultrix 3D",
+    description: {
+      en: "Complete management platform for 3D printing businesses",
+      pt: "Plataforma completa de gestao para negocios de impressao 3D",
+    },
+    longDescription: {
+      en: "A SaaS platform built for 3D printing professionals and studios. Features a precision cost calculator that imports .3mf and .gcode files, automatically extracts print time and weight, calculates marketplace fees, and suggests optimal pricing with profit margins. Includes inventory management, financial dashboard, and multi-filament support.",
+      pt: "Uma plataforma SaaS construida para profissionais e estudios de impressao 3D. Possui calculadora de custos de precisao que importa arquivos .3mf e .gcode, extrai automaticamente tempo e peso de impressao, calcula taxas de marketplace e sugere precificacao otima com margens de lucro. Inclui gestao de estoque, dashboard financeiro e suporte multi-filamento.",
+    },
+    status: "live",
+    dateRange: "2026 — Present",
+    category: "SaaS Platform",
+    technologies: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
+    problem: {
+      en: "3D printing makers lack professional tools to accurately calculate costs, leading to underpricing and lost profits. Manual calculations are error-prone and time-consuming.",
+      pt: "Makers de impressao 3D nao tem ferramentas profissionais para calcular custos com precisao, levando a precificacao errada e perda de lucro. Calculos manuais sao propensos a erros e demorados.",
+    },
+    solution: {
+      en: "Built a complete SaaS platform with automated cost calculation from print files, marketplace fee integration, inventory management, and financial dashboards — helping makers price correctly and profit.",
+      pt: "Construi uma plataforma SaaS completa com calculo automatizado de custos a partir de arquivos de impressao, integracao de taxas de marketplace, gestao de estoque e dashboards financeiros — ajudando makers a precificar corretamente e lucrar.",
+    },
+    metrics: [
+      { value: "2.5k+", label: { en: "Active makers", pt: "Makers ativos" }, color: "purple" },
+      { value: "15k+", label: { en: "Projects calculated", pt: "Projetos calculados" }, color: "cyan" },
+      { value: "98%", label: { en: "Satisfaction", pt: "Satisfacao" }, color: "green" },
+      { value: "Live", label: { en: "Production", pt: "Producao" }, color: "pink" },
+    ],
+    links: {
+      live: "https://www.vultrix3d.com.br",
+      github: "https://github.com/JE4NVRG/Vultrix",
+    },
+    gradient: "from-blue-900 to-cyan-900",
+    featured: true,
+  },
+  {
     slug: "openclaw-gateway",
     title: "OpenClaw Gateway",
     description: {

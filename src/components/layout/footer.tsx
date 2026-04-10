@@ -21,7 +21,7 @@ export function Footer() {
             <Github size={18} />
           </a>
           <a
-            href="https://www.linkedin.com/in/jean-vargas-93bbb31b4/"
+            href="https://www.linkedin.com/in/jean-carlos-vargas-93bbb31b4/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-zinc-600 hover:text-white transition-colors"

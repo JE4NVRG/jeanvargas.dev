@@ -24,7 +24,7 @@ export const en = {
   about: {
     label: "About",
     name: "Jean Carlos Vargas",
-    bio: "Full-stack developer with 10+ years building production systems — from SaaS platforms to AI-powered bots, API integrations, smart contracts, and automation pipelines. Based in Brazil, working globally.",
+    bio: "Full-stack developer and Founder of Vultrix 3D. Building production systems for over 10 years — from SaaS platforms to AI-powered bots, API integrations, smart contracts, and automation pipelines. Based in Paranavaí, Brazil, working globally.",
     experience: "10+ years",
   },
   stack: {

@@ -25,7 +25,7 @@ export const pt: Translations = {
   about: {
     label: "Sobre",
     name: "Jean Carlos Vargas",
-    bio: "Desenvolvedor full-stack com mais de 10 anos construindo sistemas em producao — de plataformas SaaS a bots com IA, integracoes de APIs, contratos inteligentes e pipelines de automacao. Baseado no Brasil, trabalhando globalmente.",
+    bio: "Desenvolvedor full-stack e Fundador da Vultrix 3D. Construindo sistemas em producao ha mais de 10 anos — de plataformas SaaS a bots com IA, integracoes de APIs, contratos inteligentes e pipelines de automacao. Baseado em Paranavaí, Brasil, trabalhando globalmente.",
     experience: "10+ anos",
   },
   stack: {
