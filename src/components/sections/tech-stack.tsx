@@ -78,11 +78,11 @@ const categories: { key: CategoryKey; techs: TechItem[] }[] = [
     techs: [
       {
         name: "OpenAI",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/openai/openai-original.svg",
+        icon: "https://cdn.simpleicons.org/openai/white",
       },
       {
         name: "LangChain",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/langchain/langchain-original.svg",
+        icon: "https://cdn.simpleicons.org/langchain/white",
       },
       {
         name: "CCXT",

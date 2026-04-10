@@ -82,15 +82,11 @@ const terminalContent: Record<string, string[]> = {
     "Bot: online | Responses: AI-powered",
     "Conversations: 500+ handled",
   ],
-  criptopto: [
-    "$ criptopto status",
-    "Bot: active | Coins: 10+ monitored",
-    "Analysis: AI-driven | 24/7 running",
-  ],
-  petconnect: [
-    "$ petconnect status",
-    "Platform: online | Adoption flow: OK",
-    "Shelters: connected | Mobile-first",
+  hypefc: [
+    "$ hypefc live --leagues all",
+    "Matches: 9 live | Goals: 27",
+    "Leagues: 8 tracked | Top: Arsenal FC",
+    "Refresh: real-time | Status: OK",
   ],
 };
 

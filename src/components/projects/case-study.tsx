@@ -35,19 +35,12 @@ const terminalContent: Record<string, string[]> = {
     "CNPJ queries: active",
     "Last message: 1.2s ago",
   ],
-  criptopto: [
-    "$ criptopto status",
-    "Bot: active | Coins: 10+ monitored",
-    "Analysis: AI-driven | 24/7 running",
-    "Last trade: BTC/USDT",
-    "P&L: tracking...",
-  ],
-  petconnect: [
-    "$ petconnect status",
-    "Platform: online | Adoption flow: OK",
-    "Shelters: connected | Mobile-first",
-    "Pets available: 24 listings",
-    "Last adoption: today",
+  hypefc: [
+    "$ hypefc live --leagues all",
+    "Matches: 9 live | Goals: 27",
+    "Leagues: 8 tracked | Top: Arsenal FC",
+    "Refresh: real-time | Status: OK",
+    "Top scorer: Carlos Vinicius (7g)",
   ],
 };
 
