@@ -117,4 +117,6 @@ temp/
 .claude/
 .superpowers/
 .playwright-mcp/
-*.png
+
+# Temporary screenshots (root level)
+/*.png
