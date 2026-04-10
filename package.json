@@ -13,7 +13,7 @@
     "framer-motion": "^12.18.1",
     "lucide-react": "^0.517.0",
     "motion": "^12.18.1",
-    "next": "15.3.4",
+    "next": "^16.2.3",
     "react": "^19.0.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.0.0",
