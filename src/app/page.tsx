@@ -1,7 +1,19 @@
+import { Hero } from "@/components/sections/hero";
+import { FeaturedWork } from "@/components/sections/featured-work";
+import { About } from "@/components/sections/about";
+import { TechStack } from "@/components/sections/tech-stack";
+import { Services } from "@/components/sections/services";
+import { Contact } from "@/components/sections/contact";
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#050505] text-white flex items-center justify-center">
-      <h1 className="text-4xl font-bold">je4ndev — coming soon</h1>
+    <main>
+      <Hero />
+      <FeaturedWork />
+      <About />
+      <TechStack />
+      <Services />
+      <Contact />
     </main>
   );
 }

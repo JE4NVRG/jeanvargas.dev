@@ -1,0 +1,109 @@
+"use client";
+
+import { SectionReveal } from "@/components/ui/section-reveal";
+import { useTranslation } from "@/i18n";
+
+interface TechItem {
+  name: string;
+  icon: string;
+}
+
+type CategoryKey = "frontend" | "backend" | "database" | "ai" | "devops" | "tools";
+
+const categories: { key: CategoryKey; techs: TechItem[] }[] = [
+  {
+    key: "frontend",
+    techs: [
+      { name: "Next.js", icon: "N" },
+      { name: "React", icon: "R" },
+      { name: "TypeScript", icon: "TS" },
+      { name: "Tailwind CSS", icon: "Tw" },
+    ],
+  },
+  {
+    key: "backend",
+    techs: [
+      { name: "Node.js", icon: "No" },
+      { name: "Python", icon: "Py" },
+      { name: "Express.js", icon: "Ex" },
+    ],
+  },
+  {
+    key: "database",
+    techs: [
+      { name: "Supabase", icon: "Sb" },
+      { name: "Firebase", icon: "Fb" },
+      { name: "PostgreSQL", icon: "Pg" },
+    ],
+  },
+  {
+    key: "ai",
+    techs: [
+      { name: "OpenAI", icon: "Ai" },
+      { name: "LangChain", icon: "Lc" },
+      { name: "CCXT", icon: "Cx" },
+    ],
+  },
+  {
+    key: "devops",
+    techs: [
+      { name: "Docker", icon: "Dk" },
+      { name: "Vercel", icon: "Vc" },
+      { name: "GitHub Actions", icon: "GA" },
+    ],
+  },
+  {
+    key: "tools",
+    techs: [
+      { name: "Git", icon: "Gt" },
+      { name: "VS Code", icon: "VS" },
+      { name: "Figma", icon: "Fg" },
+    ],
+  },
+];
+
+export function TechStack() {
+  const { t } = useTranslation();
+
+  return (
+    <section id="stack" className="relative py-32">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionReveal>
+          <p className="text-xs font-semibold uppercase tracking-widest text-purple-500">
+            {t.stack.label}
+          </p>
+          <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+            {t.stack.title}
+          </h2>
+        </SectionReveal>
+
+        <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          {categories.map((cat, catIdx) => (
+            <SectionReveal key={cat.key} delay={0.05 * catIdx}>
+              <div>
+                <h3 className="mb-4 text-sm font-semibold text-zinc-400">
+                  {t.stack.categories[cat.key]}
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {cat.techs.map((tech) => (
+                    <div
+                      key={tech.name}
+                      className="flex items-center gap-3 rounded-xl border border-white/[0.05] bg-white/[0.02] px-4 py-3 transition-colors hover:border-white/[0.1] hover:bg-white/[0.04]"
+                    >
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.05] text-xs font-bold text-zinc-400">
+                        {tech.icon}
+                      </span>
+                      <span className="text-sm text-zinc-300">
+                        {tech.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </SectionReveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
