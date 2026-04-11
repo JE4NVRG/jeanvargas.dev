@@ -22,9 +22,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "je4ndev — Full Stack Developer",
+  title: "Jean Carlos Vargas — Full Stack Developer & SaaS Builder",
   description:
-    "Jean Carlos Vargas — Full-stack developer specializing in AI-powered automations, SaaS platforms, and production-grade systems.",
+    "Building SaaS platforms and AI-powered automations. Creator of NexPanel, Vultrix 3D, and OpenClaw Gateway. Next.js, TypeScript, Supabase.",
   keywords: [
     "full stack developer",
     "AI automation",
@@ -34,6 +34,10 @@ export const metadata: Metadata = {
     "TypeScript",
     "jean carlos vargas",
     "je4ndev",
+    "NexPanel",
+    "Vultrix 3D",
+    "OpenClaw Gateway",
+    "Supabase",
   ],
   authors: [{ name: "Jean Carlos Vargas" }],
   creator: "Jean Carlos Vargas",
@@ -49,18 +53,27 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   openGraph: {
-    title: "je4ndev — Full Stack Developer",
+    title: "Jean Carlos Vargas — Full Stack Developer & SaaS Builder",
     description:
-      "Full-stack developer specializing in AI-powered automations, SaaS platforms, and production-grade systems.",
+      "Building SaaS platforms and AI-powered automations. Creator of NexPanel, Vultrix 3D, and OpenClaw Gateway. Next.js, TypeScript, Supabase.",
     url: "https://je4ndev.com",
     siteName: "je4ndev",
     type: "website",
+    images: [
+      {
+        url: "https://je4ndev.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "je4ndev — Full Stack Developer & SaaS Builder",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "je4ndev — Full Stack Developer",
+    title: "Jean Carlos Vargas — Full Stack Developer & SaaS Builder",
     description:
-      "Full-stack developer specializing in AI-powered automations, SaaS platforms, and production-grade systems.",
+      "Building SaaS platforms and AI-powered automations. Creator of NexPanel, Vultrix 3D, and OpenClaw Gateway. Next.js, TypeScript, Supabase.",
+    images: ["https://je4ndev.com/og-image.png"],
   },
 };
 
@@ -71,6 +84,43 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Jean Carlos Vargas",
+              jobTitle: "Full Stack Developer",
+              url: "https://je4ndev.com",
+              email: "jean@je4ndev.com",
+              image:
+                "https://avatars.githubusercontent.com/u/106420077?v=4",
+              sameAs: [
+                "https://github.com/JE4NVRG",
+                "https://www.linkedin.com/in/jean-carlos-vargas-93bbb31b4/",
+              ],
+              knowsAbout: [
+                "Next.js",
+                "TypeScript",
+                "React",
+                "Node.js",
+                "Supabase",
+                "OpenAI",
+                "SaaS",
+                "AI Automation",
+              ],
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Paranava\u00ed",
+                addressRegion: "Paran\u00e1",
+                addressCountry: "BR",
+              },
+            }),
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-[#050505] text-white`}
       >

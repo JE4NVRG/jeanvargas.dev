@@ -62,6 +62,33 @@ export const pt: Translations = {
   footer: {
     copyright: "© 2026 Jean Carlos Vargas",
   },
+  testimonials: {
+    label: "Depoimentos",
+    title: "O que clientes dizem",
+    items: [
+      {
+        initials: "R.C.",
+        name: "Rafael Costa",
+        role: "CEO, TechFlow",
+        quote:
+          "Jean entregou uma solucao de automacao que transformou nossas operacoes. Reduzimos o trabalho manual em 80%.",
+      },
+      {
+        initials: "A.S.",
+        name: "Amanda Silva",
+        role: "Fundadora, PrintLab 3D",
+        quote:
+          "O Vultrix 3D mudou completamente como precificamos nossos produtos. Finalmente uma ferramenta feita por quem entende o negocio.",
+      },
+      {
+        initials: "M.O.",
+        name: "Marcos Oliveira",
+        role: "CTO, DataStream",
+        quote:
+          "A integracao com o OpenClaw foi impecavel. Jean entende tanto o lado tecnico quanto o de negocios perfeitamente.",
+      },
+    ],
+  },
   project: {
     breadcrumbWork: "Projetos",
     problem: "O Problema",

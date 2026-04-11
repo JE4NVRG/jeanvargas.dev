@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslation } from "@/i18n";
-import { Github, Linkedin } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -9,8 +9,18 @@ export function Footer() {
   return (
     <footer className="border-t border-white/5 bg-[#050505]">
       <div className="mx-auto max-w-7xl px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-zinc-600">{t.footer.copyright}</p>
+        <div className="flex flex-col items-center sm:items-start gap-1">
+          <p className="text-sm text-zinc-600">{t.footer.copyright}</p>
+          <p className="text-xs text-zinc-700">Built with Next.js & Tailwind CSS</p>
+        </div>
         <div className="flex items-center gap-5">
+          <a
+            href="mailto:jean@je4ndev.com"
+            className="text-zinc-600 hover:text-white transition-colors"
+            aria-label="Email"
+          >
+            <Mail size={18} />
+          </a>
           <a
             href="https://github.com/JE4NVRG"
             target="_blank"

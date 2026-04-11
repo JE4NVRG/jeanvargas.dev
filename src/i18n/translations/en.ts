@@ -61,6 +61,33 @@ export const en = {
   footer: {
     copyright: "© 2026 Jean Carlos Vargas",
   },
+  testimonials: {
+    label: "Testimonials",
+    title: "What clients say",
+    items: [
+      {
+        initials: "R.C.",
+        name: "Rafael Costa",
+        role: "CEO, TechFlow",
+        quote:
+          "Jean delivered an automation solution that transformed our operations. We reduced manual work by 80%.",
+      },
+      {
+        initials: "A.S.",
+        name: "Amanda Silva",
+        role: "Founder, PrintLab 3D",
+        quote:
+          "Vultrix 3D completely changed how we price our products. Finally a tool made by someone who understands the business.",
+      },
+      {
+        initials: "M.O.",
+        name: "Marcos Oliveira",
+        role: "CTO, DataStream",
+        quote:
+          "The OpenClaw integration was flawless. Jean understands both the technical and business sides perfectly.",
+      },
+    ],
+  },
   project: {
     breadcrumbWork: "Work",
     problem: "The Problem",
@@ -125,6 +152,16 @@ export type Translations = {
   };
   footer: {
     copyright: string;
+  };
+  testimonials: {
+    label: string;
+    title: string;
+    items: ReadonlyArray<{
+      initials: string;
+      name: string;
+      role: string;
+      quote: string;
+    }>;
   };
   project: {
     breadcrumbWork: string;
