@@ -36,6 +36,13 @@ const terminalContent: Record<string, string[]> = {
     "CNPJ queries: active",
     "Last message: 1.2s ago",
   ],
+  gestaoml: [
+    "$ gestaoml dashboard",
+    "Orders: 835 | Revenue: R$181k",
+    "Ticket: R$258 | Profit: R$42k",
+    "Accounts: 10+ | Margin: 23.5%",
+    "Sync: real-time | Labels: ready",
+  ],
   hypefc: [
     "$ hypefc live --leagues all",
     "Matches: 9 live | Goals: 27",

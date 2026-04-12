@@ -145,6 +145,42 @@ export const projects: Project[] = [
     featured: false,
   },
   {
+    slug: "gestaoml",
+    title: "Gestao ML",
+    description: {
+      en: "Order management SaaS for Mercado Livre sellers",
+      pt: "SaaS de gestao de pedidos para vendedores do Mercado Livre",
+    },
+    longDescription: {
+      en: "A complete management platform for Mercado Livre sellers. Handles orders, messages, shipping labels, financial analytics, and reputation monitoring across multiple accounts in a single dashboard. Features real-time sync, profit calculation with real ML fees, and bulk label generation.",
+      pt: "Uma plataforma completa de gestao para vendedores do Mercado Livre. Gerencia pedidos, mensagens, etiquetas, financeiro e reputacao em multiplas contas em um unico dashboard. Sincronizacao em tempo real, calculo de lucro com taxas reais do ML e geracao de etiquetas em massa.",
+    },
+    status: "live",
+    dateRange: "2026 — Present",
+    category: "SaaS Platform",
+    technologies: ["Next.js", "TypeScript", "Supabase", "Mercado Livre API"],
+    problem: {
+      en: "Mercado Livre sellers manage multiple accounts with spreadsheets, losing track of orders, profits, and reputation — with no unified tool for professional management.",
+      pt: "Vendedores do Mercado Livre gerenciam multiplas contas com planilhas, perdendo controle de pedidos, lucros e reputacao — sem ferramenta unificada para gestao profissional.",
+    },
+    solution: {
+      en: "Built a multi-account SaaS with order management, real-time financial tracking with ML fees, automated shipping labels, buyer messaging, and reputation alerts — all in one professional dashboard.",
+      pt: "Construi um SaaS multi-conta com gestao de pedidos, financeiro em tempo real com taxas do ML, etiquetas automaticas, chat com compradores e alertas de reputacao — tudo em um dashboard profissional.",
+    },
+    metrics: [
+      { value: "835+", label: { en: "Orders managed", pt: "Pedidos gerenciados" }, color: "purple" },
+      { value: "R$181k", label: { en: "Revenue tracked", pt: "Faturamento" }, color: "cyan" },
+      { value: "10+", label: { en: "Accounts", pt: "Contas" }, color: "green" },
+      { value: "Free", label: { en: "Pricing", pt: "Gratis" }, color: "pink" },
+    ],
+    links: {
+      live: "https://gestaoml.je4ndev.com",
+    },
+    image: "/projects/gestaoml.png",
+    gradient: "from-yellow-900 to-amber-900",
+    featured: true,
+  },
+  {
     slug: "hypefc",
     title: "HypeFC",
     description: {
