@@ -47,8 +47,8 @@
       "name": "Contato",
       "short_name": "Contato",
       "description": "Entre em contato direto",
-      "url": "/#contato",
-      "icons": [{ "src": "/favicon-192x192.png", "sizes": "192x192" }]
+      "url": "/#contact",
+      "icons": [{ "src": "/android-chrome-192x192.png", "sizes": "192x192" }]
     }
   ]
 }

@@ -38,7 +38,7 @@ export const pt: Translations = {
   work: {
     label: "Projetos em Destaque",
     title: "Projetos selecionados",
-    viewCase: "Ver case study",
+    viewCase: "Ver estudo de caso",
     viewProject: "Ver projeto",
   },
   about: {

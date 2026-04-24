@@ -9,7 +9,48 @@ import { useTranslation } from "@/i18n";
 import { projects } from "@/data/projects";
 import type { Project } from "@/types/project";
 
-function ProjectPreview({
+const containedImageSlugs = new Set([
+  "nexpanel",
+  "vultrix-3d",
+  "gestaoml",
+  "hypefc",
+]);
+
+const statusStyles: Record<Project["status"], string> = {
+  live: "bg-green-500/10 text-green-300 ring-green-500/20",
+  mvp: "bg-yellow-500/10 text-yellow-300 ring-yellow-500/20",
+  development: "bg-blue-500/10 text-blue-300 ring-blue-500/20",
+  case: "bg-purple-500/10 text-purple-300 ring-purple-500/20",
+  internal: "bg-cyan-500/10 text-cyan-300 ring-cyan-500/20",
+  demo: "bg-cyan-500/10 text-cyan-300 ring-cyan-500/20",
+};
+
+const metricTextColor: Record<string, string> = {
+  purple: "text-purple-300",
+  cyan: "text-cyan-300",
+  green: "text-emerald-300",
+  pink: "text-pink-300",
+};
+
+function StatusBadge({ status }: { status: Project["status"] }) {
+  const isLive = status === "live";
+
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold uppercase ring-1 ${statusStyles[status]}`}
+    >
+      {isLive && (
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-400" />
+        </span>
+      )}
+      {status}
+    </span>
+  );
+}
+
+function ProjectArtwork({
   project,
   priority = false,
 }: {
@@ -17,124 +58,137 @@ function ProjectPreview({
   priority?: boolean;
 }) {
   if (project.image) {
-    const isDashboardImage = project.slug === "gestaoml";
+    const shouldContain = containedImageSlugs.has(project.slug);
 
     return (
       <div
-        className={`relative min-h-[280px] overflow-hidden rounded-2xl bg-gradient-to-br ${project.gradient} ${isDashboardImage ? "bg-[#050812]" : ""}`}
+        className={`relative aspect-[16/9] overflow-hidden bg-gradient-to-br ${project.gradient}`}
       >
         <Image
           src={project.image}
           alt={project.title}
           fill
           className={
-            isDashboardImage
-              ? "object-contain p-5 transition-transform duration-500 group-hover:scale-[1.02] sm:p-7"
-              : "object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            shouldContain
+              ? "object-contain p-4 transition-transform duration-500 group-hover:scale-[1.02] sm:p-5"
+              : "object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
           }
           sizes="(max-width: 768px) 100vw, 50vw"
           priority={priority}
         />
-        <div
-          className={
-            isDashboardImage
-              ? "absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"
-              : "absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
-          }
-        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#050505]/80 to-transparent" />
       </div>
     );
   }
 
   return (
     <div
-      className={`flex min-h-[280px] items-center justify-center rounded-2xl bg-gradient-to-br ${project.gradient} p-8`}
+      className={`relative aspect-[16/9] overflow-hidden bg-gradient-to-br ${project.gradient} p-5`}
     >
-      <div className="w-full max-w-md rounded-xl border border-white/[0.1] bg-black/60 p-6 font-mono text-sm shadow-2xl backdrop-blur-sm">
-        <div className="mb-4 flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full bg-red-500/80" />
-          <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
-          <span className="h-3 w-3 rounded-full bg-green-500/80" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:32px_32px]" />
+      <div className="relative flex h-full items-center">
+        <div className="w-full rounded-2xl border border-white/[0.1] bg-black/70 p-4 font-mono text-xs shadow-2xl backdrop-blur">
+          <div className="mb-4 flex items-center justify-between border-b border-white/[0.06] pb-3">
+            <div className="flex gap-1.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
+              <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
+              <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
+            </div>
+            <span className="text-[10px] text-zinc-600">
+              {project.slug}/run
+            </span>
+          </div>
+          <div className="text-green-300">$ {project.slug} status</div>
+          <div className="mt-2 text-zinc-400">workflows ok</div>
+          <div className="mt-1 text-cyan-300">latency stable</div>
         </div>
-        <div className="text-green-400">$ {project.slug} status</div>
-        <div className="text-zinc-400">Running...</div>
       </div>
     </div>
   );
 }
 
-function SmallProjectPreview({ project }: { project: Project }) {
-  if (project.image) {
-    const isDashboardImage = project.slug === "gestaoml";
-
-    return (
-      <div
-        className={`relative h-[200px] overflow-hidden bg-gradient-to-br ${project.gradient} ${isDashboardImage ? "bg-[#050812]" : ""}`}
-      >
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className={
-            isDashboardImage
-              ? "object-contain p-4 transition-transform duration-500 group-hover:scale-[1.02]"
-              : "object-cover object-top transition-transform duration-500 group-hover:scale-105"
-          }
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
-        <div
-          className={
-            isDashboardImage
-              ? "absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"
-              : "absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"
-          }
-        />
-      </div>
-    );
-  }
+function ProjectCard({
+  project,
+  priority = false,
+}: {
+  project: Project;
+  priority?: boolean;
+}) {
+  const { t, locale } = useTranslation();
+  const metrics = project.metrics.slice(0, 2);
 
   return (
-    <div
-      className={`flex h-[200px] items-center justify-center bg-gradient-to-br ${project.gradient} p-6`}
-    >
-      <div className="w-full rounded-xl border border-white/[0.1] bg-black/60 p-4 font-mono text-xs shadow-2xl backdrop-blur-sm">
-        <div className="mb-3 flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
+    <Link href={`/projects/${project.slug}`} className="block h-full">
+      <TiltCard className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#080808] shadow-[0_22px_80px_-55px_rgba(255,255,255,0.35)] transition-colors hover:border-cyan-300/25">
+        <ProjectArtwork project={project} priority={priority} />
+
+        <div className="flex flex-1 flex-col p-6">
+          <div className="flex flex-wrap items-center gap-3">
+            <StatusBadge status={project.status} />
+            <span className="text-xs text-zinc-600">{project.dateRange}</span>
+          </div>
+
+          <div className="mt-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="text-2xl font-bold text-white">
+                {project.title}
+              </h3>
+              <span className="rounded-full border border-white/[0.08] px-2.5 py-1 text-[11px] text-zinc-500">
+                {project.scope[locale]}
+              </span>
+            </div>
+            <p className="mt-3 min-h-[52px] text-sm leading-6 text-zinc-400">
+              {project.description[locale]}
+            </p>
+          </div>
+
+          <div className="mt-5 flex flex-wrap gap-2">
+            {project.technologies.slice(0, 4).map((tech) => (
+              <span
+                key={tech}
+                className="rounded-full bg-white/[0.05] px-3 py-1 text-xs text-zinc-400"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-5 grid grid-cols-2 gap-3">
+            {metrics.map((metric) => (
+              <div
+                key={`${project.slug}-${metric.value}`}
+                className="rounded-xl border border-white/[0.06] bg-white/[0.025] p-3"
+              >
+                <div
+                  className={`text-lg font-bold ${metricTextColor[metric.color] ?? "text-white"}`}
+                >
+                  {metric.value}
+                </div>
+                <div className="mt-1 text-xs leading-4 text-zinc-600">
+                  {metric.label[locale]}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-auto flex items-center justify-between pt-6">
+            <span className="text-xs text-zinc-600">{project.category}</span>
+            <span className="inline-flex items-center gap-2 text-sm font-medium text-white transition-colors group-hover:text-cyan-300">
+              {t.work.viewCase}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </div>
         </div>
-        <div className="text-green-400">$ {project.slug} status</div>
-        <div className="text-zinc-400">Running...</div>
-      </div>
-    </div>
-  );
-}
-
-function StatusBadge({ status }: { status: string }) {
-  const isLive = status === "live";
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${
-        isLive
-          ? "bg-green-500/10 text-green-400 ring-1 ring-green-500/20"
-          : "bg-cyan-500/10 text-cyan-400 ring-1 ring-cyan-500/20"
-      }`}
-    >
-      {isLive && (
-        <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-500" />
-        </span>
-      )}
-      {status.toUpperCase()}
-    </span>
+      </TiltCard>
+    </Link>
   );
 }
 
 export function FeaturedWork() {
-  const { t, locale } = useTranslation();
+  const { t } = useTranslation();
   const featuredProjects = projects.filter((p) => p.featured);
-  const others = projects.filter((p) => !p.featured);
+  const otherProjects = projects.filter((p) => !p.featured);
 
   return (
     <section id="work" className="relative py-20 sm:py-24">
@@ -148,119 +202,26 @@ export function FeaturedWork() {
           </h2>
         </SectionReveal>
 
-        {/* Featured projects */}
-        {featuredProjects.map((featured, idx) => (
-          <SectionReveal
-            key={featured.slug}
-            delay={0.1 + idx * 0.15}
-            className="mt-14"
-          >
-            <Link href={`/projects/${featured.slug}`}>
-              <TiltCard className="group cursor-pointer overflow-hidden rounded-3xl border border-white/[0.06] bg-white/[0.02]">
-                <div className="grid gap-0 md:grid-cols-2">
-                  <ProjectPreview project={featured} priority={idx === 0} />
-                  <div className="flex flex-col justify-center p-8 md:p-10">
-                    <div className="mb-4 flex items-center gap-3">
-                      <StatusBadge status={featured.status} />
-                      <span className="text-xs text-zinc-600">
-                        {featured.dateRange}
-                      </span>
-                    </div>
-                    <h3 className="text-2xl font-bold text-white">
-                      {featured.title}
-                    </h3>
-                    <p className="mt-3 leading-relaxed text-zinc-400">
-                      {featured.description[locale]}
-                    </p>
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          {featuredProjects.map((project, index) => (
+            <SectionReveal
+              key={project.slug}
+              delay={0.08 + index * 0.08}
+              className="h-full"
+            >
+              <ProjectCard project={project} priority={index < 2} />
+            </SectionReveal>
+          ))}
+        </div>
 
-                    {/* Tech tags */}
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {featured.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-full bg-white/[0.05] px-3 py-1 text-xs text-zinc-400"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Metrics */}
-                    <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-                      {featured.metrics.map((m) => (
-                        <div key={m.value}>
-                          <div
-                            className={`text-lg font-bold ${
-                              m.color === "purple"
-                                ? "text-purple-400"
-                                : m.color === "cyan"
-                                  ? "text-cyan-400"
-                                  : m.color === "green"
-                                    ? "text-green-400"
-                                    : "text-pink-400"
-                            }`}
-                          >
-                            {m.value}
-                          </div>
-                          <div className="text-xs text-zinc-600">
-                            {m.label[locale]}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-8">
-                      <span className="inline-flex items-center gap-2 text-sm font-medium text-white transition-colors group-hover:text-purple-400">
-                        {t.work.viewCase}
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </TiltCard>
-            </Link>
-          </SectionReveal>
-        ))}
-
-        {/* Other projects grid */}
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {others.map((project, i) => (
-            <SectionReveal key={project.slug} delay={0.1 + i * 0.1}>
-              <Link href={`/projects/${project.slug}`}>
-                <TiltCard className="group cursor-pointer overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] transition-colors hover:border-white/[0.1]">
-                  <SmallProjectPreview project={project} />
-                  <div className="p-6">
-                    <div className="mb-3 flex items-center gap-3">
-                      <StatusBadge status={project.status} />
-                      <span className="text-xs text-zinc-600">
-                        {project.category}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-bold text-white">
-                      {project.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                      {project.description[locale]}
-                    </p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {project.technologies.slice(0, 3).map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-full bg-white/[0.05] px-3 py-1 text-xs text-zinc-500"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="mt-5">
-                      <span className="inline-flex items-center gap-2 text-sm font-medium text-zinc-400 transition-colors group-hover:text-purple-400">
-                        {t.work.viewProject}
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </span>
-                    </div>
-                  </div>
-                </TiltCard>
-              </Link>
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          {otherProjects.map((project, index) => (
+            <SectionReveal
+              key={project.slug}
+              delay={0.08 + index * 0.08}
+              className="h-full"
+            >
+              <ProjectCard project={project} />
             </SectionReveal>
           ))}
         </div>

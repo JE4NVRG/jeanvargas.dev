@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Braces } from "lucide-react";
+import { BrandMark } from "@/components/brand/brand-mark";
 import { useTranslation } from "@/i18n";
 
 const navLinks = [
@@ -63,12 +63,10 @@ export function Navbar() {
         <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4">
           <Link
             href="/"
-            className="group flex items-center gap-2 text-lg font-extrabold tracking-normal"
+            className="group flex items-center gap-3 text-lg font-extrabold tracking-normal"
             onClick={closeMobile}
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/[0.1] bg-white/[0.06] text-cyan-300 transition-colors group-hover:border-cyan-300/40">
-              <Braces className="h-4 w-4" />
-            </span>
+            <BrandMark className="transition-transform duration-300 group-hover:scale-105" />
             <span>
               je4n<span className="text-purple-500">dev</span>
             </span>
