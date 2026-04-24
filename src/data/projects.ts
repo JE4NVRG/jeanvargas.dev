@@ -106,7 +106,6 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/JE4NVRG/openclaw-gateway",
     },
-    image: "/projects/openclaw-gateway.png",
     gradient: "from-indigo-900 to-purple-900",
     featured: true,
   },
