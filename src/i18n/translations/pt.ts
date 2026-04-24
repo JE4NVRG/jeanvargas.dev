@@ -9,11 +9,11 @@ export const pt: Translations = {
     contact: "Entre em contato",
   },
   hero: {
-    badge: "Disponivel para contratos remotos",
-    title: "Eu construo SaaS, automacoes",
-    titleHighlight: "e ferramentas internas",
-    subtitle: "Engenheiro full-stack para startups e empresas que precisam de execucao rapida, sistemas claros e entrega confiavel.",
-    cta: "Ver meu trabalho",
+    badge: "Disponivel para contratos remotos no mundo todo",
+    title: "Engenheiro Full-Stack para SaaS,",
+    titleHighlight: "Automacao com IA e Ferramentas Internas",
+    subtitle: "Construo produtos web, sistemas de negocio e fluxos com IA para empresas que precisam de velocidade, clareza e execucao confiavel.",
+    cta: "Ver projetos selecionados",
     email: "jean@je4ndev.com",
   },
   work: {
@@ -25,7 +25,7 @@ export const pt: Translations = {
   about: {
     label: "Sobre",
     name: "Jean Carlos Vargas",
-    bio: "Engenheiro full-stack focado em SaaS, ferramentas internas e automacoes com IA. Trabalho em frontend, backend, APIs, auth, pagamentos e deploy — com uma base forte de negocio/operacao por ter construido e operado empresas antes do software. Baseado em Paranavaí, Brasil, disponivel para trabalho remoto no mundo todo.",
+    bio: "Engenheiro full-stack focado em SaaS, ferramentas internas e automacoes com IA. Trabalho em frontend, backend, APIs, auth, pagamentos e deploy — com uma base forte de negocio/operacao por ter construido e operado empresas antes do software. Baseado em Paranavai, Brasil, disponivel para trabalho remoto no mundo todo.",
     experience: "5+ anos em software",
   },
   stack: {
@@ -55,8 +55,8 @@ export const pt: Translations = {
   },
   contact: {
     title: "Vamos construir algo",
-    titleHighlight: "extraordinario",
-    subtitle: "Me conta o que voce esta construindo e onde esta travado — posso ajudar com SaaS, ferramentas internas e automacoes com IA.",
+    titleHighlight: "que vai para producao",
+    subtitle: "Me conta o que voce esta construindo, onde esta travado e qual resultado precisa. Posso ajudar com SaaS, ferramentas internas e automacoes com IA.",
     whatsapp: "WhatsApp",
   },
   footer: {
