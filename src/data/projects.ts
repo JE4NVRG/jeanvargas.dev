@@ -82,8 +82,8 @@ export const projects: Project[] = [
       pt: "Gateway de automacao multi-plataforma com workflows de IA",
     },
     longDescription: {
-      en: "A centralized automation gateway that orchestrates AI-powered workflows across multiple platforms. Features intelligent routing, real-time monitoring, and 24/7 automated operations with high availability.",
-      pt: "Um gateway de automacao centralizado que orquestra workflows com IA em multiplas plataformas. Possui roteamento inteligente, monitoramento em tempo real e operacoes automatizadas 24/7 com alta disponibilidade.",
+      en: "A centralized automation gateway that orchestrates AI-powered workflows across multiple platforms. Features intelligent routing, monitoring, and local workflow control for internal automation experiments.",
+      pt: "Um gateway de automacao centralizado que orquestra workflows com IA em multiplas plataformas. Possui roteamento inteligente, monitoramento e controle local de workflows para experimentos internos de automacao.",
     },
     status: "development",
     dateRange: "2024 — Present",
@@ -94,8 +94,8 @@ export const projects: Project[] = [
       pt: "Processos manuais espalhados em multiplas plataformas sem controle centralizado, levando a ineficiencia e erros humanos em workflows criticos.",
     },
     solution: {
-      en: "Built a centralized gateway with AI-powered routing, automated workflows, and comprehensive monitoring that runs 24/7 with 99.9% uptime.",
-      pt: "Construi um gateway centralizado com roteamento por IA, workflows automatizados e monitoramento abrangente que roda 24/7 com 99.9% de uptime.",
+      en: "Built a centralized gateway with AI-powered routing, automated workflows, and monitoring for local operations and integration testing.",
+      pt: "Construi um gateway centralizado com roteamento por IA, workflows automatizados e monitoramento para operacoes locais e testes de integracao.",
     },
     metrics: [
       { value: "Hub", label: { en: "Project type", pt: "Tipo" }, color: "purple" },
