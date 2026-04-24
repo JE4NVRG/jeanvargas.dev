@@ -9,10 +9,10 @@ export const pt: Translations = {
     contact: "Entre em contato",
   },
   hero: {
-    badge: "Disponivel para novos projetos",
-    title: "Eu construo sistemas que",
-    titleHighlight: "escalam e automatizam",
-    subtitle: "Desenvolvedor full-stack especializado em automacoes com IA, plataformas SaaS e sistemas de producao.",
+    badge: "Disponivel para contratos remotos",
+    title: "Eu construo SaaS, automacoes",
+    titleHighlight: "e ferramentas internas",
+    subtitle: "Engenheiro full-stack para startups e empresas que precisam de execucao rapida, sistemas claros e entrega confiavel.",
     cta: "Ver meu trabalho",
     email: "jean@je4ndev.com",
   },
@@ -25,8 +25,8 @@ export const pt: Translations = {
   about: {
     label: "Sobre",
     name: "Jean Carlos Vargas",
-    bio: "Desenvolvedor full-stack e Fundador da Vultrix 3D. Construindo sistemas em producao ha mais de 10 anos — de plataformas SaaS a bots com IA, integracoes de APIs, contratos inteligentes e pipelines de automacao. Baseado em Paranavaí, Brasil, trabalhando globalmente.",
-    experience: "10+ anos",
+    bio: "Engenheiro full-stack focado em SaaS, ferramentas internas e automacoes com IA. Trabalho em frontend, backend, APIs, auth, pagamentos e deploy — com uma base forte de negocio/operacao por ter construido e operado empresas antes do software. Baseado em Paranavaí, Brasil, disponivel para trabalho remoto no mundo todo.",
+    experience: "5+ anos em software",
   },
   stack: {
     label: "Tech Stack",
@@ -56,7 +56,7 @@ export const pt: Translations = {
   contact: {
     title: "Vamos construir algo",
     titleHighlight: "extraordinario",
-    subtitle: "Tem um projeto em mente? Adoraria ouvir sobre.",
+    subtitle: "Me conta o que voce esta construindo e onde esta travado — posso ajudar com SaaS, ferramentas internas e automacoes com IA.",
     whatsapp: "WhatsApp",
   },
   footer: {

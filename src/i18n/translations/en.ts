@@ -7,11 +7,11 @@ export const en = {
     contact: "Get in touch",
   },
   hero: {
-    badge: "Available for new projects",
-    title: "I craft systems that",
-    titleHighlight: "scale and automate",
+    badge: "Open to remote contract work",
+    title: "I build SaaS, automations",
+    titleHighlight: "and internal tools",
     subtitle:
-      "Full-stack developer specializing in AI-powered automations, SaaS platforms, and production-grade systems.",
+      "Full-stack engineer for startups and businesses that need fast execution, clear systems, and reliable delivery.",
     cta: "View my work",
     email: "jean@je4ndev.com",
   },
@@ -24,8 +24,8 @@ export const en = {
   about: {
     label: "About",
     name: "Jean Carlos Vargas",
-    bio: "Full-stack developer and Founder of Vultrix 3D. Building production systems for over 10 years — from SaaS platforms to AI-powered bots, API integrations, smart contracts, and automation pipelines. Based in Paranavaí, Brazil, working globally.",
-    experience: "10+ years",
+    bio: "Full-stack engineer focused on SaaS, internal tools and AI automations. I work across frontend, backend, APIs, auth, payments and deployment — with a strong business/operations background from building and running companies before software. Based in Paranavaí, Brazil, available for remote work worldwide.",
+    experience: "5+ years in software",
   },
   stack: {
     label: "Tech Stack",
@@ -55,7 +55,7 @@ export const en = {
   contact: {
     title: "Let's build something",
     titleHighlight: "extraordinary",
-    subtitle: "Have a project in mind? I'd love to hear about it.",
+    subtitle: "Tell me what you're building and where you're blocked — I can help with SaaS, internal tools and AI automations.",
     whatsapp: "WhatsApp",
   },
   footer: {

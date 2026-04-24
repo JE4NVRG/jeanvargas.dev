@@ -25,10 +25,10 @@ export const projects: Project[] = [
       pt: "Construi uma plataforma completa de gestao com rastreamento de clientes, monitoramento de creditos de servidor, controle financeiro automatizado, permissoes de equipe e dashboard inteligente — substituindo planilhas por gestao profissional.",
     },
     metrics: [
-      { value: "247+", label: { en: "Clients managed", pt: "Clientes gerenciados" }, color: "purple" },
-      { value: "R$4.2k", label: { en: "Monthly revenue", pt: "Receita mensal" }, color: "cyan" },
-      { value: "3", label: { en: "Pricing tiers", pt: "Planos" }, color: "green" },
-      { value: "Live", label: { en: "Production", pt: "Producao" }, color: "pink" },
+      { value: "B2B", label: { en: "Project type", pt: "Tipo" }, color: "purple" },
+      { value: "Billing", label: { en: "Core flow", pt: "Fluxo principal" }, color: "cyan" },
+      { value: "Admin", label: { en: "Dashboard", pt: "Dashboard" }, color: "green" },
+      { value: "Case", label: { en: "Portfolio status", pt: "Status no portfólio" }, color: "pink" },
     ],
     links: {
       live: "https://nexpanel.je4ndev.com",
@@ -61,10 +61,10 @@ export const projects: Project[] = [
       pt: "Construi uma plataforma SaaS completa com calculo automatizado de custos a partir de arquivos de impressao, integracao de taxas de marketplace, gestao de estoque e dashboards financeiros — ajudando makers a precificar corretamente e lucrar.",
     },
     metrics: [
-      { value: "2.5k+", label: { en: "Active makers", pt: "Makers ativos" }, color: "purple" },
-      { value: "15k+", label: { en: "Projects calculated", pt: "Projetos calculados" }, color: "cyan" },
-      { value: "98%", label: { en: "Satisfaction", pt: "Satisfacao" }, color: "green" },
-      { value: "Live", label: { en: "Production", pt: "Producao" }, color: "pink" },
+      { value: "Pricing", label: { en: "Core engine", pt: "Motor principal" }, color: "purple" },
+      { value: ".3mf/.gcode", label: { en: "Inputs", pt: "Entradas" }, color: "cyan" },
+      { value: "Fees", label: { en: "Business logic", pt: "Lógica de negócio" }, color: "green" },
+      { value: "Live", label: { en: "Project status", pt: "Status do projeto" }, color: "pink" },
     ],
     links: {
       live: "https://www.vultrix3d.com.br",
@@ -98,10 +98,10 @@ export const projects: Project[] = [
       pt: "Construi um gateway centralizado com roteamento por IA, workflows automatizados e monitoramento abrangente que roda 24/7 com 99.9% de uptime.",
     },
     metrics: [
-      { value: "99.9%", label: { en: "Uptime", pt: "Uptime" }, color: "purple" },
-      { value: "5k+", label: { en: "Requests/day", pt: "Requests/dia" }, color: "cyan" },
-      { value: "8", label: { en: "Automations", pt: "Automacoes" }, color: "green" },
-      { value: "24/7", label: { en: "Monitoring", pt: "Monitoramento" }, color: "pink" },
+      { value: "Hub", label: { en: "Project type", pt: "Tipo" }, color: "purple" },
+      { value: "AI routing", label: { en: "Core feature", pt: "Destaque" }, color: "cyan" },
+      { value: "Cross-platform", label: { en: "Scope", pt: "Escopo" }, color: "green" },
+      { value: "Internal", label: { en: "Usage", pt: "Uso" }, color: "pink" },
     ],
     links: {
       github: "https://github.com/JE4NVRG/openclaw-gateway",
@@ -134,9 +134,9 @@ export const projects: Project[] = [
       pt: "Construi um bot WhatsApp com IA que lida com 100% das consultas rotineiras automaticamente, com um painel de gestao para monitorar conversas e dados de CNPJ.",
     },
     metrics: [
-      { value: "100%", label: { en: "Automated", pt: "Automatizado" }, color: "green" },
-      { value: "MVP", label: { en: "Validated", pt: "Validado" }, color: "cyan" },
-      { value: "Active", label: { en: "User base", pt: "Base ativa" }, color: "purple" },
+      { value: "MVP", label: { en: "Project status", pt: "Status do projeto" }, color: "green" },
+      { value: "WhatsApp", label: { en: "Core channel", pt: "Canal principal" }, color: "cyan" },
+      { value: "AI bot", label: { en: "Core feature", pt: "Destaque" }, color: "purple" },
     ],
     links: {
       github: "https://github.com/JE4NVRG/mepchat",
@@ -168,10 +168,10 @@ export const projects: Project[] = [
       pt: "Construi um SaaS multi-conta com gestao de pedidos, financeiro em tempo real com taxas do ML, etiquetas automaticas, chat com compradores e alertas de reputacao — tudo em um dashboard profissional.",
     },
     metrics: [
-      { value: "835+", label: { en: "Orders managed", pt: "Pedidos gerenciados" }, color: "purple" },
-      { value: "R$181k", label: { en: "Revenue tracked", pt: "Faturamento" }, color: "cyan" },
-      { value: "10+", label: { en: "Accounts", pt: "Contas" }, color: "green" },
-      { value: "Free", label: { en: "Pricing", pt: "Gratis" }, color: "pink" },
+      { value: "Multi-account", label: { en: "Scope", pt: "Escopo" }, color: "purple" },
+      { value: "ML API", label: { en: "Integration", pt: "Integração" }, color: "cyan" },
+      { value: "Orders", label: { en: "Core workflow", pt: "Fluxo principal" }, color: "green" },
+      { value: "Case", label: { en: "Portfolio status", pt: "Status no portfólio" }, color: "pink" },
     ],
     links: {
       live: "https://gestaoml.je4ndev.com",
@@ -205,9 +205,9 @@ export const projects: Project[] = [
     },
     metrics: [
       { value: "8+", label: { en: "Leagues", pt: "Ligas" }, color: "purple" },
-      { value: "Live", label: { en: "Real-time", pt: "Tempo real" }, color: "green" },
-      { value: "27+", label: { en: "Goals/day", pt: "Gols/dia" }, color: "cyan" },
-      { value: "24/7", label: { en: "Tracking", pt: "Monitoramento" }, color: "pink" },
+      { value: "Live", label: { en: "Data feed", pt: "Feed de dados" }, color: "green" },
+      { value: "UI", label: { en: "Project type", pt: "Tipo" }, color: "cyan" },
+      { value: "Demo", label: { en: "Status", pt: "Status" }, color: "pink" },
     ],
     links: {
       live: "https://hypefc.je4ndev.com",

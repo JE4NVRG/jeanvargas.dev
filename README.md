@@ -8,7 +8,7 @@
 # je4ndev.com
 
 **Personal portfolio of Jean Carlos Vargas**
-**Full Stack Developer & Founder @ Vultrix 3D**
+**Full-Stack Engineer · SaaS, Internal Tools & AI Automation**
 
 [![Live](https://img.shields.io/badge/LIVE-je4ndev.com-8b5cf6?style=for-the-badge)](https://je4ndev.com)
 [![Next.js](https://img.shields.io/badge/Next.js-16-000?style=for-the-badge&logo=next.js)](https://nextjs.org)
@@ -17,7 +17,7 @@
 [![Vercel](https://img.shields.io/badge/Vercel-deployed-000?style=for-the-badge&logo=vercel)](https://vercel.com)
 
 Dark minimal portfolio with bold gradient accents, bilingual support (EN/PT-BR),
-individual project case studies with live links, and smooth Framer Motion animations.
+project case studies, and smooth Framer Motion animations.
 
 [**View Live**](https://je4ndev.com) &middot; [**Projects**](#-featured-projects) &middot; [**Tech Stack**](#-tech-stack) &middot; [**Getting Started**](#-getting-started)
 
@@ -75,7 +75,7 @@ individual project case studies with live links, and smooth Framer Motion animat
 ## Highlights
 
 - **Bilingual** — EN/PT-BR toggle, client-side, no page reload
-- **Case Studies** — Each project has its own page with problem/solution breakdown, metrics, and live links
+- **Case Studies** — Each project has its own page with problem/solution breakdown, stack, and context
 - **Visual Effects** — Animated grid, floating gradient orbs, 3D tilt cards, magnetic buttons, scroll reveals
 - **Performance** — Static generation (SSG), ~160 kB First Load JS, Lighthouse 90+ target
 - **Accessibility** — Reduced motion support, semantic HTML, ARIA labels, keyboard navigation
@@ -87,11 +87,11 @@ individual project case studies with live links, and smooth Framer Motion animat
 
 | Project | What it does | Stack | Status |
 |---------|-------------|-------|--------|
-| [**NexPanel**](https://nexpanel.je4ndev.com) | SaaS management for IPTV resellers — clients, servers, billing, dashboards | Next.js, Supabase, Stripe | **Live** |
-| [**Vultrix 3D**](https://www.vultrix3d.com.br) | Management platform for 3D printing — cost calculator, inventory, financials | Next.js, Supabase, Tailwind | **Live** |
-| [**OpenClaw Gateway**](https://github.com/JE4NVRG/openclaw-gateway) | Multi-platform automation gateway with AI-powered workflows | Node.js, OpenAI, Supabase | **Live** |
-| [**HypeFC**](https://hypefc.je4ndev.com) | Real-time football dashboard — live scores, standings, 8+ leagues | Next.js, API Football | **Live** |
-| [**MepChat**](https://github.com/JE4NVRG/mepchat) | WhatsApp chatbot with AI + CNPJ business dashboard | Node.js, Firebase, OpenAI | **MVP** |
+| [**NexPanel**](https://nexpanel.je4ndev.com) | B2B management platform for IPTV operations and billing flows | Next.js, Supabase, Stripe | **Case study** |
+| [**Vultrix 3D**](https://www.vultrix3d.com.br) | Pricing and operations system for a 3D printing business | Next.js, Supabase, Tailwind | **Live business** |
+| [**OpenClaw Gateway**](https://github.com/JE4NVRG/openclaw-gateway) | Multi-platform automation hub for AI-driven workflows | Node.js, OpenAI, Supabase | **Internal** |
+| [**HypeFC**](https://hypefc.je4ndev.com) | Real-time football dashboard with live data and standings | Next.js, API Football | **Public demo** |
+| [**MepChat**](https://github.com/JE4NVRG/mepchat) | WhatsApp chatbot + admin dashboard for business workflows | Node.js, Firebase, OpenAI | **MVP** |
 
 ---
 
@@ -180,13 +180,13 @@ Open [localhost:3000](http://localhost:3000). No environment variables required.
 <div align="center">
 
 **Jean Carlos Vargas**
-Full Stack Developer & Founder @ Vultrix 3D
+Full-Stack Engineer · SaaS, Internal Tools & AI Automation
 Paranavaí, Brazil
 
 [![Portfolio](https://img.shields.io/badge/je4ndev.com-8b5cf6?style=for-the-badge)](https://je4ndev.com)
 [![Email](https://img.shields.io/badge/jean@je4ndev.com-000?style=for-the-badge&logo=gmail&logoColor=white)](mailto:jean@je4ndev.com)
 [![GitHub](https://img.shields.io/badge/@JE4NVRG-000?style=for-the-badge&logo=github)](https://github.com/JE4NVRG)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jean-carlos-vargas-93bbb31b4/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/je4ndev/)
 [![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/5511914826568)
 
 </div>

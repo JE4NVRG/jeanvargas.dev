@@ -99,7 +99,7 @@ export default function RootLayout({
                 "https://avatars.githubusercontent.com/u/106420077?v=4",
               sameAs: [
                 "https://github.com/JE4NVRG",
-                "https://www.linkedin.com/in/jean-carlos-vargas-93bbb31b4/",
+                "https://www.linkedin.com/in/je4ndev/",
               ],
               knowsAbout: [
                 "Next.js",
