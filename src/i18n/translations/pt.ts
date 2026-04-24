@@ -15,6 +15,12 @@ export const pt: Translations = {
     subtitle: "Construo produtos web, sistemas de negocio e fluxos com IA para empresas que precisam de velocidade, clareza e execucao confiavel.",
     cta: "Ver projetos selecionados",
     email: "jean@je4ndev.com",
+    signals: [
+      { label: "Formato", value: "Contrato remoto" },
+      { label: "Foco principal", value: "SaaS + ferramentas internas" },
+      { label: "Automacao", value: "Workflows com IA" },
+      { label: "Colaboracao", value: "Async-friendly" },
+    ],
   },
   work: {
     label: "Projetos em Destaque",

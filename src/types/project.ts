@@ -3,7 +3,8 @@ export interface Project {
   title: string;
   description: { en: string; pt: string };
   longDescription: { en: string; pt: string };
-  status: "live" | "mvp" | "development";
+  status: "live" | "mvp" | "development" | "case" | "internal" | "demo";
+  scope: { en: string; pt: string };
   dateRange: string;
   category: string;
   technologies: string[];

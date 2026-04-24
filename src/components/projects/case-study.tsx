@@ -52,7 +52,7 @@ const terminalContent: Record<string, string[]> = {
   ],
 };
 
-function StatusBadge({ status }: { status: "live" | "mvp" | "development" }) {
+function StatusBadge({ status }: { status: "live" | "mvp" | "development" | "case" | "internal" | "demo" }) {
   const config = {
     live: {
       cls: "bg-green-500/10 text-green-400 ring-1 ring-green-500/20",
@@ -64,6 +64,18 @@ function StatusBadge({ status }: { status: "live" | "mvp" | "development" }) {
     },
     development: {
       cls: "bg-blue-500/10 text-blue-400 ring-1 ring-blue-500/20",
+      dot: false,
+    },
+    case: {
+      cls: "bg-purple-500/10 text-purple-300 ring-1 ring-purple-500/20",
+      dot: false,
+    },
+    internal: {
+      cls: "bg-blue-500/10 text-blue-300 ring-1 ring-blue-500/20",
+      dot: false,
+    },
+    demo: {
+      cls: "bg-cyan-500/10 text-cyan-300 ring-1 ring-cyan-500/20",
       dot: false,
     },
   }[status];
@@ -130,8 +142,11 @@ export function CaseStudy({ slug }: CaseStudyProps) {
 
         {/* Hero */}
         <SectionReveal delay={0.05}>
-          <div className="mb-4 flex items-center gap-3">
+          <div className="mb-4 flex flex-wrap items-center gap-3">
             <StatusBadge status={project.status} />
+            <span className="rounded-full border border-white/[0.08] px-3 py-1 text-xs font-medium text-zinc-400">
+              {project.scope[locale]}
+            </span>
             <span className="text-xs text-zinc-500">{project.dateRange}</span>
             <span className="text-xs text-zinc-600">{project.category}</span>
           </div>

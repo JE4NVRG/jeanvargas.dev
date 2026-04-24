@@ -14,6 +14,12 @@ export const en = {
       "I build web products, business systems, and AI workflows for companies that need speed, clarity, and reliable execution.",
     cta: "View selected work",
     email: "jean@je4ndev.com",
+    signals: [
+      { label: "Work mode", value: "Remote contract" },
+      { label: "Primary focus", value: "SaaS + internal tools" },
+      { label: "Automation", value: "AI workflows" },
+      { label: "Collaboration", value: "Async-friendly" },
+    ],
   },
   work: {
     label: "Featured Work",
@@ -113,6 +119,7 @@ export type Translations = {
     subtitle: string;
     cta: string;
     email: string;
+    signals: ReadonlyArray<{ label: string; value: string }>;
   };
   work: {
     label: string;

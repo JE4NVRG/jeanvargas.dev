@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail } from "lucide-react";
+import { Bot, BriefcaseBusiness, Globe2, Mail, MessagesSquare } from "lucide-react";
 import { AnimatedGrid } from "@/components/ui/animated-grid";
 import { GradientOrbs } from "@/components/ui/gradient-orbs";
 import { MagneticButton } from "@/components/ui/magnetic-button";
@@ -9,6 +9,7 @@ import { useTranslation } from "@/i18n";
 
 export function Hero() {
   const { t } = useTranslation();
+  const signalIcons = [BriefcaseBusiness, Globe2, Bot, MessagesSquare];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
@@ -77,6 +78,35 @@ export function Hero() {
             <Mail className="h-4 w-4" />
             {t.hero.email}
           </MagneticButton>
+        </motion.div>
+
+        <motion.div
+          className="mx-auto mt-12 grid max-w-5xl gap-3 sm:grid-cols-2 lg:grid-cols-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.65 }}
+        >
+          {t.hero.signals.map((signal, index) => {
+            const Icon = signalIcons[index] || BriefcaseBusiness;
+            return (
+              <div
+                key={signal.label}
+                className="flex items-center gap-3 rounded-xl border border-white/[0.07] bg-black/30 px-4 py-3 text-left backdrop-blur-sm"
+              >
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/[0.06] text-cyan-300">
+                  <Icon className="h-4 w-4" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600">
+                    {signal.label}
+                  </p>
+                  <p className="truncate text-sm font-medium text-zinc-200">
+                    {signal.value}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </motion.div>
       </div>
 
