@@ -7,12 +7,12 @@ export const en = {
     contact: "Get in touch",
   },
   hero: {
-    badge: "Open to remote contract work",
-    title: "I build SaaS, automations",
-    titleHighlight: "and internal tools",
+    badge: "Available for remote contract work worldwide",
+    title: "Full-Stack Engineer for SaaS,",
+    titleHighlight: "AI Automation and Internal Tools",
     subtitle:
-      "Full-stack engineer for startups and businesses that need fast execution, clear systems, and reliable delivery.",
-    cta: "View my work",
+      "I build web products, business systems, and AI workflows for companies that need speed, clarity, and reliable execution.",
+    cta: "View selected work",
     email: "jean@je4ndev.com",
   },
   work: {
@@ -54,8 +54,8 @@ export const en = {
   },
   contact: {
     title: "Let's build something",
-    titleHighlight: "extraordinary",
-    subtitle: "Tell me what you're building and where you're blocked — I can help with SaaS, internal tools and AI automations.",
+    titleHighlight: "that ships",
+    subtitle: "Tell me what you're building, what is blocked, and what outcome you need. I can help with SaaS, internal tools, and AI automations.",
     whatsapp: "WhatsApp",
   },
   footer: {
