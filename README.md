@@ -7,19 +7,19 @@
 
 # je4ndev.com
 
-**Personal portfolio of Jean Carlos Vargas**
-**Full-Stack Engineer · SaaS, Internal Tools & AI Automation**
+**Portfolio pessoal de Jean Carlos Vargas**  
+**Full-stack developer focado em SaaS, automacoes com IA e Web3**
 
 [![Live](https://img.shields.io/badge/LIVE-je4ndev.com-8b5cf6?style=for-the-badge)](https://je4ndev.com)
 [![Next.js](https://img.shields.io/badge/Next.js-16-000?style=for-the-badge&logo=next.js)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
-[![Tailwind](https://img.shields.io/badge/Tailwind-4-06b6d4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![Vercel](https://img.shields.io/badge/Vercel-deployed-000?style=for-the-badge&logo=vercel)](https://vercel.com)
+[![Tailwind](https://img.shields.io/badge/Tailwind-3-06b6d4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Vercel](https://img.shields.io/badge/Vercel-ready-000?style=for-the-badge&logo=vercel)](https://vercel.com)
 
-Dark minimal portfolio with bold gradient accents, bilingual support (EN/PT-BR),
-project case studies, and smooth Framer Motion animations.
+Portfolio dark, bilingue e orientado a conversao para apresentar projetos,
+servicos, stack tecnica, auditoria Solidity, automacoes com IA e estudos de caso.
 
-[**View Live**](https://je4ndev.com) &middot; [**Projects**](#-featured-projects) &middot; [**Tech Stack**](#-tech-stack) &middot; [**Getting Started**](#-getting-started)
+[**View Live**](https://je4ndev.com) &middot; [**Projetos**](#featured-projects) &middot; [**Stack**](#tech-stack) &middot; [**Rodar local**](#getting-started)
 
 </div>
 
@@ -31,30 +31,30 @@ project case studies, and smooth Framer Motion animations.
 <tr>
 <td width="50%">
 
-**Featured Work**
+**Hero atualizado**
 
-<img src="docs/screenshots/featured-work.png" alt="Featured projects section" />
+<img src="docs/screenshots/hero.png" alt="Hero com foto, terminal e CTA" />
 
 </td>
 <td width="50%">
 
-**About**
+**Mobile**
 
-<img src="docs/screenshots/about.png" alt="About section" />
+<img src="docs/screenshots/mobile.png" alt="Mobile responsive view" />
 
 </td>
 </tr>
 <tr>
 <td width="50%">
 
-**Tech Stack — Real SVG icons**
+**Projetos em destaque**
 
-<img src="docs/screenshots/tech-stack.png" alt="Tech stack with real icons" />
+<img src="docs/screenshots/featured-work.png" alt="Featured projects section" />
 
 </td>
 <td width="50%">
 
-**Case Study Page**
+**Case study**
 
 <img src="docs/screenshots/case-study.png" alt="Project case study" />
 
@@ -62,24 +62,18 @@ project case studies, and smooth Framer Motion animations.
 </tr>
 </table>
 
-<details>
-<summary><strong>Mobile View</strong></summary>
-<br />
-<div align="center">
-<img src="docs/screenshots/mobile.png" alt="Mobile responsive view" width="300" />
-</div>
-</details>
-
 ---
 
 ## Highlights
 
-- **Bilingual** — EN/PT-BR toggle, client-side, no page reload
-- **Case Studies** — Each project has its own page with problem/solution breakdown, stack, and context
-- **Visual Effects** — Animated grid, floating gradient orbs, 3D tilt cards, magnetic buttons, scroll reveals
-- **Performance** — Static generation (SSG), ~160 kB First Load JS, Lighthouse 90+ target
-- **Accessibility** — Reduced motion support, semantic HTML, ARIA labels, keyboard navigation
-- **Responsive** — Mobile-first design, tested on 390px to 1440px+
+- **Hero comercial** com foto do Jean, CTA para WhatsApp, metricas e terminal animado.
+- **Navegacao bilingue** PT-BR/EN com troca instantanea e persistencia em `localStorage`.
+- **Projetos com cases**: prints, problema, solucao, impacto, resultados e CTA final.
+- **OpenClaw Gateway** com visual de terminal simulado em vez de print sem contexto.
+- **Comentarios comerciais** com avatares gerados por IA e empresas ficticias localizadas em PT/EN.
+- **Servicos claros**: SaaS, apps web, automacoes com IA, integracoes, mobile, consultoria e auditoria Solidity.
+- **Stack atualizada** com OpenAI, Anthropic, Qwen, Kimi, LangChain, Supabase, Next.js e Web3.
+- **UX refinada**: loading escuro, footer com GitHub central, links sociais e transicoes sem flash branco.
 
 ---
 
@@ -87,58 +81,63 @@ project case studies, and smooth Framer Motion animations.
 
 | Project | What it does | Stack | Status |
 |---------|-------------|-------|--------|
-| [**NexPanel**](https://nexpanel.je4ndev.com) | B2B management platform for IPTV operations and billing flows | Next.js, Supabase, Stripe | **Case study** |
-| [**Vultrix 3D**](https://www.vultrix3d.com.br) | Pricing and operations system for a 3D printing business | Next.js, Supabase, Tailwind | **Live business** |
-| [**OpenClaw Gateway**](https://github.com/JE4NVRG/openclaw-gateway) | Multi-platform automation hub for AI-driven workflows | Node.js, OpenAI, Supabase | **Internal** |
-| [**HypeFC**](https://hypefc.je4ndev.com) | Real-time football dashboard with live data and standings | Next.js, API Football | **Public demo** |
-| [**MepChat**](https://github.com/JE4NVRG/mepchat) | WhatsApp chatbot + admin dashboard for business workflows | Node.js, Firebase, OpenAI | **MVP** |
+| **Gestao ML** | SaaS de gestao de pedidos para vendedores do Mercado Livre | Next.js, TypeScript, Supabase, Mercado Livre API | **Live** |
+| **NexPanel** | SaaS management for IPTV resellers, clients, billing and dashboards | Next.js, Supabase, Stripe | **Live** |
+| **Vultrix 3D** | Plataforma para precificacao, estoque e financeiro de impressao 3D | Next.js, Supabase, Tailwind | **Live** |
+| **OpenClaw Gateway** | Gateway multi-plataforma de automacao com workflows de IA | Node.js, OpenAI, Supabase | **Live** |
+| **HypeFC** | Dashboard de futebol em tempo real com placares e classificacoes | Next.js, API Football | **Live** |
+| **MepChat** | Chatbot WhatsApp com IA e painel para operacao CNPJ | Node.js, Firebase, OpenAI | **MVP** |
 
 ---
 
 ## Tech Stack
 
 | Layer | Technologies |
-|-------|-------------|
-| **Framework** | Next.js 16 (App Router, SSG, Server Components) |
-| **Language** | TypeScript (strict mode) |
-| **Styling** | Tailwind CSS 4, CSS custom properties |
-| **Animations** | Framer Motion (orbs, tilt, magnetic, scroll reveal) |
-| **Icons** | Lucide React, Devicon SVGs, SimpleIcons |
-| **i18n** | React Context + localStorage persistence |
-| **Deploy** | Vercel (auto-deploy from GitHub) |
+|-------|--------------|
+| **Frontend** | Next.js App Router, React, TypeScript, Tailwind CSS |
+| **Backend** | Node.js, API Routes, integrations and automations |
+| **Database** | Supabase, PostgreSQL, Firebase |
+| **AI** | OpenAI, Anthropic, Qwen, Kimi, LangChain, CCXT |
+| **Web3** | Solidity, Hardhat, OpenZeppelin, smart contract audits |
+| **DevOps** | Vercel, Docker, GitHub Actions |
+| **UI** | Framer Motion, Lucide Icons, generated bitmap assets |
 
 ---
 
 ## Architecture
 
-```
+```txt
 src/
-├── app/
-│   ├── layout.tsx                 # Root layout — fonts, providers, navbar, footer
-│   ├── page.tsx                   # Home — composes 6 sections
-│   └── projects/[slug]/page.tsx   # Case study pages (SSG via generateStaticParams)
-├── components/
-│   ├── layout/                    # Navbar (sticky, blur), Footer
-│   ├── sections/                  # Hero, FeaturedWork, About, TechStack, Services, Contact
-│   ├── projects/                  # CaseStudy component
-│   └── ui/                        # AnimatedGrid, GradientOrbs, MagneticButton, TiltCard, SectionReveal
-├── data/
-│   └── projects.ts                # Project definitions (bilingual, typed)
-├── i18n/
-│   ├── translations/              # en.ts, pt.ts — all UI strings
-│   ├── provider.tsx               # LanguageProvider (React Context)
-│   └── use-translation.ts         # useTranslation() hook
-├── lib/
-│   └── utils.ts                   # cn() — clsx + tailwind-merge
-└── types/
-    └── project.ts                 # Project interface
+  app/
+    layout.tsx
+    loading.tsx
+    page.tsx
+    projects/[slug]/page.tsx
+  components/
+    layout/
+    projects/
+    sections/
+    ui/
+  data/
+    projects.ts
+  i18n/
+    provider.tsx
+    translations/
+  types/
+    project.ts
+public/
+  images/
+  projects/
+docs/
+  screenshots/
 ```
 
-**Design decisions:**
-- Server Components for static pages, Client Components only where interactivity is needed
-- Project data defined in TypeScript — no CMS, no database, no API calls
-- i18n via React Context — instant toggle, persisted in localStorage
-- All pages statically generated at build time
+Design decisions:
+
+- Project data is typed in TypeScript.
+- Pages are statically generated where possible.
+- Client components are used only for animation, language state and interactive UI.
+- Screenshots and generated testimonial avatars live in versioned project assets.
 
 ---
 
@@ -151,27 +150,25 @@ npm install
 npm run dev
 ```
 
-Open [localhost:3000](http://localhost:3000). No environment variables required.
+Open [localhost:3000](http://localhost:3000).
 
 | Command | Description |
-|---------|------------|
-| `npm run dev` | Development server (Turbopack) |
+|---------|-------------|
+| `npm run dev` | Development server with Turbopack |
 | `npm run build` | Production build |
 | `npm start` | Production server |
 | `npm run lint` | ESLint check |
 
 ---
 
-## Performance
+## Validation
 
-| Metric | Value |
-|--------|-------|
-| First Load JS | ~160 kB |
-| Pages | All statically generated (SSG) |
-| Lighthouse Performance | 90+ target |
-| Reduced Motion | Respects `prefers-reduced-motion` |
-| Images | `next/image` with lazy loading |
-| Fonts | Geist Sans + Geist Mono (preloaded) |
+Current checks used before publishing:
+
+```bash
+npm run lint
+npm run build
+```
 
 ---
 
@@ -179,14 +176,14 @@ Open [localhost:3000](http://localhost:3000). No environment variables required.
 
 <div align="center">
 
-**Jean Carlos Vargas**
-Full-Stack Engineer · SaaS, Internal Tools & AI Automation
-Paranavaí, Brazil
+**Jean Carlos Vargas**  
+Full-stack Developer  
+Paranavai, Brazil
 
 [![Portfolio](https://img.shields.io/badge/je4ndev.com-8b5cf6?style=for-the-badge)](https://je4ndev.com)
 [![Email](https://img.shields.io/badge/jean@je4ndev.com-000?style=for-the-badge&logo=gmail&logoColor=white)](mailto:jean@je4ndev.com)
 [![GitHub](https://img.shields.io/badge/@JE4NVRG-000?style=for-the-badge&logo=github)](https://github.com/JE4NVRG)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/je4ndev/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jean-carlos-vargas-93bbb31b4/)
 [![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/5511914826568)
 
 </div>
@@ -195,8 +192,6 @@ Paranavaí, Brazil
 
 <div align="center">
 
-MIT License
-
-Built with Next.js, TypeScript, and Framer Motion.
+Criado por **JE4NVRG - JE4NDEV**.
 
 </div>

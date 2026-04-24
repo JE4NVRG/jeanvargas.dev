@@ -5,6 +5,7 @@ import {
   Server,
   Bot,
   Plug,
+  ShieldCheck,
   Smartphone,
   Code2,
   ArrowUpRight,
@@ -12,7 +13,15 @@ import {
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { useTranslation } from "@/i18n";
 
-const serviceIcons = [Globe, Server, Bot, Plug, Smartphone, Code2];
+const serviceIcons = [
+  Globe,
+  Server,
+  Bot,
+  Plug,
+  ShieldCheck,
+  Smartphone,
+  Code2,
+];
 
 const WHATSAPP_URL = "https://wa.me/5511914826568";
 

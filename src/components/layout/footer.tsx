@@ -1,35 +1,35 @@
 "use client";
 
 import { useTranslation } from "@/i18n";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 
 export function Footer() {
   const { t } = useTranslation();
 
   return (
     <footer className="border-t border-white/5 bg-[#050505]">
-      <div className="mx-auto max-w-7xl px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-5 px-6 py-6 sm:grid-cols-[1fr_auto_1fr]">
         <div className="flex flex-col items-center sm:items-start gap-1">
           <p className="text-sm text-zinc-600">{t.footer.copyright}</p>
           <p className="text-xs text-zinc-700">Built with Next.js & Tailwind CSS</p>
         </div>
-        <div className="flex items-center gap-5">
-          <a
-            href="mailto:jean@je4ndev.com"
-            className="text-zinc-600 hover:text-white transition-colors"
-            aria-label="Email"
-          >
-            <Mail size={18} />
-          </a>
+
+        <div className="flex flex-col items-center gap-2">
           <a
             href="https://github.com/JE4NVRG"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-600 hover:text-white transition-colors"
+            className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03] text-zinc-400 transition-colors hover:border-white/[0.16] hover:text-white"
             aria-label="GitHub"
           >
-            <Github size={18} />
+            <Github size={26} />
           </a>
+          <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-600">
+            Criado por JE4NVRG - JE4NDEV
+          </p>
+        </div>
+
+        <div className="flex items-center justify-center gap-5 sm:justify-end">
           <a
             href="https://www.linkedin.com/in/je4ndev/"
             target="_blank"

@@ -40,6 +40,10 @@ export const metadata: Metadata = {
     "NexPanel",
     "Vultrix 3D",
     "OpenClaw Gateway",
+    "Solidity",
+    "Anthropic",
+    "Qwen",
+    "Kimi",
     "Supabase",
   ],
   authors: [{ name: "Jean Carlos Vargas" }],
@@ -86,7 +90,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -111,9 +115,13 @@ export default function RootLayout({
                 "Node.js",
                 "Supabase",
                 "OpenAI",
+                "Anthropic",
+                "Qwen",
+                "Kimi",
                 "SaaS",
                 "Internal Tools",
                 "AI Automation",
+                "Solidity",
               ],
               address: {
                 "@type": "PostalAddress",

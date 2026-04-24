@@ -23,22 +23,22 @@ export function About() {
         <div className="grid items-center gap-16 md:grid-cols-2">
           {/* Photo */}
           <SectionReveal>
-            <div className="relative mx-auto w-fit">
-              <div className="rounded-2xl bg-gradient-to-br from-purple-500 via-cyan-500 to-pink-500 p-[2px]">
-                <div className="rounded-2xl bg-[#050505] p-1">
+            <div className="relative mx-auto w-full max-w-[460px]">
+              <div className="rounded-3xl border border-white/[0.08] bg-white/[0.04] p-2 shadow-2xl shadow-black/30">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#050505]">
                   <Image
-                    src="https://avatars.githubusercontent.com/u/106420077?v=4"
+                    src="/images/jean-about.png"
                     alt={t.about.name}
-                    width={400}
-                    height={400}
-                    className="rounded-xl object-cover"
+                    fill
+                    sizes="(max-width: 768px) 90vw, 460px"
+                    className="object-cover object-[50%_35%]"
                     priority={false}
                   />
                 </div>
               </div>
 
               {/* Experience badge */}
-              <div className="absolute -bottom-4 -right-4 rounded-xl border border-white/[0.1] bg-green-500/10 px-4 py-2 backdrop-blur-sm">
+              <div className="absolute -bottom-4 -right-4 rounded-2xl border border-emerald-400/20 bg-emerald-500/10 px-4 py-2 backdrop-blur-sm">
                 <span className="text-sm font-bold text-green-400">
                   {t.about.experience}
                 </span>

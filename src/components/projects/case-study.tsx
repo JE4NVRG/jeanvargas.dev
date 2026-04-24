@@ -2,10 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, ArrowRight, ArrowLeft } from "lucide-react";
+import {
+  ExternalLink,
+  ArrowRight,
+  ArrowLeft,
+  Mail,
+  MessageCircle,
+} from "lucide-react";
 import { SectionReveal } from "@/components/ui/section-reveal";
+import { CodeTerminal } from "@/components/ui/code-terminal";
 import { useTranslation } from "@/i18n";
 import { getProjectBySlug, getNextProject } from "@/data/projects";
+import type { Project } from "@/types/project";
 
 const terminalContent: Record<string, string[]> = {
   nexpanel: [
@@ -109,8 +117,164 @@ const metricTextColor: Record<string, string> = {
   pink: "text-pink-400",
 };
 
+const WHATSAPP_URL =
+  "https://wa.me/5511914826568?text=Oi%20Jean%2C%20quero%20conversar%20sobre%20um%20sistema%20parecido.";
+
 interface CaseStudyProps {
   slug: string;
+}
+
+function ProjectVisuals({
+  project,
+  locale,
+  mainLabel,
+}: {
+  project: Project;
+  locale: "en" | "pt";
+  mainLabel: string;
+}) {
+  if (project.slug === "openclaw-gateway") {
+    return (
+      <div className="space-y-5">
+        <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4">
+          <CodeTerminal
+            title="openclaw-gateway/production"
+            lines={[
+              { command: "openclaw gateway status --json" },
+              {
+                output: "{ provider: 'openai', routes: 12, uptime: '99.9%' }",
+                tone: "info",
+              },
+              { command: "openclaw workflow run atendimento --live" },
+              {
+                output: "intent detected -> crm.sync -> whatsapp.reply -> log.ok",
+                tone: "success",
+              },
+              { command: "openclaw monitor --requests 5000/day" },
+              {
+                output: "latency 312ms | failures 0.1% | automations 8 active",
+                tone: "warning",
+              },
+            ]}
+            className="min-h-[360px]"
+          />
+        </div>
+        <div className="grid gap-5 md:grid-cols-3">
+          {[
+            { value: "12", label: "rotas ativas" },
+            { value: "8", label: "workflows IA" },
+            { value: "24/7", label: "monitoramento" },
+          ].map((item) => (
+            <div
+              key={item.label}
+              className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5"
+            >
+              <div className="text-3xl font-bold text-cyan-300">
+                {item.value}
+              </div>
+              <div className="mt-1 text-sm text-zinc-500">{item.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  const visuals = [
+    ...(project.image
+      ? [
+          {
+            src: project.image,
+            title: { en: mainLabel, pt: mainLabel },
+            description: project.description,
+            isMain: true,
+          },
+        ]
+      : []),
+    ...(project.gallery ?? []),
+  ];
+
+  if (visuals.length === 0) {
+    const terminalLines = terminalContent[project.slug] ?? ["$ status", "Running..."];
+
+    return (
+      <div
+        className={`flex min-h-[380px] items-center justify-center rounded-2xl bg-gradient-to-br ${project.gradient} p-10`}
+      >
+        <div className="w-full max-w-xl rounded-xl border border-white/[0.1] bg-black/60 p-6 font-mono text-sm shadow-2xl backdrop-blur-sm">
+          <div className="mb-4 flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-red-500/80" />
+            <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
+            <span className="h-3 w-3 rounded-full bg-green-500/80" />
+          </div>
+          {terminalLines.map((line, i) => (
+            <div
+              key={i}
+              className={`leading-loose ${i === 0 ? "text-green-400" : "text-zinc-400"}`}
+            >
+              {line}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  const [mainVisual, ...supportingVisuals] = visuals;
+
+  return (
+    <div className="space-y-5">
+      <div className="overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02]">
+        <div className="relative aspect-[16/10]">
+          <Image
+            src={mainVisual.src}
+            alt={`${project.title} - ${mainVisual.title[locale]}`}
+            fill
+            className="object-cover object-top"
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            priority
+          />
+        </div>
+        <div className="border-t border-white/[0.06] p-5">
+          <p className="text-sm font-semibold text-white">
+            {mainVisual.title[locale]}
+          </p>
+          <p className="mt-1 text-sm leading-6 text-zinc-500">
+            {mainVisual.description[locale]}
+          </p>
+        </div>
+      </div>
+
+      {supportingVisuals.length > 0 && (
+        <div className="grid gap-5 md:grid-cols-2">
+          {supportingVisuals.map((visual) => (
+            <div
+              key={visual.src}
+              className="overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02]"
+            >
+              <div className="relative aspect-[16/10]">
+                <Image
+                  src={visual.src}
+                  alt={`${project.title} - ${visual.title[locale]}`}
+                  fill
+                  className="object-cover object-top transition-transform duration-500 hover:scale-[1.02]"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div className="p-5">
+                <p className="text-sm font-semibold text-white">
+                  {visual.title[locale]}
+                </p>
+                <p className="mt-1 text-sm leading-6 text-zinc-500">
+                  {visual.description[locale]}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export function CaseStudy({ slug }: CaseStudyProps) {
@@ -120,11 +284,9 @@ export function CaseStudy({ slug }: CaseStudyProps) {
 
   if (!project) return null;
 
-  const terminalLines = terminalContent[slug] ?? ["$ status", "Running..."];
-
   return (
     <main className="min-h-screen bg-[#050505] text-white">
-      <div className="mx-auto max-w-4xl px-6 py-32">
+      <div className="mx-auto max-w-5xl px-6 py-32">
         {/* Breadcrumb */}
         <SectionReveal>
           <nav className="mb-10 flex items-center gap-2 text-sm text-zinc-500">
@@ -158,60 +320,72 @@ export function CaseStudy({ slug }: CaseStudyProps) {
           </p>
         </SectionReveal>
 
-        {/* Screenshot */}
+        {/* Visual proof */}
         <SectionReveal delay={0.1} className="mt-12">
-          {project.image ? (
-            <div className="overflow-hidden rounded-2xl border border-white/[0.06]">
-              <Image
-                src={project.image}
-                alt={`${project.title} screenshot`}
-                width={1440}
-                height={900}
-                className="w-full object-cover"
-                priority
-              />
-            </div>
-          ) : (
-            <div
-              className={`flex min-h-[380px] items-center justify-center rounded-2xl bg-gradient-to-br ${project.gradient} p-10`}
-            >
-              <div className="w-full max-w-xl rounded-xl border border-white/[0.1] bg-black/60 p-6 font-mono text-sm shadow-2xl backdrop-blur-sm">
-                <div className="mb-4 flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-full bg-red-500/80" />
-                  <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
-                  <span className="h-3 w-3 rounded-full bg-green-500/80" />
-                </div>
-                {terminalLines.map((line, i) => (
-                  <div
-                    key={i}
-                    className={`leading-loose ${i === 0 ? "text-green-400" : "text-zinc-400"}`}
-                  >
-                    {line}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          <div className="mb-6">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-purple-400">
+              {t.project.visuals}
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
+              {t.project.visualIntro}
+            </p>
+          </div>
+          <ProjectVisuals
+            project={project}
+            locale={locale}
+            mainLabel={t.project.mainVisual}
+          />
         </SectionReveal>
 
-        {/* Problem / Solution */}
+        {/* Business impact */}
         <SectionReveal delay={0.12} className="mt-16">
-          <div className="grid gap-8 sm:grid-cols-2">
-            <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-7">
-              <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-red-400">
-                {t.project.problem}
-              </h2>
-              <p className="leading-relaxed text-zinc-400">
+          <div className="mb-6">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-emerald-400">
+              {t.project.impact}
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
+              {t.project.resultIntro}
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            <div className="rounded-2xl border border-red-500/20 bg-red-500/[0.03] p-7">
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-red-400">
+                {t.project.before}
+              </h3>
+              <p className="text-sm leading-relaxed text-zinc-400">
                 {project.problem[locale]}
               </p>
             </div>
-            <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-7">
-              <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-green-400">
-                {t.project.solution}
-              </h2>
-              <p className="leading-relaxed text-zinc-400">
+            <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/[0.03] p-7">
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-cyan-400">
+                {t.project.build}
+              </h3>
+              <p className="text-sm leading-relaxed text-zinc-400">
                 {project.solution[locale]}
               </p>
+            </div>
+            <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.03] p-7">
+              <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-emerald-400">
+                {t.project.result}
+              </h3>
+              <div className="grid gap-3">
+                {project.metrics.slice(0, 3).map((metric) => (
+                  <div
+                    key={`${metric.value}-${metric.label.en}`}
+                    className="rounded-xl border border-white/[0.06] bg-black/20 p-4"
+                  >
+                    <div
+                      className={`text-2xl font-bold ${metricTextColor[metric.color] ?? "text-white"}`}
+                    >
+                      {metric.value}
+                    </div>
+                    <div className="mt-1 text-xs text-zinc-500">
+                      {metric.label[locale]}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </SectionReveal>
@@ -289,6 +463,41 @@ export function CaseStudy({ slug }: CaseStudyProps) {
             </div>
           </SectionReveal>
         )}
+
+        {/* Conversion CTA */}
+        <SectionReveal delay={0.21} className="mt-20">
+          <div className="overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.03] p-8 sm:p-10">
+            <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+              <div>
+                <h2 className="text-3xl font-bold text-white">
+                  {t.project.ctaTitle}
+                </h2>
+                <p className="mt-3 max-w-2xl leading-relaxed text-zinc-400">
+                  {t.project.ctaSubtitle}
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-zinc-200"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  {t.project.ctaWhatsapp}
+                </a>
+                <a
+                  href="mailto:jean@je4ndev.com"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/[0.12] px-6 py-3 text-sm font-medium text-zinc-300 transition-colors hover:border-white/[0.24] hover:text-white"
+                >
+                  <Mail className="h-4 w-4" />
+                  {t.project.ctaEmail}
+                </a>
+              </div>
+            </div>
+          </div>
+        </SectionReveal>
 
         {/* Next Project */}
         {nextProject && (

@@ -14,18 +14,18 @@ interface LanguageContextValue {
 }
 
 export const LanguageContext = createContext<LanguageContextValue>({
-  locale: "en",
-  t: en as unknown as Translations,
+  locale: "pt",
+  t: pt as unknown as Translations,
   toggleLocale: () => {},
 });
 
 const translations = { en, pt } as unknown as Record<Locale, Translations>;
 
 function getInitialLocale(): Locale {
-  if (typeof window === "undefined") return "en";
+  if (typeof window === "undefined") return "pt";
   const stored = localStorage.getItem("locale");
   if (stored === "en" || stored === "pt") return stored;
-  return "en";
+  return "pt";
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {

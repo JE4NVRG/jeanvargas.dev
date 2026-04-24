@@ -11,24 +11,37 @@ import type { Project } from "@/types/project";
 
 function ProjectPreview({
   project,
-  locale,
+  priority = false,
 }: {
   project: Project;
-  locale: "en" | "pt";
+  priority?: boolean;
 }) {
   if (project.image) {
+    const isDashboardImage = project.slug === "gestaoml";
+
     return (
       <div
-        className={`relative min-h-[280px] overflow-hidden rounded-2xl bg-gradient-to-br ${project.gradient}`}
+        className={`relative min-h-[280px] overflow-hidden rounded-2xl bg-gradient-to-br ${project.gradient} ${isDashboardImage ? "bg-[#050812]" : ""}`}
       >
         <Image
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          className={
+            isDashboardImage
+              ? "object-contain p-5 transition-transform duration-500 group-hover:scale-[1.02] sm:p-7"
+              : "object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          }
           sizes="(max-width: 768px) 100vw, 50vw"
+          priority={priority}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <div
+          className={
+            isDashboardImage
+              ? "absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"
+              : "absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
+          }
+        />
       </div>
     );
   }
@@ -43,34 +56,39 @@ function ProjectPreview({
           <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
           <span className="h-3 w-3 rounded-full bg-green-500/80" />
         </div>
-        <div className="text-green-400">$ {project.slug} scope</div>
-        <div className="text-zinc-400">Type: {project.scope[locale]}</div>
-        <div className="text-zinc-500">Focus: {project.category}</div>
+        <div className="text-green-400">$ {project.slug} status</div>
+        <div className="text-zinc-400">Running...</div>
       </div>
     </div>
   );
 }
 
-function SmallProjectPreview({
-  project,
-  locale,
-}: {
-  project: Project;
-  locale: "en" | "pt";
-}) {
+function SmallProjectPreview({ project }: { project: Project }) {
   if (project.image) {
+    const isDashboardImage = project.slug === "gestaoml";
+
     return (
       <div
-        className={`relative h-[200px] overflow-hidden bg-gradient-to-br ${project.gradient}`}
+        className={`relative h-[200px] overflow-hidden bg-gradient-to-br ${project.gradient} ${isDashboardImage ? "bg-[#050812]" : ""}`}
       >
         <Image
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          className={
+            isDashboardImage
+              ? "object-contain p-4 transition-transform duration-500 group-hover:scale-[1.02]"
+              : "object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          }
           sizes="(max-width: 768px) 100vw, 50vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <div
+          className={
+            isDashboardImage
+              ? "absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"
+              : "absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"
+          }
+        />
       </div>
     );
   }
@@ -85,27 +103,22 @@ function SmallProjectPreview({
           <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
           <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
         </div>
-        <div className="text-green-400">$ {project.slug}</div>
-        <div className="text-zinc-400">{project.scope[locale]}</div>
+        <div className="text-green-400">$ {project.slug} status</div>
+        <div className="text-zinc-400">Running...</div>
       </div>
     </div>
   );
 }
 
-function StatusBadge({ status }: { status: Project["status"] }) {
-  const config = {
-    live: "bg-green-500/10 text-green-400 ring-1 ring-green-500/20",
-    mvp: "bg-yellow-500/10 text-yellow-400 ring-1 ring-yellow-500/20",
-    development: "bg-blue-500/10 text-blue-400 ring-1 ring-blue-500/20",
-    case: "bg-purple-500/10 text-purple-300 ring-1 ring-purple-500/20",
-    internal: "bg-blue-500/10 text-blue-300 ring-1 ring-blue-500/20",
-    demo: "bg-cyan-500/10 text-cyan-300 ring-1 ring-cyan-500/20",
-  }[status];
+function StatusBadge({ status }: { status: string }) {
   const isLive = status === "live";
-
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${config}`}
+      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${
+        isLive
+          ? "bg-green-500/10 text-green-400 ring-1 ring-green-500/20"
+          : "bg-cyan-500/10 text-cyan-400 ring-1 ring-cyan-500/20"
+      }`}
     >
       {isLive && (
         <span className="relative flex h-1.5 w-1.5">
@@ -122,13 +135,9 @@ export function FeaturedWork() {
   const { t, locale } = useTranslation();
   const featuredProjects = projects.filter((p) => p.featured);
   const others = projects.filter((p) => !p.featured);
-  const intro =
-    locale === "en"
-      ? "A curated mix of live products, private case studies, internal tools, and MVPs. Each project is labeled by its real status."
-      : "Uma selecao de produtos em uso, cases privados, ferramentas internas e MVPs. Cada projeto mostra seu status real.";
 
   return (
-    <section id="work" className="relative py-32">
+    <section id="work" className="relative py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <SectionReveal>
           <p className="text-xs font-semibold uppercase tracking-widest text-purple-500">
@@ -137,9 +146,6 @@ export function FeaturedWork() {
           <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
             {t.work.title}
           </h2>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-500 sm:text-base">
-            {intro}
-          </p>
         </SectionReveal>
 
         {/* Featured projects */}
@@ -152,13 +158,10 @@ export function FeaturedWork() {
             <Link href={`/projects/${featured.slug}`}>
               <TiltCard className="group cursor-pointer overflow-hidden rounded-3xl border border-white/[0.06] bg-white/[0.02]">
                 <div className="grid gap-0 md:grid-cols-2">
-                  <ProjectPreview project={featured} locale={locale} />
+                  <ProjectPreview project={featured} priority={idx === 0} />
                   <div className="flex flex-col justify-center p-8 md:p-10">
-                    <div className="mb-4 flex flex-wrap items-center gap-3">
+                    <div className="mb-4 flex items-center gap-3">
                       <StatusBadge status={featured.status} />
-                      <span className="rounded-full border border-white/[0.08] px-3 py-1 text-xs font-medium text-zinc-400">
-                        {featured.scope[locale]}
-                      </span>
                       <span className="text-xs text-zinc-600">
                         {featured.dateRange}
                       </span>
@@ -225,13 +228,10 @@ export function FeaturedWork() {
             <SectionReveal key={project.slug} delay={0.1 + i * 0.1}>
               <Link href={`/projects/${project.slug}`}>
                 <TiltCard className="group cursor-pointer overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] transition-colors hover:border-white/[0.1]">
-                  <SmallProjectPreview project={project} locale={locale} />
+                  <SmallProjectPreview project={project} />
                   <div className="p-6">
-                    <div className="mb-3 flex flex-wrap items-center gap-3">
+                    <div className="mb-3 flex items-center gap-3">
                       <StatusBadge status={project.status} />
-                      <span className="rounded-full border border-white/[0.08] px-3 py-1 text-xs font-medium text-zinc-500">
-                        {project.scope[locale]}
-                      </span>
                       <span className="text-xs text-zinc-600">
                         {project.category}
                       </span>

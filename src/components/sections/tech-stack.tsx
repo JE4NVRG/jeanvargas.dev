@@ -6,7 +6,8 @@ import { useTranslation } from "@/i18n";
 
 interface TechItem {
   name: string;
-  icon: string;
+  icon?: string;
+  fallback?: string;
 }
 
 type CategoryKey =
@@ -15,6 +16,7 @@ type CategoryKey =
   | "database"
   | "ai"
   | "devops"
+  | "web3"
   | "tools";
 
 const categories: { key: CategoryKey; techs: TechItem[] }[] = [
@@ -85,8 +87,20 @@ const categories: { key: CategoryKey; techs: TechItem[] }[] = [
         icon: "https://cdn.simpleicons.org/langchain/white",
       },
       {
+        name: "Anthropic",
+        icon: "https://cdn.simpleicons.org/anthropic/white",
+      },
+      {
+        name: "Qwen",
+        fallback: "QW",
+      },
+      {
+        name: "Kimi",
+        fallback: "KI",
+      },
+      {
         name: "CCXT",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg",
+        fallback: "CX",
       },
     ],
   },
@@ -104,6 +118,23 @@ const categories: { key: CategoryKey; techs: TechItem[] }[] = [
       {
         name: "GitHub Actions",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg",
+      },
+    ],
+  },
+  {
+    key: "web3",
+    techs: [
+      {
+        name: "Solidity",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/solidity/solidity-original.svg",
+      },
+      {
+        name: "Hardhat",
+        icon: "https://cdn.simpleicons.org/ethereum/white",
+      },
+      {
+        name: "OpenZeppelin",
+        icon: "https://cdn.simpleicons.org/openzeppelin/4e5ee4",
       },
     ],
   },
@@ -155,14 +186,20 @@ export function TechStack() {
                       className="group flex items-center gap-3 rounded-xl border border-white/[0.05] bg-white/[0.02] px-4 py-3 transition-all hover:border-white/[0.1] hover:bg-white/[0.04]"
                     >
                       <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.05] p-1.5 transition-transform group-hover:scale-110">
-                        <Image
-                          src={tech.icon}
-                          alt={tech.name}
-                          width={24}
-                          height={24}
-                          className="h-5 w-5 object-contain"
-                          unoptimized
-                        />
+                        {tech.icon ? (
+                          <Image
+                            src={tech.icon}
+                            alt={tech.name}
+                            width={24}
+                            height={24}
+                            className="h-5 w-5 object-contain"
+                            unoptimized
+                          />
+                        ) : (
+                          <span className="text-[10px] font-black text-cyan-300">
+                            {tech.fallback ?? tech.name.slice(0, 2)}
+                          </span>
+                        )}
                       </div>
                       <span className="text-sm text-zinc-300">
                         {tech.name}

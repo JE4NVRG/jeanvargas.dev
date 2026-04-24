@@ -20,6 +20,11 @@ export interface Project {
     github?: string;
   };
   image?: string;
+  gallery?: Array<{
+    src: string;
+    title: { en: string; pt: string };
+    description: { en: string; pt: string };
+  }>;
   gradient: string;
   featured: boolean;
 }

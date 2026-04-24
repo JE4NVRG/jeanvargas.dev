@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Braces } from "lucide-react";
 import { useTranslation } from "@/i18n";
 
 const navLinks = [
@@ -15,8 +17,14 @@ const navLinks = [
 
 export function Navbar() {
   const { t, locale, toggleLocale } = useTranslation();
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const anchorPrefix = pathname === "/" ? "" : "/";
+  const resolveHref = useCallback(
+    (href: string) => `${anchorPrefix}${href}`,
+    [anchorPrefix],
+  );
 
   useEffect(() => {
     function onScroll() {
@@ -55,22 +63,27 @@ export function Navbar() {
         <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4">
           <Link
             href="/"
-            className="text-lg font-extrabold tracking-tight"
+            className="group flex items-center gap-2 text-lg font-extrabold tracking-normal"
             onClick={closeMobile}
           >
-            je4n<span className="text-purple-500">dev</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/[0.1] bg-white/[0.06] text-cyan-300 transition-colors group-hover:border-cyan-300/40">
+              <Braces className="h-4 w-4" />
+            </span>
+            <span>
+              je4n<span className="text-purple-500">dev</span>
+            </span>
           </Link>
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-7">
             {navLinks.filter(l => l.key !== "contact").map((link) => (
-              <a
+              <Link
                 key={link.key}
-                href={link.href}
+                href={resolveHref(link.href)}
                 className="text-sm text-zinc-400 hover:text-white transition-colors"
               >
                 {t.nav[link.key]}
-              </a>
+              </Link>
             ))}
 
             <div className="w-px h-4 bg-white/10" />
@@ -83,12 +96,12 @@ export function Navbar() {
               {locale === "en" ? "EN | PT" : "PT | EN"}
             </button>
 
-            <a
-              href="#contact"
+            <Link
+              href={resolveHref("#contact")}
               className="bg-white text-black text-sm font-semibold px-5 py-2 rounded-lg hover:bg-zinc-200 transition-colors"
             >
               {t.nav.contact}
-            </a>
+            </Link>
           </div>
 
           {/* Mobile hamburger / close */}
@@ -146,20 +159,23 @@ export function Navbar() {
                 {/* Nav links */}
                 <div className="flex flex-col gap-1">
                   {navLinks.map((link, i) => (
-                    <motion.a
+                    <motion.div
                       key={link.key}
-                      href={link.href}
-                      onClick={closeMobile}
-                      className="group flex items-center gap-3 rounded-xl px-4 py-4 text-lg font-medium text-zinc-300 transition-colors hover:bg-white/[0.04] hover:text-white"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.05 + i * 0.05 }}
                     >
-                      <span className="text-xs text-zinc-700 font-mono">
-                        0{i + 1}
-                      </span>
-                      {t.nav[link.key]}
-                    </motion.a>
+                      <Link
+                        href={resolveHref(link.href)}
+                        onClick={closeMobile}
+                        className="group flex items-center gap-3 rounded-xl px-4 py-4 text-lg font-medium text-zinc-300 transition-colors hover:bg-white/[0.04] hover:text-white"
+                      >
+                        <span className="text-xs text-zinc-700 font-mono">
+                          0{i + 1}
+                        </span>
+                        {t.nav[link.key]}
+                      </Link>
+                    </motion.div>
                   ))}
                 </div>
 
