@@ -85,7 +85,7 @@ export const projects: Project[] = [
       en: "A centralized automation gateway that orchestrates AI-powered workflows across multiple platforms. Features intelligent routing, real-time monitoring, and 24/7 automated operations with high availability.",
       pt: "Um gateway de automacao centralizado que orquestra workflows com IA em multiplas plataformas. Possui roteamento inteligente, monitoramento em tempo real e operacoes automatizadas 24/7 com alta disponibilidade.",
     },
-    status: "live",
+    status: "development",
     dateRange: "2024 — Present",
     category: "Automation Platform",
     technologies: ["Node.js", "OpenAI", "Supabase", "TypeScript"],
