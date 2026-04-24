@@ -22,13 +22,16 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Jean Carlos Vargas — Full Stack Developer & SaaS Builder",
+  title: "Jean Carlos Vargas — Full-Stack Engineer for SaaS & AI Automation",
   description:
-    "Building SaaS platforms and AI-powered automations. Creator of NexPanel, Vultrix 3D, and OpenClaw Gateway. Next.js, TypeScript, Supabase.",
+    "Full-stack engineer building SaaS products, internal tools, and AI automation workflows for companies that need speed, clarity, and reliable execution.",
   keywords: [
+    "full stack engineer",
     "full stack developer",
     "AI automation",
+    "internal tools",
     "SaaS",
+    "remote contract work",
     "Next.js",
     "React",
     "TypeScript",
@@ -53,9 +56,9 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   openGraph: {
-    title: "Jean Carlos Vargas — Full Stack Developer & SaaS Builder",
+    title: "Jean Carlos Vargas — Full-Stack Engineer for SaaS & AI Automation",
     description:
-      "Building SaaS platforms and AI-powered automations. Creator of NexPanel, Vultrix 3D, and OpenClaw Gateway. Next.js, TypeScript, Supabase.",
+      "SaaS products, internal tools, and AI automation workflows for remote teams, founders, and businesses that need execution.",
     url: "https://je4ndev.com",
     siteName: "je4ndev",
     type: "website",
@@ -64,15 +67,15 @@ export const metadata: Metadata = {
         url: "https://je4ndev.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "je4ndev — Full Stack Developer & SaaS Builder",
+        alt: "je4ndev — Full-Stack Engineer for SaaS & AI Automation",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jean Carlos Vargas — Full Stack Developer & SaaS Builder",
+    title: "Jean Carlos Vargas — Full-Stack Engineer for SaaS & AI Automation",
     description:
-      "Building SaaS platforms and AI-powered automations. Creator of NexPanel, Vultrix 3D, and OpenClaw Gateway. Next.js, TypeScript, Supabase.",
+      "SaaS products, internal tools, and AI automation workflows for companies that need speed, clarity, and reliable execution.",
     images: ["https://je4ndev.com/og-image.png"],
   },
 };
@@ -92,7 +95,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               name: "Jean Carlos Vargas",
-              jobTitle: "Full Stack Developer",
+              jobTitle: "Full-Stack Engineer",
               url: "https://je4ndev.com",
               email: "jean@je4ndev.com",
               image:
@@ -109,12 +112,13 @@ export default function RootLayout({
                 "Supabase",
                 "OpenAI",
                 "SaaS",
+                "Internal Tools",
                 "AI Automation",
               ],
               address: {
                 "@type": "PostalAddress",
-                addressLocality: "Paranava\u00ed",
-                addressRegion: "Paran\u00e1",
+                addressLocality: "Paranavai",
+                addressRegion: "Parana",
                 addressCountry: "BR",
               },
             }),
