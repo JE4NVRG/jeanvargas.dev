@@ -24,9 +24,6 @@ export function Footer() {
           >
             <Github size={26} />
           </a>
-          <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-600">
-            Criado por JE4NVRG - JE4NDEV
-          </p>
         </div>
 
         <div className="flex items-center justify-center gap-5 sm:justify-end">
