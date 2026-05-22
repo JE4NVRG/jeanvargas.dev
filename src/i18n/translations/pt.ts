@@ -4,34 +4,34 @@ export const pt: Translations = {
   nav: {
     work: "Projetos",
     about: "Sobre",
-    services: "Servicos",
+    services: "Serviços",
     stack: "Stack",
     contact: "Entre em contato",
   },
   hero: {
-    badge: "Disponivel para projetos selecionados",
-    title: "Eu construo SaaS e automacoes",
-    titleHighlight: "para o seu negocio crescer",
+    badge: "Disponível para projetos selecionados",
+    title: "Eu construo SaaS e automações",
+    titleHighlight: "para o seu negócio crescer",
     subtitle:
-      "Desenvolvedor full-stack ajudando founders e equipes a lancar produtos prontos para vender, conectar APIs e reduzir trabalho manual com IA.",
+      "Desenvolvedor full-stack ajudando founders e equipes a lançar produtos prontos para vender, conectar APIs e reduzir trabalho manual com IA.",
     terminalTitle: "je4ndev/build",
-    terminalCommand: "ship produto --saas --automacao --web3",
+    terminalCommand: "ship produto --saas --automação --web3",
     terminalOutput: "escopo -> arquitetura -> codigo -> deploy -> monitoramento",
-    cta: "Comecar um projeto",
+    cta: "Começar um projeto",
     secondaryCta: "Ver cases",
     email: "jean@je4ndev.com",
     whatsapp: "Falar no WhatsApp",
     proof:
-      "Da ideia ao produto em producao: estrategia, interface, backend, banco, automacoes e deploy.",
+      "Da ideia ao produto em produção: estratégia, interface, backend, banco, automações e deploy.",
     stats: [
       { value: "10+", label: "anos construindo sistemas" },
-      { value: "R$181k+", label: "rastreados em plataformas" },
-      { value: "24/7", label: "automacao e monitoramento" },
+      { value: "6+", label: "produtos live em produção" },
+      { value: "24/7", label: "automação e monitoramento" },
     ],
     strengths: [
       "MVPs SaaS com auth, billing e painel admin",
       "Fluxos com IA que reduzem tarefas repetitivas",
-      "Integracoes com APIs, dashboards e bancos",
+      "Integrações com APIs, dashboards e bancos",
       "Auditoria Solidity para contratos inteligentes",
     ],
   },
@@ -44,7 +44,7 @@ export const pt: Translations = {
   about: {
     label: "Sobre",
     name: "Jean Carlos Vargas",
-    bio: "Desenvolvedor full-stack e Fundador da Vultrix 3D. Construindo sistemas em producao ha mais de 10 anos, de plataformas SaaS a bots com IA, integracoes de APIs, auditoria de contratos inteligentes em Solidity e pipelines de automacao. Baseado em Paranavai, Brasil, trabalhando globalmente.",
+    bio: "Desenvolvedor full-stack e Fundador da Vultrix 3D. Construindo sistemas em produção ha mais de 10 anos, de plataformas SaaS a bots com IA, integrações de APIs, auditoria de contratos inteligentes em Solidity e pipelines de automação. Baseado em Paranavai, Brasil, trabalhando globalmente.",
     experience: "10+ anos",
   },
   stack: {
@@ -61,18 +61,18 @@ export const pt: Translations = {
     },
   },
   services: {
-    label: "Servicos",
-    title: "O que posso construir para o seu negocio",
+    label: "Serviços",
+    title: "O que posso construir para o seu negócio",
     items: [
       {
-        title: "Aplicacoes Web",
+        title: "Aplicações Web",
         description:
-          "Apps full-stack rapidos e bem acabados com dashboards, formularios e fluxos reais",
+          "Apps full-stack rápidos e bem acabados com dashboards, formularios e fluxos reais",
       },
       {
         title: "Plataformas SaaS",
         description:
-          "Produtos com auth, billing, permissoes, painel admin e arquitetura de producao",
+          "Produtos com auth, billing, permissões, painel admin e arquitetura de produção",
       },
       {
         title: "Automacoes com IA",
@@ -80,31 +80,32 @@ export const pt: Translations = {
           "Bots, agentes e workflows que cortam tarefas manuais e conectam ferramentas",
       },
       {
-        title: "Integracoes de APIs",
+        title: "Integrações de APIs",
         description:
-          "Conexao com ERPs, CRMs, marketplaces, pagamentos e bancos internos",
+          "Conexão com ERPs, CRMs, marketplaces, pagamentos e bancos internos",
       },
       {
         title: "Auditoria Solidity",
         description:
-          "Revisao de contratos inteligentes, riscos de seguranca, logica de negocio e pontos de exploracao",
+          "Revisão de contratos inteligentes, riscos de seguranca, lógica de negócio e pontos de exploracao",
       },
       {
         title: "Apps Mobile",
         description:
-          "Aplicativos cross-platform para equipes, clientes e operacoes externas",
+          "Aplicativos cross-platform para equipes, clientes e operações externas",
       },
       {
         title: "Consultoria",
         description:
-          "Arquitetura, decisao de produto e revisao tecnica antes de gastar meses construindo",
+          "Arquitetura, decisão de produto e revisão técnica antes de gastar meses construindo",
       },
     ],
     cta: "Saiba mais",
+    whatsappMessage: "Oi Jean, quero saber mais sobre o serviço de {service}.",
   },
   contact: {
     title: "Vamos construir algo",
-    titleHighlight: "extraordinario",
+    titleHighlight: "extraordinário",
     subtitle: "Tem um projeto em mente? Adoraria ouvir sobre.",
     whatsapp: "WhatsApp",
   },
@@ -112,26 +113,26 @@ export const pt: Translations = {
     copyright: "(c) 2026 Jean Carlos Vargas",
   },
   testimonials: {
-    label: "Comentarios",
+    label: "Comentários",
     title: "Clientes e projetos representativos",
     items: [
       {
         avatar: "/images/testimonials/marina-lopes.webp",
         name: "Marina Lopes",
         role: "Founder",
-        company: "ComercioNex",
+        company: "ComércioNex",
         quote:
-          "Jean transformou uma ideia solta em um SaaS com fluxo claro, painel, permissoes e deploy pronto para vender. O projeto saiu com cara de produto, nao de prototipo.",
+          "Jean transformou uma ideia solta em um SaaS com fluxo claro, painel, permissões e deploy pronto para vender. O projeto saiu com cara de produto, nao de prototipo.",
         result: "MVP SaaS validado em semanas",
       },
       {
         avatar: "/images/testimonials/rafael-costa.webp",
         name: "Rafael Costa",
-        role: "Head de Operacoes",
-        company: "Operacoes Mercado",
+        role: "Head de Operações",
+        company: "Operações Mercado",
         quote:
-          "A automacao reduziu retrabalho em pedidos, mensagens e conciliacao. O time parou de depender de planilha e passou a acompanhar tudo em uma rotina unica.",
-        result: "Pedidos e atendimento centralizados",
+          "A automação reduziu retrabalho em pedidos, mensagens e conciliação. O time parou de depender de planilha e passou a acompanhar tudo em uma rotina única.",
+        result: "Pedidos e aténdimento centralizados",
       },
       {
         avatar: "/images/testimonials/camila-torres.webp",
@@ -139,7 +140,7 @@ export const pt: Translations = {
         role: "Product Lead",
         company: "Vozly IA",
         quote:
-          "Ele nao criou so um bot. Criou um fluxo completo com contexto, logs, fallback e integracao com nossas APIs, deixando a automacao pronta para uso real.",
+          "Ele nao criou so um bot. Criou um fluxo completo com contexto, logs, fallback e integracao com nossas APIs, deixando a automação pronta para uso real.",
         result: "IA conectada ao processo real",
       },
       {
@@ -148,7 +149,7 @@ export const pt: Translations = {
         role: "CTO",
         company: "PonteDados",
         quote:
-          "Jean entende o lado tecnico e o impacto no negocio. A integracao saiu organizada, monitoravel e facil de manter, sem criar dependencia desnecessaria.",
+          "Jean entende o lado técnico e o impacto no negócio. A integracao saiu organizada, monitorável e fácil de manter, sem criar dependencia desnecessaria.",
         result: "APIs, jobs e monitoramento",
       },
       {
@@ -157,7 +158,7 @@ export const pt: Translations = {
         role: "Diretora Financeira",
         company: "PrintLab 3D",
         quote:
-          "O sistema deixou custo, margem e faturamento visiveis. A precificacao parou de ser tentativa e erro e virou uma decisao baseada em dados.",
+          "O sistema deixou custo, margem e faturamento visíveis. A precificacao parou de ser tentativa e erro e virou uma decisão baseada em dados.",
         result: "Financeiro com dados confiaveis",
       },
       {
@@ -166,30 +167,30 @@ export const pt: Translations = {
         role: "Founder Web3",
         company: "ProvaChain",
         quote:
-          "A auditoria Solidity encontrou riscos de permissao e logica antes do deploy. O relatorio foi direto ao ponto e ajudou o time a corrigir rapido.",
-        result: "Contrato revisado antes de producao",
+          "A auditoria Solidity encontrou riscos de permissao e lógica antes do deploy. O relatorio foi direto ao ponto e ajudou o time a corrigir rápido.",
+        result: "Contrato revisado antes de produção",
       },
     ],
   },
   project: {
     breadcrumbWork: "Projetos",
     visuals: "Prints do produto",
-    visualIntro: "Telas reais do produto, landing page e fluxos de conversao.",
+    visualIntro: "Telas reais do produto, landing page e fluxos de conversão.",
     mainVisual: "Print em destaque",
-    impact: "Impacto no negocio",
+    impact: "Impacto no negócio",
     before: "Antes",
     build: "O que eu construi",
     result: "Resultado",
     resultIntro: "Os principais sinais de resultado do projeto.",
     problem: "O Problema",
-    solution: "A Solucao",
+    solution: "A Solução",
     visitLive: "Visitar site",
     github: "GitHub",
     ctaTitle: "Quer um sistema parecido?",
     ctaSubtitle:
-      "Me conte o que hoje e manual, lento ou dificil de medir na sua operacao. Eu posso ajudar a transformar isso em produto real.",
+      "Me conte o que hoje e manual, lento ou dificil de medir na sua operação. Eu posso ajudar a transformar isso em produto real.",
     ctaWhatsapp: "Conversar sobre meu projeto",
     ctaEmail: "Enviar email",
-    nextProject: "Proximo projeto",
+    nextProject: "Próximo projeto",
   },
 };
