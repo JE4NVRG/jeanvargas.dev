@@ -23,7 +23,7 @@ export const en = {
       "From idea to production: strategy, interface, backend, database, automations and deployment.",
     stats: [
       { value: "10+", label: "years building systems" },
-      { value: "R$181k+", label: "tracked in client platforms" },
+      { value: "6+", label: "products live in production" },
       { value: "24/7", label: "automation and monitoring" },
     ],
     strengths: [
@@ -98,6 +98,7 @@ export const en = {
       },
     ],
     cta: "Learn more",
+    whatsappMessage: "Hi Jean, I'm interested in your {service} service.",
   },
   contact: {
     title: "Let's build something",
@@ -245,6 +246,7 @@ export type Translations = {
     title: string;
     items: ReadonlyArray<{ title: string; description: string }>;
     cta: string;
+    whatsappMessage: string;
   };
   contact: {
     title: string;

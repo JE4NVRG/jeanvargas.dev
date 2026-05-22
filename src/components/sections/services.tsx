@@ -43,8 +43,9 @@ export function Services() {
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {t.services.items.map((service, i) => {
             const Icon = serviceIcons[i] || Code2;
+            const messageTemplate = t.services.whatsappMessage ?? "Hi Jean, I'm interested in your {service} service.";
             const message = encodeURIComponent(
-              `Hi Jean, I'm interested in your ${service.title} service.`
+              messageTemplate.replace("{service}", service.title)
             );
             return (
               <SectionReveal key={i} delay={0.05 * i}>
