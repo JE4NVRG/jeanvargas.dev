@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>je4ndev — tech stack</title>
+  <link rel="icon" href="/portfolio-refresh/brand-icon.svg" />
+  <link rel="stylesheet" href="/portfolio-refresh/colors_and_type.css" />
+  <style>
+    *,*::before,*::after { box-sizing: border-box; }
+    html,body { margin:0; padding:0; background:#050505; color:#ededed; font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ===== Mesh bg ===== */
+    .mesh { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .mesh-blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.5; }
+    .mesh-cyan   { width: 520px; height: 520px; top: -180px; left: -160px; background: radial-gradient(circle, rgba(94,234,212,0.22) 0%, transparent 70%); }
+    .mesh-violet { width: 580px; height: 580px; bottom: -240px; right: -160px; background: radial-gradient(circle, rgba(139,92,246,0.20) 0%, transparent 70%); }
+    .mesh-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 80%);
+      opacity: 0.35;
+    }
+
+    /* ===== Section header ===== */
+    section.stack { position: relative; padding: 96px 0 120px; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    .section-head { margin-bottom: 56px; max-width: 720px; }
+    .eyebrow-cyan {
+      font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase; color: #5EEAD4;
+    }
+    .h2 {
+      margin: 14px 0 0; font-family: var(--font-sans); font-weight: 700;
+      font-size: clamp(2rem, 2.4vw + 1rem, 3rem);
+      line-height: 1.1; letter-spacing: -0.02em; color: #fff;
+    }
+    .section-sub { margin-top: 18px; font-size: 17px; line-height: 1.65; color: #a1a1aa; max-width: 56ch; }
+
+    /* ===== Grid ===== */
+    .stack-grid {
+      display: grid; gap: 22px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) { .stack-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1024px){ .stack-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+    /* ===== Category card ===== */
+    .cat-card {
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #080808;
+      border-radius: 22px;
+      padding: 26px 24px 22px;
+      overflow: hidden;
+      transition: border-color .3s, transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
+    }
+    .cat-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--cat-bg, transparent);
+      pointer-events: none; opacity: 0.85;
+    }
+    .cat-card::after {
+      content: ''; position: absolute; inset: 0; border-radius: 22px; pointer-events: none;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+    .cat-card:hover {
+      border-color: var(--cat-ring, rgba(255,255,255,0.18));
+      transform: translateY(-4px);
+      box-shadow: 0 32px 70px -40px var(--cat-glow, rgba(255,255,255,0.2));
+    }
+
+    /* Cat header */
+    .cat-head { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .cat-ico {
+      width: 36px; height: 36px; border-radius: 11px;
+      background: var(--cat-icobg, rgba(255,255,255,0.05));
+      border: 1px solid var(--cat-icobd, rgba(255,255,255,0.08));
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cat-fg, #fff);
+    }
+    .cat-name {
+      font-family: var(--font-sans);
+      font-size: 15px; font-weight: 600;
+      color: #fff; letter-spacing: -0.005em;
+    }
+    .cat-count {
+      margin-left: auto;
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--cat-fg, #71717a);
+      opacity: 0.75;
+    }
+
+    /* Tech chips */
+    .chips { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      border-radius: 9999px;
+      font-size: 12.5px; color: #d4d4d8;
+      transition: border-color .25s, background .25s, transform .25s;
+    }
+    .chip:hover {
+      border-color: var(--cat-ring, rgba(255,255,255,0.2));
+      background: rgba(255,255,255,0.055);
+      transform: translateY(-1px);
+    }
+    .chip-ico {
+      width: 16px; height: 16px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .chip-ico img { width: 16px; height: 16px; object-fit: contain; }
+    .chip-fb {
+      width: 16px; height: 16px; border-radius: 4px;
+      background: rgba(255,255,255,0.06);
+      color: var(--cat-fg, #5EEAD4);
+      font-family: var(--font-mono); font-size: 9px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ===== reveal ===== */
+    .r { opacity: 0; transform: translateY(22px); transition: opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1); }
+    .r.on { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <section class="stack" id="stack">
+    <div class="mesh" aria-hidden="true">
+      <div class="mesh-grid"></div>
+      <div class="mesh-blob mesh-cyan"></div>
+      <div class="mesh-blob mesh-violet"></div>
+    </div>
+
+    <div class="container">
+      <header class="section-head r" style="transition-delay:.05s">
+        <div class="eyebrow-cyan">Tech Stack</div>
+        <h2 class="h2">Ferramentas que uso</h2>
+        <p class="section-sub">A stack que sustenta 7 produtos em produção — escolhida pra durar, escalar e manter sem fricção.</p>
+      </header>
+
+      <div class="stack-grid" id="grid"></div>
+    </div>
+  </section>
+
+  <script>
+    // ---------- Lucide-style icons (inline SVG paths) ----------
+    const LC = {
+      layout:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>',
+      server:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="2" y="4" width="20" height="8" rx="2"/><rect x="2" y="12" width="20" height="8" rx="2"/><circle cx="6" cy="8" r=".5" fill="currentColor"/><circle cx="6" cy="16" r=".5" fill="currentColor"/></svg>',
+      database: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 11v6c0 1.7 4 3 9 3s9-1.3 9-3v-6"/></svg>',
+      sparkles: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/><path d="M19 3l.7 2 2 .7-2 .7L19 9"/></svg>',
+      box:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96L12 12l8.73-5.04M12 22V12"/></svg>',
+      shield:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
+    };
+
+    // ---------- Categories ----------
+    // accent: cyan | emerald | violet | magenta | amber | gold
+    const CATEGORIES = [
+      {
+        key: 'frontend', name: 'Frontend', icon: 'layout', accent: 'cyan',
+        techs: [
+          { n: 'Next.js',     i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg' },
+          { n: 'React',       i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
+          { n: 'TypeScript',  i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg' },
+          { n: 'Tailwind CSS',i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
+        ],
+      },
+      {
+        key: 'backend', name: 'Backend', icon: 'server', accent: 'emerald',
+        techs: [
+          { n: 'Node.js',  i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
+          { n: 'Python',   i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
+          { n: 'Express',  i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg' },
+        ],
+      },
+      {
+        key: 'database', name: 'Banco de Dados', icon: 'database', accent: 'cyan2',
+        techs: [
+          { n: 'Supabase',   i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg' },
+          { n: 'Firebase',   i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg' },
+          { n: 'PostgreSQL', i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg' },
+        ],
+      },
+      {
+        key: 'ai', name: 'IA & Automação', icon: 'sparkles', accent: 'magenta',
+        techs: [
+          { n: 'OpenAI',    i: 'https://cdn.simpleicons.org/openai/white' },
+          { n: 'Anthropic', i: 'https://cdn.simpleicons.org/anthropic/white' },
+          { n: 'LangChain', i: 'https://cdn.simpleicons.org/langchain/white' },
+          { n: 'Qwen',  fb: 'QW' },
+          { n: 'Kimi',  fb: 'KI' },
+          { n: 'CCXT',  fb: 'CX' },
+        ],
+      },
+      {
+        key: 'devops', name: 'DevOps', icon: 'box', accent: 'violet',
+        techs: [
+          { n: 'Docker',         i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg' },
+          { n: 'Vercel',         i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg' },
+          { n: 'GitHub Actions', i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg' },
+        ],
+      },
+      {
+        key: 'web3', name: 'Web3 & Smart Contracts', icon: 'shield', accent: 'gold',
+        techs: [
+          { n: 'Solidity',     i: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/solidity/solidity-original.svg' },
+          { n: 'Hardhat',      i: 'https://cdn.simpleicons.org/ethereum/white' },
+          { n: 'OpenZeppelin', i: 'https://cdn.simpleicons.org/openzeppelin/4e5ee4' },
+        ],
+      },
+    ];
+
+    const ACCENTS = {
+      cyan:    { fg: '#5EEAD4', ring: 'rgba(94,234,212,0.32)', icoBg: 'rgba(94,234,212,0.10)', icoBd: 'rgba(94,234,212,0.22)', bg: 'radial-gradient(circle at 100% 0%, rgba(94,234,212,0.08) 0%, transparent 55%)', glow: 'rgba(94,234,212,0.25)' },
+      cyan2:   { fg: '#A5F3FC', ring: 'rgba(103,232,249,0.32)', icoBg: 'rgba(103,232,249,0.10)', icoBd: 'rgba(103,232,249,0.22)', bg: 'radial-gradient(circle at 0% 100%, rgba(103,232,249,0.08) 0%, transparent 55%)', glow: 'rgba(103,232,249,0.22)' },
+      emerald: { fg: '#34D399', ring: 'rgba(16,185,129,0.32)',  icoBg: 'rgba(16,185,129,0.10)',  icoBd: 'rgba(16,185,129,0.22)',  bg: 'radial-gradient(circle at 100% 100%, rgba(16,185,129,0.07) 0%, transparent 55%)', glow: 'rgba(16,185,129,0.22)' },
+      violet:  { fg: '#A78BFA', ring: 'rgba(139,92,246,0.34)',  icoBg: 'rgba(139,92,246,0.10)',  icoBd: 'rgba(139,92,246,0.24)',  bg: 'radial-gradient(circle at 0% 0%, rgba(139,92,246,0.10) 0%, transparent 55%)', glow: 'rgba(139,92,246,0.28)' },
+      magenta: { fg: '#F472B6', ring: 'rgba(236,72,153,0.34)',  icoBg: 'rgba(236,72,153,0.10)',  icoBd: 'rgba(236,72,153,0.24)',  bg: 'radial-gradient(circle at 100% 0%, rgba(236,72,153,0.10) 0%, transparent 55%)', glow: 'rgba(236,72,153,0.26)' },
+      gold:    { fg: '#FBBF24', ring: 'rgba(251,191,36,0.34)',  icoBg: 'rgba(251,191,36,0.10)',  icoBd: 'rgba(251,191,36,0.24)',  bg: 'radial-gradient(circle at 0% 100%, rgba(251,191,36,0.08) 0%, transparent 55%)', glow: 'rgba(251,191,36,0.24)' },
+    };
+
+    function renderCategory(cat, i) {
+      const a = ACCENTS[cat.accent];
+      const chips = cat.techs.map(t => {
+        const icoSrc = t.i
+          ? `<img src="${t.i}" alt="${t.n}"/>`
+          : `<span class="chip-fb">${t.fb}</span>`;
+        return `<span class="chip"><span class="chip-ico">${icoSrc}</span>${t.n}</span>`;
+      }).join('');
+      return `
+      <article class="cat-card r"
+        style="
+          transition-delay:${0.1 + i*0.06}s;
+          --cat-bg:${a.bg};
+          --cat-ring:${a.ring};
+          --cat-fg:${a.fg};
+          --cat-icobg:${a.icoBg};
+          --cat-icobd:${a.icoBd};
+          --cat-glow:${a.glow};
+        ">
+        <div class="cat-head">
+          <div class="cat-ico">${LC[cat.icon]}</div>
+          <div class="cat-name">${cat.name}</div>
+          <div class="cat-count">${String(cat.techs.length).padStart(2,'0')}</div>
+        </div>
+        <div class="chips">${chips}</div>
+      </article>`;
+    }
+
+    document.getElementById('grid').innerHTML = CATEGORIES.map(renderCategory).join('');
+
+    // Reveal
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.r').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

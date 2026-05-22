@@ -1,0 +1,205 @@
+/* =====================================================================
+   je4ndev — colors_and_type.css
+   Source of truth for design tokens lifted from the production codebase
+   (JE4NVRG/jeanvargas.dev). Premium tech editorial dark.
+   ===================================================================== */
+
+/* ---------- 1. Type ---------------------------------------------------- */
+/* Geist Sans + Geist Mono via Google Fonts. The Next.js app loads them
+   through next/font; for static HTML we use the public CDN. */
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600;700&display=swap");
+
+:root {
+  /* ---------- 2. Background system (always dark) -------------------- */
+  --bg-base:        #050505;   /* page background — never change */
+  --bg-elevated:    #080808;   /* cards */
+  --bg-terminal:    #060708;   /* terminal chrome */
+  --bg-overlay-1:   rgba(255, 255, 255, 0.02);  /* faint tile */
+  --bg-overlay-2:   rgba(255, 255, 255, 0.03);  /* card tint */
+  --bg-overlay-3:   rgba(255, 255, 255, 0.04);  /* hovered card */
+  --bg-overlay-4:   rgba(255, 255, 255, 0.06);  /* hover lift */
+
+  /* ---------- 3. Foreground (text) ---------------------------------- */
+  --fg-1: #ffffff;          /* h1, key UI */
+  --fg-2: #ededed;           /* body, default text */
+  --fg-3: #d4d4d8;           /* zinc-300, secondary text */
+  --fg-4: #a1a1aa;           /* zinc-400, muted */
+  --fg-5: #71717a;           /* zinc-500, eyebrow / meta */
+  --fg-6: #52525b;           /* zinc-600, footer copy */
+  --fg-7: #3f3f46;           /* zinc-700, ultra-faint */
+
+  /* ---------- 4. Brand accents -------------------------------------- */
+  --accent-cyan:     #5EEAD4;   /* primary signature — terminal, JEAN J */
+  --accent-cyan-200: #A5F3FC;
+  --accent-cyan-300: #67E8F9;
+  --accent-cyan-400: #22D3EE;
+  --accent-magenta:  #EC4899;   /* secondary signature */
+  --accent-violet:   #8B5CF6;   /* "dev" word, eyebrow labels */
+  --accent-violet-400: #A855F7;
+  --accent-violet-500: #8B5CF6;
+  --accent-emerald:  #10B981;   /* success, "live" status, $ prompt */
+  --accent-emerald-300: #6EE7B7;
+  --accent-emerald-400: #34D399;
+  --accent-amber:    #FBBF24;   /* warning, mvp status */
+  --accent-pink:     #EC4899;   /* alias of magenta — pink-300 in metrics */
+
+  /* ---------- 5. Status / semantic ---------------------------------- */
+  --status-live-bg:   rgba(34, 197, 94, 0.10);
+  --status-live-fg:   #86efac;
+  --status-live-ring: rgba(34, 197, 94, 0.20);
+  --status-mvp-bg:    rgba(234, 179, 8, 0.10);
+  --status-mvp-fg:    #fde047;
+  --status-mvp-ring:  rgba(234, 179, 8, 0.20);
+  --status-dev-bg:    rgba(59, 130, 246, 0.10);
+  --status-dev-fg:    #93c5fd;
+  --status-case-bg:   rgba(168, 85, 247, 0.10);
+  --status-case-fg:   #d8b4fe;
+
+  /* ---------- 6. Borders / rings ----------------------------------- */
+  --ring-1: rgba(255, 255, 255, 0.06);  /* default card ring */
+  --ring-2: rgba(255, 255, 255, 0.08);  /* stronger */
+  --ring-3: rgba(255, 255, 255, 0.10);  /* badge */
+  --ring-4: rgba(255, 255, 255, 0.12);  /* button outline */
+  --ring-5: rgba(255, 255, 255, 0.16);  /* hover */
+  --ring-cyan: rgba(103, 232, 249, 0.25); /* brand mark ring */
+  --ring-violet: rgba(168, 85, 247, 0.50);
+
+  /* ---------- 7. Radii --------------------------------------------- */
+  --r-sm:  8px;
+  --r-md:  12px;   /* chips / tech tags */
+  --r-lg:  16px;   /* card minimum, per spec */
+  --r-xl:  20px;
+  --r-2xl: 24px;
+  --r-3xl: 32px;
+  --r-full: 9999px;
+
+  /* ---------- 8. Shadows ------------------------------------------- */
+  --shadow-card:   0 22px 80px -55px rgba(255, 255, 255, 0.35);
+  --shadow-deep:   0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  --shadow-cyan:   0 0 28px -14px rgba(34, 211, 238, 0.9);
+  --shadow-violet: 0 0 40px -16px rgba(139, 92, 246, 0.55);
+
+  /* ---------- 9. Spacing (Tailwind scale subset) -------------------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 28px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;     /* section py */
+  --sp-32: 128px;    /* xl section py */
+
+  /* ---------- 10. Type families ------------------------------------ */
+  --font-sans: "Geist", system-ui, -apple-system, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas,
+               "Liberation Mono", monospace;
+
+  /* ---------- 11. Type scale --------------------------------------- */
+  /* Display (hero h1) — extrabold, tight tracking, generous line height */
+  --t-display-size:   clamp(2.5rem, 5vw + 1rem, 5rem);   /* 40 → 80 */
+  --t-display-weight: 800;
+  --t-display-line:   1.05;
+  --t-display-track:  -0.01em;
+
+  /* Section H2 */
+  --t-h2-size:   clamp(1.875rem, 2vw + 1rem, 2.5rem);    /* 30 → 40 */
+  --t-h2-weight: 700;
+  --t-h2-line:   1.15;
+
+  /* H3 (card titles, project titles) */
+  --t-h3-size:   1.5rem;     /* 24 */
+  --t-h3-weight: 700;
+  --t-h3-line:   1.25;
+
+  /* H4 / lead */
+  --t-h4-size:   1.125rem;   /* 18 */
+  --t-h4-weight: 600;
+
+  /* Body */
+  --t-body-size:   1rem;       /* 16 */
+  --t-body-line:   1.625;
+  --t-body-weight: 400;
+
+  /* Body large (hero subtitle) */
+  --t-lead-size: 1.125rem;     /* 18 */
+  --t-lead-line: 1.7;
+
+  /* Small / meta */
+  --t-sm-size:  0.875rem;    /* 14 */
+  --t-xs-size:  0.75rem;     /* 12 */
+  --t-xxs-size: 0.6875rem;   /* 11 — status pills */
+
+  /* Eyebrow / overline (uppercase, purple, tracked) */
+  --t-eyebrow-size:   0.75rem;
+  --t-eyebrow-weight: 600;
+  --t-eyebrow-track:  0.18em;
+
+  /* Mono (terminal, slugs) */
+  --t-mono-size: 0.875rem;
+  --t-mono-line: 1.55;
+}
+
+/* ---------- 12. Semantic classes ---------------------------------- */
+.bg-base   { background: var(--bg-base); }
+.fg-default { color: var(--fg-2); }
+.font-sans { font-family: var(--font-sans); }
+.font-mono { font-family: var(--font-mono); }
+
+.h-display {
+  font-family: var(--font-sans);
+  font-size: var(--t-display-size);
+  font-weight: var(--t-display-weight);
+  line-height: var(--t-display-line);
+  letter-spacing: var(--t-display-track);
+  color: var(--fg-1);
+}
+
+.h-display-grad {           /* second half of hero h1 */
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    var(--accent-cyan-200) 50%,
+    var(--accent-emerald-300) 100%
+  );
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h1, .h1 { font: var(--t-display-weight) var(--t-display-size)/var(--t-display-line) var(--font-sans); letter-spacing: var(--t-display-track); color: var(--fg-1); }
+h2, .h2 { font: var(--t-h2-weight) var(--t-h2-size)/var(--t-h2-line) var(--font-sans); color: var(--fg-1); }
+h3, .h3 { font: var(--t-h3-weight) var(--t-h3-size)/var(--t-h3-line) var(--font-sans); color: var(--fg-1); }
+h4, .h4 { font: var(--t-h4-weight) var(--t-h4-size)/1.4 var(--font-sans); color: var(--fg-1); }
+
+.lead    { font: 400 var(--t-lead-size)/var(--t-lead-line) var(--font-sans); color: var(--fg-3); }
+.body    { font: 400 var(--t-body-size)/var(--t-body-line) var(--font-sans); color: var(--fg-3); }
+.small   { font: 400 var(--t-sm-size)/1.5 var(--font-sans); color: var(--fg-4); }
+.meta    { font: 400 var(--t-xs-size)/1.5 var(--font-sans); color: var(--fg-5); }
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--t-eyebrow-size);
+  font-weight: var(--t-eyebrow-weight);
+  letter-spacing: var(--t-eyebrow-track);
+  text-transform: uppercase;
+  color: var(--accent-violet-500);
+}
+
+.code, .mono {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-size);
+  line-height: var(--t-mono-line);
+  color: var(--fg-3);
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.3);
+  color: #fff;
+}

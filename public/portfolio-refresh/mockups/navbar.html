@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>je4ndev — navbar</title>
+  <link rel="icon" href="/portfolio-refresh/brand-icon.svg" />
+  <link rel="stylesheet" href="/portfolio-refresh/colors_and_type.css" />
+  <style>
+    *,*::before,*::after { box-sizing: border-box; }
+    html,body { margin:0; padding:0; background:#050505; color:#ededed; font-family: var(--font-sans); -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; padding: 0; }
+
+    /* ============== NAVBAR ============== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      transition: background .35s ease, backdrop-filter .35s ease, border-color .35s ease, box-shadow .35s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(5,5,5,0.72);
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      border-bottom-color: rgba(255,255,255,0.06);
+      box-shadow: 0 8px 32px -16px rgba(0,0,0,0.6);
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+
+    /* Brand */
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 18px; letter-spacing: -0.01em; }
+    .b-mark {
+      width: 36px; height: 36px; border-radius: 11px;
+      border: 1px solid rgba(103,232,249,0.25);
+      background: #050505; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 28px -14px rgba(34,211,238,0.9);
+      flex-shrink: 0;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .brand:hover .b-mark { transform: scale(1.05); box-shadow: 0 0 34px -10px rgba(34,211,238,1); }
+    .b-mark::before { content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 25% 20%, rgba(34,211,238,0.32), transparent 36%),
+                  radial-gradient(circle at 78% 82%, rgba(168,85,247,0.36), transparent 38%); }
+    .b-mark::after { content: ''; position: absolute; inset: 1px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08); }
+    .b-glyph { position: relative; font-family: var(--font-mono); font-weight: 900; font-size: 14px; line-height: 1; }
+    .b-glyph .j { color: #5EEAD4; }
+    .b-glyph .four { color: #EC4899; }
+    .word .j-letter { color: #5EEAD4; }
+    .word .dev { color: #EC4899; }
+
+    /* Desktop links */
+    .nav-center {
+      display: none;
+      align-items: center; gap: 4px;
+      padding: 6px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 9999px;
+      backdrop-filter: blur(8px);
+    }
+    .nav-center a {
+      display: inline-flex; align-items: center;
+      padding: 8px 16px; border-radius: 9999px;
+      font-size: 13.5px; color: #a1a1aa;
+      transition: color .2s, background .2s;
+    }
+    .nav-center a:hover { color: #fff; background: rgba(255,255,255,0.04); }
+    .nav-center a.active { color: #fff; background: rgba(255,255,255,0.06); }
+
+    /* Right cluster */
+    .nav-right { display: none; align-items: center; gap: 12px; }
+    .lang-toggle {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: 11px; color: #71717a;
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 9999px;
+      padding: 6px 12px; transition: border-color .2s, color .2s;
+      letter-spacing: 0.04em;
+    }
+    .lang-toggle .dot { width: 4px; height: 4px; border-radius: 50%; background: #5EEAD4; }
+    .lang-toggle:hover { border-color: rgba(255,255,255,0.22); color: #d4d4d8; }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 18px; border-radius: 9999px;
+      font-size: 13.5px; font-weight: 600; letter-spacing: -0.005em;
+      background: linear-gradient(140deg, #5EEAD4 0%, #22D3EE 100%);
+      color: #0a1a1a;
+      box-shadow: 0 8px 24px -8px rgba(94,234,212,0.5);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 12px 30px -8px rgba(94,234,212,0.7); }
+    .nav-cta .lc { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Mobile hamburger */
+    .ham { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; color: #d4d4d8; position: relative; z-index: 60; }
+    .ham:hover { background: rgba(255,255,255,0.04); }
+    .ham-bars { display: flex; flex-direction: column; gap: 5px; }
+    .ham-bars span { display: block; width: 20px; height: 2px; border-radius: 1px; background: currentColor; transition: transform .3s, opacity .3s; }
+    .ham.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .ham.open span:nth-child(2) { opacity: 0; }
+    .ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (min-width: 880px) {
+      .nav-center { display: flex; }
+      .nav-right  { display: flex; }
+      .ham { display: none; }
+    }
+
+    /* Mobile drawer */
+    .drawer-bg {
+      position: fixed; inset: 0; z-index: 40;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; z-index: 45;
+      width: min(380px, 100%);
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(16px);
+      border-left: 1px solid rgba(255,255,255,0.05);
+      box-shadow: -20px 0 60px -20px rgba(0,0,0,0.6);
+      transform: translateX(100%);
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+      padding: 96px 32px 32px;
+      display: flex; flex-direction: column;
+    }
+    .ham.open ~ .drawer-bg { opacity: 1; pointer-events: auto; }
+    .ham.open ~ .drawer { transform: translateX(0); }
+    .drawer a {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; border-radius: 12px;
+      font-size: 17px; font-weight: 500; color: #d4d4d8;
+      transition: background .2s, color .2s;
+    }
+    .drawer a:hover { background: rgba(255,255,255,0.04); color: #fff; }
+    .drawer a .num { font-family: var(--font-mono); font-size: 12px; color: #3f3f46; }
+    .drawer-divider { margin: 20px 0; height: 1px; background: rgba(255,255,255,0.06); }
+    .drawer-lang {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; border-radius: 12px;
+      color: #71717a; font-size: 14px;
+      text-align: left;
+    }
+    .drawer-lang:hover { background: rgba(255,255,255,0.04); color: #fff; }
+    .drawer-cta {
+      margin-top: auto;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px; border-radius: 14px;
+      background: linear-gradient(140deg, #5EEAD4 0%, #22D3EE 100%);
+      color: #0a1a1a; font-size: 14px; font-weight: 600;
+    }
+
+    /* ============ DEMO content ============ */
+    .demo {
+      padding-top: 110px; padding-bottom: 200px;
+      min-height: 220vh;
+      background:
+        radial-gradient(ellipse 800px 400px at 20% 10%, rgba(94,234,212,0.12), transparent 60%),
+        radial-gradient(ellipse 700px 400px at 80% 30%, rgba(236,72,153,0.10), transparent 60%),
+        #050505;
+    }
+    .demo .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    .demo h1 {
+      margin: 60px 0 24px;
+      font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.05;
+      color: #fff; max-width: 18ch;
+    }
+    .demo .lead { font-size: 18px; line-height: 1.7; color: #a1a1aa; max-width: 60ch; }
+    .demo .scroll-hint {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 40px; padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 9999px;
+      background: rgba(255,255,255,0.03);
+      color: #71717a; font-size: 13px;
+    }
+    .demo .filler {
+      height: 100vh; margin-top: 80px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px dashed rgba(255,255,255,0.06); border-radius: 24px;
+      color: #3f3f46; font-family: var(--font-mono); font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="je4ndev">
+        <span class="b-mark"><span class="b-glyph"><span class="j">J</span><span class="four">4</span></span></span>
+        <span class="word"><span class="j-letter">je4n</span><span class="dev">dev</span></span>
+      </a>
+
+      <div class="nav-center" role="navigation">
+        <a href="#work" class="nav-anchor">Projetos</a>
+        <a href="#about" class="nav-anchor">Sobre</a>
+        <a href="#services" class="nav-anchor">Serviços</a>
+        <a href="#stack" class="nav-anchor">Stack</a>
+      </div>
+
+      <div class="nav-right">
+        <button class="lang-toggle" id="lang">
+          <span class="dot"></span>
+          <span id="lang-label">PT | EN</span>
+        </button>
+        <a href="#contact" class="nav-cta">
+          Entre em contato
+          <svg class="lc" width="14" height="14" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <button class="ham" id="ham" aria-label="menu">
+        <div class="ham-bars"><span></span><span></span><span></span></div>
+      </button>
+    </div>
+  </nav>
+
+  <div class="drawer-bg" id="drawerBg"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <a href="#work"><span class="num">01</span>Projetos</a>
+    <a href="#about"><span class="num">02</span>Sobre</a>
+    <a href="#services"><span class="num">03</span>Serviços</a>
+    <a href="#stack"><span class="num">04</span>Stack</a>
+    <a href="#contact"><span class="num">05</span>Entre em contato</a>
+    <div class="drawer-divider"></div>
+    <button class="drawer-lang">
+      <span style="font-family:var(--font-mono);font-size:12px">PT</span>
+      Mudar para Inglês
+    </button>
+    <a class="drawer-cta" href="mailto:jean@je4ndev.com">
+      <svg class="lc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+      jean@je4ndev.com
+    </a>
+  </aside>
+
+  <main class="demo" id="top">
+    <div class="container">
+      <h1>Role para ver o navbar borrar o background.</h1>
+      <p class="lead">A barra fica translúcida até passar de 80px de scroll, então aplica <code style="font-family:var(--font-mono);color:#5EEAD4">backdrop-filter: blur(12px) saturate(160%)</code>, ganha border-bottom sutil e uma sombra fina abaixo.</p>
+      <div class="scroll-hint">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        Continue rolando
+      </div>
+      <div class="filler">[ resto da página entra aqui ]</div>
+      <div class="filler">[ scroll para confirmar o blur ]</div>
+    </div>
+  </main>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+    }, { passive: true });
+
+    const ham = document.getElementById('ham');
+    const drawer = document.getElementById('drawer');
+    const drawerBg = document.getElementById('drawerBg');
+    const close = () => { ham.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
+    ham.addEventListener('click', () => {
+      const isOpen = ham.classList.toggle('open');
+      drawer.setAttribute('aria-hidden', !isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    drawerBg.addEventListener('click', close);
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+
+    let isPT = true;
+    document.getElementById('lang').addEventListener('click', () => {
+      isPT = !isPT;
+      document.getElementById('lang-label').textContent = isPT ? 'PT | EN' : 'EN | PT';
+    });
+  </script>
+</body>
+</html>

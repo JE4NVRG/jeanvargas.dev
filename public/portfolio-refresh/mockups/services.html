@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>je4ndev — serviços</title>
+  <link rel="icon" href="/portfolio-refresh/brand-icon.svg" />
+  <link rel="stylesheet" href="/portfolio-refresh/colors_and_type.css" />
+  <style>
+    *,*::before,*::after { box-sizing: border-box; }
+    html,body { margin:0; padding:0; background:#050505; color:#ededed; font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== Mesh ===== */
+    .mesh { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .mesh-blob { position: absolute; border-radius: 50%; filter: blur(110px); opacity: 0.55; }
+    .mesh-violet { width: 600px; height: 600px; top: -220px; right: -180px; background: radial-gradient(circle, rgba(139,92,246,0.22) 0%, transparent 70%); }
+    .mesh-cyan   { width: 500px; height: 500px; bottom: -200px; left: -160px; background: radial-gradient(circle, rgba(94,234,212,0.18) 0%, transparent 70%); }
+    .mesh-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 80%);
+      opacity: 0.35;
+    }
+
+    /* ===== Section header ===== */
+    section.services { position: relative; padding: 96px 0 120px; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    .section-head { margin-bottom: 56px; max-width: 720px; }
+    .eyebrow-violet {
+      font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase; color: #8B5CF6;
+    }
+    .h2 {
+      margin: 14px 0 0; font-family: var(--font-sans); font-weight: 700;
+      font-size: clamp(2rem, 2.4vw + 1rem, 3rem);
+      line-height: 1.1; letter-spacing: -0.02em; color: #fff;
+    }
+    .section-sub { margin-top: 18px; font-size: 17px; line-height: 1.65; color: #a1a1aa; max-width: 56ch; }
+
+    /* ===== Grid ===== */
+    .services-grid {
+      display: grid; gap: 20px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) { .services-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1024px){ .services-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+    /* ===== Service tile ===== */
+    .tile {
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+      border-radius: 22px;
+      padding: 28px 26px 24px;
+      display: flex; flex-direction: column;
+      gap: 16px;
+      min-height: 240px;
+      overflow: hidden;
+      transition: border-color .35s, transform .35s cubic-bezier(.2,.8,.2,1), background .35s, box-shadow .35s;
+    }
+    .tile::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--tile-glow, transparent);
+      opacity: 0; transition: opacity .4s;
+      pointer-events: none;
+    }
+    .tile:hover {
+      border-color: var(--tile-ring, rgba(139,92,246,0.5));
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.035);
+      box-shadow: 0 28px 70px -36px var(--tile-shadow, rgba(139,92,246,0.4));
+    }
+    .tile:hover::before { opacity: 1; }
+
+    .tile-ico {
+      position: relative; z-index: 1;
+      width: 48px; height: 48px; border-radius: 14px;
+      background: var(--tile-icobg, rgba(139,92,246,0.12));
+      border: 1px solid var(--tile-icobd, rgba(139,92,246,0.22));
+      display: flex; align-items: center; justify-content: center;
+      color: var(--tile-fg, #A78BFA);
+      transition: transform .35s, background .35s, box-shadow .35s;
+    }
+    .tile:hover .tile-ico {
+      transform: scale(1.06) rotate(-3deg);
+      box-shadow: 0 0 24px -6px var(--tile-fg, rgba(167,139,250,0.5));
+    }
+
+    .tile-title {
+      position: relative; z-index: 1;
+      font-family: var(--font-sans); font-weight: 600;
+      font-size: 18px; line-height: 1.25; letter-spacing: -0.01em;
+      color: #fff;
+    }
+    .tile-desc {
+      position: relative; z-index: 1;
+      font-size: 14px; line-height: 1.6; color: #a1a1aa;
+      flex: 1;
+    }
+    .tile-cta {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; gap: 8px;
+      align-self: flex-start;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      color: #d4d4d8;
+      font-size: 13px; font-weight: 500;
+      transition: all .25s;
+    }
+    .tile:hover .tile-cta {
+      color: var(--tile-fg, #A78BFA);
+      border-color: var(--tile-ring, rgba(139,92,246,0.5));
+      background: rgba(255,255,255,0.05);
+    }
+    .tile-cta .lc { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s; }
+    .tile:hover .tile-cta .lc { transform: translate(2px, -2px); }
+
+    /* ===== Bottom contact bar ===== */
+    .cta-bar {
+      margin-top: 64px;
+      position: relative;
+      padding: 28px 36px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(135deg, rgba(94,234,212,0.06) 0%, rgba(139,92,246,0.06) 50%, rgba(236,72,153,0.06) 100%), #080808;
+      border-radius: 22px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 18px;
+      overflow: hidden;
+    }
+    .cta-bar::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(circle at 90% 50%, rgba(94,234,212,0.10) 0%, transparent 50%);
+    }
+    .cta-bar .cta-copy { position: relative; z-index: 1; }
+    .cta-bar .cta-copy strong { color: #fff; font-weight: 600; font-size: 17px; letter-spacing: -0.005em; }
+    .cta-bar .cta-copy p { margin: 4px 0 0; color: #a1a1aa; font-size: 14px; }
+    .cta-bar .cta-btn {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 22px; border-radius: 9999px;
+      background: linear-gradient(140deg, #5EEAD4 0%, #22D3EE 100%);
+      color: #0a1a1a;
+      font-size: 14px; font-weight: 600;
+      box-shadow: 0 12px 30px -10px rgba(94,234,212,0.5);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .cta-bar .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -8px rgba(94,234,212,0.7); }
+
+    /* ===== reveal ===== */
+    .r { opacity: 0; transform: translateY(22px); transition: opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1); }
+    .r.on { opacity: 1; transform: none; }
+
+    .lc { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+</head>
+<body>
+
+  <section class="services" id="services">
+    <div class="mesh" aria-hidden="true">
+      <div class="mesh-grid"></div>
+      <div class="mesh-blob mesh-violet"></div>
+      <div class="mesh-blob mesh-cyan"></div>
+    </div>
+
+    <div class="container">
+      <header class="section-head r" style="transition-delay:.05s">
+        <div class="eyebrow-violet">Serviços</div>
+        <h2 class="h2">O que posso construir para o seu negócio</h2>
+        <p class="section-sub">Da primeira conversa ao deploy: arquitetura, código, automação, integrações e operação contínua. Tudo em um único interlocutor técnico.</p>
+      </header>
+
+      <div class="services-grid" id="grid"></div>
+
+      <div class="cta-bar r" style="transition-delay:.5s">
+        <div class="cta-copy">
+          <strong>Não sabe ainda em qual serviço encaixa?</strong>
+          <p>Me conta o problema — eu indico o caminho mais curto entre ideia e produção.</p>
+        </div>
+        <a class="cta-btn" href="https://wa.me/5511914826568?text=Oi%20Jean%2C%20quero%20uma%20conversa%20inicial%20sobre%20um%20projeto." target="_blank" rel="noopener">
+          <svg class="lc" width="16" height="16" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
+          Conversar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const LC = {
+      code:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+      layers:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
+      sparkles: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/><path d="M19 3l.7 2 2 .7-2 .7L19 9"/></svg>',
+      plug:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M12 22v-5"/><path d="M9 7V2"/><path d="M15 7V2"/><path d="M6 13V8h12v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4z"/></svg>',
+      shield:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
+      phone:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>',
+      compass:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>',
+      wrench:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4l-6.3 6.3a2 2 0 0 0 2.8 2.8l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.7 2.7-2.7-2.7 2.6-2.8z"/></svg>',
+    };
+
+    const ACCENTS = {
+      cyan:    { fg: '#5EEAD4', ring: 'rgba(94,234,212,0.45)',  icoBg: 'rgba(94,234,212,0.12)',  icoBd: 'rgba(94,234,212,0.28)',  glow: 'radial-gradient(circle at 20% 0%, rgba(94,234,212,0.10) 0%, transparent 55%)',  shadow: 'rgba(94,234,212,0.30)' },
+      violet:  { fg: '#A78BFA', ring: 'rgba(139,92,246,0.45)',  icoBg: 'rgba(139,92,246,0.14)',  icoBd: 'rgba(139,92,246,0.30)',  glow: 'radial-gradient(circle at 80% 0%, rgba(139,92,246,0.10) 0%, transparent 55%)',  shadow: 'rgba(139,92,246,0.35)' },
+      magenta: { fg: '#F472B6', ring: 'rgba(236,72,153,0.45)',  icoBg: 'rgba(236,72,153,0.12)',  icoBd: 'rgba(236,72,153,0.28)',  glow: 'radial-gradient(circle at 20% 100%, rgba(236,72,153,0.10) 0%, transparent 55%)', shadow: 'rgba(236,72,153,0.32)' },
+      emerald: { fg: '#34D399', ring: 'rgba(16,185,129,0.45)',  icoBg: 'rgba(16,185,129,0.12)',  icoBd: 'rgba(16,185,129,0.28)',  glow: 'radial-gradient(circle at 80% 100%, rgba(16,185,129,0.10) 0%, transparent 55%)', shadow: 'rgba(16,185,129,0.30)' },
+      gold:    { fg: '#FBBF24', ring: 'rgba(251,191,36,0.45)',  icoBg: 'rgba(251,191,36,0.12)',  icoBd: 'rgba(251,191,36,0.28)',  glow: 'radial-gradient(circle at 0% 50%, rgba(251,191,36,0.08) 0%, transparent 55%)',   shadow: 'rgba(251,191,36,0.30)' },
+    };
+
+    const SERVICES = [
+      { t: 'Aplicações Web',       d: 'Apps full-stack rápidos e bem acabados com dashboards, formulários e fluxos reais',          ico: 'code',     accent: 'cyan',
+        msg: 'Oi Jean, tenho interesse no serviço de Aplicações Web.' },
+      { t: 'Plataformas SaaS',     d: 'Produtos com auth, billing, permissões, painel admin e arquitetura de produção',             ico: 'layers',   accent: 'violet',
+        msg: 'Oi Jean, quero conversar sobre construir uma plataforma SaaS.' },
+      { t: 'Automações com IA',    d: 'Bots, agentes e workflows que cortam tarefas manuais e conectam ferramentas',                ico: 'sparkles', accent: 'magenta',
+        msg: 'Oi Jean, tenho interesse em automações com IA.' },
+      { t: 'Integrações de APIs',  d: 'Conexão com ERPs, CRMs, marketplaces, pagamentos e bancos internos',                         ico: 'plug',     accent: 'emerald',
+        msg: 'Oi Jean, quero conversar sobre integrações de APIs.' },
+      { t: 'Auditoria Solidity',   d: 'Revisão de contratos inteligentes, riscos de segurança, lógica de negócio e pontos de exploração', ico: 'shield', accent: 'gold',
+        msg: 'Oi Jean, preciso de auditoria Solidity em um contrato.' },
+      { t: 'Apps Mobile',          d: 'Aplicativos cross-platform para equipes, clientes e operações externas',                     ico: 'phone',    accent: 'cyan',
+        msg: 'Oi Jean, quero construir um app mobile.' },
+      { t: 'Consultoria',          d: 'Arquitetura, decisão de produto e revisão técnica antes de gastar meses construindo',       ico: 'compass',  accent: 'violet',
+        msg: 'Oi Jean, quero uma consultoria técnica.' },
+      { t: 'Suporte e Manutenção', d: 'Manter, evoluir e monitorar sistemas em produção sem fricção',                               ico: 'wrench',   accent: 'magenta',
+        msg: 'Oi Jean, preciso de suporte e manutenção pra um sistema em produção.' },
+    ];
+
+    const WHATSAPP = 'https://wa.me/5511914826568';
+
+    function renderTile(s, i) {
+      const a = ACCENTS[s.accent];
+      const url = `${WHATSAPP}?text=${encodeURIComponent(s.msg)}`;
+      return `
+      <article class="tile r"
+        style="
+          transition-delay:${0.1 + i*0.05}s;
+          --tile-glow:${a.glow};
+          --tile-ring:${a.ring};
+          --tile-fg:${a.fg};
+          --tile-icobg:${a.icoBg};
+          --tile-icobd:${a.icoBd};
+          --tile-shadow:${a.shadow};
+        ">
+        <div class="tile-ico">${LC[s.ico]}</div>
+        <h3 class="tile-title">${s.t}</h3>
+        <p class="tile-desc">${s.d}</p>
+        <a class="tile-cta" href="${url}" target="_blank" rel="noopener">
+          Saiba mais
+          <svg class="lc" width="14" height="14" viewBox="0 0 24 24"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+      </article>`;
+    }
+
+    document.getElementById('grid').innerHTML = SERVICES.map(renderTile).join('');
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.r').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

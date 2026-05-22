@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>je4ndev — projetos selecionados</title>
+  <link rel="icon" href="/portfolio-refresh/brand-icon.svg" />
+  <link rel="stylesheet" href="/portfolio-refresh/colors_and_type.css" />
+  <style>
+    *,*::before,*::after { box-sizing: border-box; }
+    html,body { margin:0; padding:0; background:#050505; color:#ededed; font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ===== Mesh bg (same vocabulary as hero, calmer) ===== */
+    .mesh { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .mesh-blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.55; }
+    .mesh-cyan   { width: 540px; height: 540px; top: -200px; right: -160px; background: radial-gradient(circle, rgba(94,234,212,0.22) 0%, transparent 70%); }
+    .mesh-violet { width: 620px; height: 620px; bottom: -240px; left: -180px; background: radial-gradient(circle, rgba(139,92,246,0.22) 0%, transparent 70%); }
+    .mesh-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 80%);
+      opacity: 0.4;
+    }
+
+    /* ===== Section header ===== */
+    section.projects { position: relative; padding: 96px 0 120px; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    .section-head { margin-bottom: 56px; max-width: 720px; }
+    .eyebrow {
+      font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase; color: #8B5CF6;
+    }
+    .h2 {
+      margin: 14px 0 0; font-family: var(--font-sans); font-weight: 700;
+      font-size: clamp(2rem, 2.4vw + 1rem, 3rem);
+      line-height: 1.1; letter-spacing: -0.02em; color: #fff;
+    }
+    .section-sub { margin-top: 18px; font-size: 17px; line-height: 1.65; color: #a1a1aa; max-width: 56ch; }
+
+    /* ===== Grid ===== */
+    .grid { display: grid; gap: 28px; grid-template-columns: 1fr; }
+    @media (min-width: 880px) { .grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+    .featured-grid { margin-bottom: 28px; }
+    /* StopUltimate showcase span */
+    .card-wrap.span-2 { grid-column: 1 / -1; }
+    @media (min-width: 880px) {
+      /* Keep total card height in line with peers (~668px) — shallow artwork */
+      .card-wrap.span-2 .artwork { aspect-ratio: 33 / 10; }
+      .card-wrap.span-2 .card-body { padding: 30px 32px 28px; }
+      .card-wrap.span-2 .p-title { font-size: 30px; }
+      /* Reshape the inner StopUltimate mockup to live in a wide, shorter frame */
+      .card-wrap.span-2 .su-game {
+        width: auto;
+        height: 86%;
+        max-width: 92%;
+        aspect-ratio: 26 / 9;
+        padding: 18px 22px;
+      }
+      .card-wrap.span-2 .su-cats { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+      .card-wrap.span-2 .su-letter { width: 44px; height: 44px; font-size: 24px; }
+      .card-wrap.span-2 .su-judge { padding: 10px 14px; font-size: 12px; }
+    }
+
+    /* ===== Card ===== */
+    .card-wrap { perspective: 1400px; }
+    .card {
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(94,234,212,0.04) 0%, transparent 40%),
+        radial-gradient(circle at 100% 100%, rgba(139,92,246,0.05) 0%, transparent 40%),
+        #080808;
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      box-shadow: 0 22px 80px -55px rgba(255,255,255,0.35);
+      transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .35s;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .card:hover {
+      border-color: rgba(103,232,249,0.22);
+      box-shadow:
+        0 32px 90px -40px rgba(94,234,212,0.18),
+        0 26px 70px -45px rgba(139,92,246,0.22),
+        0 22px 80px -55px rgba(255,255,255,0.35);
+    }
+    /* Inner elements lift slightly with parallax via translateZ */
+    .card .artwork    { transform: translateZ(20px); }
+    .card .card-body  { transform: translateZ(8px); }
+
+    /* ===== Artwork ===== */
+    .artwork {
+      aspect-ratio: 16/10;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0a0a0a, #050505);
+    }
+    .artwork .grad-bg { position: absolute; inset: 0; }
+    .artwork .grid-overlay {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .artwork .product {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      padding: 22px;
+    }
+    .artwork .product img {
+      max-width: 92%; max-height: 92%; object-fit: contain;
+      border-radius: 12px;
+      transition: transform .6s cubic-bezier(.2,.8,.2,1);
+    }
+    /* Clip wrapper — kills any white edges bleeding from the screenshot itself */
+    .artwork .product-clip {
+      position: relative;
+      max-width: 92%; max-height: 92%;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px -10px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08);
+      background: #050505;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .artwork .product-clip img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+    .card:hover .artwork .product-clip img { transform: scale(1.025); }
+    .artwork .fade-bottom { position: absolute; inset-inline: 0; bottom: 0; height: 60%; background: linear-gradient(to top, #050505 0%, transparent 100%); pointer-events: none; opacity: 0.45; }
+
+    /* Top-right status pill on artwork */
+    .artwork-status {
+      position: absolute; top: 16px; right: 16px;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 9999px;
+      font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+      border-width: 1px; border-style: solid;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      z-index: 2;
+    }
+    .status-live { background: rgba(16,185,129,0.14); color: #6EE7B7; border-color: rgba(16,185,129,0.32); }
+    .status-mvp  { background: rgba(251,191,36,0.14); color: #FCD34D; border-color: rgba(251,191,36,0.32); }
+    .status-new  { background: rgba(236,72,153,0.16); color: #F9A8D4; border-color: rgba(236,72,153,0.42); }
+    .pulse { position: relative; display: inline-flex; width: 6px; height: 6px; }
+    .pulse .ping { position: absolute; inset: 0; border-radius: 50%; opacity: 0.75; animation: ping 1.6s cubic-bezier(0,0,0.2,1) infinite; }
+    .pulse .dot  { position: relative; width: 6px; height: 6px; border-radius: 50%; }
+    .status-live .pulse .ping { background: #34D399; } .status-live .pulse .dot { background: #10B981; }
+    .status-new  .pulse .ping { background: #F472B6; } .status-new  .pulse .dot { background: #EC4899; }
+    .status-mvp  .pulse .ping { background: #FBBF24; } .status-mvp  .pulse .dot { background: #F59E0B; }
+    @keyframes ping { 75%,100% { transform: scale(2.6); opacity: 0; } }
+
+    /* Date range pill, top-left */
+    .artwork-date {
+      position: absolute; top: 16px; left: 16px;
+      font-family: var(--font-mono); font-size: 11px;
+      padding: 6px 12px; border-radius: 9999px;
+      background: rgba(8,8,8,0.7); color: #a1a1aa;
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      letter-spacing: 0.04em;
+      z-index: 2;
+    }
+
+    /* ===== Card body ===== */
+    .card-body { padding: 26px 26px 24px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+    .row-title { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    .p-title {
+      font-family: var(--font-sans); font-weight: 700;
+      font-size: 26px; line-height: 1.15; letter-spacing: -0.018em;
+      color: #fff;
+    }
+    .scope-pill {
+      display: inline-flex; align-items: center;
+      padding: 4px 12px; border-radius: 9999px;
+      font-size: 11px; font-weight: 500;
+      border: 1px solid rgba(94,234,212,0.22);
+      background: rgba(94,234,212,0.06);
+      color: #A5F3FC;
+      letter-spacing: 0.01em;
+    }
+    .p-desc {
+      font-size: 14.5px; line-height: 1.6; color: #a1a1aa;
+      margin: -4px 0 0;
+    }
+    .tech-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tech {
+      font-size: 11.5px; padding: 5px 11px; border-radius: 9999px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: #d4d4d8;
+      transition: border-color .25s, background .25s;
+    }
+    .card:hover .tech { background: rgba(255,255,255,0.06); }
+
+    .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat-cell {
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.025);
+      border-radius: 14px;
+      padding: 12px 14px;
+      transition: border-color .25s, background .25s;
+    }
+    .card:hover .stat-cell { border-color: rgba(255,255,255,0.1); }
+    .stat-val { font-size: 18px; font-weight: 700; line-height: 1; letter-spacing: -0.01em; }
+    .stat-val.cyan   { color: #67E8F9; }
+    .stat-val.violet { color: #C4B5FD; }
+    .stat-val.emerald{ color: #6EE7B7; }
+    .stat-val.pink   { color: #F9A8D4; }
+    .stat-label { margin-top: 6px; font-size: 11px; line-height: 1.4; color: #71717a; }
+
+    .card-foot {
+      margin-top: auto; padding-top: 4px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 18px;
+    }
+    .card-cat { font-family: var(--font-mono); font-size: 11px; color: #52525b; letter-spacing: 0.04em; text-transform: uppercase; }
+    .card-cta { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 500; color: #d4d4d8; transition: color .25s, gap .25s; }
+    .card:hover .card-cta { color: #5EEAD4; gap: 10px; }
+    .card-cta .lc { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s; }
+    .card:hover .card-cta .lc { transform: translateX(2px); }
+
+    /* ===== NEW! ribbon (StopUltimate) ===== */
+    .new-ribbon {
+      position: absolute; top: 16px; right: 16px;
+      z-index: 3;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 9999px;
+      background: linear-gradient(135deg, #EC4899 0%, #A855F7 100%);
+      color: #fff; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      box-shadow: 0 8px 24px -8px rgba(236,72,153,0.6);
+      animation: newPulse 2.4s ease-in-out infinite;
+    }
+    @keyframes newPulse { 0%,100% { box-shadow: 0 8px 24px -8px rgba(236,72,153,0.6); } 50% { box-shadow: 0 8px 36px -6px rgba(236,72,153,0.9); } }
+    .new-spark { width: 10px; height: 10px; }
+
+    /* ===== CSS-only product mockups ===== */
+    /* Mepchat — WhatsApp chat mockup */
+    .mep-phone {
+      width: 78%; aspect-ratio: 9/14; max-height: 88%;
+      background: #0a0a0a; border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 50px -10px rgba(0,0,0,0.55);
+      overflow: hidden; display: flex; flex-direction: column;
+      transform: rotate(-3deg);
+    }
+    .mep-phone .mep-header {
+      background: linear-gradient(180deg, #075E54 0%, #054b43 100%);
+      color: #fff; padding: 14px 14px 12px; display: flex; align-items: center; gap: 10px;
+    }
+    .mep-phone .mep-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700;
+    }
+    .mep-phone .mep-name { font-size: 12px; font-weight: 600; }
+    .mep-phone .mep-online { font-size: 9px; opacity: 0.7; margin-top: 2px; }
+    .mep-phone .mep-body {
+      flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 8px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.02), transparent 50%),
+        #0e1816;
+    }
+    .mep-bub { padding: 8px 12px; border-radius: 14px; font-size: 11px; line-height: 1.4; max-width: 80%; }
+    .mep-in  { background: #1F2C2A; color: #d4d4d8; align-self: flex-start; border-bottom-left-radius: 4px; }
+    .mep-out { background: #056162; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+    .mep-typing { font-size: 10px; color: #5EEAD4; display: flex; gap: 3px; padding: 4px 8px; align-self: flex-start; }
+    .mep-typing span { width: 5px; height: 5px; border-radius: 50%; background: #5EEAD4; animation: typing 1.4s ease-in-out infinite; }
+    .mep-typing span:nth-child(2) { animation-delay: 0.18s; }
+    .mep-typing span:nth-child(3) { animation-delay: 0.36s; }
+    @keyframes typing { 0%, 100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-2px); } }
+
+    /* OpenClaw — terminal screenshot */
+    .oc-terminal {
+      width: 88%; max-height: 88%;
+      border-radius: 14px;
+      background: rgba(6,7,8,0.95);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 50px -10px rgba(0,0,0,0.55);
+      overflow: hidden;
+      font-family: var(--font-mono);
+      transform: rotate(-1deg);
+    }
+    .oc-bar { background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; }
+    .oc-dots { display: flex; gap: 5px; }
+    .oc-dots span { width: 8px; height: 8px; border-radius: 50%; }
+    .oc-dots .r { background: rgba(239,68,68,0.85); }
+    .oc-dots .y { background: rgba(251,191,36,0.85); }
+    .oc-dots .g { background: rgba(52,211,153,0.85); }
+    .oc-title { font-size: 10px; color: #71717a; }
+    .oc-body { padding: 14px; font-size: 11px; line-height: 1.7; }
+    .oc-line .p { color: #10B981; font-weight: 600; }
+    .oc-line .c { color: #ededed; }
+    .oc-line .f { color: #A5F3FC; }
+    .oc-line .o { color: #71717a; }
+    .oc-line .s { color: #34D399; }
+    .oc-line .v { color: #C4B5FD; }
+    .oc-arr { color: #52525b; }
+
+    /* StopUltimate — game grid */
+    .su-game {
+      width: 90%; aspect-ratio: 16/10;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(94,234,212,0.12), transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(168,85,247,0.16), transparent 50%),
+        #0a0814;
+      border: 1px solid rgba(168,85,247,0.25);
+      box-shadow: 0 20px 50px -10px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04) inset;
+      overflow: hidden;
+      padding: 16px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 10px;
+    }
+    .su-head { display: flex; align-items: center; justify-content: space-between; }
+    .su-letter {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #EC4899, #A855F7);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 900; font-size: 22px;
+      box-shadow: 0 6px 16px -4px rgba(236,72,153,0.55);
+    }
+    .su-timer { font-family: var(--font-mono); font-size: 14px; color: #5EEAD4; font-weight: 600; }
+    .su-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .su-cat {
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      font-size: 10px; color: #d4d4d8;
+      display: flex; align-items: center; justify-content: space-between; gap: 6px;
+    }
+    .su-cat .v { font-family: var(--font-mono); font-size: 9.5px; color: #5EEAD4; }
+    .su-cat.filled { background: rgba(94,234,212,0.08); border-color: rgba(94,234,212,0.25); }
+    .su-judge {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: rgba(168,85,247,0.12);
+      border: 1px solid rgba(168,85,247,0.3);
+      font-size: 11px; color: #C4B5FD;
+    }
+    .su-judge .glyph { font-weight: 700; color: #fff; }
+
+    /* ===== reveal ===== */
+    .r { opacity: 0; transform: translateY(22px); transition: opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1); }
+    .r.on { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <section class="projects" id="work">
+    <div class="mesh" aria-hidden="true">
+      <div class="mesh-grid"></div>
+      <div class="mesh-blob mesh-cyan"></div>
+      <div class="mesh-blob mesh-violet"></div>
+    </div>
+
+    <div class="container">
+      <header class="section-head r" style="transition-delay:.05s">
+        <div class="eyebrow">Projetos em destaque</div>
+        <h2 class="h2">Projetos selecionados</h2>
+        <p class="section-sub">7 produtos em produção — SaaS, automações com IA, dashboards e Web3. Da ideia ao deploy, com estratégia, código e monitoramento contínuo.</p>
+      </header>
+
+      <!-- Featured 2x2 -->
+      <div class="grid featured-grid" id="grid-featured"></div>
+      <!-- Other 3 (HypeFC, MepChat, StopUltimate) -->
+      <div class="grid" id="grid-other"></div>
+    </div>
+  </section>
+
+  <script>
+    // ---------- Data ----------
+    const FEATURED = [
+      {
+        slug: 'nexpanel', title: 'NexPanel', status: 'live', dateRange: '2026 — Present',
+        scope: 'Construção SaaS', cat: 'SaaS Platform',
+        desc: 'Sistema SaaS completo de gestão para revendedores IPTV',
+        techs: ['Next.js','TypeScript','Supabase','Tailwind'],
+        stats: [
+          { v: '247+', l: 'Clientes gerenciados', c: 'violet' },
+          { v: 'R$4.2k', l: 'Receita mensal',     c: 'cyan' },
+        ],
+        artwork: { kind: 'image', src: '/portfolio-refresh/projects/nexpanel.png',
+                   bg: 'linear-gradient(135deg, #1e3a8a 0%, #312e81 100%)' },
+      },
+      {
+        slug: 'vultrix-3d', title: 'Vultrix 3D', status: 'live', dateRange: '2026 — Present',
+        scope: 'Produto + plataforma', cat: 'SaaS Platform',
+        desc: 'Plataforma completa de gestão para negócios de impressão 3D',
+        techs: ['Next.js','TypeScript','Supabase','Tailwind'],
+        stats: [
+          { v: '2.5k+', l: 'Makers ativos',        c: 'violet' },
+          { v: '15k+',  l: 'Projetos calculados',  c: 'cyan' },
+        ],
+        artwork: { kind: 'image', src: '/portfolio-refresh/projects/vultrix-3d.png',
+                   bg: 'linear-gradient(135deg, #1e3a8a 0%, #155e75 100%)' },
+      },
+      {
+        slug: 'openclaw-gateway', title: 'OpenClaw Gateway', status: 'live', dateRange: '2024 — Present',
+        scope: 'Automação com IA', cat: 'Automation Platform',
+        desc: 'Gateway de automação multi-plataforma com workflows de IA',
+        techs: ['Node.js','OpenAI','Supabase','TypeScript'],
+        stats: [
+          { v: '99.9%', l: 'Uptime',          c: 'violet' },
+          { v: '5k+',   l: 'Requests/dia',    c: 'cyan' },
+        ],
+        artwork: { kind: 'terminal',
+                   bg: 'linear-gradient(135deg, #1a0f30 0%, #1c0a26 100%)' },
+      },
+      {
+        slug: 'gestaoml', title: 'Gestão ML', status: 'live', dateRange: '2026 — Present',
+        scope: 'SaaS marketplace', cat: 'SaaS Platform',
+        desc: 'SaaS de gestão de pedidos para vendedores do Mercado Livre',
+        techs: ['Next.js','TypeScript','Supabase','Mercado Livre API'],
+        stats: [
+          { v: '835+',   l: 'Pedidos gerenciados', c: 'violet' },
+          { v: 'R$181k', l: 'Faturamento',         c: 'cyan' },
+        ],
+        artwork: { kind: 'image', src: '/portfolio-refresh/projects/gestaoml.png',
+                   bg: 'linear-gradient(135deg, #3f2a08 0%, #5b220c 100%)' },
+      },
+    ];
+
+    const OTHER = [
+      {
+        slug: 'hypefc', title: 'HypeFC', status: 'live', dateRange: '2026 — Present',
+        scope: 'Dashboard tempo real', cat: 'Sports Dashboard',
+        desc: 'Dashboard de futebol em tempo real com placares e classificações',
+        techs: ['Next.js','TypeScript','Tailwind','API Football'],
+        stats: [
+          { v: '8+', l: 'Ligas',          c: 'violet' },
+          { v: 'Live', l: 'Tempo real',   c: 'emerald' },
+        ],
+        artwork: { kind: 'image', src: '/portfolio-refresh/projects/hypefc.png',
+                   bg: 'linear-gradient(135deg, #064e3b 0%, #065f46 100%)' },
+      },
+      {
+        slug: 'mepchat', title: 'MepChat', status: 'mvp', dateRange: '2024',
+        scope: 'Validação MVP', cat: 'AI Chatbot',
+        desc: 'Plataforma de chatbot WhatsApp com painel CNPJ',
+        techs: ['Node.js','Firebase','OpenAI','FlutterFlow'],
+        stats: [
+          { v: '100%', l: 'Automatizado', c: 'emerald' },
+          { v: 'MVP',  l: 'Validado',     c: 'violet' },
+        ],
+        artwork: { kind: 'mepchat',
+                   bg: 'linear-gradient(135deg, #064e3b 0%, #0a3530 100%)' },
+      },
+      {
+        slug: 'stopultimate', title: 'StopUltimate', status: 'new', dateRange: '2026 — Novo',
+        scope: 'Stop + IA', cat: 'AI Game',
+        desc: 'Stop/Adedonha brasileiro com juiz IA via Hermes',
+        techs: ['Next.js 16','Supabase','Hermes AI','WebSocket'],
+        stats: [
+          { v: 'AI', l: 'Juiz Hermes',  c: 'pink' },
+          { v: 'Multi', l: 'Multiplayer', c: 'violet' },
+        ],
+        artwork: { kind: 'stopultimate',
+                   bg: 'linear-gradient(135deg, #581c87 0%, #831843 100%)' },
+        isNew: true, span2: true,
+      },
+    ];
+
+    // ---------- Renderers ----------
+    function statusBadge(status) {
+      const labels = { live: 'live', mvp: 'mvp', new: 'live' }; // "new" shows ribbon instead, but card still has live
+      const cls = { live: 'status-live', mvp: 'status-mvp', new: 'status-live' }[status];
+      const label = labels[status];
+      return `<div class="artwork-status ${cls}"><span class="pulse"><span class="ping"></span><span class="dot"></span></span>${label}</div>`;
+    }
+
+    function newRibbon() {
+      return `<div class="new-ribbon">
+        <svg class="new-spark" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 11l-8.4 2.6L12 22l-2.6-8.4L1 11l8.4-2.6L12 0z"/></svg>
+        Novo lançamento
+      </div>`;
+    }
+
+    function artworkContent(p) {
+      const a = p.artwork;
+      const bg = `<div class="grad-bg" style="background:${a.bg}"></div><div class="grid-overlay"></div>`;
+      if (a.kind === 'image') {
+        return bg + `<div class="product"><div class="product-clip" style="aspect-ratio:16/10;width:92%"><img src="${a.src}" alt="${p.title}"/></div></div><div class="fade-bottom"></div>`;
+      }
+      if (a.kind === 'terminal') {
+        return bg + `
+        <div class="product">
+          <div class="oc-terminal">
+            <div class="oc-bar">
+              <div class="oc-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+              <span class="oc-title">openclaw-gateway/run</span>
+              <span style="width:28px"></span>
+            </div>
+            <div class="oc-body">
+              <div class="oc-line"><span class="p">$</span> <span class="c">openclaw start</span> <span class="f">--all-workflows</span></div>
+              <div class="oc-line"><span class="s">✓</span> <span class="o">routing engine</span> <span class="arr">→</span> <span class="v">online</span></div>
+              <div class="oc-line"><span class="s">✓</span> <span class="o">openai-agent</span> <span class="arr">→</span> <span class="v">connected</span></div>
+              <div class="oc-line"><span class="s">✓</span> <span class="o">supabase-sync</span> <span class="arr">→</span> <span class="v">streaming</span></div>
+              <div class="oc-line"><span class="p">$</span> <span class="c">tail logs --live</span></div>
+              <div class="oc-line"><span class="o">[14:22:08]</span> <span class="s">req</span> <span class="f">→ #4821</span> <span class="o">resolved 286ms</span></div>
+            </div>
+          </div>
+        </div>`;
+      }
+      if (a.kind === 'mepchat') {
+        return bg + `
+        <div class="product">
+          <div class="mep-phone">
+            <div class="mep-header">
+              <div class="mep-avatar">M</div>
+              <div><div class="mep-name">MepChat · CNPJ Bot</div><div class="mep-online">online</div></div>
+            </div>
+            <div class="mep-body">
+              <div class="mep-bub mep-in">Qual o CNPJ da Vultrix 3D?</div>
+              <div class="mep-bub mep-out">Vultrix 3D — 48.123.456/0001-90<br>Ativa · Paraná · ME</div>
+              <div class="mep-bub mep-in">Me manda balanço?</div>
+              <div class="mep-typing"><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </div>`;
+      }
+      if (a.kind === 'stopultimate') {
+        const cats = [
+          ['Animal', 'Panda', true], ['CEP', '—', false],
+          ['Cidade', 'Pelotas', true], ['Cor', '—', false],
+          ['Fruta', 'Pera', true],    ['Profissão', '—', false],
+        ];
+        return bg + `
+        <div class="product">
+          <div class="su-game">
+            <div class="su-head">
+              <div style="display:flex;align-items:center;gap:10px"><div class="su-letter">P</div><div style="font-size:11px;color:#a1a1aa">Rodada 3 / 5</div></div>
+              <div class="su-timer">00:23</div>
+            </div>
+            <div class="su-cats">
+              ${cats.map(([n,v,f])=>`<div class="su-cat ${f?'filled':''}"><span>${n}</span><span class="v">${v}</span></div>`).join('')}
+            </div>
+            <div class="su-judge">
+              <span><span class="glyph">Hermes</span> está julgando…</span>
+              <span style="font-family:var(--font-mono);font-size:10px;color:#67E8F9">+45 pts</span>
+            </div>
+          </div>
+        </div>`;
+      }
+      return bg;
+    }
+
+    function cardHTML(p, i) {
+      const techs = p.techs.map(t => `<span class="tech">${t}</span>`).join('');
+      const stats = p.stats.map(s => `
+        <div class="stat-cell">
+          <div class="stat-val ${s.c}">${s.v}</div>
+          <div class="stat-label">${s.l}</div>
+        </div>`).join('');
+      const spanCls = p.span2 ? ' span-2' : '';
+      return `
+      <div class="card-wrap r${spanCls}" style="transition-delay:${0.1 + i*0.06}s">
+        <a href="#" class="card" data-tilt aria-label="${p.title}">
+          <div class="artwork">
+            ${p.isNew ? newRibbon() : statusBadge(p.status)}
+            <div class="artwork-date">${p.dateRange}</div>
+            ${artworkContent(p)}
+          </div>
+          <div class="card-body">
+            <div class="row-title">
+              <span class="p-title">${p.title}</span>
+              <span class="scope-pill">${p.scope}</span>
+            </div>
+            <p class="p-desc">${p.desc}</p>
+            <div class="tech-row">${techs}</div>
+            <div class="stats-row">${stats}</div>
+            <div class="card-foot">
+              <span class="card-cat">${p.cat}</span>
+              <span class="card-cta">Ver estudo de caso
+                <svg class="lc" width="14" height="14" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>`;
+    }
+
+    document.getElementById('grid-featured').innerHTML = FEATURED.map(cardHTML).join('');
+    document.getElementById('grid-other').innerHTML    = OTHER.map((p,i)=>cardHTML(p, i+FEATURED.length)).join('');
+
+    // ---------- Tilt on hover ----------
+    document.querySelectorAll('[data-tilt]').forEach(card => {
+      let raf = 0;
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        const rx = (py - 0.5) * -3;   // 2-3deg per spec
+        const ry = (px - 0.5) *  3;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          card.style.transform = `translateY(-8px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        });
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+
+    // ---------- Reveal ----------
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.r').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
