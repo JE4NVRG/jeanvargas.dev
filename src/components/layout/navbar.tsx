@@ -87,6 +87,7 @@ export function Navbar() {
             <div className="w-px h-4 bg-white/10" />
 
             <button
+              type="button"
               onClick={toggleLocale}
               className="text-xs text-zinc-500 border border-white/10 rounded px-2 py-1 hover:border-white/20 transition-colors"
               aria-label="Toggle language"
@@ -104,6 +105,7 @@ export function Navbar() {
 
           {/* Mobile hamburger / close */}
           <button
+            type="button"
             className="md:hidden relative z-50 flex h-10 w-10 items-center justify-center rounded-lg text-zinc-400 transition-colors hover:text-white"
             onClick={() => setMobileOpen((prev) => !prev)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}

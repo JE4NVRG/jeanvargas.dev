@@ -4,6 +4,8 @@ import "./globals.css";
 import { LanguageProvider } from "@/i18n";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { CursorGlow } from "@/components/ui/cursor-glow";
+import { LenisProvider } from "@/components/ui/lenis-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,32 +24,44 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Jean Carlos Vargas — Full-Stack Engineer for SaaS & AI Automation",
+  metadataBase: new URL("https://je4ndev.com"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      "pt-BR": "/",
+      "en-US": "/?lang=en",
+    },
+  },
+  title: "JE4NDEV — Agência de produto · SaaS, automações com IA e agentes locais",
   description:
-    "Full-stack engineer building SaaS products, internal tools, and AI automation workflows for companies that need speed, clarity, and reliable execution.",
+    "Agência de produto comandada por founder. Criamos SaaS, automações com IA, integrações, agentes locais (Hermes/OpenClaw na sua VPS), auditoria Solidity e plataformas Web3. Acompanhamento em tempo real via Vercel preview, garantia de 1 ano. A partir de R$ 500 / US$ 100.",
   keywords: [
-    "full stack engineer",
-    "full stack developer",
-    "AI automation",
-    "internal tools",
+    "agencia de produto",
+    "agencia SaaS",
+    "automacao com IA",
+    "agentes locais",
+    "Hermes",
+    "OpenClaw",
+    "AI agency",
+    "product agency",
     "SaaS",
-    "remote contract work",
     "Next.js",
     "React",
     "TypeScript",
     "jean carlos vargas",
     "je4ndev",
+    "JE4NDEV Agency OS",
     "NexPanel",
     "Vultrix 3D",
-    "OpenClaw Gateway",
+    "ArchScene",
     "Solidity",
-    "Anthropic",
-    "Qwen",
-    "Kimi",
+    "NFT platform",
+    "auditoria smart contract",
     "Supabase",
   ],
   authors: [{ name: "Jean Carlos Vargas" }],
-  creator: "Jean Carlos Vargas",
+  creator: "JE4NDEV",
+  publisher: "JE4NDEV",
   icons: {
     icon: [
       { url: "/brand-icon.svg", sizes: "any", type: "image/svg+xml" },
@@ -61,28 +75,44 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   openGraph: {
-    title: "Jean Carlos Vargas — Full-Stack Engineer for SaaS & AI Automation",
+    title: "JE4NDEV — Agência de produto que tira sua ideia do papel",
     description:
-      "SaaS products, internal tools, and AI automation workflows for remote teams, founders, and businesses that need execution.",
+      "Criamos SaaS, automações com IA, plataformas de cursos, integrações e agentes locais. Você acompanha cada commit em tempo real via Vercel preview com domínio próprio. Garantia de 1 ano. A partir de R$ 500 / US$ 100.",
     url: "https://je4ndev.com",
-    siteName: "je4ndev",
+    siteName: "JE4NDEV",
     type: "website",
+    locale: "pt_BR",
+    alternateLocale: ["en_US"],
     images: [
       {
         url: "https://je4ndev.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "je4ndev — Full-Stack Engineer for SaaS & AI Automation",
+        alt: "JE4NDEV — Agência de produto · SaaS, IA, agentes locais",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jean Carlos Vargas — Full-Stack Engineer for SaaS & AI Automation",
+    title: "JE4NDEV — Agência de produto · SaaS, IA, agentes locais",
     description:
-      "SaaS products, internal tools, and AI automation workflows for companies that need speed, clarity, and reliable execution.",
+      "Criamos SaaS, automações com IA, plataformas de cursos e agentes locais (Hermes/OpenClaw). Garantia de 1 ano, a partir de R$ 500.",
     images: ["https://je4ndev.com/og-image.png"],
+    creator: "@je4ndev",
+    site: "@je4ndev",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  category: "technology",
 };
 
 export default function RootLayout({
@@ -91,56 +121,238 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="pt-BR" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Jean Carlos Vargas",
-              jobTitle: "Full-Stack Engineer",
-              url: "https://je4ndev.com",
-              email: "jean@je4ndev.com",
-              image:
-                "https://avatars.githubusercontent.com/u/106420077?v=4",
-              sameAs: [
-                "https://github.com/JE4NVRG",
-                "https://www.linkedin.com/in/je4ndev/",
-              ],
-              knowsAbout: [
-                "Next.js",
-                "TypeScript",
-                "React",
-                "Node.js",
-                "Supabase",
-                "OpenAI",
-                "Anthropic",
-                "Qwen",
-                "Kimi",
-                "SaaS",
-                "Internal Tools",
-                "AI Automation",
-                "Solidity",
-              ],
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Paranavai",
-                addressRegion: "Parana",
-                addressCountry: "BR",
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": ["Organization", "ProfessionalService"],
+                "@id": "https://je4ndev.com/#organization",
+                name: "JE4NDEV",
+                alternateName: ["JE4NDEV Agency", "JE4NDEV Product Agency"],
+                url: "https://je4ndev.com",
+                email: "jean@je4ndev.com",
+                telephone: "+55-11-94847-7047",
+                logo: {
+                  "@type": "ImageObject",
+                  url: "https://je4ndev.com/og-image.png",
+                  width: 1200,
+                  height: 630,
+                },
+                image: "https://je4ndev.com/og-image.png",
+                description:
+                  "Agência de produto que cria SaaS, automações com IA, plataformas de cursos, integrações e agentes locais (Hermes/OpenClaw) com acompanhamento em tempo real e garantia de 1 ano.",
+                slogan: "Agência de produto que tira sua ideia do papel",
+                priceRange: "R$ 500 - R$ 50000",
+                founder: {
+                  "@type": "Person",
+                  name: "Jean Carlos Vargas",
+                  url: "https://je4ndev.com/#person",
+                },
+                founders: [
+                  {
+                    "@type": "Person",
+                    name: "Jean Carlos Vargas",
+                  },
+                ],
+                foundingDate: "2024-01-01",
+                sameAs: [
+                  "https://github.com/JE4NVRG",
+                  "https://www.linkedin.com/in/je4ndev/",
+                ],
+                areaServed: [
+                  { "@type": "Country", name: "Brazil" },
+                  { "@type": "Place", name: "Worldwide" },
+                ],
+                knowsAbout: [
+                  "SaaS development",
+                  "AI automation",
+                  "Local AI agents",
+                  "Hermes",
+                  "OpenClaw",
+                  "Next.js",
+                  "TypeScript",
+                  "Supabase",
+                  "Solidity",
+                  "NFT platforms",
+                  "Smart contract audits",
+                  "Product engineering",
+                  "Founder-led agency",
+                ],
+                contactPoint: [
+                  {
+                    "@type": "ContactPoint",
+                    telephone: "+55-11-94847-7047",
+                    contactType: "customer service",
+                    contactOption: "TollFree",
+                    areaServed: ["BR", "US", "Worldwide"],
+                    availableLanguage: ["Portuguese", "English"],
+                  },
+                  {
+                    "@type": "ContactPoint",
+                    email: "jean@je4ndev.com",
+                    contactType: "sales",
+                    areaServed: "Worldwide",
+                    availableLanguage: ["Portuguese", "English"],
+                  },
+                ],
+                makesOffer: [
+                  {
+                    "@type": "Offer",
+                    name: "Site / Landing / Blog",
+                    description:
+                      "Site institucional, landing de alta conversão ou blog com SEO, animações cinematográficas e Vercel preview.",
+                    priceSpecification: {
+                      "@type": "PriceSpecification",
+                      price: "500",
+                      priceCurrency: "BRL",
+                      valueAddedTaxIncluded: false,
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    name: "SaaS / Produto",
+                    description:
+                      "MVP SaaS com auth, dashboard, billing Stripe, Supabase, deploy em produção e garantia de 1 ano.",
+                    priceSpecification: {
+                      "@type": "PriceSpecification",
+                      price: "5000",
+                      priceCurrency: "BRL",
+                      valueAddedTaxIncluded: false,
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    name: "Web3 / NFT / Smart Contract Audit",
+                    description:
+                      "Auditoria de contratos Solidity, integrações on-chain e plataformas NFT/Web3.",
+                    priceSpecification: {
+                      "@type": "PriceSpecification",
+                      price: "10000",
+                      priceCurrency: "BRL",
+                      valueAddedTaxIncluded: false,
+                    },
+                  },
+                ],
               },
-            }),
+              {
+                "@context": "https://schema.org",
+                "@type": "Person",
+                "@id": "https://je4ndev.com/#person",
+                name: "Jean Carlos Vargas",
+                givenName: "Jean Carlos",
+                familyName: "Vargas",
+                jobTitle: "Founder · Product Engineer · Smart Contract Security Researcher",
+                url: "https://je4ndev.com",
+                email: "jean@je4ndev.com",
+                telephone: "+55-11-94847-7047",
+                image: "https://je4ndev.com/images/jean-about.png",
+                worksFor: {
+                  "@type": "Organization",
+                  "@id": "https://je4ndev.com/#organization",
+                  name: "JE4NDEV",
+                },
+                sameAs: [
+                  "https://github.com/JE4NVRG",
+                  "https://www.linkedin.com/in/je4ndev/",
+                ],
+                knowsLanguage: [
+                  { "@type": "Language", name: "Portuguese", alternateName: "pt-BR" },
+                  { "@type": "Language", name: "English", alternateName: "en" },
+                ],
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "São Paulo",
+                  addressRegion: "SP",
+                  addressCountry: "BR",
+                },
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "@id": "https://je4ndev.com/#website",
+                url: "https://je4ndev.com",
+                name: "JE4NDEV",
+                description:
+                  "Agência de produto comandada por founder. SaaS, IA, agentes locais e auditoria Solidity.",
+                publisher: { "@id": "https://je4ndev.com/#organization" },
+                inLanguage: ["pt-BR", "en"],
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target: {
+                    "@type": "EntryPoint",
+                    urlTemplate: "https://je4ndev.com/?q={search_term_string}",
+                  },
+                  "query-input": "required name=search_term_string",
+                },
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "Service",
+                serviceType: "Agência de produto · SaaS / IA / Web3",
+                provider: { "@id": "https://je4ndev.com/#organization" },
+                areaServed: { "@type": "Place", name: "Worldwide" },
+                hasOfferCatalog: {
+                  "@type": "OfferCatalog",
+                  name: "Serviços JE4NDEV",
+                  itemListElement: [
+                    {
+                      "@type": "Offer",
+                      itemOffered: {
+                        "@type": "Service",
+                        name: "Desenvolvimento SaaS",
+                        description:
+                          "MVP SaaS com auth, dashboard, billing, deploy em produção e garantia de 1 ano.",
+                      },
+                    },
+                    {
+                      "@type": "Offer",
+                      itemOffered: {
+                        "@type": "Service",
+                        name: "Automação com IA",
+                        description:
+                          "Bots, workflows automatizados e agentes IA (Hermes, OpenClaw) rodando localmente.",
+                      },
+                    },
+                    {
+                      "@type": "Offer",
+                      itemOffered: {
+                        "@type": "Service",
+                        name: "Auditoria Solidity",
+                        description:
+                          "Audit de contratos inteligentes, reports públicos, bounty hunting EVM/L2.",
+                      },
+                    },
+                    {
+                      "@type": "Offer",
+                      itemOffered: {
+                        "@type": "Service",
+                        name: "Site institucional / Landing",
+                        description:
+                          "Site, landing de alta conversão, blog com SEO e animações cinematográficas.",
+                      },
+                    },
+                  ],
+                },
+              },
+            ]),
           }}
         />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-[#050505] text-white`}
+        suppressHydrationWarning
       >
         <LanguageProvider>
-          <Navbar />
-          {children}
-          <Footer />
+          <LenisProvider>
+            <CursorGlow />
+            <Navbar />
+            {children}
+            <Footer />
+          </LenisProvider>
         </LanguageProvider>
       </body>
     </html>

@@ -118,7 +118,7 @@ const metricTextColor: Record<string, string> = {
 };
 
 const WHATSAPP_URL =
-  "https://wa.me/5511914826568?text=Oi%20Jean%2C%20quero%20conversar%20sobre%20um%20sistema%20parecido.";
+  "https://wa.me/5511948477047?text=Oi%20Jean%2C%20quero%20conversar%20sobre%20um%20sistema%20parecido.";
 
 interface CaseStudyProps {
   slug: string;
@@ -309,7 +309,11 @@ export function CaseStudy({ slug }: CaseStudyProps) {
             <span className="rounded-full border border-white/[0.08] px-3 py-1 text-xs font-medium text-zinc-400">
               {project.scope[locale]}
             </span>
-            <span className="text-xs text-zinc-500">{project.dateRange}</span>
+            <span className="text-xs text-zinc-500">
+              {typeof project.dateRange === "string"
+                ? project.dateRange
+                : project.dateRange[locale]}
+            </span>
             <span className="text-xs text-zinc-600">{project.category}</span>
           </div>
           <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl">
@@ -319,6 +323,32 @@ export function CaseStudy({ slug }: CaseStudyProps) {
             {project.longDescription[locale]}
           </p>
         </SectionReveal>
+
+        {/* Motion demo (only when the project has a demo video) */}
+        {project.video && (
+          <SectionReveal delay={0.08} className="mt-12">
+            <div className="mb-6">
+              <h2 className="text-xs font-semibold uppercase tracking-widest text-cyan-400">
+                {t.project.demoLabel}
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
+                {t.project.demoIntro}
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] shadow-[0_30px_80px_-30px_rgba(94,234,212,0.2)]">
+              <video
+                src={project.video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                className="aspect-[16/10] w-full object-cover"
+                aria-label={`${project.title} demo`}
+              />
+            </div>
+          </SectionReveal>
+        )}
 
         {/* Visual proof */}
         <SectionReveal delay={0.1} className="mt-12">

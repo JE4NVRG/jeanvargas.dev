@@ -66,12 +66,12 @@ const categories: { key: CategoryKey; techs: TechItem[] }[] = [
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg",
       },
       {
-        name: "Firebase",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg",
-      },
-      {
         name: "PostgreSQL",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
+      },
+      {
+        name: "Drizzle ORM",
+        fallback: "DZ",
       },
     ],
   },
@@ -83,12 +83,16 @@ const categories: { key: CategoryKey; techs: TechItem[] }[] = [
         icon: "https://cdn.simpleicons.org/openai/white",
       },
       {
+        name: "Anthropic",
+        icon: "https://cdn.simpleicons.org/anthropic/white",
+      },
+      {
         name: "LangChain",
         icon: "https://cdn.simpleicons.org/langchain/white",
       },
       {
-        name: "Anthropic",
-        icon: "https://cdn.simpleicons.org/anthropic/white",
+        name: "Grok Imagine",
+        fallback: "GK",
       },
       {
         name: "Qwen",
@@ -97,10 +101,6 @@ const categories: { key: CategoryKey; techs: TechItem[] }[] = [
       {
         name: "Kimi",
         fallback: "KI",
-      },
-      {
-        name: "CCXT",
-        fallback: "CX",
       },
     ],
   },
@@ -135,6 +135,10 @@ const categories: { key: CategoryKey; techs: TechItem[] }[] = [
       {
         name: "OpenZeppelin",
         icon: "https://cdn.simpleicons.org/openzeppelin/4e5ee4",
+      },
+      {
+        name: "CCXT",
+        fallback: "CX",
       },
     ],
   },

@@ -11,12 +11,14 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  overflow-x: clip;
 }
 
 /* Smooth scroll */
 html {
   background: var(--background);
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 /* Selection color */
@@ -47,4 +49,23 @@ html {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+/* Animated gradient utility — used on hero titleHighlight and key callouts */
+@keyframes gradient-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient-flow {
+  background-size: 200% 200%;
+  animation: gradient-flow 8s ease-in-out infinite;
+}
+
+/* Slow floating animation for project marks / badges */
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-float-soft {
+  animation: float-soft 4s ease-in-out infinite;
 }

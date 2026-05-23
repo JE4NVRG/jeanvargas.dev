@@ -6,41 +6,44 @@ import { Github, Linkedin } from "lucide-react";
 export function Footer() {
   const { t } = useTranslation();
 
+  /*
+   * Footer redesigned for balance — 3 social icons now share identical sizing
+   * (h-10 w-10 squircles, 18px stroke) and sit together on the right. The old
+   * layout pushed GitHub into a giant central tile while LinkedIn / WhatsApp
+   * looked like afterthoughts — visually unbalanced.
+   */
   return (
     <footer className="border-t border-white/5 bg-[#050505]">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-5 px-6 py-6 sm:grid-cols-[1fr_auto_1fr]">
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-6 py-8 sm:flex-row sm:justify-between">
         <div className="flex flex-col items-center sm:items-start gap-1">
           <p className="text-sm text-zinc-600">{t.footer.copyright}</p>
           <p className="text-xs text-zinc-700">Built with Next.js & Tailwind CSS</p>
         </div>
 
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex items-center gap-3">
           <a
             href="https://github.com/JE4NVRG"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03] text-zinc-400 transition-colors hover:border-white/[0.16] hover:text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-zinc-400 transition-colors hover:border-white/[0.16] hover:text-white"
             aria-label="GitHub"
           >
-            <Github size={26} />
+            <Github size={18} />
           </a>
-        </div>
-
-        <div className="flex items-center justify-center gap-5 sm:justify-end">
           <a
             href="https://www.linkedin.com/in/je4ndev/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-600 hover:text-white transition-colors"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-zinc-400 transition-colors hover:border-white/[0.16] hover:text-white"
             aria-label="LinkedIn"
           >
             <Linkedin size={18} />
           </a>
           <a
-            href="https://wa.me/5511914826568"
+            href="https://wa.me/5511948477047"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-600 hover:text-white transition-colors"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-zinc-400 transition-colors hover:border-emerald-400/30 hover:bg-emerald-400/[0.05] hover:text-emerald-300"
             aria-label="WhatsApp"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">

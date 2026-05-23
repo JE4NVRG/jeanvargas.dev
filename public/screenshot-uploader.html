@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Screenshot Uploader (dev only)</title>
+  <style>
+    body { font-family: ui-monospace, monospace; background: #050505; color: #eee; padding: 24px; }
+    .row { margin-bottom: 12px; }
+    label { display: inline-block; min-width: 80px; }
+    input, button { background: #111; color: #eee; border: 1px solid #333; padding: 8px 12px; border-radius: 6px; font-family: inherit; }
+    button { cursor: pointer; }
+    button:hover { border-color: #5EEAD4; }
+    #result { margin-top: 16px; padding: 12px; background: #0a0a0a; border-radius: 6px; min-height: 60px; white-space: pre-wrap; }
+    .ok { color: #5EEAD4; }
+    .err { color: #EC4899; }
+  </style>
+</head>
+<body>
+  <h1>Screenshot Uploader (dev only)</h1>
+  <p>Upload a screenshot from Chrome MCP into <code>public/projects/[subdir]</code>.</p>
+
+  <div class="row">
+    <label for="name">Name:</label>
+    <input id="name" type="text" placeholder="hermes-conductor.png" size="40" />
+  </div>
+  <div class="row">
+    <label for="subdir">Subdir:</label>
+    <input id="subdir" type="text" placeholder="gallery (or empty)" size="40" />
+  </div>
+  <div class="row">
+    <label for="file">File:</label>
+    <input id="file" type="file" accept="image/*" />
+  </div>
+  <div class="row">
+    <button id="submit">Upload</button>
+  </div>
+  <div id="result"></div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    async function upload() {
+      const file = $('file').files[0];
+      const name = $('name').value.trim();
+      const subdir = $('subdir').value.trim();
+      const out = $('result');
+      out.textContent = '';
+      if (!file) { out.className = 'err'; out.textContent = 'pick a file'; return; }
+      if (!name) { out.className = 'err'; out.textContent = 'set a name'; return; }
+      const fd = new FormData();
+      fd.append('file', file);
+      fd.append('name', name);
+      if (subdir) fd.append('subdir', subdir);
+      try {
+        const r = await fetch('/api/save-screenshot', { method: 'POST', body: fd });
+        const j = await r.json();
+        out.className = r.ok ? 'ok' : 'err';
+        out.textContent = JSON.stringify(j, null, 2);
+      } catch (e) {
+        out.className = 'err';
+        out.textContent = 'fetch failed: ' + e;
+      }
+    }
+    $('submit').addEventListener('click', upload);
+    // Auto-fill name/subdir from URL params
+    const params = new URLSearchParams(location.search);
+    if (params.get('name')) $('name').value = params.get('name');
+    if (params.get('subdir')) $('subdir').value = params.get('subdir');
+    // Auto-upload when file is set (allows Chrome MCP upload_image to trigger save with one call)
+    $('file').addEventListener('change', () => {
+      if ($('file').files[0]) upload();
+    });
+  </script>
+</body>
+</html>

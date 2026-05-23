@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useCallback, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { en } from "./translations/en";
 import { pt } from "./translations/pt";
 import type { Translations } from "./translations/en";
@@ -21,20 +27,47 @@ export const LanguageContext = createContext<LanguageContextValue>({
 
 const translations = { en, pt } as unknown as Record<Locale, Translations>;
 
-function getInitialLocale(): Locale {
-  if (typeof window === "undefined") return "pt";
-  const stored = localStorage.getItem("locale");
-  if (stored === "en" || stored === "pt") return stored;
-  return "pt";
+function isLocale(value: string | null): value is Locale {
+  return value === "en" || value === "pt";
 }
 
+function syncDocumentLang(locale: Locale) {
+  if (typeof document === "undefined") return;
+  document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
+}
+
+/**
+ * LanguageProvider — deterministic SSR render in `pt`, locale stored client-side
+ * read only inside `useEffect` after mount. This avoids the hydration mismatch
+ * caused by reading `localStorage` during initial state init (the server has no
+ * `window`, the client may have a different stored value).
+ */
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>(getInitialLocale);
+  const [locale, setLocale] = useState<Locale>("pt");
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("locale");
+      if (isLocale(stored)) {
+        setLocale(stored);
+        syncDocumentLang(stored);
+        return;
+      }
+    } catch {
+      // localStorage might be unavailable (Safari private mode, etc) — fall back to pt
+    }
+    syncDocumentLang("pt");
+  }, []);
 
   const toggleLocale = useCallback(() => {
     setLocale((prev) => {
       const next = prev === "en" ? "pt" : "en";
-      localStorage.setItem("locale", next);
+      try {
+        localStorage.setItem("locale", next);
+      } catch {
+        /* ignore storage errors */
+      }
+      syncDocumentLang(next);
       return next;
     });
   }, []);

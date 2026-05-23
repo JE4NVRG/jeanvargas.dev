@@ -23,7 +23,7 @@ const serviceIcons = [
   Code2,
 ];
 
-const WHATSAPP_URL = "https://wa.me/5511914826568";
+const WHATSAPP_URL = "https://wa.me/5511948477047";
 
 export function Services() {
   const { t } = useTranslation();

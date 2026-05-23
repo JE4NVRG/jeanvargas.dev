@@ -82,6 +82,89 @@ function ProjectArtwork({
     );
   }
 
+  if (project.slug === "hermes-agentes") {
+    return (
+      <div
+        className={`relative aspect-[16/9] overflow-hidden bg-gradient-to-br ${project.gradient} p-5`}
+      >
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:32px_32px]" />
+        <div className="relative flex h-full items-center">
+          <div className="w-full rounded-2xl border border-white/[0.1] bg-black/70 p-4 font-mono text-[10px] shadow-2xl backdrop-blur">
+            <div className="mb-3 flex items-center justify-between border-b border-white/[0.06] pb-2">
+              <div className="flex gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
+              </div>
+              <span className="text-zinc-600">hermes kanban stats</span>
+            </div>
+            <div className="text-cyan-300">$ hermes profile list</div>
+            <div className="mt-2 grid grid-cols-3 gap-x-3 gap-y-1 text-zinc-400">
+              <span><span className="text-emerald-400">●</span> default</span>
+              <span><span className="text-emerald-400">●</span> dev</span>
+              <span><span className="text-zinc-700">○</span> dev2</span>
+              <span><span className="text-zinc-700">○</span> dev3</span>
+              <span><span className="text-zinc-700">○</span> qa</span>
+              <span><span className="text-zinc-700">○</span> security</span>
+              <span><span className="text-zinc-700">○</span> design</span>
+              <span><span className="text-zinc-700">○</span> gerente</span>
+              <span><span className="text-emerald-400">●</span> stop-judge</span>
+            </div>
+            <div className="mt-2 text-fuchsia-300">$ hermes kanban stats</div>
+            <div className="mt-1 text-zinc-500">
+              done <span className="text-emerald-300">261</span>{" "}
+              · ready <span className="text-cyan-300">1</span>{" "}
+              · running <span className="text-violet-300">0</span>{" "}
+              · blocked <span className="text-rose-300">10</span>
+            </div>
+            <div className="mt-1 text-zinc-600">+ 12 more profiles…</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (project.slug === "openclaw-gateway") {
+    return (
+      <div
+        className={`relative aspect-[16/9] overflow-hidden bg-gradient-to-br ${project.gradient} p-5`}
+      >
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:32px_32px]" />
+        <div className="relative flex h-full items-center">
+          <div className="w-full rounded-2xl border border-white/[0.1] bg-black/70 p-4 font-mono text-[11px] shadow-2xl backdrop-blur">
+            <div className="mb-3 flex items-center justify-between border-b border-white/[0.06] pb-2">
+              <div className="flex gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
+              </div>
+              <span className="text-zinc-600">openclaw/gateway</span>
+            </div>
+            <div className="text-cyan-300">$ openclaw status</div>
+            <div className="mt-2 text-zinc-400">
+              <span className="text-emerald-400">◆</span> Gateway{" "}
+              <span className="text-emerald-300">running</span> on :8642
+            </div>
+            <div className="mt-1 text-zinc-400">
+              <span className="text-emerald-400">◆</span> Providers{" "}
+              <span className="text-violet-300">OpenAI · Anthropic · Ollama</span>
+            </div>
+            <div className="mt-1 text-zinc-400">
+              <span className="text-emerald-400">◆</span> Tokens routed{" "}
+              <span className="text-cyan-300">77.5M</span>{" "}
+              · sessions <span className="text-cyan-300">52</span>
+            </div>
+            <div className="mt-1 text-zinc-400">
+              <span className="text-emerald-400">◆</span> Skills{" "}
+              <span className="text-fuchsia-300">100+</span>{" "}
+              · MCP tools <span className="text-fuchsia-300">19</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`relative aspect-[16/9] overflow-hidden bg-gradient-to-br ${project.gradient} p-5`}
@@ -126,7 +209,11 @@ function ProjectCard({
         <div className="flex flex-1 flex-col p-6">
           <div className="flex flex-wrap items-center gap-3">
             <StatusBadge status={project.status} />
-            <span className="text-xs text-zinc-600">{project.dateRange}</span>
+            <span className="text-xs text-zinc-600">
+              {typeof project.dateRange === "string"
+                ? project.dateRange
+                : project.dateRange[locale]}
+            </span>
           </div>
 
           <div className="mt-4">
