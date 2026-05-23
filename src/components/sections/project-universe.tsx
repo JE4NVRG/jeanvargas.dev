@@ -144,7 +144,7 @@ export function ProjectUniverse() {
             return (
               <Link
                 key={project.slug}
-                href={`/projects/${project.slug}`}
+                href={`/${locale}/projects/${project.slug}`}
                 className="universe-card group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0a0a0a]/80 transition-colors hover:border-cyan-300/30"
               >
                 <div className={`relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${project.gradient}`}>

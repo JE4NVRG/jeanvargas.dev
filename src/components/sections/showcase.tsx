@@ -321,7 +321,7 @@ function ShowcaseItem({
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link
-              href={`/projects/${project.slug}`}
+              href={`/${locale}/projects/${project.slug}`}
               className="group inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-colors hover:bg-zinc-100"
             >
               {viewLabel}

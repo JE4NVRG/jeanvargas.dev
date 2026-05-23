@@ -2,25 +2,31 @@ import { projects, getProjectBySlug } from "@/data/projects";
 import { CaseStudy } from "@/components/projects/case-study";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import type { Locale } from "@/i18n";
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: Locale }>;
 }
 
 const SITE_URL = "https://je4ndev.com";
+const SUPPORTED_LOCALES = ["pt", "en"] as const;
 
 export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+  // Cartesian product: 2 locales × 12 projects = 24 SSG'd pages.
+  return SUPPORTED_LOCALES.flatMap((locale) =>
+    projects.map((p) => ({ locale, slug: p.slug }))
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const project = getProjectBySlug(slug);
   if (!project) return {};
 
+  const isEn = locale === "en";
   const title = `${project.title} — Case study · je4ndev`;
-  const description = project.description.pt;
-  const url = `${SITE_URL}/projects/${slug}`;
+  const description = project.description[locale];
+  const url = `${SITE_URL}/${locale}/projects/${slug}`;
   const ogImage = project.image
     ? `${SITE_URL}${project.image}`
     : `${SITE_URL}/og-image.png`;
@@ -31,9 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: url,
       languages: {
-        "pt-BR": url,
-        "en-US": `${url}?lang=en`,
-        "x-default": url,
+        "pt-BR": `${SITE_URL}/pt/projects/${slug}`,
+        "en-US": `${SITE_URL}/en/projects/${slug}`,
+        "x-default": `${SITE_URL}/en/projects/${slug}`,
       },
     },
     keywords: [
@@ -42,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ...project.technologies.slice(0, 6),
       "je4ndev",
       "Jean Carlos Vargas",
-      "agencia de produto",
+      isEn ? "product agency" : "agencia de produto",
     ],
     openGraph: {
       title,
@@ -50,8 +56,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       siteName: "JE4NDEV",
       type: "article",
-      locale: "pt_BR",
-      alternateLocale: ["en_US"],
+      locale: isEn ? "en_US" : "pt_BR",
+      alternateLocale: isEn ? ["pt_BR"] : ["en_US"],
       images: [
         {
           url: ogImage,
@@ -70,18 +76,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+function LangFixer({ locale }: { locale: Locale }) {
+  const lang = locale === "pt" ? "pt-BR" : "en";
+  return (
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `document.documentElement.lang=${JSON.stringify(lang)};`,
+      }}
+    />
+  );
+}
+
 export default async function ProjectPage({ params }: Props) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const project = getProjectBySlug(slug);
   if (!project) notFound();
 
-  const projectUrl = `${SITE_URL}/projects/${slug}`;
+  const projectUrl = `${SITE_URL}/${locale}/projects/${slug}`;
   const ogImage = project.image
     ? `${SITE_URL}${project.image}`
     : `${SITE_URL}/og-image.png`;
+  const isEn = locale === "en";
 
-  // JSON-LD por projeto: ajuda Google a entender que cada slug eh um produto
-  // distinto da agencia (rich SERP nas buscas por NexPanel, ArchScene, etc).
   const projectJsonLd = [
     {
       "@context": "https://schema.org",
@@ -91,8 +107,8 @@ export default async function ProjectPage({ params }: Props) {
       headline: project.title,
       url: projectUrl,
       image: ogImage,
-      description: project.description.pt,
-      inLanguage: ["pt-BR", "en"],
+      description: project.description[locale],
+      inLanguage: isEn ? "en" : "pt-BR",
       keywords: [project.category, ...project.technologies].join(", "),
       creator: {
         "@type": "Organization",
@@ -113,14 +129,14 @@ export default async function ProjectPage({ params }: Props) {
         {
           "@type": "ListItem",
           position: 1,
-          name: "Home",
-          item: SITE_URL,
+          name: isEn ? "Home" : "Início",
+          item: `${SITE_URL}/${locale}`,
         },
         {
           "@type": "ListItem",
           position: 2,
-          name: "Projetos",
-          item: `${SITE_URL}/#work`,
+          name: isEn ? "Projects" : "Projetos",
+          item: `${SITE_URL}/${locale}#work`,
         },
         {
           "@type": "ListItem",
@@ -134,6 +150,7 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <>
+      <LangFixer locale={locale} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}

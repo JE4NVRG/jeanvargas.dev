@@ -1,11 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { LanguageProvider } from "@/i18n";
-import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
-import { CursorGlow } from "@/components/ui/cursor-glow";
-import { LenisProvider } from "@/components/ui/lenis-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -115,6 +110,16 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
+/**
+ * Root layout — hosts the single <html> and <body> elements. The actual
+ * locale-aware content lives under app/[locale]/. We render `<html lang="pt-BR">`
+ * here because Next.js requires a stable root layout and the middleware
+ * redirects bare `/` to a locale prefix anyway. The locale-specific
+ * `[locale]/layout.tsx` injects a `<script>` after hydration to update
+ * `document.documentElement.lang` when the URL is `/en/*` — without this,
+ * Googlebot relies on the hreflang annotations in <head> as the
+ * authoritative language signal (which is exactly what Google docs recommend).
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -346,14 +351,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-[#050505] text-white`}
         suppressHydrationWarning
       >
-        <LanguageProvider>
-          <LenisProvider>
-            <CursorGlow />
-            <Navbar />
-            {children}
-            <Footer />
-          </LenisProvider>
-        </LanguageProvider>
+        {children}
       </body>
     </html>
   );

@@ -2,45 +2,51 @@ import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
 
 const BASE_URL = "https://je4ndev.com";
+const LOCALES = ["pt", "en"] as const;
 
 /**
- * Sitemap dinamico. Next.js serve isto em `/sitemap.xml` em produção,
- * cobre a home + as 12 paginas de projeto. Inclui hreflang pra cada rota
- * (pt-BR canonico + en-US como alternativa via query param).
+ * Sitemap dinamico — agora com rotas SSR localizadas em /pt e /en.
  *
- * Quando subir uma rota nova (ex: /blog, /changelog), adicionar aqui pra
- * o Google encontrar de cara em vez de depender so de discovery via links.
+ * Total: 2 (home) + 2 × 12 (projetos) = 26 URLs. Cada URL declara hreflang
+ * apontando pro seu par em outro idioma + um x-default que aponta pra /en
+ * (mercado global anglofono prioritario).
+ *
+ * Por que /en eh x-default: search engines usam x-default como fallback
+ * quando o Accept-Language do crawler nao bate com nenhum hreflang. Como
+ * a gente quer presenca global maxima, /en e o caminho mais seguro.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  const home: MetadataRoute.Sitemap[number] = {
-    url: `${BASE_URL}/`,
+  const homeEntries = LOCALES.map<MetadataRoute.Sitemap[number]>((locale) => ({
+    url: `${BASE_URL}/${locale}`,
     lastModified,
     changeFrequency: "weekly",
     priority: 1,
     alternates: {
       languages: {
-        "pt-BR": `${BASE_URL}/`,
-        "en-US": `${BASE_URL}/?lang=en`,
-        "x-default": `${BASE_URL}/`,
-      },
-    },
-  };
-
-  const projectPages = projects.map<MetadataRoute.Sitemap[number]>((project) => ({
-    url: `${BASE_URL}/projects/${project.slug}`,
-    lastModified,
-    changeFrequency: "monthly",
-    priority: 0.8,
-    alternates: {
-      languages: {
-        "pt-BR": `${BASE_URL}/projects/${project.slug}`,
-        "en-US": `${BASE_URL}/projects/${project.slug}?lang=en`,
-        "x-default": `${BASE_URL}/projects/${project.slug}`,
+        "pt-BR": `${BASE_URL}/pt`,
+        "en-US": `${BASE_URL}/en`,
+        "x-default": `${BASE_URL}/en`,
       },
     },
   }));
 
-  return [home, ...projectPages];
+  const projectEntries = LOCALES.flatMap((locale) =>
+    projects.map<MetadataRoute.Sitemap[number]>((project) => ({
+      url: `${BASE_URL}/${locale}/projects/${project.slug}`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          "pt-BR": `${BASE_URL}/pt/projects/${project.slug}`,
+          "en-US": `${BASE_URL}/en/projects/${project.slug}`,
+          "x-default": `${BASE_URL}/en/projects/${project.slug}`,
+        },
+      },
+    }))
+  );
+
+  return [...homeEntries, ...projectEntries];
 }

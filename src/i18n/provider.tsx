@@ -4,14 +4,14 @@ import {
   createContext,
   useCallback,
   useEffect,
-  useState,
   type ReactNode,
 } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { en } from "./translations/en";
 import { pt } from "./translations/pt";
 import type { Translations } from "./translations/en";
 
-type Locale = "en" | "pt";
+export type Locale = "en" | "pt";
 
 interface LanguageContextValue {
   locale: Locale;
@@ -27,50 +27,43 @@ export const LanguageContext = createContext<LanguageContextValue>({
 
 const translations = { en, pt } as unknown as Record<Locale, Translations>;
 
-function isLocale(value: string | null): value is Locale {
-  return value === "en" || value === "pt";
-}
-
-function syncDocumentLang(locale: Locale) {
-  if (typeof document === "undefined") return;
-  document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
-}
-
 /**
- * LanguageProvider — deterministic SSR render in `pt`, locale stored client-side
- * read only inside `useEffect` after mount. This avoids the hydration mismatch
- * caused by reading `localStorage` during initial state init (the server has no
- * `window`, the client may have a different stored value).
+ * LanguageProvider — receives the canonical locale from the URL segment
+ * (pre-rendered by the server) and exposes a toggle that switches by
+ * REPLACING the locale prefix in the pathname and pushing the new URL.
+ *
+ * This is the SEO-correct setup: every URL is locale-specific, server-rendered
+ * in that locale, indexable separately by Google/Bing. The old localStorage
+ * approach kept the same URL and switched JS state — which Google never sees,
+ * so the EN version was invisible to search engines.
  */
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>("pt");
+export function LanguageProvider({
+  locale,
+  children,
+}: {
+  locale: Locale;
+  children: ReactNode;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
 
+  // Persist user preference in cookie so the middleware respects it on
+  // subsequent bare visits to "/".
   useEffect(() => {
     try {
-      const stored = localStorage.getItem("locale");
-      if (isLocale(stored)) {
-        setLocale(stored);
-        syncDocumentLang(stored);
-        return;
-      }
+      // 1 year expiry, root path, SameSite=Lax so same-site nav reads it back.
+      document.cookie = `NEXT_LOCALE=${locale}; Path=/; Max-Age=31536000; SameSite=Lax`;
     } catch {
-      // localStorage might be unavailable (Safari private mode, etc) — fall back to pt
+      /* cookie write may fail in private mode — locale still works for current session */
     }
-    syncDocumentLang("pt");
-  }, []);
+  }, [locale]);
 
   const toggleLocale = useCallback(() => {
-    setLocale((prev) => {
-      const next = prev === "en" ? "pt" : "en";
-      try {
-        localStorage.setItem("locale", next);
-      } catch {
-        /* ignore storage errors */
-      }
-      syncDocumentLang(next);
-      return next;
-    });
-  }, []);
+    const next: Locale = locale === "en" ? "pt" : "en";
+    // Replace the leading /pt or /en segment with the new one.
+    const nextPath = pathname.replace(/^\/(pt|en)(?=$|\/)/, `/${next}`);
+    router.push(nextPath || `/${next}`);
+  }, [locale, pathname, router]);
 
   return (
     <LanguageContext.Provider

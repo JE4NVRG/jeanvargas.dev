@@ -202,7 +202,7 @@ function ProjectCard({
   const metrics = project.metrics.slice(0, 2);
 
   return (
-    <Link href={`/projects/${project.slug}`} className="block h-full">
+    <Link href={`/${locale}/projects/${project.slug}`} className="block h-full">
       <TiltCard className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#080808] shadow-[0_22px_80px_-55px_rgba(255,255,255,0.35)] transition-colors hover:border-cyan-300/25">
         <ProjectArtwork project={project} priority={priority} />
 

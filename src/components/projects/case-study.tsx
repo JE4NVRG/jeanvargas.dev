@@ -532,7 +532,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
         {/* Next Project */}
         {nextProject && (
           <SectionReveal delay={0.22} className="mt-24">
-            <Link href={`/projects/${nextProject.slug}`}>
+            <Link href={`/${locale}/projects/${nextProject.slug}`}>
               <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-7 transition-all duration-300 hover:border-purple-500/30 hover:shadow-[0_0_30px_-10px_rgba(168,85,247,0.3)]">
                 <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-zinc-600">
                   {t.project.nextProject}

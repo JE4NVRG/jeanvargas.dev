@@ -1,2 +1,2 @@
-export { LanguageProvider } from "./provider";
+export { LanguageProvider, type Locale } from "./provider";
 export { useTranslation } from "./use-translation";
