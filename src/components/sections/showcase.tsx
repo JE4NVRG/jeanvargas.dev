@@ -26,12 +26,12 @@ import type { Translations } from "@/i18n/translations/en";
  */
 
 const showcaseSlugs = [
-  "hermes-agentes",
   "archscene",
-  "openclaw-gateway",
   "nexpanel",
+  "gestaoml",
   "vultrix-3d",
   "stopultimate",
+  "hermes-agentes",
 ];
 
 export function Showcase() {
@@ -168,6 +168,7 @@ function ShowcaseItem({
   const liveUrl = project.links.live;
   const githubUrl = project.links.github;
   const accent = ACCENT_BY_SLUG[project.slug] ?? "from-cyan-400/30 to-violet-500/20";
+  const artwork = project.image ?? project.coverImage;
 
   // Contextual secondary CTA: prefer live demo, fall back to source code,
   // otherwise route to WhatsApp with a pre-filled "I want something similar".
@@ -211,9 +212,9 @@ function ShowcaseItem({
               stays honest and consistent. Video lives inside the case study
               as a "demo" block. Fallback artwork only when neither exists.
             */}
-            {project.image ? (
+            {artwork ? (
               <Image
-                src={project.image}
+                src={artwork}
                 alt={project.title}
                 fill
                 className="object-cover object-top transition-transform duration-700 group-hover/card:scale-[1.04]"

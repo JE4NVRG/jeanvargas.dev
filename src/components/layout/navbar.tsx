@@ -20,7 +20,8 @@ export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const anchorPrefix = pathname === "/" ? "" : "/";
+  const localeRoot = `/${locale}`;
+  const anchorPrefix = pathname === localeRoot ? "" : localeRoot;
   const resolveHref = useCallback(
     (href: string) => `${anchorPrefix}${href}`,
     [anchorPrefix],
@@ -62,9 +63,10 @@ export function Navbar() {
       >
         <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4">
           <Link
-            href="/"
+            href={localeRoot}
             className="group flex items-center gap-3 text-lg font-extrabold tracking-normal"
             onClick={closeMobile}
+            aria-label="JE4NDEV"
           >
             <BrandMark className="transition-transform duration-300 group-hover:scale-105" />
             <span>
@@ -97,6 +99,8 @@ export function Navbar() {
 
             <Link
               href={resolveHref("#contact")}
+              data-analytics-event="lead-cta-click"
+              data-cta="navbar-contact"
               className="bg-white text-black text-sm font-semibold px-5 py-2 rounded-lg hover:bg-zinc-200 transition-colors"
             >
               {t.nav.contact}
@@ -106,9 +110,11 @@ export function Navbar() {
           {/* Mobile hamburger / close */}
           <button
             type="button"
-            className="md:hidden relative z-50 flex h-10 w-10 items-center justify-center rounded-lg text-zinc-400 transition-colors hover:text-white"
+            className="md:hidden relative z-50 flex h-11 w-11 items-center justify-center rounded-lg text-zinc-400 transition-colors hover:text-white"
             onClick={() => setMobileOpen((prev) => !prev)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
           >
             <div className="flex flex-col items-center justify-center gap-[5px]">
               <span
@@ -149,6 +155,7 @@ export function Navbar() {
 
             {/* Menu panel */}
             <motion.div
+              id="mobile-navigation"
               className="absolute top-0 right-0 h-full w-full max-w-sm bg-[#0a0a0a]/95 backdrop-blur-xl border-l border-white/5 shadow-2xl"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -206,6 +213,8 @@ export function Navbar() {
                 {/* CTA */}
                 <motion.a
                   href="mailto:jean@je4ndev.com"
+                  data-analytics-event="lead-cta-click"
+                  data-cta="mobile-menu-email"
                   className="flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-black transition-colors hover:bg-zinc-200"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}

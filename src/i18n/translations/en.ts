@@ -7,27 +7,27 @@ export const en = {
     contact: "Get in touch",
   },
   hero: {
-    badge: "Bring your idea to life · transparent team",
-    title: "Product agency",
-    titleHighlight: "that takes your idea live",
+    badge: "Real products · clear scope · direct updates",
+    title: "Websites, systems and SaaS",
+    titleHighlight: "built to sell, operate and grow.",
     subtitle:
-      "You follow the build in real time — public Vercel preview on your domain, commits and screenshots at every milestone. Experienced, transparent team, 1-year warranty on shipped products. We work per delivery or per milestone: small upfront, the rest as we ship. Starts at US$ 100.",
+      "Work directly with the founder and review every delivery in a navigable preview. We handle interface, backend, integrations and deployment — with clear scope, human review and milestone-based payments.",
     subtitleMobile:
-      "SaaS, AI and automations in production — with the founder reviewing every delivery. Starts at US$ 100.",
+      "Websites, SaaS and automations with navigable previews, clear scope and founder review.",
     terminalTitle: "je4ndev/agency",
     terminalCommand: "ship product --saas --automation --web3",
     terminalOutput: "scope -> architecture -> code -> deploy -> mrr",
-    cta: "See our products",
-    secondaryCta: "Talk to the founder",
+    cta: "See products in action",
+    secondaryCta: "Discuss my project",
     email: "jean@je4ndev.com",
     whatsapp: "Talk on WhatsApp",
     proof:
       "From idea to production: strategy, interface, backend, database, automations and deployment.",
     stats: [
-      { value: "10+", label: "own products in portfolio" },
-      { value: "10+", label: "years shipping SaaS" },
-      { value: "1yr", label: "warranty in production" },
-      { value: "24/7", label: "operation and support" },
+      { value: "12", label: "catalogued projects" },
+      { value: "6", label: "public products" },
+      { value: "7", label: "reviewed visual proofs" },
+      { value: "PT/EN", label: "bilingual portfolio" },
     ],
     strengths: [
       "SaaS MVPs with auth, billing and admin panels",
@@ -75,7 +75,7 @@ export const en = {
       {
         title: "Sites, landings & blogs",
         description:
-          "Company site, high-conversion landing or blog on Vercel with your own domain · starts at US$ 100",
+          "Company site, high-conversion landing or blog with your own domain, fixed scope and delivery through a navigable preview",
       },
       {
         title: "Custom SaaS",
@@ -107,9 +107,9 @@ export const en = {
     whatsappMessage: "Hi Jean, I'm interested in your {service} service.",
   },
   contact: {
-    title: "Let's build something",
-    titleHighlight: "extraordinary",
-    subtitle: "Got a project in mind? Tell us what's manual, slow or hard to measure in your ops — we'll come back with scope, timeline and milestones inside 1 business day.",
+    title: "Let's turn the problem",
+    titleHighlight: "into a real product",
+    subtitle: "Tell us what is manual, slow or hard to measure today. You will hear directly from the founder with the questions and next step needed to define a responsible scope.",
     whatsapp: "WhatsApp",
     trustline: "Direct reply from the founder · scope fixed per delivery · 1-year warranty",
     founderName: "Jean Carlos Vargas",
@@ -118,8 +118,8 @@ export const en = {
     terminalTitle: "je4ndev/agency · next delivery",
     terminalLines: [
       "briefing received",
-      "scope locked in ≤ 1 business day",
-      "build started · public Vercel preview",
+      "risks and integrations mapped",
+      "build started · navigable product preview",
       "qa + security gate (gitleaks + npm audit)",
       "production deploy · 1-year warranty",
     ],
@@ -129,7 +129,7 @@ export const en = {
     label: "Open source · proof of work",
     title: "github.com/JE4NVRG",
     subtitle:
-      "Don't take the showcase at face value. Every commit is public — Hermes Kanban open source (MIT), internal tools turned OSS, Solidity audits and SaaS in production. All traceable.",
+      "Don't take the showcase at face value. Part of the code and history is public — Hermes Kanban open source (MIT), tools, Solidity audits and products in production. Open the source and verify it.",
     bullets: [
       {
         title: "Hermes Kanban",
@@ -145,16 +145,17 @@ export const en = {
       },
       {
         title: "SaaS in production",
-        body: "ArchScene, NexPanel, StopUltimate, GestãoML, HypeFC — all shipping.",
+        body: "ArchScene, NexPanel, StopUltimate and GestãoML — public products in production.",
       },
     ],
-    metricsTitle: "2026 activity",
+    metricsTitle: "Verifiable public proof",
     metrics: [
-      { label: "Public repos", value: "30+" },
-      { label: "Commits in the last year", value: "1.6k+" },
-      { label: "Stars on OSS projects", value: "120+" },
-      { label: "Audit reports", value: "8+" },
+      { label: "Public repositories", value: "83" },
+      { label: "Public followers", value: "216" },
+      { label: "Hermes code", value: "MIT" },
+      { label: "Profile and history", value: "Live" },
     ],
+    verificationNote: "Counts checked on the public profile on July 17, 2026. Links open the original GitHub source.",
     cta: "github.com/JE4NVRG",
   },
   footer: {
@@ -259,9 +260,9 @@ export const en = {
   },
   universe: {
     label: "Project universe · 12 catalogued projects",
-    title: "Everything we've already shipped",
+    title: "Real products, systems and experiments",
     subtitle:
-      "The 6 cinematic flagships above do the selling. Here you see the rest — internal tools, MVPs, audits and experiments that prove the agency has been shipping for a while.",
+      "Explore JE4NDEV's real delivery volume. Filter by area, search by technology and open the strongest proof for each project.",
     filters: {
       all: "All",
       saas: "SaaS",
@@ -270,52 +271,59 @@ export const en = {
       internal: "Internal tools",
       games: "Games / Social",
     },
-    footer: "Every card opens a case study with real screenshots, stack, problem and delivery.",
+    searchPlaceholder: "Search project, technology or category...",
+    resultLabel: "project found",
+    resultsLabel: "projects found",
+    emptyTitle: "No projects in this view",
+    emptyBody: "Try another filter or remove part of your search.",
+    proofApproved: "Real proof",
+    proofPrivate: "Private demo",
+    proofPending: "New capture pending",
+    proofEditorial: "Editorial case",
+    footer: "Every card opens a case with visual proof, stack, problem, delivery and a primary action.",
   },
   pricing: {
-    label: "How we bill · transparent and flexible",
-    title: "Starts at US$ 100. Pay as we ship.",
+    label: "How we work · clear scope and payments",
+    title: "Fixed project. Milestone payments.",
     subtitle:
-      "We don't bill per hour. We work per delivery or per milestone: small upfront, the rest paid as we ship each part of the project. No surprises, no endless retainers.",
+      "We understand the problem, define deliverables and present a proposal before work begins. You review each milestone in a navigable preview and move forward with a clear scope, timeline and investment.",
     plans: [
       {
         name: "Site / Landing / Blog",
         tagline: "Company site, landing or blog",
-        price: "Starts at",
-        priceSuffix: "US$ 100",
-        priceNote: "30% upfront · rest on delivery",
+        price: "Fixed project",
+        priceNote: "Value set after the brief · upfront payment to begin",
         features: [
           "Company website, high-conversion landing or blog",
           "Custom design, dark/light, mobile-first",
-          "Deploy on Vercel with your own domain",
-          "Live build tracking via Vercel preview link",
+          "Deploy on Vercel or VPS with your own domain",
+          "Live progress through a navigable preview",
           "1-year warranty + WhatsApp support",
         ],
-        cta: "Get a quote",
+        cta: "Request a diagnosis",
         featured: false,
       },
       {
         name: "SaaS / Product",
         tagline: "Take your idea live — full system",
-        price: "Custom",
-        priceSuffix: "per milestone",
-        priceNote: "We bill per delivery · small upfront + installments",
+        price: "By milestone",
+        priceNote: "Scope and milestones defined in the proposal",
         features: [
           "Auth, billing, admin panel, multi-tenant",
           "Backend + DB + API integrations",
-          "Watch every commit on the Vercel preview",
+          "Review every milestone in a navigable preview",
           "Deploy + 30 days of operation included",
           "1-year warranty · monthly maintenance plans",
         ],
-        cta: "Take it live",
+        cta: "Plan my product",
         featured: true,
         badge: "Most popular",
       },
       {
         name: "Web3 / NFT / Audit",
         tagline: "Smart contracts, NFT platforms, audits",
-        price: "Custom",
-        priceNote: "Scope-based · monthly plans available",
+        price: "Scope-based",
+        priceNote: "Technical diagnosis before the proposal",
         features: [
           "Solidity / EVM audit with technical report",
           "NFT collections + smart contracts from scratch",
@@ -328,16 +336,16 @@ export const en = {
       },
     ],
     disclaimer:
-      "We work per delivery or per milestone. Small upfront, the rest paid as we ship. 1-year warranty on shipped products. Monthly maintenance plans and 24/7 support available.",
+      "Every proposal states deliverables, timeline, payment milestones and exclusions. Ongoing maintenance and support are optional.",
   },
   faq: {
     label: "FAQ",
     title: "Questions before you book",
-    subtitle: "The honest answers we'd want before hiring an AI agency.",
+    subtitle: "Direct answers about process, scope, security and support.",
     items: [
       {
         q: "How is this different from hiring a freelancer or dev shop?",
-        a: "A freelancer is one person, 40 hours a week, charges hourly, and goes on vacation. We're founder + 21 AI agent profiles (dev, QA, security, design, content) orchestrated on the same Kanban, billed per outcome shipped — not hours. The founder reviews every delivery before it ships; the agents unblock the repetitive work that traps traditional agencies in meetings to schedule meetings.",
+        a: "JE4NDEV is a founder-led operation: you work directly with the person defining the architecture and reviewing every delivery. Specialized agents support development, QA, security and documentation, while scope, decisions and final responsibility remain under human review.",
       },
       {
         q: "Who is actually in control?",
@@ -349,7 +357,7 @@ export const en = {
       },
       {
         q: "How long until I see the first shippable product?",
-        a: "Sprint plan: 21 days from spec to production. We've shipped MVPs in 14 days for tight scopes. Anything faster than that and we'd be lying — quality has a floor.",
+        a: "After the briefing, we deliver a timeline split into verifiable milestones. The first navigable checkpoint comes early, but the final deadline is only fixed after validating scope, integrations and technical risks.",
       },
       {
         q: "Do you sign NDA / handle confidential business?",
@@ -361,16 +369,16 @@ export const en = {
       },
       {
         q: "Why should I trust an AI agency that ships AI agency tools?",
-        a: "Because the agency runs on the products it sells. Hermes Agentes, OpenClaw Gateway, ArchScene, NexPanel, HypeFC, Vultrix 3D, StopUltimate — all live in production and built with the same pipeline you'd be hiring. The dogfood is the proof: every product has a public link, commits and changelog. You can audit before committing.",
+        a: "Because we show verifiable evidence before the proposal. ArchScene, NexPanel, Vultrix 3D, StopUltimate, Alchemix Auditor and Ethena Scanner are publicly accessible; other cases clearly state when proof is private, editorial or under review. You can navigate the products and evaluate the work before committing.",
       },
     ],
   },
   project: {
     breadcrumbWork: "Work",
     demoLabel: "Demo in motion",
-    demoIntro: "Animated walkthrough of the product in action.",
+    demoIntro: "A supporting demonstration of the product flow or output.",
     visuals: "Product Screenshots",
-    visualIntro: "Real screens from the product, landing page, and conversion flows.",
+    visualIntro: "Reviewed product screens, outputs and supporting artifacts.",
     mainVisual: "Featured screenshot",
     impact: "Business Impact",
     before: "Before",
@@ -381,6 +389,13 @@ export const en = {
     solution: "The Solution",
     visitLive: "Visit live",
     github: "GitHub",
+    docs: "Documentation",
+    contact: "Request a demo",
+    proofLabel: "Reviewed proof",
+    privateProof: "Private demonstration",
+    pendingProof: "Product capture under review",
+    editorialProof: "Editorial presentation",
+    contextLabel: "Project context",
     ctaTitle: "Need a system like this?",
     ctaSubtitle:
       "Tell me what is manual, slow, or hard to measure in your operation. I can help turn it into a real product.",
@@ -474,6 +489,7 @@ export type Translations = {
     bullets: ReadonlyArray<{ title: string; body: string }>;
     metricsTitle: string;
     metrics: ReadonlyArray<{ label: string; value: string }>;
+    verificationNote: string;
     cta: string;
   };
   footer: {
@@ -518,6 +534,15 @@ export type Translations = {
       internal: string;
       games: string;
     };
+    searchPlaceholder: string;
+    resultLabel: string;
+    resultsLabel: string;
+    emptyTitle: string;
+    emptyBody: string;
+    proofApproved: string;
+    proofPrivate: string;
+    proofPending: string;
+    proofEditorial: string;
     footer: string;
   };
   pricing: {
@@ -559,6 +584,13 @@ export type Translations = {
     solution: string;
     visitLive: string;
     github: string;
+    docs: string;
+    contact: string;
+    proofLabel: string;
+    privateProof: string;
+    pendingProof: string;
+    editorialProof: string;
+    contextLabel: string;
     ctaTitle: string;
     ctaSubtitle: string;
     ctaWhatsapp: string;

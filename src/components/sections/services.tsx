@@ -63,7 +63,9 @@ export function Services() {
                     href={`${WHATSAPP_URL}?text=${message}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-zinc-400 transition-colors group-hover:text-purple-400"
+                    data-analytics-event="lead-cta-click"
+                    data-cta={`service-${i + 1}`}
+                    className="mt-5 inline-flex min-h-11 items-center gap-1 text-sm font-medium text-zinc-400 transition-colors group-hover:text-purple-400"
                   >
                     {t.services.cta}
                     <ArrowUpRight className="h-3.5 w-3.5" />

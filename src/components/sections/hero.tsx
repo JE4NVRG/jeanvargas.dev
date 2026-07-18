@@ -54,7 +54,7 @@ export function Hero() {
             so screen readers receive the semantic space between them through
             the literal " " text node between the spans.
           */}
-          <h1 className="text-[1.85rem] font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
+          <h1 className="text-[2.1rem] font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
             {/*
               First line uses RevealText (char-by-char split). The highlight
               SECOND line cannot use SplitType because bg-clip-text + text-transparent
@@ -103,6 +103,8 @@ export function Hero() {
             <MagneticButton
               as="a"
               href="#work"
+              data-analytics-event="portfolio-proof-cta"
+              data-cta="hero-products"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black shadow-[0_8px_40px_-8px_rgba(94,234,212,0.5)] transition-colors hover:bg-zinc-100 sm:px-8 sm:py-4 sm:text-base"
             >
               {t.hero.cta}
@@ -113,6 +115,8 @@ export function Hero() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
+              data-analytics-event="lead-cta-click"
+              data-cta="hero-whatsapp"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/[0.16] bg-white/[0.04] px-6 py-3.5 text-sm font-medium text-zinc-200 backdrop-blur transition-colors hover:border-white/[0.32] hover:bg-white/[0.08] sm:px-8 sm:py-4 sm:text-base"
             >
               <MessageCircle className="h-4 w-4" />
@@ -127,15 +131,20 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
-            <span className="inline-flex items-center gap-1">
-              <span className="h-1 w-1 rounded-full bg-cyan-400" /> 12 produtos reais
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <span className="h-1 w-1 rounded-full bg-violet-400" /> Founder-led
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <span className="h-1 w-1 rounded-full bg-emerald-400" /> Garantia 1 ano
-            </span>
+            {t.hero.stats.slice(0, 3).map((stat, index) => (
+              <span key={stat.label} className="inline-flex items-center gap-1">
+                <span
+                  className={`h-1 w-1 rounded-full ${
+                    index === 0
+                      ? "bg-cyan-400"
+                      : index === 1
+                        ? "bg-violet-400"
+                        : "bg-emerald-400"
+                  }`}
+                />
+                {stat.value} {stat.label}
+              </span>
+            ))}
           </motion.div>
 
           <motion.div
@@ -149,7 +158,7 @@ export function Hero() {
                 <div className="text-xl font-bold text-white sm:text-2xl lg:text-3xl">
                   <StatCounter value={stat.value} />
                 </div>
-                <div className="mt-1 text-[10px] leading-4 text-zinc-500 sm:text-xs">{stat.label}</div>
+                <div className="mt-1 text-[10px] leading-4 text-zinc-400 sm:text-xs">{stat.label}</div>
               </div>
             ))}
           </motion.div>

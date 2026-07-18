@@ -8,6 +8,8 @@ import path from "node:path";
  * Whitelisted filename pattern to prevent path traversal: alphanumeric + dash + underscore + .png/.jpg.
  */
 const FILENAME_RE = /^[a-z0-9][a-z0-9_-]*\.(png|jpg|jpeg)$/i;
+const ALLOWED_TYPES = new Set(["image/png", "image/jpeg"]);
+const MAX_FILE_SIZE = 8 * 1024 * 1024;
 
 export async function POST(req: NextRequest) {
   if (process.env.NODE_ENV === "production") {
@@ -21,6 +23,12 @@ export async function POST(req: NextRequest) {
 
   if (!(file instanceof Blob)) {
     return NextResponse.json({ error: "missing file" }, { status: 400 });
+  }
+  if (!ALLOWED_TYPES.has(file.type)) {
+    return NextResponse.json({ error: "unsupported file type" }, { status: 415 });
+  }
+  if (file.size > MAX_FILE_SIZE) {
+    return NextResponse.json({ error: "file exceeds 8 MB" }, { status: 413 });
   }
   if (!FILENAME_RE.test(name)) {
     return NextResponse.json({ error: "bad name (must match a-z0-9_-.png)" }, { status: 400 });

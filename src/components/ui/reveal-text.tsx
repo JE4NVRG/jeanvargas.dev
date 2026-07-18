@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, createElement } from "react";
+import { useEffect, useRef } from "react";
 import SplitType from "split-type";
 import { gsap } from "@/lib/gsap";
 
@@ -30,11 +30,14 @@ export function RevealText({
   as = "h1",
 }: RevealTextProps) {
   const ref = useRef<HTMLElement | null>(null);
+  const accessibleLabel = typeof children === "string" ? children : undefined;
 
   useEffect(() => {
     if (!ref.current) return;
     const split = new SplitType(ref.current, { types: "chars,words", tagName: "span" });
     if (!split.chars) return;
+
+    split.chars.forEach((char) => char.setAttribute("aria-hidden", "true"));
 
     gsap.set(split.chars, { yPercent: 110, opacity: 0 });
 
@@ -68,13 +71,18 @@ export function RevealText({
     };
   }, [trigger, delay, stagger]);
 
-  return createElement(
-    as,
-    {
-      ref,
-      className,
-      style: { overflow: "hidden", display: as === "span" ? "inline-block" : "block" },
-    },
-    children
+  const Tag = as;
+
+  return (
+    <Tag
+      ref={(node) => {
+        ref.current = node;
+      }}
+      className={className}
+      aria-label={accessibleLabel}
+      style={{ overflow: "hidden", display: as === "span" ? "inline-block" : "block" }}
+    >
+      {children}
+    </Tag>
   );
 }

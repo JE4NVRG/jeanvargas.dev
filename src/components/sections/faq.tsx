@@ -55,6 +55,7 @@ export function Faq() {
                   className="flex w-full items-center justify-between gap-4 p-6 text-left transition-colors hover:bg-white/[0.02]"
                   onClick={() => setOpen(isOpen ? null : i)}
                   aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${i}`}
                 >
                   <span className="text-base font-semibold text-white sm:text-lg">{item.q}</span>
                   <ChevronDown
@@ -66,6 +67,9 @@ export function Faq() {
                 <AnimatePresence initial={false}>
                   {isOpen ? (
                     <motion.div
+                      id={`faq-answer-${i}`}
+                      role="region"
+                      aria-label={item.q}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}

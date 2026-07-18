@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { ArrowUpRight, Github, GitBranch, GitCommit, Star } from "lucide-react";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { useTranslation } from "@/i18n";
@@ -17,35 +16,8 @@ import { useTranslation } from "@/i18n";
 
 const BULLET_ICONS = [GitBranch, GitCommit, Star, Github];
 
-// Deterministic pseudo-random density grid (53 weeks × 7 days) so the visual
-// renders identical on server + client (no hydration warning) but still
-// reads as "active contributor" instead of a static block.
-function buildContributionGrid(): number[] {
-  const weeks = 53;
-  const days = 7;
-  const out: number[] = [];
-  for (let w = 0; w < weeks; w++) {
-    for (let d = 0; d < days; d++) {
-      const seed = (w * 31 + d * 7 + 13) % 11;
-      // Bias toward denser cells — agency is shipping.
-      const level = seed < 3 ? 0 : seed < 6 ? 1 : seed < 8 ? 2 : seed < 10 ? 3 : 4;
-      out.push(level);
-    }
-  }
-  return out;
-}
-
-const LEVEL_CLASS = [
-  "bg-white/[0.03]",
-  "bg-emerald-500/15",
-  "bg-emerald-500/35",
-  "bg-emerald-400/60",
-  "bg-emerald-300",
-];
-
 export function GithubProof() {
   const { t } = useTranslation();
-  const grid = useMemo(buildContributionGrid, []);
   const proof = t.githubProof;
 
   return (
@@ -146,45 +118,27 @@ export function GithubProof() {
                 </div>
               </div>
 
-              {/* Right column — contribution grid */}
+              {/* Right column — direct, verifiable public proof */}
               <div className="flex flex-col">
                 <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-zinc-500">
                   {proof.metricsTitle}
                 </p>
-                <div className="rounded-2xl border border-white/[0.06] bg-[#080808]/80 p-5">
-                  <div
-                    className="grid gap-[3px]"
-                    style={{
-                      gridTemplateColumns: "repeat(53, minmax(0, 1fr))",
-                    }}
-                    aria-hidden="true"
-                  >
-                    {grid.map((level, i) => (
-                      <span
-                        key={i}
-                        className={`block aspect-square rounded-[2px] ${LEVEL_CLASS[level]}`}
-                      />
-                    ))}
+                <div className="flex flex-1 flex-col justify-between rounded-2xl border border-white/[0.06] bg-[#080808]/80 p-6 sm:p-8">
+                  <div>
+                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-300 ring-1 ring-emerald-500/30">
+                      <Github className="h-6 w-6" />
+                    </span>
+                    <h3 className="mt-6 text-2xl font-bold text-white">
+                      {proof.title}
+                    </h3>
+                    <p className="mt-4 text-sm leading-6 text-zinc-400">
+                      {proof.subtitle}
+                    </p>
                   </div>
 
-                  <div className="mt-4 flex items-center justify-between text-[10px] text-zinc-500">
-                    <span>Jan</span>
-                    <span>Abr</span>
-                    <span>Jul</span>
-                    <span>Out</span>
-                    <span>Dez</span>
-                  </div>
-
-                  <div className="mt-3 flex items-center justify-end gap-1.5 text-[10px] text-zinc-500">
-                    <span>−</span>
-                    {LEVEL_CLASS.map((cls, i) => (
-                      <span
-                        key={i}
-                        className={`block h-2.5 w-2.5 rounded-[2px] ${cls}`}
-                      />
-                    ))}
-                    <span>+</span>
-                  </div>
+                  <p className="mt-8 border-t border-white/[0.06] pt-5 font-mono text-xs leading-5 text-zinc-500">
+                    {proof.verificationNote}
+                  </p>
                 </div>
 
                 <a
