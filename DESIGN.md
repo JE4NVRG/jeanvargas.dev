@@ -57,8 +57,10 @@ Tudo fora desses tokens passa por revisão.
   em fundo escuro.
 - Ciano, violeta, magenta e demais cores são acentos da interface e nunca
   devem colorir o logotipo.
-- O `4` customizado substitui a letra A e pode ser usado sozinho somente como
+- O símbolo compacto é o monograma `JD`, de Jean + Dev. Ele pode ser usado em
   favicon, ícone de app, bordado ou gravação compacta.
+- O `4` customizado substitui a letra A somente dentro do nome completo
+  JE4NDEV. Nunca usar o `4` isolado como símbolo.
 - Na navegação, papelaria e comunicação com clientes, usar o wordmark completo
   JE4NDEV em caixa alta.
 - Não usar gradiente, glow, sombra, símbolo de banco de ícones ou abreviações.

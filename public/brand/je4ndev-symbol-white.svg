@@ -1,6 +1,6 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title description">
   <title id="title">JE4NDEV symbol</title>
-  <desc id="description">Monochrome white custom four from the JE4NDEV wordmark</desc>
-  <path d="M318 80 96 324h264" stroke="#FAFAFA" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M318 80v352" stroke="#FAFAFA" stroke-width="54" stroke-linecap="round"/>
+  <desc id="description">Monochrome white JD monogram meaning Jean and Dev</desc>
+  <path d="M224 80v240c0 60-36 96-92 96-32 0-56-12-76-36" stroke="#FAFAFA" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M224 80h72c88 0 152 72 152 168s-64 168-152 168h-72" stroke="#FAFAFA" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

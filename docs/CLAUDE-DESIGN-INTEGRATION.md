@@ -51,7 +51,7 @@ Reading `src/components/sections/*` and `src/i18n/translations/*` in the repo wi
 ├── SKILL.md                   ← agent skill manifest (use with Claude Code)
 ├── colors_and_type.css        ← all tokens — colors, type, radii, shadows
 ├── assets/                    ← logos, hero photo, project screenshots
-│   ├── brand-icon.svg            Monochrome custom 4 mark
+│   ├── brand-icon.svg            Monochrome JD monogram
 │   ├── apple-touch-icon.png      180×180 brand icon (raster)
 │   ├── android-chrome-512x512.png
 │   ├── favicon-32x32.png
@@ -262,10 +262,11 @@ artwork:    aspect-[16/9] with project gradient + image + bottom black fade
 
 ### Logo / brand identity
 - The identity is strictly monochrome: black on light backgrounds or white on dark backgrounds.
-- `public/je4ndev-logo.svg` — the adaptive complete JE4NDEV wordmark. The custom 4 replaces the A and is the only compact symbol derived from the name.
-- `public/brand/` — explicit black and white wordmarks and symbols for print, embroidery, engraving, uniforms, and email.
-- `public/brand-icon.svg` — a 512×512 black app icon using the white custom 4 for favicons and shortcuts.
-- The runtime `BrandLogo` renders the complete wordmark in navigation and footer. Never abbreviate the brand in customer-facing UI.
+- `public/je4ndev-logo.svg` — the adaptive complete lockup: fused JD monogram plus JE4NDEV wordmark.
+- The JD symbol means Jean + Dev. The custom 4 replaces the A only inside the complete name and is never used alone.
+- `public/brand/` — explicit black and white lockups, wordmarks, and symbols for print, embroidery, engraving, uniforms, and email.
+- `public/brand-icon.svg` — a 512×512 black app icon using the white JD monogram for favicons and shortcuts.
+- The runtime `BrandLogo` renders the JD symbol plus complete wordmark in navigation and footer. Never abbreviate the brand in customer-facing UI.
 
 ### Emoji & unicode
 - **Emoji: never used in UI.** Some MD docs include shield badges (`shields.io`) and `&middot;` separators.

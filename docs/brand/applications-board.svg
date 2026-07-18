@@ -9,8 +9,8 @@
       <text x="181" y="84" stroke="none" font-family="Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="8">NDEV</text>
     </g>
     <g id="symbol" stroke="currentColor">
-      <path d="M318 80 96 324h264" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M318 80v352" stroke-width="54" stroke-linecap="round"/>
+      <path d="M224 80v240c0 60-36 96-92 96-32 0-56-12-76-36" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M224 80h72c88 0 152 72 152 168s-64 168-152 168h-72" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
     </g>
   </defs>
 
@@ -20,7 +20,10 @@
 
   <rect x="64" y="112" width="700" height="360" rx="28" fill="#050505"/>
   <text x="96" y="154" fill="#8A8A8A" font-family="Arial, sans-serif" font-size="14" letter-spacing="2">01 / BUSINESS CARD</text>
-  <g color="#FAFAFA" transform="translate(128 242) scale(0.82)">
+  <g color="#FAFAFA" transform="translate(128 216) scale(0.18)">
+    <use href="#symbol"/>
+  </g>
+  <g color="#FAFAFA" transform="translate(244 250) scale(0.66)">
     <use href="#wordmark"/>
   </g>
   <text x="128" y="400" fill="#A1A1AA" font-family="Arial, sans-serif" font-size="16">Sites, sistemas e SaaS</text>
@@ -29,8 +32,8 @@
   <rect x="836" y="112" width="700" height="360" rx="28" fill="#F7F7F5" stroke="#D4D4D0"/>
   <text x="868" y="154" fill="#707070" font-family="Arial, sans-serif" font-size="14" letter-spacing="2">02 / UNIFORM</text>
   <path d="M1086 214 1150 180h76l64 34 70 58-52 67-44-34v132h-230V305l-44 34-52-67 70-58Z" fill="#080808"/>
-  <g color="#FAFAFA" transform="translate(1131 249) scale(0.19)">
-    <use href="#wordmark"/>
+  <g color="#FAFAFA" transform="translate(1153 235) scale(0.16)">
+    <use href="#symbol"/>
   </g>
   <text x="1458" y="426" fill="#707070" text-anchor="end" font-family="Arial, sans-serif" font-size="15">1 thread · no effects</text>
 
@@ -48,7 +51,10 @@
 
   <rect x="836" y="520" width="700" height="416" rx="28" fill="#FFFFFF" stroke="#D4D4D0"/>
   <text x="868" y="562" fill="#707070" font-family="Arial, sans-serif" font-size="14" letter-spacing="2">04 / EMAIL SIGNATURE</text>
-  <g color="#050505" transform="translate(882 666) scale(0.36)">
+  <g color="#050505" transform="translate(876 650) scale(0.15)">
+    <use href="#symbol"/>
+  </g>
+  <g color="#050505" transform="translate(958 690) scale(0.23)">
     <use href="#wordmark"/>
   </g>
   <line x1="1118" y1="640" x2="1118" y2="826" stroke="#D4D4D8"/>
