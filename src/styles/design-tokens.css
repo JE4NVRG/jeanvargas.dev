@@ -61,7 +61,7 @@
   --ring-3: rgba(255, 255, 255, 0.10);  /* badge */
   --ring-4: rgba(255, 255, 255, 0.12);  /* button outline */
   --ring-5: rgba(255, 255, 255, 0.16);  /* hover */
-  --ring-cyan: rgba(103, 232, 249, 0.25); /* brand mark ring */
+  --ring-cyan: rgba(103, 232, 249, 0.25); /* brand accent ring */
   --ring-violet: rgba(168, 85, 247, 0.50);
 
   /* ---------- 7. Radii --------------------------------------------- */

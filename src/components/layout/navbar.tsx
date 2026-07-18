@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BrandMark } from "@/components/brand/brand-mark";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { useTranslation } from "@/i18n";
 
 const navLinks = [
@@ -64,14 +64,11 @@ export function Navbar() {
         <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4">
           <Link
             href={localeRoot}
-            className="group flex items-center gap-3 text-lg font-extrabold tracking-normal"
+            className="group flex min-h-11 items-center"
             onClick={closeMobile}
             aria-label="JE4NDEV"
           >
-            <BrandMark className="transition-transform duration-300 group-hover:scale-105" />
-            <span>
-              je4n<span className="text-purple-500">dev</span>
-            </span>
+            <BrandLogo className="transition-[filter,letter-spacing] duration-300 group-hover:tracking-[0.11em] group-hover:drop-shadow-[0_0_12px_rgba(94,234,212,0.24)]" />
           </Link>
 
           {/* Desktop nav */}

@@ -51,7 +51,7 @@ Reading `src/components/sections/*` and `src/i18n/translations/*` in the repo wi
 ├── SKILL.md                   ← agent skill manifest (use with Claude Code)
 ├── colors_and_type.css        ← all tokens — colors, type, radii, shadows
 ├── assets/                    ← logos, hero photo, project screenshots
-│   ├── brand-icon.svg            J4 mark with cyan→violet gradient
+│   ├── brand-icon.svg            Custom 4 mark with cyan→violet gradient
 │   ├── apple-touch-icon.png      180×180 brand icon (raster)
 │   ├── android-chrome-512x512.png
 │   ├── favicon-32x32.png
@@ -76,7 +76,7 @@ Reading `src/components/sections/*` and `src/i18n/translations/*` in the repo wi
         ├── TechStack.jsx         6 categories
         ├── Contact.jsx           gradient orb + CTAs
         ├── Footer.jsx            three-column compact footer
-        └── primitives.jsx        BrandMark, MagneticButton, TiltCard,
+        └── primitives.jsx        BrandLogo, MagneticButton, TiltCard,
                                   CodeTerminal, SectionReveal, StatusBadge
 ```
 
@@ -146,7 +146,7 @@ Reading `src/components/sections/*` and `src/i18n/translations/*` in the repo wi
 ### Color usage rules
 - **`#050505` base + `#ededed` foreground** is the resting state.
 - **Accents are functional, not decorative.**
-  - **Cyan `#5EEAD4`** = terminal output, hover lift on featured project cards, brand mark "J".
+  - **Cyan `#5EEAD4`** = terminal output, hover lift on featured project cards, custom 4 diagonal.
   - **Violet `#8B5CF6`** = eyebrow labels, service icon backgrounds, ::selection.
   - **Emerald `#10B981`** = `$` prompt, `live` status, strengths checkmarks.
   - **Magenta / pink `#EC4899`** = single-instance accents (pricing metric, contact title gradient).
@@ -158,7 +158,7 @@ Reading `src/components/sections/*` and `src/i18n/translations/*` in the repo wi
 - **Geist** (sans, all weights 300–900) and **Geist Mono** (mono).
 - **Geist Sans Extrabold (800)** for the display h1.
 - **Geist Sans Bold (700)** for h2 / h3.
-- **Geist Mono** for: terminal lines, project slugs, the `J4` brand mark glyph, the `0X` index numbers in the mobile menu, the language toggle (`EN | PT`).
+- **Geist Mono** for: terminal lines, project slugs, the `0X` index numbers in the mobile menu, and the language toggle (`EN | PT`).
 - Tracking is **near-neutral**. The display h1 uses `tracking-normal`, not tight or wide.
 - Section headers always pair: **eyebrow (purple, uppercase, tracked)** above **h2 (white, sentence case, bold)**.
 
@@ -172,7 +172,7 @@ Reading `src/components/sections/*` and `src/i18n/translations/*` in the repo wi
 ### Borders
 - Every interactive surface has a **single-pixel white ring at low alpha**: `border-white/[0.06]` resting, `border-white/[0.1]` for slightly elevated, `border-white/[0.16]` on hover.
 - No double borders. No dashed. No colored borders **except** status pills (10–25% alpha of the status color).
-- Brand mark uses a `border-cyan-300/25` — the only ringed accent.
+- Brand icon uses a `border-cyan-300/25` — the only ringed accent.
 
 ### Corner radii
 - **`16px` minimum** for any card or button container — this is a hard brand rule.
@@ -187,7 +187,7 @@ Reading `src/components/sections/*` and `src/i18n/translations/*` in the repo wi
 - Two exceptions:
   - Project cards: `shadow-[0_22px_80px_-55px_rgba(255,255,255,0.35)]` — a **white halo bloom downward** that reads as "lifted off black" rather than "casting a shadow on white".
   - Hero photo card: `shadow-2xl shadow-black/40` — a deep black absorption shadow.
-- Brand mark: `shadow-[0_0_28px_-14px_rgba(34,211,238,0.9)]` — a **cyan glow** (the only colored glow in the system).
+- Brand icon: `shadow-[0_0_28px_-14px_rgba(34,211,238,0.9)]` — a **cyan glow** (the only colored glow in the system).
 
 ### Transparency & blur
 - **Backdrop-blur is reserved for chrome.** Navbar (`backdrop-blur-xl`), mobile menu overlay (`backdrop-blur-sm`), and a soft `backdrop-blur-[2px]` on the gradient strip over the hero photo.
@@ -260,9 +260,10 @@ artwork:    aspect-[16/9] with project gradient + image + bottom black fade
 ### Status / live dot
 - A **pulsing green dot** built from two stacked spans (`animate-ping` outer + solid `bg-green-500` inner). Used in: hero status badge, project `live` pill. Never replaced with an emoji.
 
-### Logo / brand mark
-- `assets/brand-icon.svg` — a 512×512 rounded square with cyan→violet conic stops, two corner accent dots (cyan top-left, violet bottom-right), and "J4" in cyan-200 / violet-400.
-- Inline runtime version (`BrandMark.tsx`) re-implements this at 36px so it's crisp at icon size. **Use the SVG asset for any size 64px+; use the inline JSX recreation at smaller sizes.**
+### Logo / brand identity
+- `public/je4ndev-logo.svg` — the complete JE4NDEV wordmark. The custom 4 replaces the A and is the only compact symbol derived from the name.
+- `public/brand-icon.svg` — a 512×512 rounded square using the same custom 4 for favicons and app shortcuts.
+- The runtime `BrandLogo` renders the complete wordmark in navigation and footer. Never abbreviate the brand in customer-facing UI.
 
 ### Emoji & unicode
 - **Emoji: never used in UI.** Some MD docs include shield badges (`shields.io`) and `&middot;` separators.
@@ -276,4 +277,4 @@ artwork:    aspect-[16/9] with project gradient + image + bottom black fade
 2. **Open `ui_kits/portfolio/index.html`** — it's a working interactive prototype with every primitive in context.
 3. **Copy assets out of `assets/`** for any composition. Never re-draw the logo, never AI-generate Jean.
 4. **For a paid-traffic landing page**: lift Hero + a slimmer Projects grid (3 max) + Services + Contact. Add tracking IDs (Meta Pixel, GA4, UTMs) outside the visual system.
-5. **For an ad creative**: brand mark top-left, h-display headline, terminal motif, real product screenshot framed in a `rounded-2xl` card. No decorative AI imagery.
+5. **For an ad creative**: complete JE4NDEV wordmark top-left, h-display headline, terminal motif, real product screenshot framed in a `rounded-2xl` card. No decorative AI imagery.

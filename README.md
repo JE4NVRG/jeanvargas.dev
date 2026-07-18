@@ -2,6 +2,8 @@
 
 <div align="center">
 
+<img src="public/je4ndev-logo.svg" alt="JE4NDEV" width="280" />
+
 <img src="docs/screenshots/readme/home-desktop.png" alt="JE4NDEV — portfólio de sites, sistemas e SaaS" width="100%" />
 
 # JE4NDEV Portfolio
