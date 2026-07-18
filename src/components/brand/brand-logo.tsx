@@ -36,20 +36,20 @@ export function BrandLogo({ className = "", size = "md" }: BrandLogoProps) {
       >
         <path
           d="M13.5 2.5 3 14h12.5"
-          stroke="#5EEAD4"
+          stroke="currentColor"
           strokeWidth="3.2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M13.5 2.5v19"
-          stroke="#A78BFA"
+          stroke="currentColor"
           strokeWidth="3.2"
           strokeLinecap="round"
         />
       </svg>
       <span>N</span>
-      <span className="ml-[0.12em] text-purple-400">DEV</span>
+      <span className="ml-[0.12em]">DEV</span>
     </span>
   );
 }

@@ -68,7 +68,7 @@ export function Navbar() {
             onClick={closeMobile}
             aria-label="JE4NDEV"
           >
-            <BrandLogo className="transition-[filter,letter-spacing] duration-300 group-hover:tracking-[0.11em] group-hover:drop-shadow-[0_0_12px_rgba(94,234,212,0.24)]" />
+            <BrandLogo className="transition-[opacity,letter-spacing] duration-300 group-hover:tracking-[0.11em] group-hover:opacity-80" />
           </Link>
 
           {/* Desktop nav */}

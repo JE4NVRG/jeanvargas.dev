@@ -51,7 +51,7 @@ Reading `src/components/sections/*` and `src/i18n/translations/*` in the repo wi
 ├── SKILL.md                   ← agent skill manifest (use with Claude Code)
 ├── colors_and_type.css        ← all tokens — colors, type, radii, shadows
 ├── assets/                    ← logos, hero photo, project screenshots
-│   ├── brand-icon.svg            Custom 4 mark with cyan→violet gradient
+│   ├── brand-icon.svg            Monochrome custom 4 mark
 │   ├── apple-touch-icon.png      180×180 brand icon (raster)
 │   ├── android-chrome-512x512.png
 │   ├── favicon-32x32.png
@@ -93,7 +93,7 @@ Reading `src/components/sections/*` and `src/i18n/translations/*` in the repo wi
 ### Casing
 - **Sentence case for headings.** `Projetos selecionados`, not `Projetos Selecionados`. Even at h1.
 - **UPPERCASE only for eyebrows / overlines.** Tracked `0.18em`, weight 600, accent-violet color. Example: `PROJETOS EM DESTAQUE`.
-- **lowercase + UPPERCASE letter-mix in code.** `je4ndev`, `JE4NVRG`, `je4ndev/build` — the brand name is intentionally stylised.
+- **JE4NDEV is always uppercase in brand applications.** Lowercase is reserved for domains, emails, URLs, and code identifiers.
 - **Status pills are lowercase**: `live`, `mvp`, `case`, `internal`, `demo`.
 
 ### Numbers and stats
@@ -146,7 +146,7 @@ Reading `src/components/sections/*` and `src/i18n/translations/*` in the repo wi
 ### Color usage rules
 - **`#050505` base + `#ededed` foreground** is the resting state.
 - **Accents are functional, not decorative.**
-  - **Cyan `#5EEAD4`** = terminal output, hover lift on featured project cards, custom 4 diagonal.
+  - **Cyan `#5EEAD4`** = terminal output and hover lift on featured project cards. Never apply it to the logo.
   - **Violet `#8B5CF6`** = eyebrow labels, service icon backgrounds, ::selection.
   - **Emerald `#10B981`** = `$` prompt, `live` status, strengths checkmarks.
   - **Magenta / pink `#EC4899`** = single-instance accents (pricing metric, contact title gradient).
@@ -172,7 +172,7 @@ Reading `src/components/sections/*` and `src/i18n/translations/*` in the repo wi
 ### Borders
 - Every interactive surface has a **single-pixel white ring at low alpha**: `border-white/[0.06]` resting, `border-white/[0.1]` for slightly elevated, `border-white/[0.16]` on hover.
 - No double borders. No dashed. No colored borders **except** status pills (10–25% alpha of the status color).
-- Brand icon uses a `border-cyan-300/25` — the only ringed accent.
+- Brand icon is monochrome and has no colored ring.
 
 ### Corner radii
 - **`16px` minimum** for any card or button container — this is a hard brand rule.
@@ -187,7 +187,7 @@ Reading `src/components/sections/*` and `src/i18n/translations/*` in the repo wi
 - Two exceptions:
   - Project cards: `shadow-[0_22px_80px_-55px_rgba(255,255,255,0.35)]` — a **white halo bloom downward** that reads as "lifted off black" rather than "casting a shadow on white".
   - Hero photo card: `shadow-2xl shadow-black/40` — a deep black absorption shadow.
-- Brand icon: `shadow-[0_0_28px_-14px_rgba(34,211,238,0.9)]` — a **cyan glow** (the only colored glow in the system).
+- Brand icon and wordmark never use glow or colored shadows.
 
 ### Transparency & blur
 - **Backdrop-blur is reserved for chrome.** Navbar (`backdrop-blur-xl`), mobile menu overlay (`backdrop-blur-sm`), and a soft `backdrop-blur-[2px]` on the gradient strip over the hero photo.
@@ -261,8 +261,10 @@ artwork:    aspect-[16/9] with project gradient + image + bottom black fade
 - A **pulsing green dot** built from two stacked spans (`animate-ping` outer + solid `bg-green-500` inner). Used in: hero status badge, project `live` pill. Never replaced with an emoji.
 
 ### Logo / brand identity
-- `public/je4ndev-logo.svg` — the complete JE4NDEV wordmark. The custom 4 replaces the A and is the only compact symbol derived from the name.
-- `public/brand-icon.svg` — a 512×512 rounded square using the same custom 4 for favicons and app shortcuts.
+- The identity is strictly monochrome: black on light backgrounds or white on dark backgrounds.
+- `public/je4ndev-logo.svg` — the adaptive complete JE4NDEV wordmark. The custom 4 replaces the A and is the only compact symbol derived from the name.
+- `public/brand/` — explicit black and white wordmarks and symbols for print, embroidery, engraving, uniforms, and email.
+- `public/brand-icon.svg` — a 512×512 black app icon using the white custom 4 for favicons and shortcuts.
 - The runtime `BrandLogo` renders the complete wordmark in navigation and footer. Never abbreviate the brand in customer-facing UI.
 
 ### Emoji & unicode

@@ -2,20 +2,7 @@
   <title id="title">JE4NDEV</title>
   <desc id="description">Custom four mark used in the JE4NDEV wordmark</desc>
   <rect width="512" height="512" rx="128" fill="#050505"/>
-  <rect x="34" y="34" width="444" height="444" rx="104" fill="url(#paint0_radial)" stroke="url(#paint1_linear)" stroke-width="14"/>
-  <path d="M318 112 132 316h228" stroke="#5EEAD4" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M318 112v288" stroke="#A78BFA" stroke-width="54" stroke-linecap="round"/>
-  <path d="M318 112 132 316" stroke="white" stroke-opacity="0.18" stroke-width="10" stroke-linecap="round"/>
-  <defs>
-    <radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(148 104) rotate(50.2) scale(414 465)">
-      <stop stop-color="#0E7490" stop-opacity="0.5"/>
-      <stop offset="0.55" stop-color="#111827" stop-opacity="0.25"/>
-      <stop offset="1" stop-color="#581C87" stop-opacity="0.45"/>
-    </radialGradient>
-    <linearGradient id="paint1_linear" x1="69" y1="72" x2="448" y2="441" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#22D3EE"/>
-      <stop offset="0.48" stop-color="#2DD4BF"/>
-      <stop offset="1" stop-color="#A855F7"/>
-    </linearGradient>
-  </defs>
+  <rect x="34" y="34" width="444" height="444" rx="104" stroke="white" stroke-opacity="0.2" stroke-width="12"/>
+  <path d="M318 112 132 316h228" stroke="white" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M318 112v288" stroke="white" stroke-width="54" stroke-linecap="round"/>
 </svg>

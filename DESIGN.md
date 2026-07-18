@@ -51,6 +51,19 @@ Estética alvo: **premium tech editorial dark** — Linear × Vercel × Stripe P
 Tokens canônicos em `src/styles/design-tokens.css` e `tailwind.config`.
 Tudo fora desses tokens passa por revisão.
 
+## Identidade da marca
+
+- O logotipo JE4NDEV é sempre monocromático: preto em fundo claro ou branco
+  em fundo escuro.
+- Ciano, violeta, magenta e demais cores são acentos da interface e nunca
+  devem colorir o logotipo.
+- O `4` customizado substitui a letra A e pode ser usado sozinho somente como
+  favicon, ícone de app, bordado ou gravação compacta.
+- Na navegação, papelaria e comunicação com clientes, usar o wordmark completo
+  JE4NDEV em caixa alta.
+- Não usar gradiente, glow, sombra, símbolo de banco de ícones ou abreviações.
+- Assets oficiais e aplicações: `docs/brand/README.md` e `public/brand/`.
+
 ## Tipografia
 
 - **Geist Sans** para texto e títulos. Tracking apertado em H1 (`tracking-tight`).
