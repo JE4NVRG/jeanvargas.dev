@@ -1,8 +1,0 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title description">
-  <title id="title">JE4NDEV</title>
-  <desc id="description">Fused JD monogram meaning Jean and Dev</desc>
-  <rect width="512" height="512" rx="128" fill="#050505"></rect>
-  <rect x="34" y="34" width="444" height="444" rx="104" stroke="white" stroke-opacity="0.2" stroke-width="12"></rect>
-  <path d="M224 104v216c0 60-36 96-92 96-32 0-56-12-76-36" stroke="white" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"></path>
-  <path d="M224 104h72c88 0 152 64 152 152s-64 152-152 152h-72" stroke="white" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>

@@ -48,6 +48,6 @@ function isSupported(value: string | undefined | null): value is Locale {
 
 export const config = {
   matcher: [
-    "/((?!api|_next|robots\\.txt|sitemap\\.xml|favicon\\.ico|favicon-16x16\\.png|favicon-32x32\\.png|apple-touch-icon\\.png|brand-icon\\.svg|je4ndev-logo\\.svg|og-image\\.png|site\\.webmanifest|icon\\.svg|images|projects|videos|brand|portfolio-refresh).*)",
+    "/((?!api|_next|robots\\.txt|sitemap\\.xml|favicon\\.ico|favicon-16x16\\.png|favicon-32x32\\.png|apple-touch-icon\\.png|brand-icon\\.svg|je4ndev-logo\\.svg|og-image\\.png|site\\.webmanifest|icon\\.svg|images|projects|videos|brand).*)",
   ],
 };

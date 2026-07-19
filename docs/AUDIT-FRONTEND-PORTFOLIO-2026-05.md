@@ -52,7 +52,7 @@ Problemas concretos identificados por inspeção de data/projects.ts + arquivos 
 - **Outros:**
   - mepchat: só cover, sem image principal.
   - Vários projetos "internal" ou "mvp" sem prova visual forte.
-  - Extras em public/portfolio-refresh/ (mocks HTML antigos) e screenshots/ em docs/ (de iterações passadas).
+  - Screenshots de auditoria e documentação permanecem em `docs/`; os mockups HTML antigos de `public/portfolio-refresh/` foram removidos após a consolidação do design atual.
   - Vídeos em public/videos/ (kitchen, agents, terminal etc) são usados em case + showcase fallback — positivos quando existem.
 
 **Impacto:** O site não cumpre a própria regra do DESIGN.md ("equipe de verdade... Produto rodando"). Visitante (founder PME ou studio) sai sem ver evidência concreta do que foi entregue. "Imagens que nao tem nada haver" é preciso.
@@ -125,10 +125,10 @@ Libs boas e integradas:
   - "Muitos projetos": sem padrão para galeria densa + links diretos.
   - Motion: lista libs permitidas e "framer simples ≤0.8s", GSAP ScrollTrigger "sutil". Sem spec de quando/ como (ex: GSAP para grid filter + showcase story; framer para hover isolado).
   - Checklist qualidade antes de merge: tem 10 itens bons (lint, build, mobile 390, sem overflow, stats não quebrados, case abre). Faltam: "imagens são prova real do produto?", "CTAs diretos para live visíveis no card?", "motion testado com reduced + perf".
-  - Dispersão: vários docs/*.md com lições (GALERIA-PROJETOS, MELHORIAS-*, RELATORIO-*, CLAUDE-DESIGN-INTEGRATION.md). Agentes não têm "uma fonte da verdade" fácil.
+  - Dispersão histórica: vários `docs/*.md` registram lições de iterações anteriores. `DESIGN.md` e `docs/brand/README.md` agora são as fontes de verdade para interface e identidade.
   - Resultado: cada agente (Atlas, Codex...) produz UI "ok mas genérica" → "pessimo" acumulado.
 
-Há esforço (docs/CLAUDE-DESIGN-INTEGRATION.md descreve o sistema para novas superfícies). Mas não é "o melhor" ainda.
+O sistema visual foi consolidado em `DESIGN.md`, enquanto `docs/brand/README.md` documenta o uso do monograma e do wordmark.
 
 ## 5. Outros
 
@@ -136,7 +136,7 @@ Há esforço (docs/CLAUDE-DESIGN-INTEGRATION.md descreve o sistema para novas su
 - Métricas: DESIGN.md proíbe inventar. Validar com Jean se 2.5k+ makers Vultrix, 835+ orders GestaoML, 77.5M tokens etc são reais ou arredondamento honesto.
 - Duplicação histórica de "work" (id duplicado, componentes).
 - Middleware warning (convenção deprecated).
-- Extras: screenshot-uploader.html, portfolio-refresh/ (limpar?).
+- Extras históricos: `public/portfolio-refresh/` foi removido por não fazer parte do runtime atual.
 - Páginas de projeto: SSG bom (generateStaticParams para 2 locales × N).
 - Copy: direto, PT-BR coloquial bom. Algumas claims de "agência" vs "eu construí" misturadas (hermes/openclaw falam "instalamos pra você").
 
@@ -145,7 +145,7 @@ Há esforço (docs/CLAUDE-DESIGN-INTEGRATION.md descreve o sistema para novas su
 **Fase 0 — Limpeza (rápido)**
 - Remover FeaturedWork.tsx (ou mover para demo se quiser).
 - Corrigir FILTERS do universe para cobrir todas categorias reais.
-- Limpar assets não referenciados + portfolio-refresh se obsoleto.
+- Manter a auditoria de assets não referenciados como gate de publicação.
 - Fix middleware convention + browserslist.
 - Validar métricas com Jean (uma vez).
 
