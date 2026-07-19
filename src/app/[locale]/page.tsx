@@ -11,47 +11,21 @@ import { Services } from "@/components/sections/services";
 import { Faq } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
 
-/**
- * Server-side `<html lang>` fix for the current request. Without this, the
- * root layout always renders lang="pt-BR" which misleads Googlebot when
- * crawling the /en route. We inject a tiny inline script that runs before
- * hydration to flip the attribute. It also runs before React hydrates, so
- * no mismatch warning is thrown.
- */
-function LangFixer({ locale }: { locale: "pt" | "en" }) {
-  const lang = locale === "pt" ? "pt-BR" : "en";
+export default function Home() {
   return (
-    <script
-      dangerouslySetInnerHTML={{
-        __html: `document.documentElement.lang=${JSON.stringify(lang)};`,
-      }}
-    />
-  );
-}
-
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ locale: "pt" | "en" }>;
-}) {
-  const { locale } = await params;
-  return (
-    <>
-      <LangFixer locale={locale} />
-      <main>
-        <Hero />
-        <TechMarquee />
-        <Showcase />
-        <ProjectUniverse />
-        <GithubProof />
-        <Process />
-        <Pricing />
-        <About />
-        <TechStack />
-        <Services />
-        <Faq />
-        <Contact />
-      </main>
-    </>
+    <main>
+      <Hero />
+      <TechMarquee />
+      <Showcase />
+      <ProjectUniverse />
+      <GithubProof />
+      <Process />
+      <Pricing />
+      <About />
+      <TechStack />
+      <Services />
+      <Faq />
+      <Contact />
+    </main>
   );
 }

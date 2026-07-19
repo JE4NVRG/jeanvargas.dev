@@ -11,6 +11,9 @@ interface MagneticButtonProps {
   target?: string;
   rel?: string;
   onClick?: () => void;
+  "data-analytics-event"?: string;
+  "data-cta"?: string;
+  "data-project"?: string;
 }
 
 export function MagneticButton({

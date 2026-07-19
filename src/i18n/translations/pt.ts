@@ -9,27 +9,27 @@ export const pt: Translations = {
     contact: "Entre em contato",
   },
   hero: {
-    badge: "Vem tirar sua ideia do papel · equipe transparente",
-    title: "Agência de produto",
-    titleHighlight: "que tira sua ideia do papel",
+    badge: "Produto real · escopo claro · acompanhamento direto",
+    title: "Sites, sistemas e SaaS",
+    titleHighlight: "para vender, operar e crescer.",
     subtitle:
-      "Você acompanha o desenvolvimento em tempo real — preview público no Vercel com domínio próprio do projeto, commits e screenshots a cada milestone. Equipe experiente, transparente, com garantia de 1 ano nos produtos em produção. Trabalhamos por produção ou por metas: pequena entrada, e vamos recebendo conforme entregamos. A partir de R$ 500.",
+      "Você fala direto com o founder e acompanha cada entrega em preview navegável. Cuidamos da interface, backend, integrações e deploy — com escopo claro, revisão humana e pagamento por marcos.",
     subtitleMobile:
-      "SaaS, IA e automações em produção — com founder revisando cada entrega. A partir de R$ 500.",
+      "Sites, SaaS e automações com preview navegável, escopo claro e revisão do founder.",
     terminalTitle: "je4ndev/agency",
     terminalCommand: "ship produto --saas --automacao --web3",
     terminalOutput: "scope -> arquitetura -> codigo -> deploy -> mrr",
-    cta: "Ver nossos produtos",
-    secondaryCta: "Falar com o founder",
+    cta: "Ver produtos funcionando",
+    secondaryCta: "Contar meu projeto",
     email: "jean@je4ndev.com",
     whatsapp: "Falar no WhatsApp",
     proof:
       "Da ideia ao produto em produção: estratégia, interface, backend, banco, automações e deploy.",
     stats: [
-      { value: "10+", label: "produtos próprios no portfólio" },
-      { value: "10+", label: "anos shippando SaaS" },
-      { value: "1 ano", label: "garantia em produção" },
-      { value: "24/7", label: "operação e suporte" },
+      { value: "12", label: "projetos catalogados" },
+      { value: "6", label: "produtos públicos" },
+      { value: "7", label: "provas visuais revisadas" },
+      { value: "PT/EN", label: "portfolio bilíngue" },
     ],
     strengths: [
       "MVPs SaaS com auth, billing e painel admin",
@@ -77,7 +77,7 @@ export const pt: Translations = {
       {
         title: "Sites, landings e blogs",
         description:
-          "Site institucional, landing de alta conversão ou blog em Vercel com domínio próprio · a partir de R$ 500",
+          "Site institucional, landing de alta conversão ou blog com domínio próprio, escopo fechado e entrega em preview navegável",
       },
       {
         title: "SaaS sob medida",
@@ -109,9 +109,9 @@ export const pt: Translations = {
     whatsappMessage: "Oi Jean, quero saber mais sobre o serviço de {service}.",
   },
   contact: {
-    title: "Vamos construir algo",
-    titleHighlight: "extraordinário",
-    subtitle: "Tem um projeto em mente? Conta o que é manual, lento ou difícil de medir na sua operação — a gente devolve uma proposta com escopo, prazo e parcelas em até 1 dia útil.",
+    title: "Vamos transformar o problema",
+    titleHighlight: "em produto real",
+    subtitle: "Conte o que hoje é manual, lento ou difícil de medir. Você recebe uma resposta direta do founder com as perguntas e o próximo passo para fechar um escopo responsável.",
     whatsapp: "WhatsApp",
     trustline: "Resposta direta com o founder · escopo fechado por entrega · garantia de 1 ano",
     founderName: "Jean Carlos Vargas",
@@ -120,8 +120,8 @@ export const pt: Translations = {
     terminalTitle: "je4ndev/agency · proxima entrega",
     terminalLines: [
       "briefing recebido",
-      "escopo fechado em até 1 dia útil",
-      "build iniciado · preview público no Vercel",
+      "riscos e integrações mapeados",
+      "build iniciado · preview navegável do produto",
       "qa + security gate (gitleaks + npm audit)",
       "deploy em produção · garantia de 1 ano",
     ],
@@ -131,7 +131,7 @@ export const pt: Translations = {
     label: "Open source · proof of work",
     title: "github.com/JE4NVRG",
     subtitle:
-      "Não acreditem só na vitrine. Cada commit é público — Hermes Kanban open source (MIT), tools internas que viraram OSS, audits Solidity e SaaS em produção. Tudo rastreável.",
+      "Não acredite só na vitrine. Parte do código e do histórico é pública — Hermes Kanban open source (MIT), ferramentas, audits Solidity e produtos em produção. Abra a fonte e confira.",
     bullets: [
       {
         title: "Hermes Kanban",
@@ -147,16 +147,17 @@ export const pt: Translations = {
       },
       {
         title: "SaaS em produção",
-        body: "ArchScene, NexPanel, StopUltimate, GestãoML, HypeFC — todos shipping.",
+        body: "ArchScene, NexPanel, StopUltimate e GestãoML — produtos públicos em produção.",
       },
     ],
-    metricsTitle: "Atividade em 2026",
+    metricsTitle: "Prova pública verificável",
     metrics: [
-      { label: "Repos públicos", value: "30+" },
-      { label: "Commits no último ano", value: "1.6k+" },
-      { label: "Stars em projetos OSS", value: "120+" },
-      { label: "Audit reports", value: "8+" },
+      { label: "Repositórios públicos", value: "83" },
+      { label: "Seguidores públicos", value: "216" },
+      { label: "Código do Hermes", value: "MIT" },
+      { label: "Perfil e histórico", value: "Live" },
     ],
+    verificationNote: "Contagens conferidas no perfil público em 17/07/2026. Os links abrem a fonte original no GitHub.",
     cta: "github.com/JE4NVRG",
   },
   footer: {
@@ -261,9 +262,9 @@ export const pt: Translations = {
   },
   universe: {
     label: "Project universe · 12 projetos catalogados",
-    title: "Tudo que a gente já entregou",
+    title: "Produtos, sistemas e experimentos reais",
     subtitle:
-      "Os 6 flagship cinematográficos lá em cima vendem direto. Aqui tu vê o resto — tools internos, MVPs, audits e experimentos que provam que a agência ship há tempo.",
+      "Explore o volume real de entregas da JE4NDEV. Filtre por área, busque por tecnologia e abra a prova mais relevante de cada projeto.",
     filters: {
       all: "Tudo",
       saas: "SaaS",
@@ -272,52 +273,59 @@ export const pt: Translations = {
       internal: "Internal tools",
       games: "Games / Social",
     },
-    footer: "Cada card abre um case study com prints reais, stack, problema e entrega.",
+    searchPlaceholder: "Buscar projeto, tecnologia ou categoria...",
+    resultLabel: "projeto encontrado",
+    resultsLabel: "projetos encontrados",
+    emptyTitle: "Nenhum projeto nesse recorte",
+    emptyBody: "Tente outro filtro ou remova parte da busca.",
+    proofApproved: "Prova real",
+    proofPrivate: "Demo privada",
+    proofPending: "Nova captura pendente",
+    proofEditorial: "Case editorial",
+    footer: "Cada card abre um case com prova visual, stack, problema, entrega e ação principal.",
   },
   pricing: {
-    label: "Como cobramos · transparente e flexível",
-    title: "A partir de R$ 500. Pague conforme entregamos.",
+    label: "Como trabalhamos · escopo e pagamento claros",
+    title: "Projeto fechado. Pagamento por etapas.",
     subtitle:
-      "Não cobramos por hora. Trabalhamos por produção ou por metas: você dá uma pequena entrada e o restante vai sendo pago conforme a gente entrega cada parte do projeto. Sem surpresa, sem retainer eterno.",
+      "Entendemos o problema, definimos os entregáveis e apresentamos uma proposta antes de começar. Você acompanha cada marco em preview navegável e só avança com clareza sobre escopo, prazo e investimento.",
     plans: [
       {
         name: "Site / Landing / Blog",
         tagline: "Página, site institucional ou blog",
-        price: "A partir de",
-        priceSuffix: "R$ 500",
-        priceNote: "Entrada de 30% · resto na entrega",
+        price: "Projeto fechado",
+        priceNote: "Valor definido após o briefing · entrada para iniciar",
         features: [
           "Site institucional, landing de alta conversão ou blog",
           "Design custom, dark/light, mobile-first",
-          "Deploy em Vercel com domínio próprio",
-          "Acompanhamento em tempo real via Vercel preview",
+          "Deploy em Vercel ou VPS com domínio próprio",
+          "Acompanhamento por preview navegável",
           "Garantia de 1 ano + suporte por WhatsApp",
         ],
-        cta: "Pedir orçamento",
+        cta: "Pedir diagnóstico",
         featured: false,
       },
       {
         name: "SaaS / Produto",
         tagline: "Tira sua ideia do papel — sistema completo",
-        price: "Sob medida",
-        priceSuffix: "por metas",
-        priceNote: "Cobramos por entrega · pequena entrada + parcelas",
+        price: "Por etapas",
+        priceNote: "Escopo e marcos definidos na proposta",
         features: [
           "Auth, billing, painel admin, multi-tenant",
           "Backend + DB + integrações com APIs",
-          "Acompanha cada commit no preview Vercel",
+          "Acompanha cada marco em preview navegável",
           "Deploy + 30 dias de operação inclusos",
           "1 ano de garantia · planos mensais de manutenção",
         ],
-        cta: "Tirar do papel",
+        cta: "Planejar meu produto",
         featured: true,
         badge: "Mais escolhido",
       },
       {
         name: "Web3 / NFT / Audit",
         tagline: "Smart contracts, plataformas NFT e auditoria",
-        price: "Sob medida",
-        priceNote: "Conforme escopo · planos mensais disponíveis",
+        price: "Por escopo",
+        priceNote: "Diagnóstico técnico antes da proposta",
         features: [
           "Auditoria Solidity / EVM com relatório técnico",
           "Criação de NFT collections + smart contracts",
@@ -330,16 +338,16 @@ export const pt: Translations = {
       },
     ],
     disclaimer:
-      "Trabalhamos por produção ou por metas. Pequena entrada, o resto vai sendo pago conforme entregamos. Garantia de 1 ano em produtos em produção. Planos mensais de manutenção e suporte 24/7 disponíveis.",
+      "Cada proposta informa entregáveis, prazo, marcos de pagamento e o que fica fora do escopo. Manutenção e suporte contínuo são opcionais.",
   },
   faq: {
     label: "FAQ",
     title: "Dúvidas antes de fechar",
-    subtitle: "As respostas honestas que a gente gostaria de ter ouvido antes de contratar uma agência IA.",
+    subtitle: "Respostas diretas sobre processo, escopo, segurança e suporte.",
     items: [
       {
         q: "Como isso é diferente de contratar freela ou agência de dev tradicional?",
-        a: "Freela é 1 pessoa, 40h por semana, cobra hora e tira férias. A gente é founder + 21 perfis de agente IA (dev, QA, security, design, content) orquestrados no mesmo Kanban, cobrando por resultado entregue — não hora. Founder revisa cada entrega antes de subir; os agentes destravam o trabalho repetitivo que segura agência tradicional em reunião pra marcar reunião.",
+        a: "A JE4NDEV é uma operação founder-led: você fala diretamente com quem define a arquitetura e revisa cada entrega. Agentes especializados apoiam desenvolvimento, QA, segurança e documentação, enquanto o escopo, as decisões e a responsabilidade final continuam sob revisão humana.",
       },
       {
         q: "Quem está no controle de verdade?",
@@ -351,7 +359,7 @@ export const pt: Translations = {
       },
       {
         q: "Quanto tempo até o primeiro produto pronto?",
-        a: "Plano Sprint: 21 dias do spec à produção. Já entregamos MVP em 14 dias pra escopo bem apertado. Mais rápido que isso é mentira — qualidade tem um piso.",
+        a: "Depois do briefing, entregamos um cronograma dividido em marcos verificáveis. O primeiro checkpoint navegável entra cedo no processo, mas o prazo final só é fechado depois de validar escopo, integrações e riscos técnicos.",
       },
       {
         q: "Vocês assinam NDA e lidam com negócio confidencial?",
@@ -363,16 +371,16 @@ export const pt: Translations = {
       },
       {
         q: "Por que confiar em uma agência IA que vende ferramentas de agência IA?",
-        a: "Porque a agência roda nos produtos que vende. Hermes Agentes, OpenClaw Gateway, ArchScene, NexPanel, HypeFC, Vultrix 3D, StopUltimate — todos live em produção e construídos com o mesmo pipeline que tu contrataria. O dogfood é a prova: cada produto tem link público, commits, changelog. Tu pode auditar antes de fechar.",
+        a: "Porque mostramos evidência verificável antes da proposta. ArchScene, NexPanel, Vultrix 3D, StopUltimate, Alchemix Auditor e Ethena Scanner têm acesso público; outros cases deixam claro quando a prova é privada, editorial ou está em revisão. Você pode navegar pelos produtos e avaliar a entrega antes de fechar.",
       },
     ],
   },
   project: {
     breadcrumbWork: "Projetos",
     demoLabel: "Demo em movimento",
-    demoIntro: "Visualização animada do produto em ação.",
+    demoIntro: "Demonstração complementar do fluxo ou resultado do produto.",
     visuals: "Prints do produto",
-    visualIntro: "Telas reais do produto, landing page e fluxos de conversão.",
+    visualIntro: "Telas reais, resultados e artefatos revisados do produto.",
     mainVisual: "Print em destaque",
     impact: "Impacto no negócio",
     before: "Antes",
@@ -383,6 +391,13 @@ export const pt: Translations = {
     solution: "A Solução",
     visitLive: "Visitar site",
     github: "GitHub",
+    docs: "Documentação",
+    contact: "Solicitar demonstração",
+    proofLabel: "Prova revisada",
+    privateProof: "Demonstração privada",
+    pendingProof: "Captura do produto em revisão",
+    editorialProof: "Apresentação editorial",
+    contextLabel: "Contexto do projeto",
     ctaTitle: "Quer um sistema parecido?",
     ctaSubtitle:
       "Me conte o que hoje e manual, lento ou dificil de medir na sua operação. Eu posso ajudar a transformar isso em produto real.",

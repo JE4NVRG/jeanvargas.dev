@@ -5,8 +5,7 @@ import { gsap } from "@/lib/gsap";
 import { useTranslation } from "@/i18n";
 import { Check, MessageCircle, Rocket, Users, Crown } from "lucide-react";
 
-const WHATSAPP_URL =
-  "https://wa.me/5511948477047?text=Oi%20Jean%2C%20quero%20conversar%20sobre%20um%20plano.";
+const WHATSAPP_URL = "https://wa.me/5511948477047";
 
 const PLAN_ICONS = [Rocket, Users, Crown];
 const PLAN_ACCENTS = [
@@ -17,7 +16,7 @@ const PLAN_ACCENTS = [
 
 export function Pricing() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -59,6 +58,12 @@ export function Pricing() {
             const Icon = PLAN_ICONS[i] ?? Rocket;
             const accent = PLAN_ACCENTS[i] ?? PLAN_ACCENTS[0];
             const featured = plan.featured;
+            const ctaKey = ["pricing-site", "pricing-saas", "pricing-web3"][i] ?? `pricing-${i + 1}`;
+            const whatsappMessage = encodeURIComponent(
+              locale === "pt"
+                ? `Oi Jean, quero conversar sobre ${plan.name}.`
+                : `Hi Jean, I'd like to discuss ${plan.name}.`,
+            );
             return (
               <div
                 key={plan.name}
@@ -103,9 +108,11 @@ export function Pricing() {
                 </ul>
 
                 <a
-                  href={WHATSAPP_URL}
+                  href={`${WHATSAPP_URL}?text=${whatsappMessage}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-analytics-event="lead-cta-click"
+                  data-cta={ctaKey}
                   className={`mt-9 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-colors ${
                     featured
                       ? "bg-white text-black hover:bg-zinc-100"

@@ -76,17 +76,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function LangFixer({ locale }: { locale: Locale }) {
-  const lang = locale === "pt" ? "pt-BR" : "en";
-  return (
-    <script
-      dangerouslySetInnerHTML={{
-        __html: `document.documentElement.lang=${JSON.stringify(lang)};`,
-      }}
-    />
-  );
-}
-
 export default async function ProjectPage({ params }: Props) {
   const { slug, locale } = await params;
   const project = getProjectBySlug(slug);
@@ -150,7 +139,6 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <>
-      <LangFixer locale={locale} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}

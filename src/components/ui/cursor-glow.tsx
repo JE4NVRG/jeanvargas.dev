@@ -21,14 +21,17 @@ export function CursorGlow() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
-    setEnabled(true);
+    const enableTimer = window.setTimeout(() => setEnabled(true), 0);
 
     const onMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
     };
     window.addEventListener("mousemove", onMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMove);
+    return () => {
+      window.clearTimeout(enableTimer);
+      window.removeEventListener("mousemove", onMove);
+    };
   }, [mouseX, mouseY]);
 
   if (!enabled) return null;

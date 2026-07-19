@@ -1,0 +1,19 @@
+<svg width="720" height="120" viewBox="0 0 720 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title description">
+  <title id="title">JE4NDEV</title>
+  <desc id="description">JE4NDEV logo with a fused JD monogram meaning Jean and Dev</desc>
+  <style>
+    .word { fill: #FAFAFA; }
+    .word-stroke { stroke: #FAFAFA; }
+    @media (prefers-color-scheme: light) {
+      .word { fill: #09090B; }
+      .word-stroke { stroke: #09090B; }
+    }
+  </style>
+  <path d="M38 22v36c0 10-6 16-15 16-5 0-9-2-12-6" class="word-stroke" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M38 22h12c14 0 24 11 24 26S64 74 50 74H38" class="word-stroke" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="110" y="84" class="word" font-family="Geist, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="8">JE</text>
+  <path d="M259 30 228 70h42" class="word-stroke" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M259 30v66" class="word-stroke" stroke-width="11" stroke-linecap="round"/>
+  <text x="283" y="84" class="word" font-family="Geist, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="8">N</text>
+  <text x="355" y="84" class="word" font-family="Geist, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="8">DEV</text>
+</svg>

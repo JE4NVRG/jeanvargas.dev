@@ -39,7 +39,8 @@ export function HeroVideoBg({ src = "/videos/hero-blob.mp4" }: { src?: string })
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
     if (isMobile) return;
 
-    setAllowVideo(true);
+    const enableTimer = window.setTimeout(() => setAllowVideo(true), 0);
+    return () => window.clearTimeout(enableTimer);
   }, []);
 
   return (
@@ -53,7 +54,6 @@ export function HeroVideoBg({ src = "/videos/hero-blob.mp4" }: { src?: string })
             muted
             playsInline
             preload="metadata"
-            poster="/videos/hero-blob-poster.jpg"
             className="h-full w-full rounded-full object-cover opacity-90 mix-blend-screen"
             aria-hidden
           />

@@ -34,9 +34,10 @@ export function Contact() {
 
   useEffect(() => {
     if (!sectionRef.current) return;
+    const timers: number[] = [];
     if (typeof IntersectionObserver === "undefined") {
-      setLinesShown(totalLines);
-      return;
+      const fallbackTimer = window.setTimeout(() => setLinesShown(totalLines), 0);
+      return () => window.clearTimeout(fallbackTimer);
     }
 
     const observer = new IntersectionObserver(
@@ -45,7 +46,12 @@ export function Contact() {
           if (entry.isIntersecting) {
             // Stagger the lines in — 420ms apart, matches the rest of the page.
             for (let i = 0; i < totalLines; i++) {
-              setTimeout(() => setLinesShown((prev) => Math.max(prev, i + 1)), 420 * (i + 1));
+              timers.push(
+                window.setTimeout(
+                  () => setLinesShown((prev) => Math.max(prev, i + 1)),
+                  420 * (i + 1),
+                ),
+              );
             }
             observer.disconnect();
             return;
@@ -56,7 +62,10 @@ export function Contact() {
     );
 
     observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      timers.forEach((timer) => window.clearTimeout(timer));
+    };
   }, [totalLines]);
 
   return (
@@ -127,6 +136,8 @@ export function Contact() {
                 <MagneticButton
                   as="a"
                   href={EMAIL_URL}
+                  data-analytics-event="lead-cta-click"
+                  data-cta="contact-email"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black shadow-[0_8px_40px_-8px_rgba(94,234,212,0.5)] transition-colors hover:bg-zinc-100 sm:text-base"
                 >
                   <Mail className="h-4 w-4" />
@@ -138,6 +149,8 @@ export function Contact() {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-analytics-event="lead-cta-click"
+                  data-cta="contact-whatsapp"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/[0.06] px-7 py-3.5 text-sm font-semibold text-emerald-300 backdrop-blur transition-colors hover:border-emerald-400/60 hover:bg-emerald-500/[0.1] sm:text-base"
                 >
                   <MessageCircle className="h-4 w-4" />
@@ -148,6 +161,8 @@ export function Contact() {
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-analytics-event="proof-cta-click"
+                  data-cta="contact-github"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.04] px-7 py-3.5 text-sm font-medium text-zinc-300 backdrop-blur transition-colors hover:border-white/[0.32] hover:bg-white/[0.08] sm:text-base"
                 >
                   <Github className="h-4 w-4" />

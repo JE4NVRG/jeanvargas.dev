@@ -3,62 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ExternalLink,
   ArrowRight,
   ArrowLeft,
   Mail,
   MessageCircle,
 } from "lucide-react";
 import { SectionReveal } from "@/components/ui/section-reveal";
-import { CodeTerminal } from "@/components/ui/code-terminal";
 import { useTranslation } from "@/i18n";
 import { getProjectBySlug, getNextProject } from "@/data/projects";
 import type { Project } from "@/types/project";
-
-const terminalContent: Record<string, string[]> = {
-  nexpanel: [
-    "$ nexpanel scope",
-    "Project: B2B SaaS management platform",
-    "Core flows: clients, billing, credits, teams",
-    "Role: architecture, product flow, full-stack build",
-    "Status: case study / private implementation",
-  ],
-  "vultrix-3d": [
-    "$ vultrix calculate --file model.3mf",
-    "Inputs: material, print time, weight, fees",
-    "Output: price suggestion and margin view",
-    "Role: product logic, dashboard, full-stack build",
-    "Status: live business tool",
-  ],
-  "openclaw-gateway": [
-    "$ openclaw scope",
-    "Project: AI automation gateway",
-    "Core flows: routing, monitoring, workflow control",
-    "Role: local automation and integration layer",
-    "Status: internal tool / technical showcase",
-  ],
-  mepchat: [
-    "$ mepchat scope",
-    "Project: WhatsApp chatbot plus admin dashboard",
-    "Core flows: AI replies, CNPJ lookup, monitoring",
-    "Role: bot logic, dashboard, integrations",
-    "Status: MVP",
-  ],
-  gestaoml: [
-    "$ gestaoml scope",
-    "Project: Mercado Livre seller operations SaaS",
-    "Core flows: orders, labels, messages, finance",
-    "Role: product design, API integration, dashboard",
-    "Status: case study / private implementation",
-  ],
-  hypefc: [
-    "$ hypefc scope",
-    "Project: real-time football dashboard",
-    "Core flows: live scores, standings, scorers",
-    "Role: UI, API integration, realtime refresh",
-    "Status: public demo",
-  ],
-};
+import { ProjectLinks } from "@/components/projects/project-links";
+import { ProjectMediaFrame } from "@/components/projects/project-media-frame";
 
 function StatusBadge({ status }: { status: "live" | "mvp" | "development" | "case" | "internal" | "demo" }) {
   const config = {
@@ -127,97 +82,14 @@ interface CaseStudyProps {
 function ProjectVisuals({
   project,
   locale,
-  mainLabel,
 }: {
   project: Project;
   locale: "en" | "pt";
-  mainLabel: string;
 }) {
-  if (project.slug === "openclaw-gateway") {
-    return (
-      <div className="space-y-5">
-        <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4">
-          <CodeTerminal
-            title="openclaw-gateway/production"
-            lines={[
-              { command: "openclaw gateway status --json" },
-              {
-                output: "{ provider: 'openai', routes: 12, uptime: '99.9%' }",
-                tone: "info",
-              },
-              { command: "openclaw workflow run atendimento --live" },
-              {
-                output: "intent detected -> crm.sync -> whatsapp.reply -> log.ok",
-                tone: "success",
-              },
-              { command: "openclaw monitor --requests 5000/day" },
-              {
-                output: "latency 312ms | failures 0.1% | automations 8 active",
-                tone: "warning",
-              },
-            ]}
-            className="min-h-[360px]"
-          />
-        </div>
-        <div className="grid gap-5 md:grid-cols-3">
-          {[
-            { value: "12", label: "rotas ativas" },
-            { value: "8", label: "workflows IA" },
-            { value: "24/7", label: "monitoramento" },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5"
-            >
-              <div className="text-3xl font-bold text-cyan-300">
-                {item.value}
-              </div>
-              <div className="mt-1 text-sm text-zinc-500">{item.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  const visuals = [
-    ...(project.image
-      ? [
-          {
-            src: project.image,
-            title: { en: mainLabel, pt: mainLabel },
-            description: project.description,
-            isMain: true,
-          },
-        ]
-      : []),
-    ...(project.gallery ?? []),
-  ];
+  const visuals = (project.gallery ?? []).filter((visual) => visual.src !== project.image);
 
   if (visuals.length === 0) {
-    const terminalLines = terminalContent[project.slug] ?? ["$ status", "Running..."];
-
-    return (
-      <div
-        className={`flex min-h-[380px] items-center justify-center rounded-2xl bg-gradient-to-br ${project.gradient} p-10`}
-      >
-        <div className="w-full max-w-xl rounded-xl border border-white/[0.1] bg-black/60 p-6 font-mono text-sm shadow-2xl backdrop-blur-sm">
-          <div className="mb-4 flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-red-500/80" />
-            <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
-            <span className="h-3 w-3 rounded-full bg-green-500/80" />
-          </div>
-          {terminalLines.map((line, i) => (
-            <div
-              key={i}
-              className={`leading-loose ${i === 0 ? "text-green-400" : "text-zinc-400"}`}
-            >
-              {line}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+    return null;
   }
 
   const [mainVisual, ...supportingVisuals] = visuals;
@@ -284,14 +156,32 @@ export function CaseStudy({ slug }: CaseStudyProps) {
 
   if (!project) return null;
 
+  const projectLinkLabels = {
+    live: t.project.visitLive,
+    github: t.project.github,
+    docs: t.project.docs,
+    contact: t.project.contact,
+  };
+
+  const proofLabels = {
+    approved: t.project.proofLabel,
+    private: t.project.privateProof,
+    pending: t.project.pendingProof,
+    editorial: t.project.editorialProof,
+  };
+
+  const hasSupportingVisuals = (project.gallery ?? []).some(
+    (visual) => visual.src !== project.image,
+  );
+
   return (
     <main className="min-h-screen bg-[#050505] text-white">
-      <div className="mx-auto max-w-5xl px-6 py-32">
+      <div className="mx-auto max-w-7xl px-5 py-28 sm:px-6 sm:py-32">
         {/* Breadcrumb */}
         <SectionReveal>
           <nav className="mb-10 flex items-center gap-2 text-sm text-zinc-500">
             <Link
-              href="/#work"
+              href={`/${locale}#work`}
               className="inline-flex items-center gap-1 transition-colors hover:text-zinc-300"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
@@ -302,27 +192,59 @@ export function CaseStudy({ slug }: CaseStudyProps) {
           </nav>
         </SectionReveal>
 
-        {/* Hero */}
-        <SectionReveal delay={0.05}>
-          <div className="mb-4 flex flex-wrap items-center gap-3">
-            <StatusBadge status={project.status} />
-            <span className="rounded-full border border-white/[0.08] px-3 py-1 text-xs font-medium text-zinc-400">
-              {project.scope[locale]}
-            </span>
-            <span className="text-xs text-zinc-500">
-              {typeof project.dateRange === "string"
-                ? project.dateRange
-                : project.dateRange[locale]}
-            </span>
-            <span className="text-xs text-zinc-600">{project.category}</span>
-          </div>
-          <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl">
-            {project.title}
-          </h1>
-          <p className="mt-4 text-lg leading-relaxed text-zinc-400">
-            {project.longDescription[locale]}
-          </p>
-        </SectionReveal>
+        {/* Visual-first hero: proof and primary action are visible above the fold. */}
+        <section className="grid items-center gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14">
+          <SectionReveal delay={0.04}>
+            <div className="flex flex-wrap items-center gap-2.5">
+              <StatusBadge status={project.status} />
+              <span className="rounded-full border border-white/[0.08] px-3 py-1 text-xs font-medium text-zinc-400">
+                {project.scope[locale]}
+              </span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-zinc-600">
+                {typeof project.dateRange === "string" ? project.dateRange : project.dateRange[locale]}
+              </span>
+            </div>
+
+            <p className="mt-7 font-mono text-xs uppercase tracking-[0.18em] text-cyan-300/80">
+              {project.category} · {project.role.replaceAll("-", " ")}
+            </p>
+            <h1 className="mt-4 text-4xl font-extrabold leading-[1.02] tracking-tight text-white sm:text-6xl">
+              {project.title}
+            </h1>
+            <p className="mt-5 max-w-xl text-base leading-7 text-zinc-300 sm:text-lg">
+              {project.shortDescription[locale]}
+            </p>
+
+            <div className="mt-7">
+              <ProjectLinks project={project} labels={projectLinkLabels} />
+            </div>
+
+            <div className="mt-7 border-l border-cyan-300/25 pl-4">
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cyan-300/70">
+                {proofLabels[project.assetReview.status === "approved" ? "approved" : project.assetReview.status === "private-demo" ? "private" : project.assetReview.status === "needs-recapture" ? "pending" : "editorial"]}
+              </p>
+              <p className="mt-2 text-sm leading-6 text-zinc-500">
+                {project.assetReview.note[locale]}
+              </p>
+            </div>
+          </SectionReveal>
+
+          <SectionReveal delay={0.08}>
+            <ProjectMediaFrame project={project} labels={proofLabels} priority />
+          </SectionReveal>
+        </section>
+
+        <div className="mx-auto mt-16 max-w-5xl">
+          <SectionReveal delay={0.08}>
+            <div className="grid gap-6 border-y border-white/[0.06] py-8 md:grid-cols-[0.3fr_0.7fr] md:items-start">
+              <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
+                {t.project.contextLabel}
+              </h2>
+              <p className="text-base leading-8 text-zinc-400 sm:text-lg">
+                {project.longDescription[locale]}
+              </p>
+            </div>
+          </SectionReveal>
 
         {/* Motion demo (only when the project has a demo video) */}
         {project.video && (
@@ -350,8 +272,8 @@ export function CaseStudy({ slug }: CaseStudyProps) {
           </SectionReveal>
         )}
 
-        {/* Visual proof */}
-        <SectionReveal delay={0.1} className="mt-12">
+        {/* Supporting visual proof */}
+        {hasSupportingVisuals ? <SectionReveal delay={0.1} className="mt-12">
           <div className="mb-6">
             <h2 className="text-xs font-semibold uppercase tracking-widest text-purple-400">
               {t.project.visuals}
@@ -363,9 +285,8 @@ export function CaseStudy({ slug }: CaseStudyProps) {
           <ProjectVisuals
             project={project}
             locale={locale}
-            mainLabel={t.project.mainVisual}
           />
-        </SectionReveal>
+        </SectionReveal> : null}
 
         {/* Business impact */}
         <SectionReveal delay={0.12} className="mt-16">
@@ -464,36 +385,6 @@ export function CaseStudy({ slug }: CaseStudyProps) {
           </div>
         </SectionReveal>
 
-        {/* Links */}
-        {(project.links.live || project.links.github) && (
-          <SectionReveal delay={0.2} className="mt-12">
-            <div className="flex flex-wrap gap-3">
-              {project.links.live && (
-                <a
-                  href={project.links.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.03] px-5 py-2.5 text-sm font-medium text-zinc-300 transition-colors hover:border-white/[0.25] hover:text-white"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  {t.project.visitLive}
-                </a>
-              )}
-              {project.links.github && (
-                <a
-                  href={project.links.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.03] px-5 py-2.5 text-sm font-medium text-zinc-300 transition-colors hover:border-white/[0.25] hover:text-white"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  {t.project.github}
-                </a>
-              )}
-            </div>
-          </SectionReveal>
-        )}
-
         {/* Conversion CTA */}
         <SectionReveal delay={0.21} className="mt-20">
           <div className="overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.03] p-8 sm:p-10">
@@ -550,6 +441,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
             </Link>
           </SectionReveal>
         )}
+        </div>
       </div>
     </main>
   );

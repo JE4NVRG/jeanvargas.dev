@@ -51,6 +51,21 @@ Estética alvo: **premium tech editorial dark** — Linear × Vercel × Stripe P
 Tokens canônicos em `src/styles/design-tokens.css` e `tailwind.config`.
 Tudo fora desses tokens passa por revisão.
 
+## Identidade da marca
+
+- O logotipo JE4NDEV é sempre monocromático: preto em fundo claro ou branco
+  em fundo escuro.
+- Ciano, violeta, magenta e demais cores são acentos da interface e nunca
+  devem colorir o logotipo.
+- O símbolo compacto é o monograma `JD`, de Jean + Dev. Ele pode ser usado em
+  favicon, ícone de app, bordado ou gravação compacta.
+- O `4` customizado substitui a letra A somente dentro do nome completo
+  JE4NDEV. Nunca usar o `4` isolado como símbolo.
+- Na navegação, papelaria e comunicação com clientes, usar o wordmark completo
+  JE4NDEV em caixa alta.
+- Não usar gradiente, glow, sombra, símbolo de banco de ícones ou abreviações.
+- Assets oficiais e aplicações: `docs/brand/README.md` e `public/brand/`.
+
 ## Tipografia
 
 - **Geist Sans** para texto e títulos. Tracking apertado em H1 (`tracking-tight`).
@@ -153,6 +168,74 @@ Antes de mergear UI, validar:
 - H1 com duas partes em `<span class="block">` sem text node entre elas.
 - Card grid 2-col genérico tipo "portfolio template 2018" no showcase.
 
+## Regras — Assets visuais de projetos (crítico para honestidade)
+
+- Toda imagem usada em showcase, universe, case ou hero de projeto **deve ser prova real**:
+  - Screenshot real do app em produção (dashboard, tela de ferramenta, render gerado).
+  - Ou vídeo real do fluxo (demo loop muted).
+  - Ou arte oficial do produto (logo + mock fiel criado para o caso).
+- **Nunca** usar como "prova principal":
+  - Landing page / marketing hero (pode usar como complemento ou gallery secundária).
+  - Generic AI-generated "cyber dashboard", "3D nodes", "futuristic control room" (mesmo que bonito).
+  - Print de GitHub repo page (para ferramentas internas, usar terminal mock fiel ou descrição + link GitHub explícito).
+  - Imagem com erro visível ("Failed to fetch", loading state quebrado).
+- Covers editoriais (webp com gradient + ilustração) são permitidos **só** como background artístico no card, nunca substituindo o print real do produto.
+- Todo projeto deve ter pelo menos 1 visual principal + 1 de suporte (gallery) ou vídeo. Projetos sem: fallback para terminal fiel ao escopo (nunca genérico).
+- Regra de nome: `projects/slug.png` = print principal do produto; `covers/slug-cover.webp` = editorial opcional; `gallery/slug-*.png` = flows específicos com legenda PT/EN.
+- Antes de commit: abra a imagem localmente e confirme "isso representa o que o cliente/usuario ve?".
+
+## Regras — Apresentação de muitos projetos (escala >6)
+
+- Dois níveis:
+  1. Showcase cinematográfico: 4-6 flagships max. Full-bleed alternating, GSAP scrub/parallax, hover com Problem/Delivery/Result. CTAs contextuais (live primeiro).
+  2. ProjectUniverse / galeria densa: **todos** os projetos. Foco em imagem + ações diretas.
+- Cards na galeria densa:
+  - Imagem é o portal principal: se live existir, clicar na imagem abre o live em nova aba.
+  - Ícones de live/github **são links reais** (stopPropagation).
+  - Card inteiro linka para case study (detalhe).
+  - No hover da imagem: badge "LIVE" ou "GITHUB" visível + CTAs.
+- Filtros: chips de categoria + busca (nome/tech/categoria). Mudança de filtro **anima** os cards (stagger fade+translate+scale via GSAP, 0.3-0.4s).
+- Adicionar: search, status pills fortes, 2-3 metrics mini, tech stack.
+- Copy posiciona "aqui você vê o volume real de entregas" sem diminuir o "resto".
+- Evitar: grid 2-col genérico sem motion; cards sem link direto para o que o visitante quer ver primeiro (o produto rodando).
+
+## Regras — Motion system (nível premium)
+
+- Libs canônicas: Lenis (root smooth), GSAP + ScrollTrigger (orquestração de scroll, filtros, timelines, parallax), Framer Motion (hover isolado, entrance simples, layout).
+- Sempre: LenisProvider no root + integração ticker com ScrollTrigger.
+- GSAP para: re-layout de grids/filtros (stagger), showcase storytelling (scrub + reveal), scroll-triggered sections.
+- Framer para: micro tilt/hover (spring sutil), whileInView entrance (amount 0, once, delay escalonado).
+- Regras de uso:
+  - Filtro ou busca em galeria → GSAP fromTo nos cards (nunca re-render seco).
+  - Card de projeto → hover com scale + border + (tilt se 3D ok) + overlay de ações.
+  - Texto longo → SplitType + GSAP chars só em hero ou headlines importantes.
+  - Scroll story (showcase) → scrub parallax na imagem, content reveal no enter, opcional pin breve (cuidado mobile).
+- Easings preferidos: "expo.out", "power2.out", "none" para scrub.
+- Duração: entrance 0.4-0.7s, micro 0.2-0.35s, scrub controlado pelo usuário.
+- Reduced motion: globals.css já zera. Testar sempre (conteúdo visível imediato).
+- Performance: 60fps em 1440p + mobile. Evitar pin agressivo que "prende" o scroll.
+- Inspiração permitida: gsap.com (scroll + UI interactions), inspira-ui.com (componentes com motion rico: flip, morph, rainbow, stars), lenis.dev (buttery foundation).
+
+## Checklist qualidade UI (adicional ao anterior)
+
+- [ ] Imagens de projeto: todas são prova real do produto (não generic, não erro, não LP como principal).
+- [ ] Cards de galeria: imagem linka direto para live (quando existe); ícones de live/github são clicáveis; animação no filtro/search.
+- [ ] Case study de todo projeto abre com pelo menos 1 visual + métricas + CTAs.
+- [ ] Motion: filtro/galeria tem stagger GSAP; showcase tem scrub + reveal; tilt/hover em cards.
+- [ ] Sem dead code (ex: FeaturedWork não usado → removido ou documentado).
+- [ ] Mobile 390: cards não cortam, CTAs acessíveis, imagem não perde sentido.
+- [ ] Métricas: reais ou arredondamento honesto (sem "247+ clients" inventado).
+- [ ] Antes de "UI done": leia DESIGN.md completo + rode build + teste /pt e /en + pref reduced-motion.
+
 ---
 
-Última revisão: 2026-05-22 — Atlas, sob direção do Jean (founder).
+Última revisão: 2026-06 — Atlas (Fase 1 do Project Presentation System).
+
+**Referência obrigatória:** docs/specs/2026-06-03-project-presentation-system.md
+
+- ProjectV2 schema agora é a fonte da verdade para dados de projetos (role, proofLevel, visualKind, primaryCta, casePriority, shortDescription, tags, links expandidos).
+- Capa editorial (coverImage) × prova real (image/gallery/video) — separação explícita e auditada.
+- Hub de projetos e CaseStudyHero devem seguir a spec (CTA acima da dobra, links claros na imagem, filtros animados).
+- Antes de qualquer mudança em universe/showcase/case-study: rode `npm run audit:projects`.
+
+Regras de assets e motion do spec prevalecem sobre seções antigas deste arquivo quando houver conflito.
