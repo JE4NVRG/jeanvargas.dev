@@ -43,10 +43,14 @@ async function fetchRows<T>(options: {
   select: string;
   timeField: string;
   since: string;
+  until: string;
 }) {
   const endpoint = new URL(`${options.url}/rest/v1/${options.table}`);
   endpoint.searchParams.set("select", options.select);
-  endpoint.searchParams.set(options.timeField, `gte.${options.since}`);
+  endpoint.searchParams.set(
+    "and",
+    `(${options.timeField}.gte.${options.since},${options.timeField}.lte.${options.until})`,
+  );
   endpoint.searchParams.set("order", `${options.timeField}.desc`);
   endpoint.searchParams.set("limit", "10000");
 
@@ -65,7 +69,18 @@ async function fetchRows<T>(options: {
 async function main() {
   const days = readDays();
   const { url, key } = requireConfig();
-  const since = new Date(Date.now() - days * 86_400_000).toISOString();
+  const endedAtDate = new Date();
+  const endedAt = endedAtDate.toISOString();
+  const startedAt = new Date(endedAtDate.getTime() - days * 86_400_000).toISOString();
+  const currentUtcDay = Date.UTC(
+    endedAtDate.getUTCFullYear(),
+    endedAtDate.getUTCMonth(),
+    endedAtDate.getUTCDate(),
+  );
+  const searchConsoleStartDate = new Date(
+    currentUtcDay - (days - 1) * 86_400_000,
+  ).toISOString().slice(0, 10);
+  const searchConsoleEndDate = endedAt.slice(0, 10);
   const searchConsolePath = readArg("--search-console");
 
   const [analytics, leads] = await Promise.all([
@@ -75,7 +90,8 @@ async function main() {
       table: ANALYTICS_TABLE,
       select: "occurred_at,event_name,page_path,source,medium,campaign,landing_path",
       timeField: "occurred_at",
-      since,
+      since: startedAt,
+      until: endedAt,
     }),
     fetchRows<FunnelLeadRow>({
       url,
@@ -84,7 +100,8 @@ async function main() {
       select:
         "lead_code,business_name,status,source,medium,campaign,channel,landing_path,created_at,first_contact_at,conversation_started_at,qualified_at,proposal_sent_at,closed_at,deal_value_brl,updated_at",
       timeField: "updated_at",
-      since,
+      since: startedAt,
+      until: endedAt,
     }),
   ]);
 
@@ -94,11 +111,21 @@ async function main() {
       )
     : undefined;
 
-  const summary = summarizeWeeklyFunnel({ analytics, leads, searchConsole });
+  const summary = summarizeWeeklyFunnel({
+    analytics,
+    leads,
+    searchConsole,
+    window: {
+      startedAt,
+      endedAt,
+      searchConsoleStartDate,
+      searchConsoleEndDate,
+    },
+  });
   process.stdout.write(
     renderWeeklyFunnelMarkdown(summary, {
       days,
-      generatedAt: new Date().toISOString(),
+      generatedAt: endedAt,
     }),
   );
 }

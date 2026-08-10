@@ -63,7 +63,10 @@ function getLinkContext(element: HTMLElement) {
   }
 }
 
-function resolveEventName(event: string, channel: AnalyticsEventInput["channel"]) {
+function resolveEventName(
+  event: AnalyticsEventInput["event"],
+  channel: AnalyticsEventInput["channel"],
+): AnalyticsEventInput["event"] {
   if (event !== "lead-cta-click") return event;
   if (channel === "whatsapp") return "whatsapp-click";
   if (channel === "email") return "email-click";
@@ -112,7 +115,9 @@ export function PortfolioAnalytics({ locale }: { locale: "pt" | "en" }) {
       if (!trackedElement) return;
 
       const linkContext = getLinkContext(trackedElement);
-      const configuredEvent = trackedElement.dataset.analyticsEvent ?? "portfolio-click";
+      const configuredEvent = (
+        trackedElement.dataset.analyticsEvent ?? "portfolio-click"
+      ) as AnalyticsEventInput["event"];
 
       sendEvent({
         event: resolveEventName(configuredEvent, linkContext.channel),

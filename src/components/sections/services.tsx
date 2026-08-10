@@ -91,6 +91,7 @@ export function Services() {
                       data-analytics-event="lead-cta-click"
                       data-cta={`service-${i + 1}`}
                       data-service={SERVICE_IDS[i] ?? `service-${i + 1}`}
+                      data-offer="diagnosis-first-milestone"
                       className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-zinc-300 transition-colors hover:text-purple-300"
                     >
                       {t.services.cta}

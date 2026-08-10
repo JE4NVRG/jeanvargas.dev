@@ -41,7 +41,7 @@ export type WeeklyFunnelSummary = {
   events: number;
   pageViews: number;
   leadClicks: number;
-  clickRate: number | null;
+  clicksPerPageView: number | null;
   conversations: number;
   qualified: number;
   proposals: number;
@@ -58,6 +58,13 @@ export type WeeklyFunnelSummary = {
     ctr: number | null;
     averagePosition: number | null;
   };
+};
+
+export type WeeklyReportingWindow = {
+  startedAt: string;
+  endedAt: string;
+  searchConsoleStartDate: string;
+  searchConsoleEndDate: string;
 };
 
 const LEAD_EVENTS = new Set(["whatsapp-click", "email-click", "lead-cta-click"]);
@@ -112,6 +119,34 @@ function parseMetric(value: string, percent = false) {
   return percent && result > 1 ? result / 100 : result;
 }
 
+function isValidCalendarDate(value: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const parsed = new Date(`${value}T00:00:00.000Z`);
+  return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
+}
+
+function resolveReportingWindow(window: WeeklyReportingWindow) {
+  const startedAt = Date.parse(window.startedAt);
+  const endedAt = Date.parse(window.endedAt);
+  if (!Number.isFinite(startedAt) || !Number.isFinite(endedAt) || startedAt > endedAt) {
+    throw new Error("Invalid weekly reporting timestamp window");
+  }
+  if (
+    !isValidCalendarDate(window.searchConsoleStartDate) ||
+    !isValidCalendarDate(window.searchConsoleEndDate) ||
+    window.searchConsoleStartDate > window.searchConsoleEndDate
+  ) {
+    throw new Error("Invalid Search Console reporting date window");
+  }
+  return { startedAt, endedAt };
+}
+
+function isInstantWithin(value: string | null, startedAt: number, endedAt: number) {
+  if (!value) return false;
+  const instant = Date.parse(value);
+  return Number.isFinite(instant) && instant >= startedAt && instant <= endedAt;
+}
+
 export function parseSearchConsoleCsv(csv: string): SearchConsoleDay[] {
   const lines = csv
     .replace(/^\uFEFF/, "")
@@ -146,8 +181,13 @@ export function parseSearchConsoleCsv(csv: string): SearchConsoleDay[] {
       throw new Error(`Invalid Search Console metrics on CSV row ${rowIndex + 2}`);
     }
 
+    const date = cells[indexes.date] ?? "";
+    if (!isValidCalendarDate(date)) {
+      throw new Error(`Invalid Search Console date on CSV row ${rowIndex + 2}`);
+    }
+
     return {
-      date: cells[indexes.date] ?? "",
+      date,
       clicks,
       impressions,
       ctr,
@@ -160,10 +200,30 @@ export function summarizeWeeklyFunnel(input: {
   analytics: FunnelAnalyticsRow[];
   leads: FunnelLeadRow[];
   searchConsole?: SearchConsoleDay[];
+  window: WeeklyReportingWindow;
 }): WeeklyFunnelSummary {
+  const { startedAt, endedAt } = resolveReportingWindow(input.window);
   const pageViews = input.analytics.filter((row) => row.event_name === "portfolio-page-view");
   const leadClicks = input.analytics.filter((row) => LEAD_EVENTS.has(row.event_name));
-  const searchConsole = input.searchConsole ?? [];
+  const searchConsole = (input.searchConsole ?? []).filter(
+    (row) =>
+      row.date >= input.window.searchConsoleStartDate &&
+      row.date <= input.window.searchConsoleEndDate,
+  );
+  const conversations = input.leads.filter((lead) =>
+    isInstantWithin(lead.conversation_started_at, startedAt, endedAt),
+  );
+  const qualified = input.leads.filter((lead) =>
+    isInstantWithin(lead.qualified_at, startedAt, endedAt),
+  );
+  const proposals = input.leads.filter((lead) =>
+    isInstantWithin(lead.proposal_sent_at, startedAt, endedAt),
+  );
+  const closedWon = input.leads.filter(
+    (lead) =>
+      lead.status === "closed_won" &&
+      isInstantWithin(lead.closed_at, startedAt, endedAt),
+  );
   const searchClicks = searchConsole.reduce((sum, row) => sum + row.clicks, 0);
   const searchImpressions = searchConsole.reduce((sum, row) => sum + row.impressions, 0);
   const weightedPosition = searchConsole.reduce(
@@ -179,14 +239,12 @@ export function summarizeWeeklyFunnel(input: {
     events: input.analytics.length,
     pageViews: pageViews.length,
     leadClicks: leadClicks.length,
-    clickRate: pageViews.length > 0 ? leadClicks.length / pageViews.length : null,
-    conversations: input.leads.filter((lead) => lead.conversation_started_at !== null).length,
-    qualified: input.leads.filter((lead) => lead.qualified_at !== null).length,
-    proposals: input.leads.filter((lead) => lead.proposal_sent_at !== null).length,
-    closedWon: input.leads.filter((lead) => lead.status === "closed_won").length,
-    closedValueBrl: input.leads
-      .filter((lead) => lead.status === "closed_won")
-      .reduce((sum, lead) => sum + (lead.deal_value_brl ?? 0), 0),
+    clicksPerPageView: pageViews.length > 0 ? leadClicks.length / pageViews.length : null,
+    conversations: conversations.length,
+    qualified: qualified.length,
+    proposals: proposals.length,
+    closedWon: closedWon.length,
+    closedValueBrl: closedWon.reduce((sum, lead) => sum + (lead.deal_value_brl ?? 0), 0),
     sourceBreakdown: countBy(pageViews, (row) => `${row.source} / ${row.medium}`),
     campaignBreakdown: countBy(pageViews, (row) => row.campaign),
     leadStatusBreakdown: countBy(input.leads, (lead) => lead.status),
@@ -227,7 +285,7 @@ export function renderWeeklyFunnelMarkdown(summary: WeeklyFunnelSummary, options
       "## Funnel",
       `- Page views: ${summary.pageViews}`,
       `- Lead CTA clicks: ${summary.leadClicks}`,
-      `- Visit to CTA rate: ${formatPercent(summary.clickRate)}`,
+      `- CTA clicks per page view: ${formatNumber(summary.clicksPerPageView)}`,
       `- Conversations initiated: ${summary.conversations}`,
       `- Qualified leads: ${summary.qualified}`,
       `- Proposals sent: ${summary.proposals}`,

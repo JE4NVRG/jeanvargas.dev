@@ -50,11 +50,12 @@ Migrations, prepared but not applied:
 Server-only configuration:
 
 ```env
+ANALYTICS_SUPABASE_ENABLED=false
 ANALYTICS_SUPABASE_URL=https://your-project.supabase.co
 ANALYTICS_SUPABASE_SERVICE_ROLE_KEY=replace-with-a-dedicated-server-secret
 ```
 
-Never expose the service-role key through `NEXT_PUBLIC_*`.
+Never expose the service-role key through `NEXT_PUBLIC_*`. Keep `ANALYTICS_SUPABASE_ENABLED=false` until the dedicated schema and an edge rate limit for `POST /api/analytics` are applied and verified. The API accepts only the event-name allowlist defined in `src/lib/analytics/schema.ts`.
 
 ## 4. Lead ledger commands
 
@@ -74,6 +75,10 @@ npm run funnel:lead -- add \
 Move the lead only after the real stage happened. The CLI enforces the sequence `new → contacted → conversation_started → qualified → proposal_sent → closed_won`; loss and not-a-fit terminal states are allowed from their documented decision points, while skipped, reversed and reopened transitions are rejected:
 
 ```bash
+npm run funnel:lead -- move \
+  --code lead-20260810-001 \
+  --status contacted
+
 npm run funnel:lead -- move \
   --code lead-20260810-001 \
   --status conversation_started
@@ -142,7 +147,7 @@ The report prints Markdown with:
 
 - portfolio page views;
 - lead CTA clicks;
-- visit-to-CTA rate;
+- CTA clicks per page view (directional; it is not a unique-visitor conversion rate);
 - conversations initiated;
 - qualified leads;
 - proposals;
@@ -180,6 +185,8 @@ Do not schedule a weekly cron until all of these pass:
 
 - migrations applied to the intended Supabase project;
 - production server-only variables configured;
+- edge rate limit for `POST /api/analytics` applied and verified;
+- `ANALYTICS_SUPABASE_ENABLED=true` set only after that control is active;
 - production analytics event verified end to end;
 - one test lead created and removed or clearly labeled as test;
 - Search Console export location decided;

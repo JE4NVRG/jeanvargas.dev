@@ -8,9 +8,24 @@ const tokenSchema = z
 
 const pathSchema = z.string().min(1).max(256).startsWith("/");
 
+export const ANALYTICS_EVENT_NAMES = [
+  "email-click",
+  "lead-cta-click",
+  "portfolio-click",
+  "portfolio-engaged-30s",
+  "portfolio-navigation-click",
+  "portfolio-page-view",
+  "portfolio-proof-cta",
+  "portfolio-scroll-depth",
+  "project-primary-cta",
+  "project-secondary-cta",
+  "proof-cta-click",
+  "whatsapp-click",
+] as const;
+
 export const analyticsEventSchema = z
   .object({
-    event: z.string().min(1).max(64).regex(/^[a-z0-9-]+$/),
+    event: z.enum(ANALYTICS_EVENT_NAMES),
     path: pathSchema,
     pageType: z.enum(["home", "service", "project", "other"]).optional(),
     project: tokenSchema.optional(),

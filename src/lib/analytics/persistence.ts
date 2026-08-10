@@ -9,10 +9,11 @@ type PersistenceResult = {
 };
 
 function getConfig(env: NodeJS.ProcessEnv) {
+  const enabled = env.ANALYTICS_SUPABASE_ENABLED?.trim().toLowerCase() === "true";
   const url = env.ANALYTICS_SUPABASE_URL?.trim();
   const serviceRoleKey = env.ANALYTICS_SUPABASE_SERVICE_ROLE_KEY?.trim();
 
-  if (!url && !serviceRoleKey) return { status: "disabled" as const };
+  if (!enabled) return { status: "disabled" as const };
   if (!url || !serviceRoleKey) return { status: "incomplete" as const };
 
   try {

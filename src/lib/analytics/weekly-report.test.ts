@@ -56,6 +56,13 @@ const baseLead: FunnelLeadRow = {
   deal_value_brl: null,
 };
 
+const window = {
+  startedAt: "2026-08-03T16:00:00Z",
+  endedAt: "2026-08-10T16:00:00Z",
+  searchConsoleStartDate: "2026-08-04",
+  searchConsoleEndDate: "2026-08-10",
+};
+
 test("parses English and Portuguese Search Console CSV headers", () => {
   const english = parseSearchConsoleCsv("date,clicks,impressions,ctr,position\n2026-08-09,3,100,3%,8.5\n");
   const portuguese = parseSearchConsoleCsv("data,cliques,impressões,ctr,posição\n2026-08-10,2,50,4%,10,0\n");
@@ -80,11 +87,12 @@ test("summarizes analytics, commercial stages and Search Console without inventi
     analytics,
     leads: [baseLead, closedLead],
     searchConsole,
+    window,
   });
 
   assert.equal(summary.pageViews, 2);
   assert.equal(summary.leadClicks, 1);
-  assert.equal(summary.clickRate, 0.5);
+  assert.equal(summary.clicksPerPageView, 0.5);
   assert.equal(summary.conversations, 2);
   assert.equal(summary.qualified, 2);
   assert.equal(summary.proposals, 2);
@@ -94,8 +102,41 @@ test("summarizes analytics, commercial stages and Search Console without inventi
   assert.equal(summary.searchConsole.impressions, 150);
 });
 
+test("counts each commercial stage only inside its own reporting window", () => {
+  const progressedThisWeek: FunnelLeadRow = {
+    ...baseLead,
+    status: "qualified",
+    conversation_started_at: "2026-08-01T10:00:00Z",
+    qualified_at: "2026-08-10T12:00:00Z",
+    proposal_sent_at: null,
+  };
+  const searchConsole = parseSearchConsoleCsv(
+    "date,clicks,impressions\n2026-08-03,9,90\n2026-08-09,2,20\n2026-08-11,7,70\n",
+  );
+  const summary = summarizeWeeklyFunnel({
+    analytics,
+    leads: [progressedThisWeek],
+    searchConsole,
+    window,
+  });
+
+  assert.equal(summary.conversations, 0);
+  assert.equal(summary.qualified, 1);
+  assert.equal(summary.proposals, 0);
+  assert.equal(summary.searchConsole.days, 1);
+  assert.equal(summary.searchConsole.clicks, 2);
+  assert.equal(summary.searchConsole.impressions, 20);
+});
+
+test("rejects invalid Search Console dates", () => {
+  assert.throws(
+    () => parseSearchConsoleCsv("date,clicks,impressions\n2026-02-30,1,10\n"),
+    /Invalid Search Console date/,
+  );
+});
+
 test("renders an explicit Search Console missing-data state", () => {
-  const summary = summarizeWeeklyFunnel({ analytics, leads: [baseLead] });
+  const summary = summarizeWeeklyFunnel({ analytics, leads: [baseLead], window });
   const report = renderWeeklyFunnelMarkdown(summary, {
     days: 7,
     generatedAt: "2026-08-10T16:00:00Z",

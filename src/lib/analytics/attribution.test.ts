@@ -100,6 +100,12 @@ test("schema rejects undeclared or privacy-sensitive fields", () => {
   });
   assert.equal(accepted.success, true);
 
+  const unknownEvent = analyticsEventSchema.safeParse({
+    event: "attacker-controlled-event",
+    path: "/pt",
+  });
+  assert.equal(unknownEvent.success, false);
+
   const rejected = analyticsEventSchema.safeParse({
     event: "whatsapp-click",
     path: "/pt",
