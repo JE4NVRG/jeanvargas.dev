@@ -1,0 +1,126 @@
+{
+  "campaign": "diagnosis-first-milestone",
+  "generatedAt": "2026-08-10",
+  "links": [
+    {
+      "id": "x-profile-pt",
+      "locale": "pt",
+      "channel": "x",
+      "destination": "home",
+      "source": "x",
+      "medium": "organic-social",
+      "content": "profile",
+      "url": "https://je4ndev.com/pt?utm_source=x&utm_medium=organic-social&utm_campaign=diagnosis-first-milestone&utm_content=profile"
+    },
+    {
+      "id": "x-profile-en",
+      "locale": "en",
+      "channel": "x",
+      "destination": "home",
+      "source": "x",
+      "medium": "organic-social",
+      "content": "profile",
+      "url": "https://je4ndev.com/en?utm_source=x&utm_medium=organic-social&utm_campaign=diagnosis-first-milestone&utm_content=profile"
+    },
+    {
+      "id": "x-case-gestaoml-pt",
+      "locale": "pt",
+      "channel": "x",
+      "destination": "gestaoml",
+      "source": "x",
+      "medium": "organic-social",
+      "content": "case-gestaoml",
+      "url": "https://je4ndev.com/pt/projects/gestaoml?utm_source=x&utm_medium=organic-social&utm_campaign=diagnosis-first-milestone&utm_content=case-gestaoml"
+    },
+    {
+      "id": "x-case-nexpanel-pt",
+      "locale": "pt",
+      "channel": "x",
+      "destination": "nexpanel",
+      "source": "x",
+      "medium": "organic-social",
+      "content": "case-nexpanel",
+      "url": "https://je4ndev.com/pt/projects/nexpanel?utm_source=x&utm_medium=organic-social&utm_campaign=diagnosis-first-milestone&utm_content=case-nexpanel"
+    },
+    {
+      "id": "x-case-archscene-en",
+      "locale": "en",
+      "channel": "x",
+      "destination": "archscene",
+      "source": "x",
+      "medium": "organic-social",
+      "content": "case-archscene",
+      "url": "https://je4ndev.com/en/projects/archscene?utm_source=x&utm_medium=organic-social&utm_campaign=diagnosis-first-milestone&utm_content=case-archscene"
+    },
+    {
+      "id": "tiktok-bio-pt",
+      "locale": "pt",
+      "channel": "tiktok",
+      "destination": "home",
+      "source": "tiktok",
+      "medium": "video",
+      "content": "bio",
+      "url": "https://je4ndev.com/pt?utm_source=tiktok&utm_medium=video&utm_campaign=diagnosis-first-milestone&utm_content=bio"
+    },
+    {
+      "id": "linkedin-profile-pt",
+      "locale": "pt",
+      "channel": "linkedin",
+      "destination": "home",
+      "source": "linkedin",
+      "medium": "organic-social",
+      "content": "profile",
+      "url": "https://je4ndev.com/pt?utm_source=linkedin&utm_medium=organic-social&utm_campaign=diagnosis-first-milestone&utm_content=profile"
+    },
+    {
+      "id": "linkedin-profile-en",
+      "locale": "en",
+      "channel": "linkedin",
+      "destination": "home",
+      "source": "linkedin",
+      "medium": "organic-social",
+      "content": "profile",
+      "url": "https://je4ndev.com/en?utm_source=linkedin&utm_medium=organic-social&utm_campaign=diagnosis-first-milestone&utm_content=profile"
+    },
+    {
+      "id": "github-profile-en",
+      "locale": "en",
+      "channel": "github",
+      "destination": "home",
+      "source": "github",
+      "medium": "community",
+      "content": "profile-readme",
+      "url": "https://je4ndev.com/en?utm_source=github&utm_medium=community&utm_campaign=diagnosis-first-milestone&utm_content=profile-readme"
+    },
+    {
+      "id": "outbound-email-saas-pt",
+      "locale": "pt",
+      "channel": "email",
+      "destination": "service-saas",
+      "source": "outbound",
+      "medium": "email",
+      "content": "diagnostic-saas",
+      "url": "https://je4ndev.com/pt/services/desenvolvimento-saas?utm_source=outbound&utm_medium=email&utm_campaign=diagnosis-first-milestone&utm_content=diagnostic-saas"
+    },
+    {
+      "id": "outbound-dm-operations-pt",
+      "locale": "pt",
+      "channel": "dm",
+      "destination": "home",
+      "source": "outbound",
+      "medium": "dm",
+      "content": "diagnostic-operations",
+      "url": "https://je4ndev.com/pt?utm_source=outbound&utm_medium=dm&utm_campaign=diagnosis-first-milestone&utm_content=diagnostic-operations"
+    },
+    {
+      "id": "referral-partner-pt",
+      "locale": "pt",
+      "channel": "referral",
+      "destination": "home",
+      "source": "referral",
+      "medium": "partner",
+      "content": "partner-intro",
+      "url": "https://je4ndev.com/pt?utm_source=referral&utm_medium=partner&utm_campaign=diagnosis-first-milestone&utm_content=partner-intro"
+    }
+  ]
+}

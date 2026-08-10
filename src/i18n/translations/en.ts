@@ -233,60 +233,45 @@ export const en = {
     footer: "Each card states the available evidence type and opens a case with context, stack and relevant links.",
   },
   pricing: {
-    label: "Ways to start",
-    title: "Start with the next milestone, not an endless project.",
+    label: "Commercial entry point",
+    title: "Diagnosis + first navigable milestone.",
     subtitle:
-      "We choose the format based on clarity and risk. Every proposal defines deliverables, acceptance criteria, timeline, investment and exclusions before the build.",
+      "You describe the bottleneck. I return focused questions, scope, success criteria and the smallest end-to-end workflow worth building first — with timeline, investment and exclusions defined before the build.",
     plans: [
       {
-        name: "Product diagnosis",
-        tagline: "When the problem is real but the scope is still unclear",
-        price: "First milestone",
-        priceNote: "Scope and investment presented before work begins",
+        name: "Diagnosis + first navigable milestone",
+        tagline: "Turn a real bottleneck into a workflow you can open, test and approve",
+        price: "Milestone entry",
+        priceNote: "Scope, acceptance, timeline and investment defined before the build",
         features: [
-          "Workflow, user and bottleneck mapping",
-          "Technical risks and required integrations",
-          "Recommended architecture and product slice",
-          "Success criteria and first-build deliverables",
-          "Timeline and proposal for an informed decision",
-        ],
-        cta: "Book a diagnosis",
-        featured: false,
-      },
-      {
-        name: "Product sprint",
-        tagline: "To put a verifiable workflow in the user's hands",
-        price: "By milestone",
-        priceNote: "Payments follow approved deliveries",
-        features: [
+          "Workflow, users, bottlenecks and integration mapping",
+          "Success criteria, deliverables and explicit exclusions",
           "First functional end-to-end product slice",
-          "Navigable preview for feedback",
-          "Interface, backend, data and scoped integrations",
-          "Technical QA and manual browser review",
-          "Deployment and handoff when included in the proposal",
+          "Navigable preview, technical QA and manual browser review",
+          "Next milestone proposed only after evidence",
         ],
-        cta: "Plan the first milestone",
+        cta: "Describe my bottleneck",
         featured: true,
-        badge: "Best starting point",
+        badge: "Recommended entry",
       },
       {
-        name: "Technical evolution",
-        tagline: "For an existing product that needs to progress without adding chaos",
-        price: "Monthly or by sprint",
+        name: "Existing product evolution",
+        tagline: "For a live system that needs to progress without adding chaos",
+        price: "Sprint or ongoing support",
         priceNote: "Format and capacity defined transparently",
         features: [
-          "Backlog prioritized by impact and risk",
-          "Integration recovery and technical bottleneck fixes",
-          "Observability, hotfixes and contracted operations",
+          "Technical diagnosis and backlog prioritized by impact and risk",
+          "Integration recovery, bottleneck fixes and critical debt reduction",
+          "Observability, hotfixes and operations when contracted",
           "New workflows, automations and product improvements",
-          "Documented pause, renewal and responsibility terms",
+          "Documented pause, renewal, warranty and responsibility terms",
         ],
-        cta: "Evaluate current operations",
+        cta: "Evaluate my current product",
         featured: false,
       },
     ],
     disclaimer:
-      "Web3, Solidity and private agents fit into these formats as specialist capabilities — not as a generic standalone package.",
+      "SaaS, automations, private agents, web platforms and Web3 are capabilities applied to the problem — not generic packages.",
   },
   faq: {
     label: "FAQ",
@@ -346,9 +331,15 @@ export const en = {
     pendingProof: "Product capture under review",
     editorialProof: "Editorial presentation",
     contextLabel: "Project context",
-    ctaTitle: "Need a system like this?",
+    deliveryRecordLabel: "Delivery record",
+    deliveryRecordIntro: "Role, architecture, current state and limits stated without turning a demonstration into a promise.",
+    responsibilityLabel: "My role",
+    architectureLabel: "Architecture",
+    currentStateLabel: "Current state",
+    limitationsLabel: "Proof boundary",
+    ctaTitle: "Need to validate a similar bottleneck?",
     ctaSubtitle:
-      "Tell me what is manual, slow, or hard to measure in your operation. I can help turn it into a real product.",
+      "Describe the workflow that is manual, slow or hard to measure today. I will return focused questions and a verifiable first milestone — without locking you into an endless project.",
     ctaWhatsapp: "Talk about my project",
     ctaEmail: "Send an email",
     nextProject: "Next project",
@@ -543,6 +534,12 @@ export type Translations = {
     pendingProof: string;
     editorialProof: string;
     contextLabel: string;
+    deliveryRecordLabel: string;
+    deliveryRecordIntro: string;
+    responsibilityLabel: string;
+    architectureLabel: string;
+    currentStateLabel: string;
+    limitationsLabel: string;
     ctaTitle: string;
     ctaSubtitle: string;
     ctaWhatsapp: string;

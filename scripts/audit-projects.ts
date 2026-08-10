@@ -104,12 +104,17 @@ function checkV2Fields(slug: string, p: ProjectV2) {
     'shortDescription', 'role', 'audience', 'proofLevel', 'visualKind',
     'tags', 'primaryCta', 'casePriority'
   ];
+  const priorityCaseSlugs = new Set(['archscene', 'gestaoml', 'nexpanel']);
 
   for (const f of required) {
     const val = p[f];
     if (val === undefined || val === null || (Array.isArray(val) && val.length === 0)) {
       addGap(slug, String(f), `Missing or empty required V2 field: ${f}`, 'error');
     }
+  }
+
+  if (priorityCaseSlugs.has(slug) && !p.deliveryRecord) {
+    addGap(slug, 'deliveryRecord', 'Priority case must declare responsibility, architecture, current state and proof limitations', 'error');
   }
 
   // proofLevel + primaryCta consistency
@@ -156,6 +161,21 @@ async function checkLinks() {
   }
 }
 
+function checkDuplicatePriorities() {
+  const usage = new Map<number, string[]>();
+  for (const project of projects) {
+    const slugs = usage.get(project.casePriority) ?? [];
+    slugs.push(project.slug);
+    usage.set(project.casePriority, slugs);
+  }
+
+  for (const [priority, slugs] of usage.entries()) {
+    if (slugs.length > 1) {
+      addGap('MULTIPLE', 'casePriority', `Priority ${priority} used by: ${slugs.join(', ')}`, 'error');
+    }
+  }
+}
+
 function checkDuplicateCovers() {
   for (const [cover, slugs] of coverUsage.entries()) {
     if (slugs.length > 1) {
@@ -187,6 +207,7 @@ async function main() {
   }
 
   checkDuplicateCovers();
+  checkDuplicatePriorities();
   await checkLinks();
 
   // Summary

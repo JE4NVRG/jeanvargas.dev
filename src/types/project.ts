@@ -81,6 +81,14 @@ export interface ProjectV2 {
   problem: { en: string; pt: string };
   solution: { en: string; pt: string };
 
+  /** Verifiable delivery context shown on stronger case studies. */
+  deliveryRecord?: {
+    responsibility: { en: string; pt: string };
+    architecture: { en: string; pt: string };
+    currentState: { en: string; pt: string };
+    limitations: { en: string; pt: string };
+  };
+
   metrics: ProjectMetric[];
 
   links: {

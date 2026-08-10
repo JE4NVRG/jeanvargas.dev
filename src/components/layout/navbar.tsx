@@ -95,7 +95,7 @@ export function Navbar() {
 
             <Link
               href={resolveHref("#contact")}
-              data-analytics-event="lead-cta-click"
+              data-analytics-event="portfolio-navigation-click"
               data-cta="navbar-contact"
               className="bg-white text-black text-sm font-semibold px-5 py-2 rounded-lg hover:bg-zinc-200 transition-colors"
             >
@@ -211,6 +211,7 @@ export function Navbar() {
                   href="mailto:jean@je4ndev.com"
                   data-analytics-event="lead-cta-click"
                   data-cta="mobile-menu-email"
+                  data-offer="diagnosis-first-milestone"
                   className="flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-black transition-colors hover:bg-zinc-200"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}

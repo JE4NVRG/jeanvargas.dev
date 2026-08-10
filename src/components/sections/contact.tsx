@@ -138,6 +138,7 @@ export function Contact() {
                   href={EMAIL_URL}
                   data-analytics-event="lead-cta-click"
                   data-cta="contact-email"
+                  data-offer="diagnosis-first-milestone"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black shadow-[0_8px_40px_-8px_rgba(94,234,212,0.5)] transition-colors hover:bg-zinc-100 sm:text-base"
                 >
                   <Mail className="h-4 w-4" />
@@ -151,6 +152,7 @@ export function Contact() {
                   rel="noopener noreferrer"
                   data-analytics-event="lead-cta-click"
                   data-cta="contact-whatsapp"
+                  data-offer="diagnosis-first-milestone"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/[0.06] px-7 py-3.5 text-sm font-semibold text-emerald-300 backdrop-blur transition-colors hover:border-emerald-400/60 hover:bg-emerald-500/[0.1] sm:text-base"
                 >
                   <MessageCircle className="h-4 w-4" />

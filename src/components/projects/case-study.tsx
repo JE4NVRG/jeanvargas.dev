@@ -246,6 +246,39 @@ export function CaseStudy({ slug }: CaseStudyProps) {
             </div>
           </SectionReveal>
 
+        {project.deliveryRecord && (
+          <SectionReveal delay={0.09} className="mt-12">
+            <div className="mb-6">
+              <h2 className="text-xs font-semibold uppercase tracking-widest text-violet-400">
+                {t.project.deliveryRecordLabel}
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
+                {t.project.deliveryRecordIntro}
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {[
+                [t.project.responsibilityLabel, project.deliveryRecord.responsibility[locale]],
+                [t.project.architectureLabel, project.deliveryRecord.architecture[locale]],
+                [t.project.currentStateLabel, project.deliveryRecord.currentState[locale]],
+                [t.project.limitationsLabel, project.deliveryRecord.limitations[locale]],
+              ].map(([label, value]) => (
+                <div
+                  key={label}
+                  className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6"
+                >
+                  <h3 className="font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-500">
+                    {label}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-zinc-300">
+                    {value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </SectionReveal>
+        )}
+
         {/* Motion demo (only when the project has a demo video) */}
         {project.video && (
           <SectionReveal delay={0.08} className="mt-12">
@@ -403,6 +436,10 @@ export function CaseStudy({ slug }: CaseStudyProps) {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-analytics-event="lead-cta-click"
+                  data-cta="case-whatsapp"
+                  data-project={project.slug}
+                  data-offer="diagnosis-first-milestone"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-zinc-200"
                 >
                   <MessageCircle className="h-4 w-4" />
@@ -410,6 +447,10 @@ export function CaseStudy({ slug }: CaseStudyProps) {
                 </a>
                 <a
                   href="mailto:jean@je4ndev.com"
+                  data-analytics-event="lead-cta-click"
+                  data-cta="case-email"
+                  data-project={project.slug}
+                  data-offer="diagnosis-first-milestone"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-white/[0.12] px-6 py-3 text-sm font-medium text-zinc-300 transition-colors hover:border-white/[0.24] hover:text-white"
                 >
                   <Mail className="h-4 w-4" />

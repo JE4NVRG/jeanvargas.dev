@@ -152,8 +152,12 @@ Acesse [http://localhost:3000/pt](http://localhost:3000/pt).
 | `npm run typecheck` | Tipos de rotas + TypeScript |
 | `npm run audit:projects` | Integridade do catálogo e dos assets |
 | `npm run audit:links` | Verificação dos links públicos dos projetos |
+| `npm run test:analytics` | Testes de atribuição, schema, privacidade e relatório semanal |
+| `npm run validate:campaign-links` | Validação das URLs UTM do pacote comercial |
+| `npm run funnel:lead -- <comando>` | Ledger server-only dos estágios comerciais |
+| `npm run report:weekly -- --days 7` | Relatório de analytics, leads e Search Console opcional |
 | `npm run build` | Build otimizado de produção |
-| `npm run validate` | Gate completo: lint, tipos, catálogo e build |
+| `npm run validate` | Gate completo: lint, tipos, testes, catálogo, campanhas e build |
 
 ## Qualidade e segurança
 
@@ -175,13 +179,17 @@ Controles adicionais:
 
 ## Analytics e privacidade
 
-O portfólio utiliza um endpoint first-party sem cookies para registrar eventos essenciais. Hoje os eventos são emitidos como logs estruturados do servidor; persistência, dashboard e retenção devem ser definidos na infraestrutura antes de campanhas pagas.
+O portfólio utiliza um endpoint first-party sem cookies para registrar page views, engajamento e CTAs. O endpoint sempre mantém fallback em logs estruturados e pode persistir no Supabase quando as variáveis server-only estiverem configuradas. O schema rejeita campos não declarados e não armazena IP, user-agent, URL completa de referrer, texto de formulário/WhatsApp nem identificador estável de visitante.
+
+As migrations de analytics e do ledger comercial ficam em `supabase/migrations/`. Elas não são aplicadas automaticamente pelo build. O relatório semanal combina os eventos, os estágios reais dos leads e um CSV agregado opcional do Search Console; veja o runbook antes de configurar produção ou agendamento.
 
 ## Documentação
 
 - [Design e critérios visuais](DESIGN.md)
 - [Auditoria geral — performance, SEO, segurança e GitHub](docs/AUDIT-GERAL-PORTFOLIO-2026-07-18.md)
 - [Auditoria de captação de clientes](docs/AUDIT-CAPTACAO-CLIENTES-2026-07-17.md)
+- [Pacote de distribuição e prospecção](docs/DISTRIBUTION-PACK-2026-08-10.md)
+- [Loop semanal de medição](docs/MEASUREMENT-LOOP-2026-08-10.md)
 - [Especificação do sistema de apresentação](docs/specs/2026-06-03-project-presentation-system.md)
 - [Plano de captura de assets](docs/specs/2026-06-03-project-asset-capture-plan.md)
 - [Backlog de entrada de novos projetos](docs/specs/2026-07-17-project-intake-backlog.md)

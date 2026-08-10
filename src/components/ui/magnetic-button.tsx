@@ -14,6 +14,8 @@ interface MagneticButtonProps {
   "data-analytics-event"?: string;
   "data-cta"?: string;
   "data-project"?: string;
+  "data-service"?: string;
+  "data-offer"?: string;
 }
 
 export function MagneticButton({

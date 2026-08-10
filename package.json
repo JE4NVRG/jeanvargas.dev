@@ -8,9 +8,14 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
+    "test:analytics": "tsx --test src/lib/analytics/*.test.ts",
     "audit:projects": "tsx scripts/audit-projects.ts",
     "audit:links": "tsx scripts/audit-projects.ts --check-links",
-    "validate": "npm run lint && npm run typecheck && npm run audit:projects && npm run build"
+    "validate:campaign-links": "tsx scripts/validate-campaign-links.ts",
+    "funnel:lead": "tsx scripts/funnel-lead.ts",
+    "report:analytics": "tsx scripts/analytics-report.ts",
+    "report:weekly": "tsx scripts/weekly-funnel-report.ts",
+    "validate": "npm run lint && npm run typecheck && npm run test:analytics && npm run audit:projects && npm run validate:campaign-links && npm run build"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
