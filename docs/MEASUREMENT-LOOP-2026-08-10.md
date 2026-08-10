@@ -1,6 +1,6 @@
 # JE4NDEV Measurement Loop
 
-Status: `production_active_local_weekly_reporting`
+Status: `production_active_weekly_reporting_telegram`
 Created: 2026-08-10
 Production activation verified: 2026-08-10
 Reporting window: 7 days
@@ -14,8 +14,8 @@ This runbook combines three evidence layers:
 
 Production analytics persistence is active. The database migrations, edge rate limit,
 server-only environment and end-to-end write/readback gate were applied and verified
-separately from the application deploy. The weekly report is scheduled with local-only
-delivery; external Telegram delivery remains a separate approval gate.
+separately from the application deploy. The weekly report is scheduled for Telegram
+delivery to the approved `Sage-Operation` topic after a successful delivery smoke.
 
 ## 1. Funnel definition
 
@@ -188,7 +188,7 @@ Run after production tracking is deployed and verified:
 
 ## 9. Scheduling gate and current state
 
-The local-only weekly cron was enabled only after all required controls passed:
+The weekly cron and its Telegram delivery were enabled only after all required controls passed:
 
 - [x] migrations applied to the intended Supabase project;
 - [x] production server-only variables configured;
@@ -198,20 +198,20 @@ The local-only weekly cron was enabled only after all required controls passed:
 - [x] behavioral test rows rolled back and browser E2E rows removed;
 - [x] Search Console aggregate source and private CSV locations decided;
 - [x] delivery set explicitly to `local` for the initial automation gate;
-- [ ] Telegram delivery to `Sage-Operation` is `review-required` until Jean approves
-  the external report message scope.
+- [x] Jean approved the sanitized external report scope and Telegram destination;
+- [x] delivery smoke completed with `last_status=ok` and no delivery error.
 
 Current automation:
 
 - job: `JE4NDEV Measurement Ops — weekly funnel`;
 - Hermes cron job ID: `cc22bc2f6929`;
 - schedule: Mondays at 09:10 BRT (`10 9 * * 1`);
-- delivery: `local`;
+- delivery: `telegram:-1003838851729:1` (`Sage-Operation`, topic 1);
 - next scheduled run after activation: 2026-08-17 09:10 BRT.
 
-In Hermes CLI, local delivery saves the result to the cron history and does not send
-Telegram or another external message. Changing delivery to a group/topic requires a
-separate explicit update and delivery smoke.
+The initial automation gate used local delivery. Jean then explicitly approved the
+sanitized report scope and `Sage-Operation` topic 1; the separate delivery smoke was
+delivered successfully. Roll back by setting delivery to `local` or pausing the job.
 
 ## 10. Production activation evidence
 
@@ -229,12 +229,14 @@ separate explicit update and delivery smoke.
   `/home/je4ndev/.hermes/backups/je4ndev-analytics-gate/20260810T134402Z/postflight-manifest.json`.
 - First Search Console-backed report:
   `/home/jean/backups/jeanvargas-dev/measurement-ops/weekly-with-gsc-20260810T140912Z.md`.
-- Autonomous cron activation smoke: `last_status=ok`, service active, public health
-  `200`, production SHA verified and disposable Search Console target closed.
-- Smoke report:
-  `/home/jean/backups/jeanvargas-dev/measurement-ops/weekly-with-gsc-20260810T141435Z.md`.
-- Cron output:
-  `/home/je4ndev/.hermes/cron/output/cc22bc2f6929/2026-08-10_11-17-17.md`.
+- Local cron activation smoke: `last_status=ok`, service active, public health `200`,
+  production SHA verified and disposable Search Console target closed.
+- Telegram delivery smoke: `last_status=ok`, `last_delivery_error=null`, delivered to
+  `Sage-Operation` topic 1 after Jean's approval.
+- Final smoke report:
+  `/home/jean/backups/jeanvargas-dev/measurement-ops/weekly-with-gsc-20260810T142954Z.md`.
+- Final cron output:
+  `/home/je4ndev/.hermes/cron/output/cc22bc2f6929/2026-08-10_11-31-47.md`.
 - Measurement postflight manifest:
   `/home/je4ndev/.hermes/backups/je4ndev-measurement-ops/20260810T141717Z/postflight-manifest.json`.
 - Search Console input contains daily aggregate metrics only, not queries or PII.
