@@ -9,7 +9,7 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { useTranslation } from "@/i18n";
 
 const WHATSAPP_URL =
-  "https://wa.me/5511948477047?text=Oi%20Jean%2C%20quero%20fechar%20um%20projeto%20com%20a%20agencia.";
+  "https://wa.me/5511948477047?text=Oi%20Jean%2C%20quero%20conversar%20sobre%20um%20projeto.";
 const EMAIL_URL = "mailto:jean@je4ndev.com";
 const GITHUB_URL = "https://github.com/JE4NVRG";
 
