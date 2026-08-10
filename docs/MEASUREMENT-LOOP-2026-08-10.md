@@ -6,6 +6,13 @@ Production activation verified: 2026-08-10
 Reporting window: 7 days
 30-day target end: 2026-09-09
 
+Canonical 30-day outcome target:
+
+- 5 qualified conversations;
+- 2 proposal-ready opportunities.
+
+A paid project remains the desired commercial outcome, but it is not a separate reporting threshold for this first 30-day window.
+
 This runbook combines three evidence layers:
 
 1. first-party portfolio events;

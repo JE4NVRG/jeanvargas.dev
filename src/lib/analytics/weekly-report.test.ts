@@ -145,4 +145,8 @@ test("renders an explicit Search Console missing-data state", () => {
   assert.match(report, /Search Console/);
   assert.match(report, /Not imported/);
   assert.match(report, /Qualified leads: 1/);
+  assert.match(report, /5 qualified conversations/);
+  assert.match(report, /2 proposal-ready opportunities/);
+  assert.doesNotMatch(report, /10 qualified leads/);
+  assert.doesNotMatch(report, /1 paid project originated/);
 });
