@@ -6,7 +6,6 @@ import { GithubProof } from "@/components/sections/github-proof";
 import { Process } from "@/components/sections/process";
 import { Pricing } from "@/components/sections/pricing";
 import { About } from "@/components/sections/about";
-import { TechStack } from "@/components/sections/tech-stack";
 import { Services } from "@/components/sections/services";
 import { Faq } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
@@ -17,13 +16,12 @@ export default function Home() {
       <Hero />
       <TechMarquee />
       <Showcase />
-      <ProjectUniverse />
-      <GithubProof />
+      <Services />
       <Process />
       <Pricing />
       <About />
-      <TechStack />
-      <Services />
+      <GithubProof />
+      <ProjectUniverse />
       <Faq />
       <Contact />
     </main>

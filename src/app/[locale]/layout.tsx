@@ -4,8 +4,6 @@ import { notFound } from "next/navigation";
 import { LanguageProvider, type Locale } from "@/i18n";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { CursorGlow } from "@/components/ui/cursor-glow";
-import { LenisProvider } from "@/components/ui/lenis-provider";
 import { PortfolioAnalytics } from "@/components/analytics/portfolio-analytics";
 import "../globals.css";
 
@@ -41,29 +39,40 @@ export async function generateMetadata({ params }: { params: RouteParams }): Pro
   const isEn = locale === "en";
   const canonical = `${SITE_URL}/${locale}`;
   const title = isEn
-    ? "JE4NDEV — Product engineering · SaaS, AI automation and agents"
-    : "JE4NDEV — Engenharia de produto · SaaS, automação com IA e agentes";
+    ? "JE4NDEV — SaaS, systems and AI automation"
+    : "JE4NDEV — SaaS, sistemas e automações com IA";
   const description = isEn
-    ? "Founder-led product engineering for SaaS, AI automation, integrations, local agents, Solidity audits and Web3 platforms."
-    : "Engenharia de produto liderada pelo founder para SaaS, automações com IA, integrações, agentes locais, auditoria Solidity e plataformas Web3.";
+    ? "Founder-led development of SaaS, internal systems, integrations, automations and AI agents — from scoped milestones to production."
+    : "Desenvolvimento founder-led de SaaS, sistemas internos, integrações, automações e agentes de IA — do escopo por marcos à produção.";
+  const keywords = isEn
+    ? [
+        "SaaS development",
+        "custom software development",
+        "internal systems",
+        "AI automation",
+        "AI agents",
+        "product engineer",
+        "full-stack developer",
+        "Brazil software development",
+        "JE4NDEV",
+      ]
+    : [
+        "desenvolvimento SaaS",
+        "sistemas sob medida",
+        "sistemas internos",
+        "automação com IA",
+        "agentes de IA",
+        "engenharia de produto",
+        "desenvolvedor full-stack",
+        "desenvolvimento de software Brasil",
+        "JE4NDEV",
+      ];
 
   return {
     metadataBase: new URL(SITE_URL),
     title,
     description,
-    keywords: [
-      "product engineering",
-      "SaaS",
-      "AI automation",
-      "agentes de IA",
-      "Hermes",
-      "OpenClaw",
-      "Next.js",
-      "TypeScript",
-      "Supabase",
-      "Solidity",
-      "JE4NDEV",
-    ],
+    keywords,
     authors: [{ name: "Jean Carlos Vargas" }],
     creator: "JE4NDEV",
     publisher: "JE4NDEV",
@@ -139,9 +148,42 @@ function buildStructuredData(locale: Locale) {
       telephone: "+55-11-94847-7047",
       image: `${SITE_URL}/og-image.png`,
       description: isEn
-        ? "Founder-led product engineering for SaaS, AI automation and agent systems."
-        : "Engenharia de produto liderada pelo founder para SaaS, automação com IA e sistemas de agentes.",
+        ? "Founder-led development of SaaS, internal systems, integrations, automations and AI agents."
+        : "Desenvolvimento founder-led de SaaS, sistemas internos, integrações, automações e agentes de IA.",
       founder: { "@id": `${SITE_URL}/#person` },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Paranavaí",
+        addressRegion: "PR",
+        addressCountry: "BR",
+      },
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: isEn ? "Product engineering services" : "Serviços de engenharia de produto",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: isEn ? "Custom SaaS and internal systems" : "SaaS e sistemas sob medida",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: isEn ? "Automation and integrations" : "Automações e integrações",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: isEn ? "AI agents on private infrastructure" : "Agentes de IA em infraestrutura privada",
+            },
+          },
+        ],
+      },
       sameAs: [
         "https://github.com/JE4NVRG",
         "https://www.linkedin.com/in/je4ndev/",
@@ -203,13 +245,10 @@ export default async function LocaleLayout({
         suppressHydrationWarning
       >
         <LanguageProvider locale={activeLocale}>
-          <LenisProvider>
-            <PortfolioAnalytics locale={activeLocale} />
-            <CursorGlow />
-            <Navbar />
-            {children}
-            <Footer />
-          </LenisProvider>
+          <PortfolioAnalytics locale={activeLocale} />
+          <Navbar />
+          {children}
+          <Footer />
         </LanguageProvider>
       </body>
     </html>

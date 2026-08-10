@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ...project.technologies.slice(0, 6),
       "je4ndev",
       "Jean Carlos Vargas",
-      isEn ? "product agency" : "agencia de produto",
+      isEn ? "product engineering" : "engenharia de produto",
     ],
     openGraph: {
       title,

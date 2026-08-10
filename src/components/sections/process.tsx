@@ -6,7 +6,7 @@ import { useTranslation } from "@/i18n";
 import { Compass, KanbanSquare, ShieldCheck, Rocket } from "lucide-react";
 
 /**
- * Process — 4-step "Briefing → Sprint Hermes Kanban → QA + Security → Deploy + Operacao 24/7"
+ * Process — milestone-based path from diagnosis to production and handoff.
  * Each step reveals on scroll with stagger. The icons are GSAP-animated on enter.
  */
 export function Process() {

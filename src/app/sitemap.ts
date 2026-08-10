@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
+import { serviceOffers } from "@/data/services";
 
 const BASE_URL = "https://je4ndev.com";
 const LOCALES = ["pt", "en"] as const;
@@ -7,9 +8,7 @@ const LOCALES = ["pt", "en"] as const;
 /**
  * Sitemap dinamico — agora com rotas SSR localizadas em /pt e /en.
  *
- * Total: 2 (home) + 2 × 12 (projetos) = 26 URLs. Cada URL declara hreflang
- * apontando pro seu par em outro idioma + um x-default que aponta pra /en
- * (mercado global anglofono prioritario).
+ * Total: 2 homes + 2 × 12 projetos + 6 páginas de serviço = 32 URLs.
  *
  * Por que /en eh x-default: search engines usam x-default como fallback
  * quando o Accept-Language do crawler nao bate com nenhum hreflang. Como
@@ -48,5 +47,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  return [...homeEntries, ...projectEntries];
+  const serviceEntries = serviceOffers.flatMap((offer) =>
+    LOCALES.map<MetadataRoute.Sitemap[number]>((locale) => ({
+      url: `${BASE_URL}/${locale}/services/${offer.slugs[locale]}`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+      alternates: {
+        languages: {
+          "pt-BR": `${BASE_URL}/pt/services/${offer.slugs.pt}`,
+          "en-US": `${BASE_URL}/en/services/${offer.slugs.en}`,
+          "x-default": `${BASE_URL}/en/services/${offer.slugs.en}`,
+        },
+      },
+    }))
+  );
+
+  return [...homeEntries, ...serviceEntries, ...projectEntries];
 }

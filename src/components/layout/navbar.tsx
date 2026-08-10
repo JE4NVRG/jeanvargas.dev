@@ -9,9 +9,8 @@ import { useTranslation } from "@/i18n";
 
 const navLinks = [
   { key: "work" as const, href: "#work" },
-  { key: "about" as const, href: "#about" },
   { key: "services" as const, href: "#services" },
-  { key: "stack" as const, href: "#stack" },
+  { key: "about" as const, href: "#about" },
   { key: "contact" as const, href: "#contact" },
 ];
 
@@ -66,8 +65,8 @@ export function Navbar() {
             href={localeRoot}
             className="group flex min-h-11 items-center"
             onClick={closeMobile}
-            aria-label="JE4NDEV"
           >
+            <span className="sr-only">JE4NDEV</span>
             <BrandLogo className="transition-[opacity,letter-spacing] duration-300 group-hover:tracking-[0.11em] group-hover:opacity-80" />
           </Link>
 
@@ -88,7 +87,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={toggleLocale}
-              className="text-xs text-zinc-500 border border-white/10 rounded px-2 py-1 hover:border-white/20 transition-colors"
+              className="inline-flex min-h-11 items-center rounded-lg border border-white/10 px-3 py-2 text-xs text-zinc-300 transition-colors hover:border-white/20 hover:text-white"
               aria-label="Toggle language"
             >
               {locale === "en" ? "EN | PT" : "PT | EN"}
@@ -174,7 +173,7 @@ export function Navbar() {
                         onClick={closeMobile}
                         className="group flex items-center gap-3 rounded-xl px-4 py-4 text-lg font-medium text-zinc-300 transition-colors hover:bg-white/[0.04] hover:text-white"
                       >
-                        <span className="text-xs text-zinc-700 font-mono">
+                        <span className="font-mono text-xs text-zinc-400">
                           0{i + 1}
                         </span>
                         {t.nav[link.key]}
@@ -222,7 +221,7 @@ export function Navbar() {
 
                 {/* Social hint */}
                 <motion.p
-                  className="mt-4 text-center text-xs text-zinc-700"
+                  className="mt-4 text-center text-xs text-zinc-400"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}

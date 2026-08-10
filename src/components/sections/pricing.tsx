@@ -127,7 +127,7 @@ export function Pricing() {
           })}
         </div>
 
-        <p className="mt-10 text-center text-sm text-zinc-500">{t.pricing.disclaimer}</p>
+        <p className="mt-10 text-center text-sm text-zinc-400">{t.pricing.disclaimer}</p>
       </div>
     </section>
   );

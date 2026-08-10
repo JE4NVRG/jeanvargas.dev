@@ -22,6 +22,7 @@ import { getPrimaryProjectUrl } from "@/components/projects/project-links";
 type FilterKey = "all" | "saas" | "ai" | "web3" | "internal" | "games";
 
 const FILTERS: FilterKey[] = ["all", "saas", "ai", "web3", "internal", "games"];
+const FLAGSHIP_SLUGS = new Set(["archscene", "nexpanel", "gestaoml"]);
 
 function matchesFilter(project: Project, filter: FilterKey) {
   if (filter === "all") return true;
@@ -67,9 +68,12 @@ export function ProjectUniverse() {
   const { t, locale } = useTranslation();
   const [filter, setFilter] = useState<FilterKey>("all");
   const [search, setSearch] = useState("");
+  const [expanded, setExpanded] = useState(false);
 
   const filtered = useMemo(() => {
-    let result = projects.filter((project) => matchesFilter(project, filter));
+    let result = projects.filter(
+      (project) => !FLAGSHIP_SLUGS.has(project.slug) && matchesFilter(project, filter)
+    );
 
     if (search.trim()) {
       const q = search.toLowerCase().trim();
@@ -127,9 +131,11 @@ export function ProjectUniverse() {
         overwrite: "auto",
       }
     );
-  }, [filter, search]);
+  }, [filter, search, expanded]);
 
   const filterLabels = t.universe.filters;
+  const isDefaultView = filter === "all" && !search.trim();
+  const visibleProjects = isDefaultView && !expanded ? filtered.slice(0, 3) : filtered;
 
   return (
     <section
@@ -158,7 +164,7 @@ export function ProjectUniverse() {
                   key={key}
                   type="button"
                   onClick={() => setFilter(key)}
-                  className={`rounded-full border px-4 py-1.5 text-xs font-medium uppercase tracking-wider transition-colors ${
+                  className={`min-h-11 rounded-full border px-4 py-2.5 text-xs font-medium uppercase tracking-wider transition-colors ${
                     isActive
                       ? "border-cyan-400/40 bg-cyan-400/10 text-cyan-200"
                       : "border-white/[0.08] bg-white/[0.02] text-zinc-400 hover:border-white/[0.16] hover:text-zinc-200"
@@ -184,7 +190,7 @@ export function ProjectUniverse() {
               <button
                 type="button"
                 onClick={() => setSearch("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-zinc-500 transition-colors hover:bg-white/[0.06] hover:text-white"
+                className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-zinc-400 transition-colors hover:bg-white/[0.06] hover:text-white"
                 aria-label={locale === "pt" ? "Limpar busca" : "Clear search"}
               >
                 <X className="h-3.5 w-3.5" />
@@ -193,12 +199,12 @@ export function ProjectUniverse() {
           </div>
         </div>
 
-        <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-zinc-600" aria-live="polite">
+        <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-zinc-400" aria-live="polite">
           {filtered.length} {filtered.length === 1 ? t.universe.resultLabel : t.universe.resultsLabel}
         </p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((project) => {
+          {visibleProjects.map((project) => {
             const status = STATUS_STYLE[project.status];
             const liveUrl = project.links.live;
             const githubUrl = project.links.github;
@@ -255,7 +261,7 @@ export function ProjectUniverse() {
                     )
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="font-mono text-xs text-white/40">
+                      <span className="font-mono text-xs text-zinc-300">
                         {project.slug}
                       </span>
                     </div>
@@ -276,7 +282,7 @@ export function ProjectUniverse() {
                     <h3 className="text-base font-bold text-white">
                       {project.title}
                     </h3>
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-600">
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">
                       {project.category}
                     </span>
                   </div>
@@ -286,7 +292,7 @@ export function ProjectUniverse() {
                   </p>
 
                   {project.metrics?.[0] ? (
-                    <p className="mt-3 text-xs text-zinc-500">
+                    <p className="mt-3 text-xs text-zinc-400">
                       <span className="font-mono font-bold text-zinc-300">
                         {project.metrics[0].value}
                       </span>{" "}
@@ -302,14 +308,14 @@ export function ProjectUniverse() {
                       {t.work.viewCase}
                       <ArrowUpRight className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </Link>
-                    <span className="flex items-center gap-2 text-zinc-600">
+                    <span className="flex items-center gap-1 text-zinc-400">
                       {liveUrl ? (
                         <a
                           href={liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="Abrir live"
-                          className="hover:text-cyan-300 transition-colors"
+                          className="inline-flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-white/[0.05] hover:text-cyan-300"
                         >
                           <ExternalLink className="h-3 w-3" />
                         </a>
@@ -320,7 +326,7 @@ export function ProjectUniverse() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="Abrir GitHub"
-                          className="hover:text-cyan-300 transition-colors"
+                          className="inline-flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-white/[0.05] hover:text-cyan-300"
                         >
                           <Github className="h-3 w-3" />
                         </a>
@@ -332,6 +338,19 @@ export function ProjectUniverse() {
             );
           })}
         </div>
+
+        {isDefaultView && filtered.length > 3 ? (
+          <div className="mt-8 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setExpanded((current) => !current)}
+              aria-expanded={expanded}
+              className="inline-flex min-h-11 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-cyan-100 transition-colors hover:bg-cyan-400/15 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
+            >
+              {expanded ? t.universe.showLess : t.universe.showAll}
+            </button>
+          </div>
+        ) : null}
 
         {filtered.length === 0 ? (
           <div className="mt-8 rounded-2xl border border-dashed border-white/[0.1] bg-white/[0.02] px-6 py-12 text-center">
@@ -352,7 +371,7 @@ export function ProjectUniverse() {
           </div>
         ) : null}
 
-        <p className="mt-8 text-center text-sm text-zinc-500">
+        <p className="mt-8 text-center text-sm text-zinc-400">
           {t.universe.footer}
         </p>
       </div>
