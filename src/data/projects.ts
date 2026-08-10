@@ -155,16 +155,16 @@ export const projects: Project[] = [
     slug: "hermes-agentes",
     title: "Hermes Agentes",
     description: {
-      en: "21 agent profiles + founder reviewing every delivery — we install, configure and train",
-      pt: "21 perfis de agentes + founder revisando cada entrega — instalamos, configuramos e treinamos",
+      en: "Self-hosted agent workspace with task routing, memory, tool permissions and human review",
+      pt: "Workspace self-hosted de agentes com roteamento de tarefas, memória, permissões e revisão humana",
     },
     shortDescription: {
-      en: "We install & operate the full 21-profile AI agent platform (Kanban dispatcher, Conductor, MCP tools) on your VPS. Founder reviews every delivery.",
-      pt: "Instalamos e operamos a plataforma completa de 21 perfis de agentes IA (dispatcher Kanban, Conductor, ferramentas MCP) na sua VPS. Founder revisa toda entrega.",
+      en: "We deploy Hermes on your VPS and configure the agent profiles, Kanban dispatcher, tools and review gates needed by your operation.",
+      pt: "Instalamos o Hermes na sua VPS e configuramos os perfis, o dispatcher Kanban, as ferramentas e os gates de revisão necessários para sua operação.",
     },
     longDescription: {
-      en: "Hermes is the agency's automation platform — and we install it for you. We deploy Hermes on your VPS, configure 21 specialized agent profiles for your business (dev, QA, security, marketing or whatever you need), train your team to operate it, and stay on call as your assistant. Same platform we use internally to coordinate work across all our products — the founder reviews every delivery before it ships. Open source, MIT, your data stays on your infra.",
-      pt: "O Hermes é a plataforma de automação da agência — e a gente instala pra você. Subimos o Hermes na sua VPS, configuramos 21 perfis de agentes especializados pro seu negócio (dev, QA, security, marketing ou o que precisar), treinamos seu time pra operar e ficamos como assistente. Mesma plataforma que usamos internamente pra coordenar o trabalho em todos os nossos produtos — o founder revisa cada entrega antes do deploy. Open source, MIT, seus dados ficam na sua infra.",
+      en: "Hermes is JE4NDEV's agent-operations laboratory and can also run on client-owned infrastructure. The engagement covers deployment, scoped agent profiles, tool permissions, memory, observability, documentation and team handoff. The system remains open source, MIT-licensed and under the client's data control.",
+      pt: "O Hermes é o laboratório de operações com agentes da JE4NDEV e também pode rodar na infraestrutura do cliente. O trabalho cobre instalação, perfis definidos pelo escopo, permissões de ferramentas, memória, observabilidade, documentação e handoff para o time. O sistema permanece open source, sob licença MIT e com os dados controlados pelo cliente.",
     },
     status: "live",
     role: "agency-platform",
@@ -181,11 +181,11 @@ export const projects: Project[] = [
       pt: "Fazer shipping de SaaS sozinho engasga porque dev, design, QA, ops e conteúdo precisam de especialistas diferentes. Contratar é lento e caro; agentes prontos como AutoGPT entram em loop sem terminar trabalho real.",
     },
     solution: {
-      en: "Built a Kanban-driven dispatcher that routes tasks to 21 specialized agent profiles (each with its own system prompt, model, MCP toolset, and isolated workspace), runs them under systemd, captures live tool cards, and merges PRs end-to-end. Conductor + Operations + Swarm surfaces give full live observability.",
-      pt: "Construí um dispatcher Kanban-driven que roteia tasks pra 21 profiles especializados (cada um com seu system prompt, modelo, MCP toolset e workspace isolado), roda eles via systemd, captura tool cards em tempo real e mergeia PRs end-to-end. As surfaces Conductor + Operations + Swarm dão observabilidade completa em tempo real.",
+      en: "Built a Kanban-driven dispatcher that routes tasks to scoped agent profiles with isolated prompts, models, tools and workspaces. Conductor, Operations and Swarm surfaces provide observability while human review remains the approval gate.",
+      pt: "Construí um dispatcher orientado a Kanban que roteia tarefas para perfis definidos pelo escopo, com prompts, modelos, ferramentas e workspaces isolados. As superfícies Conductor, Operations e Swarm dão observabilidade, enquanto a revisão humana permanece como gate de aprovação.",
     },
     metrics: [
-      { value: "21", label: { en: "Specialized profiles", pt: "Perfis especializados" }, color: "purple", verified: true },
+      { value: "Scoped", label: { en: "Specialist profiles", pt: "Perfis por escopo" }, color: "purple", verified: true },
       { value: "Kanban", label: { en: "Task orchestration", pt: "Orquestração de tarefas" }, color: "cyan", verified: true },
       { value: "MIT", label: { en: "Open source", pt: "Código aberto" }, color: "green", verified: true },
       { value: "Human", label: { en: "Founder review gate", pt: "Revisão final humana" }, color: "pink", verified: true },
@@ -214,8 +214,8 @@ export const projects: Project[] = [
         src: "/projects/gallery/hermes-github.png",
         title: { en: "Open source on GitHub", pt: "Open source no GitHub" },
         description: {
-          en: "MIT-licensed repo with 1.6k+ commits, TypeScript 98.3%, releases tagged, full workflow + docs + skills folder.",
-          pt: "Repo MIT com 1.6k+ commits, TypeScript 98.3%, releases marcados, workflows + docs + pasta de skills completa.",
+          en: "MIT-licensed repository with releases, workflows, documentation and a reusable skills structure.",
+          pt: "Repositório sob licença MIT com releases, workflows, documentação e uma estrutura reutilizável de skills.",
         },
       },
     ],
@@ -266,7 +266,7 @@ export const projects: Project[] = [
     },
     primaryCta: "live",
     casePriority: 1,
-    image: "/projects/gallery/archscene-examples.png",
+    image: "/projects/captures/archscene-home-latest.png",
     coverImage: "/projects/covers/archscene-cover.webp",
     assetReview: {
       status: "approved",
@@ -311,16 +311,16 @@ export const projects: Project[] = [
     slug: "openclaw-gateway",
     title: "OpenClaw Gateway",
     description: {
-      en: "Multi-model AI gateway — we install on your VPS, train your team, support 24/7",
-      pt: "Gateway multi-modelo de IA — instalamos na sua VPS, treinamos seu time, suporte 24h",
+      en: "Private multi-model AI gateway deployed on your VPS with integrations and scoped support",
+      pt: "Gateway privado multi-modelo instalado na sua VPS, com integrações e suporte conforme o escopo",
     },
     shortDescription: {
-      en: "OpenAI-compatible multi-provider gateway (OpenAI + Anthropic + local Ollama) with MCP tools, persistent memory and session continuity. We install + support on your VPS.",
-      pt: "Gateway multi-provider compatível com OpenAI (OpenAI + Anthropic + Ollama local) com ferramentas MCP, memória persistente e continuidade de sessão. Instalamos + damos suporte na sua VPS.",
+      en: "OpenAI-compatible gateway for multiple providers, MCP tools, persistent memory and session continuity — deployed on client-owned infrastructure.",
+      pt: "Gateway compatível com OpenAI para múltiplos providers, ferramentas MCP, memória persistente e continuidade de sessão — instalado na infraestrutura do cliente.",
     },
     longDescription: {
-      en: "OpenClaw is the gateway that powers our AI ops — and we install it for you. OpenAI-compatible API fronting multiple providers (OpenAI, Anthropic, local Ollama) behind a single endpoint. We deploy on your VPS, configure providers for your budget, integrate with your existing tools (Cursor, Claude Code, internal stack), train your team and stay on call 24/7. Same gateway we use to ship every product in our portfolio.",
-      pt: "O OpenClaw é o gateway que faz nossa operação IA andar — e a gente instala pra você. API compatível com OpenAI colocando múltiplos providers (OpenAI, Anthropic, Ollama local) atrás de um endpoint único. A gente sobe na sua VPS, configura providers no seu orçamento, integra com suas ferramentas (Cursor, Claude Code, stack interno), treina seu time e fica de plantão 24h. Mesmo gateway que usamos pra entregar todo produto do nosso portfólio.",
+      en: "OpenClaw unifies multiple AI providers behind an OpenAI-compatible endpoint. The engagement can cover VPS deployment, provider configuration, integrations with the existing stack, access controls, observability, documentation and support defined in the proposal.",
+      pt: "O OpenClaw unifica múltiplos providers de IA atrás de um endpoint compatível com OpenAI. O trabalho pode incluir instalação na VPS, configuração dos providers, integrações com a stack existente, controles de acesso, observabilidade, documentação e suporte definido na proposta.",
     },
     status: "live",
     role: "agency-platform",
@@ -375,8 +375,8 @@ export const projects: Project[] = [
       pt: "Plataforma de chatbot WhatsApp com painel CNPJ",
     },
     shortDescription: {
-      en: "AI WhatsApp bot that handles 100% routine inquiries + CNPJ management dashboard. MVP validated in 2024.",
-      pt: "Bot de WhatsApp com IA que resolve 100% das consultas rotineiras + painel de gestão CNPJ. MVP validado em 2024.",
+      en: "AI WhatsApp bot for routine inquiries with a CNPJ management dashboard. MVP validated in 2024.",
+      pt: "Bot de WhatsApp com IA para consultas rotineiras, com painel de gestão CNPJ. MVP validado em 2024.",
     },
     longDescription: {
       en: "An intelligent WhatsApp chatbot platform that automates customer service with AI-powered responses, integrated with a CNPJ management dashboard for business operations.",
@@ -397,8 +397,8 @@ export const projects: Project[] = [
       pt: "Empresas gastando tempo excessivo com consultas repetitivas de clientes, sem forma automatizada de lidar com consultas CNPJ e perguntas comuns.",
     },
     solution: {
-      en: "Built an AI-powered WhatsApp bot that handles 100% of routine inquiries automatically, with a management dashboard for monitoring conversations and CNPJ data.",
-      pt: "Construí um bot WhatsApp com IA que lida com 100% das consultas rotineiras automaticamente, com um painel de gestão para monitorar conversas e dados de CNPJ.",
+      en: "Built an AI-assisted WhatsApp bot for routine inquiries, with a management dashboard for conversations and CNPJ data.",
+      pt: "Construí um bot de WhatsApp assistido por IA para consultas rotineiras, com painel de gestão de conversas e dados de CNPJ.",
     },
     metrics: [
       { value: "MVP", label: { en: "Archived case", pt: "Case arquivado" }, color: "cyan", verified: true },
@@ -464,7 +464,7 @@ export const projects: Project[] = [
     },
     primaryCta: "live",
     casePriority: 5,
-    image: "/projects/captures/gestaoml-public-hero.png",
+    image: "/projects/gestaoml.png",
     assetReview: {
       status: "approved",
       sourceUrl: "https://ml.je4ndev.com",

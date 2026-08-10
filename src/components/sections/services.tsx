@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   Globe,
   Server,
@@ -23,10 +24,15 @@ const serviceIcons = [
   Code2,
 ];
 
+const SERVICE_ROUTES = {
+  pt: ["desenvolvimento-saas", "automacoes-ia", "agentes-ia-privados"],
+  en: ["saas-development", "ai-automation", "private-ai-agents"],
+} as const;
+
 const WHATSAPP_URL = "https://wa.me/5511948477047";
 
 export function Services() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
 
   return (
     <section id="services" className="relative py-32">
@@ -59,17 +65,28 @@ export function Services() {
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-500">
                     {service.description}
                   </p>
-                  <a
-                    href={`${WHATSAPP_URL}?text=${message}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-analytics-event="lead-cta-click"
-                    data-cta={`service-${i + 1}`}
-                    className="mt-5 inline-flex min-h-11 items-center gap-1 text-sm font-medium text-zinc-400 transition-colors group-hover:text-purple-400"
-                  >
-                    {t.services.cta}
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </a>
+                  <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+                    {SERVICE_ROUTES[locale][i] ? (
+                      <Link
+                        href={`/${locale}/services/${SERVICE_ROUTES[locale][i]}`}
+                        className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-cyan-300 transition-colors hover:text-cyan-200"
+                      >
+                        {locale === "pt" ? "Ver detalhes" : "View details"}
+                        <ArrowUpRight className="h-3.5 w-3.5" />
+                      </Link>
+                    ) : null}
+                    <a
+                      href={`${WHATSAPP_URL}?text=${message}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-analytics-event="lead-cta-click"
+                      data-cta={`service-${i + 1}`}
+                      className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-zinc-300 transition-colors hover:text-purple-300"
+                    >
+                      {t.services.cta}
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </a>
+                  </div>
                 </div>
               </SectionReveal>
             );

@@ -35,7 +35,7 @@ export function TechMarquee() {
       <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-[#050505] to-transparent" />
       <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-[#050505] to-transparent" />
 
-      <div className="marquee flex w-max gap-12 whitespace-nowrap font-mono text-sm uppercase tracking-widest text-zinc-500">
+      <div className="marquee flex w-max gap-12 whitespace-nowrap font-mono text-sm uppercase tracking-widest text-zinc-400">
         {[...TECH, ...TECH].map((label, i) => (
           <span key={i} className="flex shrink-0 items-center gap-12">
             <span>{label}</span>

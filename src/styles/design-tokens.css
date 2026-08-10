@@ -5,9 +5,7 @@
    ===================================================================== */
 
 /* ---------- 1. Type ---------------------------------------------------- */
-/* Geist Sans + Geist Mono via Google Fonts. The Next.js app loads them
-   through next/font; for static HTML we use the public CDN. */
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600;700&display=swap");
+/* The Next.js app self-hosts Geist via next/font in the locale layout. */
 
 :root {
   /* ---------- 2. Background system (always dark) -------------------- */

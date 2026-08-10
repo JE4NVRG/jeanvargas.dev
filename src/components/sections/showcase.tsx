@@ -25,14 +25,7 @@ import type { Translations } from "@/i18n/translations/en";
  * each section briefly so the user reads it before scrolling past.
  */
 
-const showcaseSlugs = [
-  "archscene",
-  "nexpanel",
-  "gestaoml",
-  "vultrix-3d",
-  "stopultimate",
-  "hermes-agentes",
-];
+const showcaseSlugs = ["archscene", "nexpanel", "gestaoml"];
 
 export function Showcase() {
   const { t, locale } = useTranslation();
@@ -197,6 +190,24 @@ function ShowcaseItem({
 
   const headline = project.metrics[0];
   const CtaIcon = contextualCta.icon;
+  const proofHost = (() => {
+    if (liveUrl) {
+      try {
+        return new URL(liveUrl).hostname.replace(/^www\./, "");
+      } catch {
+        return project.title.toLowerCase().replace(/\s+/g, "-");
+      }
+    }
+    return githubUrl ? "github.com/JE4NVRG" : "je4ndev.com";
+  })();
+  const frameProofLabel =
+    project.proofLevel === "public-live"
+      ? t.universe.proofApproved
+      : project.proofLevel === "private-demo"
+        ? t.universe.proofPrivate
+        : project.assetReview.status === "needs-recapture"
+          ? t.universe.proofPending
+          : t.universe.proofEditorial;
 
   return (
     <article className="showcase-item relative border-t border-white/[0.05]">
@@ -205,8 +216,23 @@ function ShowcaseItem({
           className={`showcase-image relative lg:col-span-7 ${alignRight ? "lg:order-2" : ""}`}
         >
           <div
-            className={`showcase-image-inner group/card relative aspect-[16/10] overflow-hidden rounded-2xl bg-gradient-to-br ${accent} ring-1 ring-white/[0.08] shadow-[0_40px_120px_-30px_rgba(94,234,212,0.25)]`}
+            className={`showcase-image-inner group/card relative flex aspect-[16/10] flex-col overflow-hidden rounded-2xl bg-gradient-to-br p-2 sm:p-3 ${accent} ring-1 ring-white/[0.08] shadow-[0_40px_120px_-30px_rgba(94,234,212,0.25)]`}
           >
+            <div
+              className="flex h-8 shrink-0 items-center gap-2 px-1 font-mono text-[10px] text-zinc-400"
+              aria-hidden="true"
+            >
+              <span className="h-2.5 w-2.5 rounded-full bg-rose-400/70" />
+              <span className="h-2.5 w-2.5 rounded-full bg-amber-300/70" />
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-300/70" />
+              <span className="ml-2 truncate rounded-md border border-white/[0.08] bg-black/20 px-3 py-1 text-zinc-300">
+                {proofHost}
+              </span>
+              <span className="ml-auto hidden uppercase tracking-[0.16em] text-zinc-300 sm:inline">
+                {frameProofLabel}
+              </span>
+            </div>
+            <div className="relative min-h-0 flex-1 overflow-hidden rounded-xl bg-[#050505]">
             {/*
               Showcase always prefers the real product print (PNG) so the home
               stays honest and consistent. Video lives inside the case study
@@ -284,6 +310,7 @@ function ShowcaseItem({
                   </div>
                 ) : null}
               </div>
+            </div>
             </div>
           </div>
         </div>
@@ -430,7 +457,7 @@ const FALLBACK_LINES: Record<string, Array<{ type: "cmd" | "ok" | "warn" | "info
   "hermes-agentes": [
     { type: "cmd", text: "$ hermes kanban stats" },
     { type: "ok", text: "done: 261  ready: 1  running: 0" },
-    { type: "info", text: "21 profiles | gateway 24/7" },
+    { type: "info", text: "scoped profiles | human review gate" },
   ],
   "openclaw-gateway": [
     { type: "cmd", text: "$ openclaw status" },

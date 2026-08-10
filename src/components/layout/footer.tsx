@@ -18,8 +18,8 @@ export function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-6 py-8 sm:flex-row sm:justify-between">
         <div className="flex flex-col items-center sm:items-start gap-1">
           <BrandLogo size="sm" className="mb-2 opacity-80" />
-          <p className="text-sm text-zinc-600">{t.footer.copyright}</p>
-          <p className="text-xs text-zinc-700">Built with Next.js & Tailwind CSS</p>
+          <p className="text-sm text-zinc-400">{t.footer.copyright}</p>
+          <p className="text-xs text-zinc-400">Built with Next.js & Tailwind CSS</p>
         </div>
 
         <div className="flex items-center gap-3">
