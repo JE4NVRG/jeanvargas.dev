@@ -42,6 +42,12 @@ export const projectSchema = z.object({
   technologies: z.array(z.string().min(1)).min(1),
   problem: localizedTextSchema,
   solution: localizedTextSchema,
+  deliveryRecord: z.object({
+    responsibility: localizedTextSchema,
+    architecture: localizedTextSchema,
+    currentState: localizedTextSchema,
+    limitations: localizedTextSchema,
+  }).optional(),
   metrics: z.array(
     z.object({
       value: z.string().min(1),

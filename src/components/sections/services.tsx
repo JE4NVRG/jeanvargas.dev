@@ -29,6 +29,15 @@ const SERVICE_ROUTES = {
   en: ["saas-development", "ai-automation", "private-ai-agents"],
 } as const;
 
+const SERVICE_IDS = [
+  "saas",
+  "automation",
+  "agents",
+  "web-platforms",
+  "technical-recovery",
+  "web3",
+] as const;
+
 const WHATSAPP_URL = "https://wa.me/5511948477047";
 
 export function Services() {
@@ -81,6 +90,7 @@ export function Services() {
                       rel="noopener noreferrer"
                       data-analytics-event="lead-cta-click"
                       data-cta={`service-${i + 1}`}
+                      data-service={SERVICE_IDS[i] ?? `service-${i + 1}`}
                       className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-zinc-300 transition-colors hover:text-purple-300"
                     >
                       {t.services.cta}

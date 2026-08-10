@@ -70,6 +70,7 @@ export function Hero() {
               rel="noopener noreferrer"
               data-analytics-event="lead-cta-click"
               data-cta="hero-whatsapp"
+              data-offer="diagnosis-first-milestone"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/[0.16] bg-white/[0.04] px-6 py-3.5 text-sm font-medium text-zinc-200 backdrop-blur transition-colors hover:border-white/[0.32] hover:bg-white/[0.08] sm:px-8 sm:py-4 sm:text-base"
             >
               <MessageCircle className="h-4 w-4" />

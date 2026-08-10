@@ -1,16 +1,17 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import {
+  deriveAttribution,
+  derivePageContext,
+  hasCampaignAttribution,
+  sanitizeAnalyticsToken,
+  type Attribution,
+} from "@/lib/analytics/attribution";
+import type { AnalyticsEventInput } from "@/lib/analytics/schema";
 
-type AnalyticsPayload = {
-  event: string;
-  path: string;
-  project?: string;
-  cta?: string;
-  locale?: string;
-};
-
-function sendEvent(payload: AnalyticsPayload) {
+function sendEvent(payload: AnalyticsEventInput) {
   const body = JSON.stringify(payload);
 
   if (navigator.sendBeacon) {
@@ -29,12 +30,74 @@ function sendEvent(payload: AnalyticsPayload) {
   });
 }
 
-export function PortfolioAnalytics({ locale }: { locale: string }) {
-  useEffect(() => {
-    const basePayload = {
-      path: window.location.pathname,
-      locale,
+function getLinkContext(element: HTMLElement) {
+  const anchor = element instanceof HTMLAnchorElement ? element : element.closest("a");
+  const rawHref = anchor?.getAttribute("href");
+  if (!rawHref) return { channel: "other" as const };
+
+  if (rawHref.startsWith("mailto:")) return { channel: "email" as const };
+
+  try {
+    const destination = new URL(rawHref, window.location.origin);
+    const destinationHost = destination.hostname.toLowerCase().replace(/^www\./, "");
+    const isInternal = destination.origin === window.location.origin;
+
+    let channel: AnalyticsEventInput["channel"] = isInternal ? "internal" : "website";
+    if (destinationHost === "wa.me" || destinationHost.endsWith(".whatsapp.com")) {
+      channel = "whatsapp";
+    } else if (destinationHost === "github.com") {
+      channel = "github";
+    } else if (destinationHost === "linkedin.com") {
+      channel = "linkedin";
+    }
+
+    return {
+      channel,
+      destinationHost: destinationHost || undefined,
+      destinationPath: destination.pathname.startsWith("/")
+        ? destination.pathname.slice(0, 256)
+        : undefined,
     };
+  } catch {
+    return { channel: "other" as const };
+  }
+}
+
+function resolveEventName(event: string, channel: AnalyticsEventInput["channel"]) {
+  if (event !== "lead-cta-click") return event;
+  if (channel === "whatsapp") return "whatsapp-click";
+  if (channel === "email") return "email-click";
+  return event;
+}
+
+function readCtaLabel(element: HTMLElement) {
+  const label = element.textContent?.replace(/\s+/g, " ").trim().slice(0, 96);
+  return label || undefined;
+}
+
+export function PortfolioAnalytics({ locale }: { locale: "pt" | "en" }) {
+  const pathname = usePathname();
+  const attributionRef = useRef<Attribution | null>(null);
+
+  useEffect(() => {
+    const currentPath = pathname || window.location.pathname || "/";
+    const incomingAttribution = deriveAttribution({
+      search: window.location.search,
+      referrer: document.referrer,
+      siteHost: window.location.hostname,
+      landingPath: currentPath,
+    });
+
+    if (!attributionRef.current || hasCampaignAttribution(window.location.search)) {
+      attributionRef.current = incomingAttribution;
+    }
+
+    const basePayload = {
+      path: currentPath,
+      locale,
+      ...derivePageContext(currentPath),
+      ...attributionRef.current,
+    } satisfies Omit<AnalyticsEventInput, "event">;
 
     sendEvent({
       event: "portfolio-page-view",
@@ -48,11 +111,18 @@ export function PortfolioAnalytics({ locale }: { locale: string }) {
       const trackedElement = target.closest<HTMLElement>("[data-analytics-event]");
       if (!trackedElement) return;
 
+      const linkContext = getLinkContext(trackedElement);
+      const configuredEvent = trackedElement.dataset.analyticsEvent ?? "portfolio-click";
+
       sendEvent({
-        event: trackedElement.dataset.analyticsEvent ?? "portfolio-click",
+        event: resolveEventName(configuredEvent, linkContext.channel),
         ...basePayload,
-        project: trackedElement.dataset.project,
-        cta: trackedElement.dataset.cta,
+        ...linkContext,
+        project: trackedElement.dataset.project ?? basePayload.project,
+        service: trackedElement.dataset.service ?? basePayload.service,
+        offer: trackedElement.dataset.offer,
+        cta: sanitizeAnalyticsToken(trackedElement.dataset.cta),
+        ctaLabel: readCtaLabel(trackedElement),
       });
     };
 
@@ -131,7 +201,7 @@ export function PortfolioAnalytics({ locale }: { locale: string }) {
       if (scrollFrame !== null) window.cancelAnimationFrame(scrollFrame);
       if (engagementTimer !== null) window.clearTimeout(engagementTimer);
     };
-  }, [locale]);
+  }, [locale, pathname]);
 
   return null;
 }

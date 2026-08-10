@@ -104,12 +104,17 @@ function checkV2Fields(slug: string, p: ProjectV2) {
     'shortDescription', 'role', 'audience', 'proofLevel', 'visualKind',
     'tags', 'primaryCta', 'casePriority'
   ];
+  const priorityCaseSlugs = new Set(['archscene', 'gestaoml', 'nexpanel']);
 
   for (const f of required) {
     const val = p[f];
     if (val === undefined || val === null || (Array.isArray(val) && val.length === 0)) {
       addGap(slug, String(f), `Missing or empty required V2 field: ${f}`, 'error');
     }
+  }
+
+  if (priorityCaseSlugs.has(slug) && !p.deliveryRecord) {
+    addGap(slug, 'deliveryRecord', 'Priority case must declare responsibility, architecture, current state and proof limitations', 'error');
   }
 
   // proofLevel + primaryCta consistency

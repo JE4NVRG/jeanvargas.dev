@@ -176,6 +176,7 @@ export default async function ServicePage({ params }: Props) {
               rel="noopener noreferrer"
               data-analytics-event="lead-cta-click"
               data-cta={`service-page-${offer.id}-hero`}
+              data-service={offer.id}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cyan-300 px-6 py-3 text-sm font-bold text-black transition-colors hover:bg-cyan-200"
             >
               <MessageCircle className="h-4 w-4" />
@@ -333,6 +334,7 @@ export default async function ServicePage({ params }: Props) {
             rel="noopener noreferrer"
             data-analytics-event="lead-cta-click"
             data-cta={`service-page-${offer.id}-footer`}
+            data-service={offer.id}
             className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition-colors hover:bg-cyan-100"
           >
             <MessageCircle className="h-4 w-4" />

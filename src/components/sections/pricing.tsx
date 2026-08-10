@@ -9,10 +9,10 @@ const WHATSAPP_URL = "https://wa.me/5511948477047";
 
 const PLAN_ICONS = [Rocket, Users, Crown];
 const PLAN_ACCENTS = [
-  "from-cyan-500/15 to-cyan-500/0 border-cyan-400/30",
   "from-violet-500/20 to-violet-500/0 border-violet-400/40",
-  "from-amber-500/15 to-amber-500/0 border-amber-400/30",
+  "from-cyan-500/15 to-cyan-500/0 border-cyan-400/30",
 ];
+const OFFER_IDS = ["diagnosis-first-milestone", "product-evolution"] as const;
 
 export function Pricing() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -53,12 +53,13 @@ export function Pricing() {
         </h2>
         <p className="mt-5 max-w-2xl text-lg leading-7 text-zinc-400">{t.pricing.subtitle}</p>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+        <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-2">
           {t.pricing.plans.map((plan, i) => {
             const Icon = PLAN_ICONS[i] ?? Rocket;
             const accent = PLAN_ACCENTS[i] ?? PLAN_ACCENTS[0];
             const featured = plan.featured;
-            const ctaKey = ["pricing-site", "pricing-saas", "pricing-web3"][i] ?? `pricing-${i + 1}`;
+            const offerId = OFFER_IDS[i] ?? `offer-${i + 1}`;
+            const ctaKey = `offer-${offerId}`;
             const whatsappMessage = encodeURIComponent(
               locale === "pt"
                 ? `Oi Jean, quero conversar sobre ${plan.name}.`
@@ -67,7 +68,7 @@ export function Pricing() {
             return (
               <div
                 key={plan.name}
-                className={`pricing-card relative flex flex-col rounded-2xl border bg-[#0a0a0a]/85 p-7 backdrop-blur ${
+                className={`pricing-card relative flex min-w-0 flex-col rounded-2xl border bg-[#0a0a0a]/85 p-7 backdrop-blur ${
                   featured
                     ? "border-violet-400/40 shadow-[0_30px_100px_-40px_rgba(139,92,246,0.45)]"
                     : "border-white/[0.08]"
@@ -113,6 +114,7 @@ export function Pricing() {
                   rel="noopener noreferrer"
                   data-analytics-event="lead-cta-click"
                   data-cta={ctaKey}
+                  data-offer={offerId}
                   className={`mt-9 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-colors ${
                     featured
                       ? "bg-white text-black hover:bg-zinc-100"
