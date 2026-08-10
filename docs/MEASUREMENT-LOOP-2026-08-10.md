@@ -229,7 +229,15 @@ separate explicit update and delivery smoke.
   `/home/je4ndev/.hermes/backups/je4ndev-analytics-gate/20260810T134402Z/postflight-manifest.json`.
 - First Search Console-backed report:
   `/home/jean/backups/jeanvargas-dev/measurement-ops/weekly-with-gsc-20260810T140912Z.md`.
+- Autonomous cron activation smoke: `last_status=ok`, service active, public health
+  `200`, production SHA verified and disposable Search Console target closed.
+- Smoke report:
+  `/home/jean/backups/jeanvargas-dev/measurement-ops/weekly-with-gsc-20260810T141435Z.md`.
+- Cron output:
+  `/home/je4ndev/.hermes/cron/output/cc22bc2f6929/2026-08-10_11-17-17.md`.
+- Measurement postflight manifest:
+  `/home/je4ndev/.hermes/backups/je4ndev-measurement-ops/20260810T141717Z/postflight-manifest.json`.
 - Search Console input contains daily aggregate metrics only, not queries or PII.
 
 Rollback handles and pre-migration/database/ruleset backups are recorded in the
-postflight manifest. Do not remove those artifacts as part of normal report cleanup.
+postflight manifests. Do not remove those artifacts as part of normal report cleanup.
