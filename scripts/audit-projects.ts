@@ -161,6 +161,21 @@ async function checkLinks() {
   }
 }
 
+function checkDuplicatePriorities() {
+  const usage = new Map<number, string[]>();
+  for (const project of projects) {
+    const slugs = usage.get(project.casePriority) ?? [];
+    slugs.push(project.slug);
+    usage.set(project.casePriority, slugs);
+  }
+
+  for (const [priority, slugs] of usage.entries()) {
+    if (slugs.length > 1) {
+      addGap('MULTIPLE', 'casePriority', `Priority ${priority} used by: ${slugs.join(', ')}`, 'error');
+    }
+  }
+}
+
 function checkDuplicateCovers() {
   for (const [cover, slugs] of coverUsage.entries()) {
     if (slugs.length > 1) {
@@ -192,6 +207,7 @@ async function main() {
   }
 
   checkDuplicateCovers();
+  checkDuplicatePriorities();
   await checkLinks();
 
   // Summary
