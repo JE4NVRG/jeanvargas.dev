@@ -126,8 +126,8 @@ URLPivot está no catálogo como **demo** (landing dogfood, sem cadastro públic
 | Conteúdo | TypeScript + Zod |
 | Imagens | `next/image`, WebP e capturas versionadas |
 | SEO | Metadata API, JSON-LD, sitemap, robots, SSG |
-| Qualidade | ESLint, TypeScript strict, `audit:projects`, GitHub Actions |
-| Deploy | Build `standalone` |
+| Qualidade | ESLint, TypeScript strict, `npm run gate` local ou VPS |
+| Deploy | VPS `jeanvargas-dev` + `scripts/deploy-vps.sh` |
 
 ## Arquitetura
 
@@ -178,16 +178,24 @@ Abra [http://localhost:3000/pt](http://localhost:3000/pt).
 | `npm run audit:links` | Links públicos dos projetos |
 | `npm run test:analytics` | Atribuição, schema, privacidade e relatório |
 | `npm run build` | Build de produção |
-| `npm run validate` | Gate completo |
+| `npm run gate` | Gate local/VPS: lint, types, analytics, catálogo |
+| `npm run ci:local` | Alias do gate, sem GitHub Actions |
+| `npm run validate` | Gate + links de campanha + build |
+| `scripts/deploy-vps.sh` | Pull, gate, build e restart na Luna |
 
 ## Qualidade
 
-O workflow `.github/workflows/portfolio-quality.yml` roda em pull requests:
+Não usamos GitHub Actions. O gate é gratuito e roda na máquina local ou na VPS:
 
 ```bash
 npm ci
-npm run validate
-npm audit --omit=dev --audit-level=high
+npm run gate
+```
+
+Antes de publicar na Luna:
+
+```bash
+ssh luna-vps 'bash /home/jean/jeanvargas.dev/scripts/deploy-vps.sh'
 ```
 
 Nenhuma chave, cookie ou `.env` deve ser versionado.
