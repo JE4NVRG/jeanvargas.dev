@@ -8,7 +8,7 @@ const LOCALES = ["pt", "en"] as const;
 /**
  * Sitemap dinamico — agora com rotas SSR localizadas em /pt e /en.
  *
- * Total: 2 homes + 2 × 12 projetos + 6 páginas de serviço = 32 URLs.
+ * Total: 2 homes + 2 × 14 projetos + 6 páginas de serviço + 4 páginas legais.
  *
  * Por que /en eh x-default: search engines usam x-default como fallback
  * quando o Accept-Language do crawler nao bate com nenhum hreflang. Como
@@ -63,5 +63,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  return [...homeEntries, ...serviceEntries, ...projectEntries];
+  const legalEntries = (["termos", "privacidade"] as const).flatMap((path) =>
+    LOCALES.map<MetadataRoute.Sitemap[number]>((locale) => ({
+      url: `${BASE_URL}/${locale}/${path}`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.4,
+      alternates: {
+        languages: {
+          "pt-BR": `${BASE_URL}/pt/${path}`,
+          "en-US": `${BASE_URL}/en/${path}`,
+          "x-default": `${BASE_URL}/pt/${path}`,
+        },
+      },
+    })),
+  );
+
+  return [...homeEntries, ...serviceEntries, ...projectEntries, ...legalEntries];
 }

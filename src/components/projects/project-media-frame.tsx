@@ -66,7 +66,7 @@ export function ProjectMediaFrame({ project, labels, priority = false }: { proje
       <div className={`relative aspect-[16/10] bg-gradient-to-br ${project.gradient ?? "from-zinc-900 to-black"}`}>
         <Image
           src={artwork}
-          alt={`${project.title} product interface`}
+          alt={project.title}
           fill
           priority={priority}
           sizes="(max-width: 1024px) 100vw, 58vw"

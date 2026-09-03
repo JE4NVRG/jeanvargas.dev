@@ -35,8 +35,8 @@ export const serviceOffers: ServiceOffer[] = [
       en: "Custom SaaS and internal systems development",
     },
     metaTitle: {
-      pt: "Desenvolvimento de SaaS sob medida | JE4NDEV",
-      en: "Custom SaaS development | JE4NDEV",
+      pt: "Desenvolvimento de SaaS sob medida | Jean Carlos Vargas | JE4NDEV",
+      en: "Custom SaaS development | Jean Carlos Vargas | JE4NDEV",
     },
     metaDescription: {
       pt: "Desenvolvimento founder-led de SaaS e sistemas internos com autenticação, permissões, integrações, billing e deploy por marcos verificáveis.",
@@ -125,7 +125,7 @@ export const serviceOffers: ServiceOffer[] = [
         },
       },
     ],
-    relatedProjectSlugs: ["archscene", "nexpanel", "gestaoml"],
+    relatedProjectSlugs: ["archscene", "arremata-radar", "fullcommerce360"],
     whatsappPrompt: {
       pt: "Oi Jean, quero avaliar um SaaS ou sistema sob medida. Meu gargalo hoje é: ",
       en: "Hi Jean, I want to evaluate a custom SaaS or internal system. My current bottleneck is: ",
@@ -140,8 +140,8 @@ export const serviceOffers: ServiceOffer[] = [
       en: "AI automation and integrations for real operations",
     },
     metaTitle: {
-      pt: "Automação com IA e integrações | JE4NDEV",
-      en: "AI automation and integrations | JE4NDEV",
+      pt: "Automação com IA e integrações | Jean Carlos Vargas | JE4NDEV",
+      en: "AI automation and integrations | Jean Carlos Vargas | JE4NDEV",
     },
     metaDescription: {
       pt: "Automatize processos com integrações, logs, aprovações humanas e métricas. WhatsApp, APIs, pagamentos, marketplaces, CRM e sistemas internos.",
@@ -218,7 +218,7 @@ export const serviceOffers: ServiceOffer[] = [
         },
       },
     ],
-    relatedProjectSlugs: ["gestaoml", "nexpanel", "mepchat"],
+    relatedProjectSlugs: ["fullcommerce360", "urlpivot", "nexpanel"],
     whatsappPrompt: {
       pt: "Oi Jean, quero avaliar uma automação. O processo repetitivo hoje é: ",
       en: "Hi Jean, I want to evaluate an automation. The repetitive process today is: ",
@@ -233,8 +233,8 @@ export const serviceOffers: ServiceOffer[] = [
       en: "Private AI agents with memory, permissions and human review",
     },
     metaTitle: {
-      pt: "Agentes de IA privados para empresas | JE4NDEV",
-      en: "Private AI agents for operations | JE4NDEV",
+      pt: "Agentes de IA privados para empresas | Jean Carlos Vargas | JE4NDEV",
+      en: "Private AI agents for operations | Jean Carlos Vargas | JE4NDEV",
     },
     metaDescription: {
       pt: "Agentes de IA em infraestrutura própria com identidade, memória, ferramentas, permissões, logs, gates humanos e integração à operação.",
@@ -311,7 +311,7 @@ export const serviceOffers: ServiceOffer[] = [
         },
       },
     ],
-    relatedProjectSlugs: ["hermes-agentes", "openclaw-gateway", "bounty-hunter-mvp"],
+    relatedProjectSlugs: ["hermes-agentes", "openclaw-gateway", "nexpanel"],
     whatsappPrompt: {
       pt: "Oi Jean, quero avaliar um agente de IA privado. A tarefa que ele precisa executar é: ",
       en: "Hi Jean, I want to evaluate a private AI agent. The task it needs to execute is: ",

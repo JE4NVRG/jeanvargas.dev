@@ -66,13 +66,13 @@ export const projects: Project[] = [
       live: "https://nexpanel.agenciamep.com",
     },
     primaryCta: "live",
-    casePriority: 3,
+    casePriority: 5,
     image: "/projects/captures/nexpanel-dashboard.webp",
     coverImage: "/projects/covers/nexpanel-cover.webp",
     assetReview: {
       status: "approved",
       sourceUrl: "https://nexpanel.agenciamep.com",
-      reviewedAt: "2026-08-10",
+      reviewedAt: "2026-09-02",
       note: {
         en: "Live public product and sanitized reseller-dashboard capture reviewed on 2026-08-10; no customer records or activation credentials are exposed.",
         pt: "Produto público ao vivo e captura sanitizada do dashboard da revenda revisados em 10/08/2026; nenhum registro de cliente ou credencial de ativação é exposto.",
@@ -135,7 +135,7 @@ export const projects: Project[] = [
       github: "https://github.com/JE4NVRG/Vultrix",
     },
     primaryCta: "live",
-    casePriority: 4,
+    casePriority: 6,
     image: "/projects/captures/vultrix-dashboard.webp",
     coverImage: "/projects/covers/vultrix-3d-cover.webp",
     assetReview: {
@@ -238,7 +238,7 @@ export const projects: Project[] = [
       },
     ],
     gradient: "from-violet-900 to-fuchsia-900",
-    featured: true,
+    featured: false,
   },
   {
     slug: "archscene",
@@ -344,6 +344,81 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    slug: "arremata-radar",
+    title: "Arremata Radar",
+    description: {
+      en: "Real-estate intelligence for Caixa opportunities",
+      pt: "Inteligência imobiliária para oportunidades da Caixa",
+    },
+    shortDescription: {
+      en: "Filter Caixa listings with traceable sources, explainable scores and a decision queue before you spend hours on a weak asset.",
+      pt: "Filtre imóveis da Caixa com origem rastreável, score explicável e uma fila de decisão antes de gastar horas em ativo ruim.",
+    },
+    longDescription: {
+      en: "Arremata Radar is a public product that turns fragmented official property inventory into a repeatable research workflow: discover, compare, investigate and follow. The live site exposes coverage stage, source freshness, public catalog search, pricing and an explicit limit: it organizes evidence, it does not sell or broker properties.",
+      pt: "O Arremata Radar é um produto público que transforma inventário oficial fragmentado em um fluxo repetível de pesquisa: descobrir, comparar, investigar e acompanhar. O site ao vivo expõe o estágio da cobertura, o frescor da fonte, busca no catálogo público, preços e um limite explícito: organiza evidência, não vende nem intermedia imóveis.",
+    },
+    status: "live",
+    role: "client-saas",
+    audience: ["investidores-imobiliarios", "compradores", "analistas-de-leilao", "profissionais-de-diligencia"],
+    proofLevel: "public-live",
+    visualKind: "product-screenshot",
+    scope: { en: "Product + intelligence workflow", pt: "Produto + fluxo de inteligência" },
+    dateRange: { en: "2026 - Present", pt: "Desde 2026" },
+    category: "SaaS Platform",
+    tags: ["saas", "real-estate", "caixa", "intelligence", "scoring"],
+    technologies: ["Next.js", "TypeScript", "PostgreSQL", "Supabase"],
+    problem: {
+      en: "Official property opportunities are scattered across formats and update cycles, so discount, occupancy, media and missing data land in the same spreadsheet.",
+      pt: "Oportunidades oficiais de imóveis ficam espalhadas em formatos e ciclos de atualização diferentes, então desconto, ocupação, mídia e dados ausentes caem na mesma planilha.",
+    },
+    solution: {
+      en: "I built a public radar that keeps source, media, risk and history in one decision pack, with explainable priority and a coverage stage that does not pretend every feed is live.",
+      pt: "Construí um radar público que junta origem, mídia, risco e histórico em um pacote de decisão, com prioridade explicável e estágio de cobertura que não finge que toda fonte já está no ar.",
+    },
+    deliveryRecord: {
+      responsibility: {
+        en: "Product strategy, data model, public catalog, scoring, billing surface, QA and honest coverage limits.",
+        pt: "Estratégia de produto, modelo de dados, catálogo público, scoring, superfície de billing, QA e limites honestos de cobertura.",
+      },
+      architecture: {
+        en: "Next.js product with canonical property entities, source provenance, public catalog and subscription checkout.",
+        pt: "Produto Next.js com entidades canônicas de imóvel, proveniência da fonte, catálogo público e checkout de assinatura.",
+      },
+      currentState: {
+        en: "Public product is live with Caixa as the active source, searchable catalog, plans and an explicit non-brokerage disclaimer.",
+        pt: "O produto público está no ar com a Caixa como fonte ativa, catálogo pesquisável, planos e aviso explícito de que não intermedia compra.",
+      },
+      limitations: {
+        en: "The public case shows the marketing surface and catalog proof, not private saved searches, buyer identity or a guaranteed investment outcome. PNCP and partner feeds are staged, not fully public.",
+        pt: "O case público mostra a superfície de marketing e a prova do catálogo, não buscas salvas privadas, identidade de compradores nem resultado de investimento. PNCP e feeds de parceiros estão em estágio, não totalmente públicos.",
+      },
+    },
+    metrics: [
+      { value: "Live", label: { en: "Public product", pt: "Produto público" }, color: "green", verified: true },
+      { value: "25k+", label: { en: "Records on the public radar", pt: "Registros no radar público" }, color: "purple", verified: true },
+      { value: "Caixa", label: { en: "Active official source", pt: "Fonte oficial ativa" }, color: "cyan", verified: true },
+      { value: "Score", label: { en: "Explainable priority", pt: "Prioridade explicável" }, color: "pink", verified: true },
+    ],
+    links: {
+      live: "https://arremataradar.com",
+    },
+    primaryCta: "live",
+    casePriority: 2,
+    image: "/projects/captures/arremata-radar-home-latest.png",
+    assetReview: {
+      status: "approved",
+      sourceUrl: "https://arremataradar.com",
+      reviewedAt: "2026-09-02",
+      note: {
+        en: "Live public landing captured at 1440x900 on 2026-09-02 after dismissing the optional analytics banner. Catalog count is taken from the public surface and may move.",
+        pt: "Landing pública ao vivo capturada em 1440x900 em 02/09/2026 depois de recusar a mensuração opcional. A contagem do catálogo vem da superfície pública e pode variar.",
+      },
+    },
+    gradient: "from-emerald-900 to-green-900",
+    featured: true,
+  },
+  {
     slug: "openclaw-gateway",
     title: "OpenClaw Gateway",
     description: {
@@ -388,7 +463,7 @@ export const projects: Project[] = [
     // Holographic AI infrastructure key visual (Grok frame from the gateway
     // video). Replaces the old GitHub-404 screenshot at the same path.
     primaryCta: "github",
-    casePriority: 5,
+    casePriority: 8,
     image: "/projects/openclaw-gateway.png",
     coverImage: "/projects/covers/openclaw-gateway-cover.webp",
     assetReview: {
@@ -401,7 +476,7 @@ export const projects: Project[] = [
       },
     },
     gradient: "from-indigo-900 to-purple-900",
-    featured: true,
+    featured: false,
   },
   {
     slug: "mepchat",
@@ -457,19 +532,19 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    slug: "gestaoml",
-    title: "Gestão ML",
+    slug: "fullcommerce360",
+    title: "FullCommerce360",
     description: {
-      en: "Mercado Livre research, listing and operations platform",
-      pt: "Plataforma de pesquisa, anúncio e operação para Mercado Livre",
+      en: "Operating system for Mercado Livre sellers",
+      pt: "Sistema operacional do seller no Mercado Livre",
     },
     shortDescription: {
       en: "Research margin, prepare product and offer, require human approval before publishing, then keep orders, stock and service in the same account context.",
       pt: "Pesquise margem, prepare produto e oferta, exija aprovação humana antes de publicar e mantenha pedidos, estoque e atendimento no mesmo contexto de conta.",
     },
     longDescription: {
-      en: "Gestão ML connects the path from product research to daily Mercado Livre operations. Comparables, costs and recommendations stay separated; the editor makes product, photos, offer and pending decisions reviewable; sensitive publishing remains blocked until human approval. The public demo uses sanitized fixtures and keeps clients and seller accounts explicitly isolated.",
-      pt: "A Gestão ML conecta o caminho da pesquisa do produto à operação diária no Mercado Livre. Comparáveis, custos e recomendações permanecem separados; o editor torna produto, fotos, oferta e pendências revisáveis; a publicação sensível continua bloqueada até aprovação humana. A demonstração pública usa fixtures sanitizadas e mantém clientes e contas vendedoras explicitamente isolados.",
+      en: "FullCommerce360 connects product research to daily Mercado Livre operations. Comparables, costs and recommendations stay separated; the editor makes product, photos, offer and pending decisions reviewable; sensitive publishing remains blocked until human approval. The public site is live at fullcommerce360.com. The public demonstration uses sanitized fixtures and keeps clients and seller accounts isolated.",
+      pt: "O FullCommerce360 conecta a pesquisa de produto à operação diária no Mercado Livre. Comparáveis, custos e recomendações permanecem separados; o editor torna produto, fotos, oferta e pendências revisáveis; a publicação sensível continua bloqueada até aprovação humana. O site público está em fullcommerce360.com. A demonstração pública usa fixtures sanitizadas e mantém clientes e contas vendedoras isolados.",
     },
     status: "live",
     role: "client-saas",
@@ -514,21 +589,96 @@ export const projects: Project[] = [
       { value: "Demo", label: { en: "Sanitized public proof", pt: "Prova pública sanitizada" }, color: "pink", verified: true },
     ],
     links: {
-      live: "https://ml.je4ndev.com",
+      live: "https://fullcommerce360.com",
     },
     primaryCta: "live",
-    casePriority: 2,
-    image: "/projects/captures/gestaoml-current-public.png",
+    casePriority: 3,
+    image: "/projects/captures/fullcommerce360-home-latest.png",
     assetReview: {
       status: "approved",
-      sourceUrl: "https://ml.je4ndev.com",
+      sourceUrl: "https://fullcommerce360.com",
       reviewedAt: "2026-08-10",
       note: {
-        en: "Fresh 1440x900 capture of the live public product, created and reviewed on 2026-08-10. It shows the Radar → Editor → Operations flow with sanitized demonstration data and no volume or revenue claim.",
-        pt: "Captura nova de 1440x900 do produto público ao vivo, criada e revisada em 10/08/2026. Mostra o fluxo Radar → Editor → Operação com dados sanitizados de demonstração e sem claim de volume ou faturamento.",
+        en: "Live public capture of fullcommerce360.com at 1440x900 on 2026-09-02. The product is FullCommerce360. This screen does not claim seller volume or revenue.",
+        pt: "Captura ao vivo de fullcommerce360.com em 1440x900 em 02/09/2026. O produto é FullCommerce360. Esta tela não afirma volume de vendedores nem faturamento.",
       },
     },
     gradient: "from-yellow-900 to-amber-900",
+    featured: true,
+  },
+  {
+    slug: "urlpivot",
+    title: "URLPivot",
+    description: {
+      en: "Operational link control for campaigns that cannot go blind",
+      pt: "Controle operacional de links para campanhas que não podem ficar cegas",
+    },
+    shortDescription: {
+      en: "Keep the public slug, change the destination, pause without leaking, generate QR codes and separate humans from bots, with an auditable history.",
+      pt: "Mantenha o slug público, troque o destino, pause sem vazar, gere QR e separe pessoas de bots, com histórico auditável.",
+    },
+    longDescription: {
+      en: "URLPivot is the public product name of LinkOps, JE4NDEV's link-control infrastructure. The live surface explains durable slugs, editable destinations, fail-closed pauses (410), missing routes (404) and privacy-preserving traffic classification. The current environment is a controlled dogfood pilot: there is no public signup or commercial availability promise in this cut.",
+      pt: "URLPivot é o nome público do LinkOps, a infraestrutura de controle de links da JE4NDEV. A superfície ao vivo explica slugs duráveis, destinos editáveis, pausa fail-closed (410), rotas ausentes (404) e classificação de tráfego sem armazenar IP bruto. O ambiente atual é um piloto dogfood controlado: neste corte não há cadastro público nem promessa de disponibilidade comercial.",
+    },
+    status: "demo",
+    role: "internal-tool",
+    audience: ["operadores-de-campanha", "times-de-growth", "founders"],
+    proofLevel: "public-demo",
+    visualKind: "product-screenshot",
+    scope: { en: "Internal platform + public landing", pt: "Plataforma interna + landing pública" },
+    dateRange: { en: "2026 - Present", pt: "Desde 2026" },
+    category: "SaaS Platform",
+    tags: ["saas", "links", "qr", "analytics", "privacy"],
+    technologies: ["Next.js", "TypeScript", "PostgreSQL", "Stripe"],
+    problem: {
+      en: "Published campaign URLs become blind spots: destinations change, pauses leak, bots inflate traffic and the operational history disappears.",
+      pt: "URLs de campanha publicadas viram ponto cego: o destino muda, a pausa vaza, bots inflama o tráfego e o histórico operacional some.",
+    },
+    solution: {
+      en: "I built a link-control product that keeps the public slug immutable, edits the canonical destination, fails closed when paused and classifies humans versus bots without storing raw IP.",
+      pt: "Construí um produto de controle de links que mantém o slug público imutável, edita o destino canônico, falha fechado quando pausado e classifica humanos versus bots sem guardar IP bruto.",
+    },
+    deliveryRecord: {
+      responsibility: {
+        en: "Product design, routing semantics, privacy model, billing groundwork, QA and public dogfood landing.",
+        pt: "Desenho de produto, semântica de roteamento, modelo de privacidade, base de billing, QA e landing pública de dogfood.",
+      },
+      architecture: {
+        en: "Next.js application with durable public routes, destination editing, QR generation, workspace controls and HMAC-based traffic impressions.",
+        pt: "Aplicação Next.js com rotas públicas duráveis, edição de destino, geração de QR, controles de workspace e impressões de tráfego com HMAC.",
+      },
+      currentState: {
+        en: "Public landing is live at linkops.je4ndev.com. Workspace access remains private; this cut does not offer public signup or SLA.",
+        pt: "A landing pública está no ar em linkops.je4ndev.com. O acesso ao workspace continua privado; este corte não oferece cadastro público nem SLA.",
+      },
+      limitations: {
+        en: "The public page proves positioning and routing rules, not customer volume, revenue or unattended production availability.",
+        pt: "A página pública prova posicionamento e regras de roteamento, não volume de clientes, faturamento nem disponibilidade de produção sem operador.",
+      },
+    },
+    metrics: [
+      { value: "Demo", label: { en: "Public landing, no signup", pt: "Landing pública, sem cadastro" }, color: "purple", verified: true },
+      { value: "410", label: { en: "Paused links fail closed", pt: "Pausa fail-closed" }, color: "purple", verified: true },
+      { value: "QR", label: { en: "Campaign codes", pt: "Códigos de campanha" }, color: "cyan", verified: true },
+      { value: "Dogfood", label: { en: "No public signup yet", pt: "Sem cadastro público ainda" }, color: "pink", verified: true },
+    ],
+    links: {
+      live: "https://linkops.je4ndev.com",
+    },
+    primaryCta: "live",
+    casePriority: 4,
+    image: "/projects/captures/urlpivot-home-latest.png",
+    assetReview: {
+      status: "approved",
+      sourceUrl: "https://linkops.je4ndev.com",
+      reviewedAt: "2026-09-02",
+      note: {
+        en: "Live public landing captured at 1440x900 on 2026-09-02. The page itself states this is a controlled JE4NDEV dogfood environment.",
+        pt: "Landing pública ao vivo capturada em 1440x900 em 02/09/2026. A própria página declara que este é um ambiente dogfood controlado da JE4NDEV.",
+      },
+    },
+    gradient: "from-sky-900 to-indigo-900",
     featured: true,
   },
   {
@@ -575,7 +725,7 @@ export const projects: Project[] = [
       github: "https://github.com/JE4NVRG/HypeFc",
     },
     primaryCta: "github",
-    casePriority: 8,
+    casePriority: 12,
     assetReview: {
       status: "editorial-only",
       sourceUrl: "https://hypefc.vercel.app",
@@ -641,7 +791,7 @@ export const projects: Project[] = [
       live: "https://stopultimate.vercel.app/",
     },
     primaryCta: "live",
-    casePriority: 6,
+    casePriority: 10,
     image: "/projects/captures/2026-06-03/stopultimate-desktop.jpg",
     assetReview: {
       status: "approved",
@@ -663,7 +813,7 @@ export const projects: Project[] = [
       },
     ],
     gradient: "from-emerald-700 to-amber-900",
-    featured: true,
+    featured: false,
   },
   {
     slug: "alchemix-auditor",
@@ -708,7 +858,7 @@ export const projects: Project[] = [
       live: "https://alchemix-auditor.vercel.app",
     },
     primaryCta: "live",
-    casePriority: 9,
+    casePriority: 13,
     image: "/projects/captures/alchemix-auditor-latest.png",
     coverImage: "/projects/covers/alchemix-auditor-cover.webp",
     assetReview: {
@@ -766,7 +916,7 @@ export const projects: Project[] = [
       live: "https://ethena-scanner.vercel.app",
     },
     primaryCta: "live",
-    casePriority: 10,
+    casePriority: 14,
     image: "/projects/captures/ethena-scanner-latest.png",
     coverImage: "/projects/covers/ethena-scanner-cover.webp",
     assetReview: {
@@ -822,7 +972,7 @@ export const projects: Project[] = [
     ],
     links: {},
     primaryCta: "contact",
-    casePriority: 12,
+    casePriority: 15,
     coverImage: "/projects/covers/bounty-hunter-mvp-cover.webp",
     assetReview: {
       status: "editorial-only",
@@ -834,7 +984,7 @@ export const projects: Project[] = [
     },
     gradient: "from-amber-900 to-red-900",
     featured: false,
-  },
+  }
 ];
 
 export function getProjectBySlug(slug: string): Project | undefined {

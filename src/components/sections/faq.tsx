@@ -59,7 +59,7 @@ export function Faq() {
                 >
                   <span className="text-base font-semibold text-white sm:text-lg">{item.q}</span>
                   <ChevronDown
-                    className={`h-5 w-5 shrink-0 text-zinc-500 transition-transform ${
+                    className={`h-5 w-5 shrink-0 text-zinc-400 transition-transform ${
                       isOpen ? "rotate-180" : ""
                     }`}
                   />

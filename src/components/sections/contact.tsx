@@ -124,7 +124,7 @@ export function Contact() {
                   <p className="mt-1 text-sm leading-5 text-zinc-300 sm:text-base">
                     {t.contact.founderRole}
                   </p>
-                  <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-zinc-500">
+                  <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-zinc-400">
                     <MapPin className="h-3 w-3" />
                     {t.contact.founderLocation}
                   </p>
@@ -187,7 +187,7 @@ export function Contact() {
                   <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
                   <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
                 </div>
-                <span className="font-mono text-xs text-zinc-500">
+                <span className="font-mono text-xs text-zinc-400">
                   {t.contact.terminalTitle}
                 </span>
               </div>

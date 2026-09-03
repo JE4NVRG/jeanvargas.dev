@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { useTranslation } from "@/i18n";
 import { Check, MessageCircle, Rocket, Users, Crown } from "lucide-react";
+import { btnPrimary, btnSecondary } from "@/components/ui/button-classes";
 
 const WHATSAPP_URL = "https://wa.me/5511948477047";
 
@@ -68,7 +69,7 @@ export function Pricing() {
             return (
               <div
                 key={plan.name}
-                className={`pricing-card relative flex min-w-0 flex-col rounded-2xl border bg-[#0a0a0a]/85 p-7 backdrop-blur ${
+                className={`pricing-card relative flex h-full min-w-0 flex-col rounded-2xl border bg-[#0a0a0a]/85 p-7 backdrop-blur ${
                   featured
                     ? "border-violet-400/40 shadow-[0_30px_100px_-40px_rgba(139,92,246,0.45)]"
                     : "border-white/[0.08]"
@@ -92,14 +93,14 @@ export function Pricing() {
                 <div className="mt-6 flex items-baseline gap-2">
                   <span className="text-4xl font-bold text-white">{plan.price}</span>
                   {plan.priceSuffix ? (
-                    <span className="text-sm text-zinc-500">{plan.priceSuffix}</span>
+                    <span className="text-sm text-zinc-400">{plan.priceSuffix}</span>
                   ) : null}
                 </div>
                 {plan.priceNote ? (
-                  <p className="mt-1 text-xs text-zinc-500">{plan.priceNote}</p>
+                  <p className="mt-1 text-xs text-zinc-400">{plan.priceNote}</p>
                 ) : null}
 
-                <ul className="mt-7 space-y-3">
+                <ul className="mt-7 flex-1 space-y-3">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-3 text-sm text-zinc-300">
                       <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
@@ -115,11 +116,7 @@ export function Pricing() {
                   data-analytics-event="lead-cta-click"
                   data-cta={ctaKey}
                   data-offer={offerId}
-                  className={`mt-9 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-colors ${
-                    featured
-                      ? "bg-white text-black hover:bg-zinc-100"
-                      : "border border-white/[0.16] bg-white/[0.04] text-white hover:border-white/[0.32]"
-                  }`}
+                  className={`mt-9 w-full ${featured ? btnPrimary : btnSecondary}`}
                 >
                   <MessageCircle className="h-4 w-4" />
                   {plan.cta}

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink, Github, Search, X } from "lucide-react";
 import { gsap } from "@/lib/gsap";
+import { FLAGSHIP_SLUGS } from "@/data/flagships";
 import { projects } from "@/data/projects";
 import type { Project } from "@/types/project";
 import { useTranslation } from "@/i18n";
@@ -22,7 +23,7 @@ import { getPrimaryProjectUrl } from "@/components/projects/project-links";
 type FilterKey = "all" | "saas" | "ai" | "web3" | "internal" | "games";
 
 const FILTERS: FilterKey[] = ["all", "saas", "ai", "web3", "internal", "games"];
-const FLAGSHIP_SLUGS = new Set(["archscene", "nexpanel", "gestaoml"]);
+const HIDDEN_IN_ARCHIVE = new Set<string>(FLAGSHIP_SLUGS);
 
 function matchesFilter(project: Project, filter: FilterKey) {
   if (filter === "all") return true;
@@ -72,7 +73,7 @@ export function ProjectUniverse() {
 
   const filtered = useMemo(() => {
     let result = projects.filter(
-      (project) => !FLAGSHIP_SLUGS.has(project.slug) && matchesFilter(project, filter)
+      (project) => !HIDDEN_IN_ARCHIVE.has(project.slug) && matchesFilter(project, filter)
     );
 
     if (search.trim()) {
@@ -314,7 +315,7 @@ export function ProjectUniverse() {
                           href={liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label="Abrir live"
+                          aria-label={t.universe.openLive}
                           className="inline-flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-white/[0.05] hover:text-cyan-300"
                         >
                           <ExternalLink className="h-3 w-3" />
@@ -325,7 +326,7 @@ export function ProjectUniverse() {
                           href={githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label="Abrir GitHub"
+                          aria-label={t.universe.openGithub}
                           className="inline-flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-white/[0.05] hover:text-cyan-300"
                         >
                           <Github className="h-3 w-3" />
@@ -355,7 +356,7 @@ export function ProjectUniverse() {
         {filtered.length === 0 ? (
           <div className="mt-8 rounded-2xl border border-dashed border-white/[0.1] bg-white/[0.02] px-6 py-12 text-center">
             <p className="text-base font-semibold text-white">{t.universe.emptyTitle}</p>
-            <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-zinc-500">
+            <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-zinc-400">
               {t.universe.emptyBody}
             </p>
             <button

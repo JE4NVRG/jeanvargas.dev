@@ -39,8 +39,13 @@ export function HeroVideoBg({ src = "/videos/hero-blob.mp4" }: { src?: string })
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
     if (isMobile) return;
 
-    const enableTimer = window.setTimeout(() => setAllowVideo(true), 0);
-    return () => window.clearTimeout(enableTimer);
+    const enable = () => setAllowVideo(true);
+    const idle = window.requestIdleCallback?.(enable, { timeout: 2500 });
+    const fallback = idle == null ? window.setTimeout(enable, 2500) : null;
+    return () => {
+      if (idle != null) window.cancelIdleCallback?.(idle);
+      if (fallback != null) window.clearTimeout(fallback);
+    };
   }, []);
 
   return (
@@ -53,7 +58,7 @@ export function HeroVideoBg({ src = "/videos/hero-blob.mp4" }: { src?: string })
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="none"
             className="h-full w-full rounded-full object-cover opacity-90 mix-blend-screen"
             aria-hidden
           />

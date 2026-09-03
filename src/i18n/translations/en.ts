@@ -5,10 +5,14 @@ export const en = {
     services: "Services",
     stack: "Stack",
     contact: "Get in touch",
+    toggleLanguage: "Toggle language",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
+    switchLanguage: "Switch to Portuguese",
   },
   hero: {
-    badge: "Founder-led product engineering · Brazil → worldwide",
-    title: "SaaS, systems and AI automations",
+    badge: "Jean Carlos Vargas · JE4NDEV · Brazil and remote",
+    title: "SaaS, systems and AI automation development",
     titleHighlight: "built to run real operations.",
     subtitle:
       "I turn manual workflows and validated ideas into working products — interface, backend, integrations and deployment. You work directly with me, approve clear milestones and test every delivery in a navigable preview.",
@@ -24,8 +28,8 @@ export const en = {
     proof:
       "Strategy, product, interface, backend, data, integrations and operations in one accountable delivery.",
     stats: [
-      { value: "12", label: "catalogued cases" },
-      { value: "6", label: "public products" },
+      { value: "14", label: "catalogued cases" },
+      { value: "8", label: "public products" },
       { value: "Full-stack", label: "end-to-end delivery" },
       { value: "PT/EN", label: "global reach" },
     ],
@@ -128,14 +132,14 @@ export const en = {
     githubCta: "View public code and projects",
   },
   githubProof: {
-    label: "Open code · verifiable history",
-    title: "Do not rely only on this site's copy",
+    label: "Public GitHub",
+    title: "github.com/JE4NVRG",
     subtitle:
-      "Use the public links to inspect how I think about products, structure code and document systems. When proof is private or editorial, the case clearly says so.",
+      "The public profile is inspectable. Most JE4NDEV products stay in private repositories. This site does not invent GitHub stats.",
     bullets: [
       {
         title: "Navigable public products",
-        body: "ArchScene, NexPanel, Vultrix 3D and StopUltimate show working interfaces, flows and product propositions.",
+        body: "ArchScene, Arremata Radar, FullCommerce360, NexPanel and Vultrix 3D show working interfaces, flows and product propositions.",
       },
       {
         title: "Open-source agent infrastructure",
@@ -150,12 +154,11 @@ export const en = {
         body: "Web3 and Solidity projects remain available as complementary technical proof without diluting the main product offer.",
       },
     ],
-    metricsTitle: "Proof at a glance",
+    metricsTitle: "On this site",
     metrics: [
-      { label: "Catalogued cases", value: "12" },
-      { label: "Public products", value: "6" },
-      { label: "Open source", value: "MIT" },
-      { label: "Languages", value: "PT/EN" },
+      { label: "Cases on this site", value: "14" },
+      { label: "Public product URLs", value: "8" },
+      { label: "Languages on this site", value: "PT/EN" },
     ],
     verificationNote:
       "Links, repositories and case pages state the available evidence level before any proposal.",
@@ -163,6 +166,9 @@ export const en = {
   },
   footer: {
     copyright: "(c) 2026 Jean Carlos Vargas",
+    terms: "Terms of use",
+    privacy: "Privacy policy",
+    createdBy: "Created by",
   },
   testimonials: {
     label: "Social proof",
@@ -207,7 +213,7 @@ export const en = {
     subtitle: "",
   },
   universe: {
-    label: "Project archive · 12 catalogued cases",
+    label: "Project archive · 14 catalogued cases",
     title: "More products, systems and experiments",
     subtitle:
       "The three cases above are the main showcase. Filter the rest of the work by area and open the evidence available for each project.",
@@ -230,6 +236,8 @@ export const en = {
     proofEditorial: "Editorial case",
     showAll: "View full archive",
     showLess: "Show less",
+    openLive: "Open live site",
+    openGithub: "Open GitHub",
     footer: "Each card states the available evidence type and opens a case with context, stack and relevant links.",
   },
   pricing: {
@@ -343,6 +351,7 @@ export const en = {
     ctaWhatsapp: "Talk about my project",
     ctaEmail: "Send an email",
     nextProject: "Next project",
+    stackLabel: "Stack",
   },
 } as const;
 
@@ -353,6 +362,10 @@ export type Translations = {
     services: string;
     stack: string;
     contact: string;
+    toggleLanguage: string;
+    openMenu: string;
+    closeMenu: string;
+    switchLanguage: string;
   };
   hero: {
     badge: string;
@@ -435,6 +448,9 @@ export type Translations = {
   };
   footer: {
     copyright: string;
+    terms: string;
+    privacy: string;
+    createdBy: string;
   };
   testimonials: {
     label: string;
@@ -486,6 +502,8 @@ export type Translations = {
     proofEditorial: string;
     showAll: string;
     showLess: string;
+    openLive: string;
+    openGithub: string;
     footer: string;
   };
   pricing: {
@@ -545,5 +563,6 @@ export type Translations = {
     ctaWhatsapp: string;
     ctaEmail: string;
     nextProject: string;
+    stackLabel: string;
   };
 };

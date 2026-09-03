@@ -21,20 +21,20 @@ const analytics: FunnelAnalyticsRow[] = [
   {
     occurred_at: "2026-08-10T10:01:00Z",
     event_name: "portfolio-page-view",
-    page_path: "/pt/projects/gestaoml",
+    page_path: "/pt/projects/fullcommerce360",
     source: "outbound",
     medium: "email",
     campaign: "diagnosis-first-milestone",
-    landing_path: "/pt/projects/gestaoml",
+    landing_path: "/pt/projects/fullcommerce360",
   },
   {
     occurred_at: "2026-08-10T10:02:00Z",
     event_name: "lead-cta-click",
-    page_path: "/pt/projects/gestaoml",
+    page_path: "/pt/projects/fullcommerce360",
     source: "outbound",
     medium: "email",
     campaign: "diagnosis-first-milestone",
-    landing_path: "/pt/projects/gestaoml",
+    landing_path: "/pt/projects/fullcommerce360",
   },
 ];
 
@@ -46,7 +46,7 @@ const baseLead: FunnelLeadRow = {
   medium: "email",
   campaign: "diagnosis-first-milestone",
   channel: "email",
-  landing_path: "/pt/projects/gestaoml",
+  landing_path: "/pt/projects/fullcommerce360",
   created_at: "2026-08-10T10:00:00Z",
   first_contact_at: "2026-08-10T10:10:00Z",
   conversation_started_at: "2026-08-10T11:00:00Z",

@@ -64,7 +64,7 @@ export function About() {
                 {techDots.map((tech) => (
                   <div
                     key={tech.name}
-                    className="flex items-center gap-2 text-sm text-zinc-500"
+                    className="flex items-center gap-2 text-sm text-zinc-400"
                   >
                     <span
                       className={`h-2 w-2 rounded-full ${tech.color}`}

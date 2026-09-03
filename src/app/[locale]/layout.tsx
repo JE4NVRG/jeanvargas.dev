@@ -13,11 +13,13 @@ const SITE_URL = "https://je4ndev.com";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 type RouteParams = Promise<{ locale: string }>;
@@ -39,33 +41,32 @@ export async function generateMetadata({ params }: { params: RouteParams }): Pro
   const isEn = locale === "en";
   const canonical = `${SITE_URL}/${locale}`;
   const title = isEn
-    ? "JE4NDEV — SaaS, systems and AI automation"
-    : "JE4NDEV — SaaS, sistemas e automações com IA";
+    ? "Jean Carlos Vargas | JE4NDEV | SaaS, systems and AI automation"
+    : "Jean Carlos Vargas | JE4NDEV | SaaS, sistemas e automações com IA";
   const description = isEn
-    ? "Founder-led development of SaaS, internal systems, integrations, automations and AI agents — from scoped milestones to production."
-    : "Desenvolvimento founder-led de SaaS, sistemas internos, integrações, automações e agentes de IA — do escopo por marcos à produção.";
+    ? "Jean Carlos Vargas builds SaaS, custom systems, automations and private AI agents, from a navigable first milestone to production."
+    : "Jean Carlos Vargas desenvolve SaaS, sistemas sob medida, automações e agentes de IA privados, do primeiro marco navegável à produção.";
   const keywords = isEn
     ? [
+        "Jean Carlos Vargas",
+        "JE4NDEV",
         "SaaS development",
         "custom software development",
         "internal systems",
         "AI automation",
-        "AI agents",
+        "private AI agents",
         "product engineer",
-        "full-stack developer",
-        "Brazil software development",
-        "JE4NDEV",
+        "full-stack developer Brazil",
       ]
     : [
+        "Jean Carlos Vargas",
+        "JE4NDEV",
         "desenvolvimento SaaS",
         "sistemas sob medida",
-        "sistemas internos",
         "automação com IA",
-        "agentes de IA",
+        "agentes de IA privados",
         "engenharia de produto",
-        "desenvolvedor full-stack",
-        "desenvolvimento de software Brasil",
-        "JE4NDEV",
+        "desenvolvedor full-stack Brasil",
       ];
 
   return {
@@ -85,13 +86,8 @@ export async function generateMetadata({ params }: { params: RouteParams }): Pro
       },
     },
     icons: {
-      icon: [
-        { url: "/brand-icon.svg", sizes: "any", type: "image/svg+xml" },
-        { url: "/favicon.ico", sizes: "any", type: "image/x-icon" },
-        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      ],
-      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+      icon: [{ url: "/brand-icon.svg", type: "image/svg+xml" }],
+      apple: [{ url: "/brand-icon.svg", type: "image/svg+xml" }],
     },
     manifest: "/site.webmanifest",
     openGraph: {
@@ -107,7 +103,9 @@ export async function generateMetadata({ params }: { params: RouteParams }): Pro
           url: `${SITE_URL}/og-image.png`,
           width: 1200,
           height: 630,
-          alt: "JE4NDEV — Product engineering portfolio",
+          alt: isEn
+            ? "Jean Carlos Vargas / JE4NDEV product engineering"
+            : "Jean Carlos Vargas / JE4NDEV engenharia de produto",
         },
       ],
     },
@@ -143,6 +141,12 @@ function buildStructuredData(locale: Locale) {
       "@type": ["Organization", "ProfessionalService"],
       "@id": `${SITE_URL}/#organization`,
       name: "JE4NDEV",
+      legalName: "JEAN CARLOS VARGAS DA SILVA",
+      alternateName: ["VRG SOLUÇÕES", "VRG SOLUCOES", "Je4nDev"],
+      knowsAbout: isEn
+        ? ["SaaS development", "custom internal systems", "AI automation", "private AI agents"]
+        : ["desenvolvimento SaaS", "sistemas sob medida", "automação com IA", "agentes de IA privados"],
+      taxID: "12.349.878/0001-16",
       url: SITE_URL,
       email: "jean@je4ndev.com",
       telephone: "+55-11-94847-7047",
@@ -195,7 +199,11 @@ function buildStructuredData(locale: Locale) {
       "@type": "Person",
       "@id": `${SITE_URL}/#person`,
       name: "Jean Carlos Vargas",
+      alternateName: ["JE4NDEV", "Je4nDev"],
       jobTitle: "Founder and Product Engineer",
+      knowsAbout: isEn
+        ? ["SaaS", "product engineering", "AI agents", "marketplace operations"]
+        : ["SaaS", "engenharia de produto", "agentes de IA", "operação de marketplace"],
       url: SITE_URL,
       image: `${SITE_URL}/images/jean-about.png`,
       worksFor: { "@id": `${SITE_URL}/#organization` },

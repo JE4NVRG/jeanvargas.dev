@@ -3,6 +3,7 @@
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { HeroVideoBg } from "@/components/ui/hero-video-bg";
 import { StatCounter } from "@/components/ui/stat-counter";
+import { btnPrimary, btnSecondary } from "@/components/ui/button-classes";
 import { useTranslation } from "@/i18n";
 
 const WHATSAPP_URL =
@@ -59,7 +60,7 @@ export function Hero() {
               href="#work"
               data-analytics-event="portfolio-proof-cta"
               data-cta="hero-products"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black shadow-[0_8px_40px_-8px_rgba(94,234,212,0.5)] transition-colors hover:bg-zinc-100 sm:px-8 sm:py-4 sm:text-base"
+              className={btnPrimary}
             >
               {t.hero.cta}
               <ArrowRight className="h-4 w-4" />
@@ -71,7 +72,7 @@ export function Hero() {
               data-analytics-event="lead-cta-click"
               data-cta="hero-whatsapp"
               data-offer="diagnosis-first-milestone"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/[0.16] bg-white/[0.04] px-6 py-3.5 text-sm font-medium text-zinc-200 backdrop-blur transition-colors hover:border-white/[0.32] hover:bg-white/[0.08] sm:px-8 sm:py-4 sm:text-base"
+              className={btnSecondary}
             >
               <MessageCircle className="h-4 w-4" />
               {t.hero.secondaryCta}

@@ -111,7 +111,7 @@ function ProjectVisuals({
           <p className="text-sm font-semibold text-white">
             {mainVisual.title[locale]}
           </p>
-          <p className="mt-1 text-sm leading-6 text-zinc-500">
+          <p className="mt-1 text-sm leading-6 text-zinc-400">
             {mainVisual.description[locale]}
           </p>
         </div>
@@ -137,7 +137,7 @@ function ProjectVisuals({
                 <p className="text-sm font-semibold text-white">
                   {visual.title[locale]}
                 </p>
-                <p className="mt-1 text-sm leading-6 text-zinc-500">
+                <p className="mt-1 text-sm leading-6 text-zinc-400">
                   {visual.description[locale]}
                 </p>
               </div>
@@ -179,7 +179,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
       <div className="mx-auto max-w-7xl px-5 py-28 sm:px-6 sm:py-32">
         {/* Breadcrumb */}
         <SectionReveal>
-          <nav className="mb-10 flex items-center gap-2 text-sm text-zinc-500">
+          <nav className="mb-10 flex items-center gap-2 text-sm text-zinc-400">
             <Link
               href={`/${locale}#work`}
               className="inline-flex items-center gap-1 transition-colors hover:text-zinc-300"
@@ -223,7 +223,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
               <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cyan-300/70">
                 {proofLabels[project.assetReview.status === "approved" ? "approved" : project.assetReview.status === "private-demo" ? "private" : project.assetReview.status === "needs-recapture" ? "pending" : "editorial"]}
               </p>
-              <p className="mt-2 text-sm leading-6 text-zinc-500">
+              <p className="mt-2 text-sm leading-6 text-zinc-400">
                 {project.assetReview.note[locale]}
               </p>
             </div>
@@ -237,7 +237,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
         <div className="mx-auto mt-16 max-w-5xl">
           <SectionReveal delay={0.08}>
             <div className="grid gap-6 border-y border-white/[0.06] py-8 md:grid-cols-[0.3fr_0.7fr] md:items-start">
-              <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
+              <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-400">
                 {t.project.contextLabel}
               </h2>
               <p className="text-base leading-8 text-zinc-400 sm:text-lg">
@@ -252,7 +252,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
               <h2 className="text-xs font-semibold uppercase tracking-widest text-violet-400">
                 {t.project.deliveryRecordLabel}
               </h2>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-400">
                 {t.project.deliveryRecordIntro}
               </p>
             </div>
@@ -267,7 +267,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
                   key={label}
                   className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6"
                 >
-                  <h3 className="font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-500">
+                  <h3 className="font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-400">
                     {label}
                   </h3>
                   <p className="mt-3 text-sm leading-7 text-zinc-300">
@@ -286,7 +286,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
               <h2 className="text-xs font-semibold uppercase tracking-widest text-cyan-400">
                 {t.project.demoLabel}
               </h2>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-400">
                 {t.project.demoIntro}
               </p>
             </div>
@@ -311,7 +311,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
             <h2 className="text-xs font-semibold uppercase tracking-widest text-purple-400">
               {t.project.visuals}
             </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-400">
               {t.project.visualIntro}
             </p>
           </div>
@@ -327,7 +327,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
             <h2 className="text-xs font-semibold uppercase tracking-widest text-emerald-400">
               {t.project.impact}
             </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-400">
               {t.project.resultIntro}
             </p>
           </div>
@@ -350,26 +350,14 @@ export function CaseStudy({ slug }: CaseStudyProps) {
               </p>
             </div>
             <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.03] p-7">
-              <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-emerald-400">
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-emerald-400">
                 {t.project.result}
               </h3>
-              <div className="grid gap-3">
-                {project.metrics.slice(0, 3).map((metric) => (
-                  <div
-                    key={`${metric.value}-${metric.label.en}`}
-                    className="rounded-xl border border-white/[0.06] bg-black/20 p-4"
-                  >
-                    <div
-                      className={`text-2xl font-bold ${metricTextColor[metric.color] ?? "text-white"}`}
-                    >
-                      {metric.value}
-                    </div>
-                    <div className="mt-1 text-xs text-zinc-500">
-                      {metric.label[locale]}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <p className="text-sm leading-relaxed text-zinc-400">
+                {project.deliveryRecord
+                  ? project.deliveryRecord.currentState[locale]
+                  : project.metrics[0]?.label[locale]}
+              </p>
             </div>
           </div>
         </SectionReveal>
@@ -393,7 +381,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
                 >
                   {metric.value}
                 </div>
-                <div className="mt-1 text-xs text-zinc-500">
+                <div className="mt-1 text-xs text-zinc-400">
                   {metric.label[locale]}
                 </div>
               </div>
@@ -403,8 +391,8 @@ export function CaseStudy({ slug }: CaseStudyProps) {
 
         {/* Tech Stack */}
         <SectionReveal delay={0.18} className="mt-16">
-          <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-zinc-500">
-            Tech Stack
+          <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-zinc-400">
+            {t.project.stackLabel}
           </h2>
           <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech) => (
@@ -475,7 +463,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
                   </h3>
                   <ArrowRight className="h-5 w-5 text-zinc-600 transition-all group-hover:translate-x-1 group-hover:text-purple-400" />
                 </div>
-                <p className="mt-2 text-sm text-zinc-500">
+                <p className="mt-2 text-sm text-zinc-400">
                   {nextProject.description[locale]}
                 </p>
               </div>

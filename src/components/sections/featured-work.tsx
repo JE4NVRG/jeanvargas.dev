@@ -12,7 +12,7 @@ import type { Project } from "@/types/project";
 const containedImageSlugs = new Set([
   "nexpanel",
   "vultrix-3d",
-  "gestaoml",
+  "fullcommerce360",
   "hypefc",
 ]);
 
@@ -111,7 +111,7 @@ function ProjectArtwork({
               <span><span className="text-emerald-400">●</span> stop-judge</span>
             </div>
             <div className="mt-2 text-fuchsia-300">$ hermes kanban stats</div>
-            <div className="mt-1 text-zinc-500">
+            <div className="mt-1 text-zinc-400">
               done <span className="text-emerald-300">261</span>{" "}
               · ready <span className="text-cyan-300">1</span>{" "}
               · running <span className="text-violet-300">0</span>{" "}
@@ -221,7 +221,7 @@ function ProjectCard({
               <h3 className="text-2xl font-bold text-white">
                 {project.title}
               </h3>
-              <span className="rounded-full border border-white/[0.08] px-2.5 py-1 text-[11px] text-zinc-500">
+              <span className="rounded-full border border-white/[0.08] px-2.5 py-1 text-[11px] text-zinc-400">
                 {project.scope[locale]}
               </span>
             </div>

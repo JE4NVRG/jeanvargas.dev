@@ -12,7 +12,7 @@ const SITE_URL = "https://je4ndev.com";
 const SUPPORTED_LOCALES = ["pt", "en"] as const;
 
 export function generateStaticParams() {
-  // Cartesian product: 2 locales × 12 projects = 24 SSG'd pages.
+  // Cartesian product: 2 locales × current catalog.
   return SUPPORTED_LOCALES.flatMap((locale) =>
     projects.map((p) => ({ locale, slug: p.slug }))
   );
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) return {};
 
   const isEn = locale === "en";
-  const title = `${project.title} — Case study · je4ndev`;
+  const title = `${project.title} | JE4NDEV`;
   const description = project.description[locale];
   const url = `${SITE_URL}/${locale}/projects/${slug}`;
   const ogImage = project.image

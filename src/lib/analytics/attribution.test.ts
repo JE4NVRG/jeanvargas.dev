@@ -73,9 +73,9 @@ test("derives page type and canonical service/project dimensions", () => {
     pageType: "service",
     service: "saas",
   });
-  assert.deepEqual(derivePageContext("/pt/projects/gestaoml"), {
+  assert.deepEqual(derivePageContext("/pt/projects/fullcommerce360"), {
     pageType: "project",
-    project: "gestaoml",
+    project: "fullcommerce360",
   });
   assert.deepEqual(derivePageContext("/privacy"), { pageType: "other" });
 });

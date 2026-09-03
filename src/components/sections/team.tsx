@@ -126,7 +126,7 @@ export function Team() {
                   </span>
                 </div>
                 <p className="mt-3 font-mono text-xs font-semibold text-white">{agent.name}</p>
-                <p className="mt-1 text-center text-[10px] leading-3 text-zinc-500">
+                <p className="mt-1 text-center text-[10px] leading-3 text-zinc-400">
                   {agent.role[locale]}
                 </p>
               </div>

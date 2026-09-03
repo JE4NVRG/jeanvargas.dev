@@ -13,9 +13,11 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { gsap } from "@/lib/gsap";
+import { FLAGSHIP_SLUGS } from "@/data/flagships";
 import { projects } from "@/data/projects";
 import type { Project } from "@/types/project";
 import { useTranslation } from "@/i18n";
+import { btnPrimary, btnSecondary } from "@/components/ui/button-classes";
 import type { Translations } from "@/i18n/translations/en";
 
 /**
@@ -25,7 +27,7 @@ import type { Translations } from "@/i18n/translations/en";
  * each section briefly so the user reads it before scrolling past.
  */
 
-const showcaseSlugs = ["archscene", "nexpanel", "gestaoml"];
+const showcaseSlugs = [...FLAGSHIP_SLUGS];
 
 export function Showcase() {
   const { t, locale } = useTranslation();
@@ -316,7 +318,7 @@ function ShowcaseItem({
         </div>
 
         <div className={`showcase-content flex flex-col justify-center lg:col-span-5 ${alignRight ? "lg:order-1" : ""}`}>
-          <div className="showcase-index flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-500">
+          <div className="showcase-index flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-400">
             <span>{String(index).padStart(2, "0")} / {String(total).padStart(2, "0")}</span>
             <span className="h-px w-12 bg-zinc-700" />
             <span>{project.category}</span>
@@ -340,7 +342,7 @@ function ShowcaseItem({
                 >
                   {metric.value}
                 </div>
-                <div className="mt-1 text-xs leading-4 text-zinc-500">
+                <div className="mt-1 text-xs leading-4 text-zinc-400">
                   {metric.label[locale]}
                 </div>
               </div>
@@ -350,7 +352,7 @@ function ShowcaseItem({
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link
               href={`/${locale}/projects/${project.slug}`}
-              className="group inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-colors hover:bg-zinc-100"
+              className={btnPrimary}
             >
               {viewLabel}
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -363,7 +365,7 @@ function ShowcaseItem({
               href={contextualCta.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white/[0.16] bg-white/[0.04] px-5 py-3 text-sm font-medium text-zinc-200 transition-colors hover:border-cyan-400/40 hover:bg-cyan-400/[0.06] hover:text-cyan-100"
+              className={btnSecondary}
             >
               <CtaIcon className="h-4 w-4" />
               {contextualCta.label}
@@ -376,7 +378,7 @@ function ShowcaseItem({
                 href={githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.03] px-5 py-3 text-sm font-medium text-zinc-400 transition-colors hover:border-white/[0.24] hover:text-white"
+                className={btnSecondary}
               >
                 <Github className="h-4 w-4" />
                 GitHub
@@ -403,6 +405,8 @@ function ShowcaseItem({
 const ACCENT_BY_SLUG: Record<string, string> = {
   "hermes-agentes": "from-violet-700/30 to-fuchsia-600/20",
   archscene: "from-amber-600/25 to-orange-700/15",
+  "arremata-radar": "from-emerald-700/25 to-lime-600/15",
+  fullcommerce360: "from-sky-700/25 to-blue-600/20",
   "openclaw-gateway": "from-indigo-700/30 to-cyan-500/20",
   nexpanel: "from-blue-700/25 to-indigo-600/20",
   "vultrix-3d": "from-cyan-700/25 to-blue-600/20",

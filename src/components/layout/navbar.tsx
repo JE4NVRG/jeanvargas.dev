@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BrandLogo } from "@/components/brand/brand-logo";
+import { btnNavGhost, btnPrimary } from "@/components/ui/button-classes";
 import { useTranslation } from "@/i18n";
 
 const navLinks = [
@@ -67,7 +68,7 @@ export function Navbar() {
             onClick={closeMobile}
           >
             <span className="sr-only">JE4NDEV</span>
-            <BrandLogo className="transition-[opacity,letter-spacing] duration-300 group-hover:tracking-[0.11em] group-hover:opacity-80" />
+            <BrandLogo className="transition-opacity duration-200 group-hover:opacity-70" />
           </Link>
 
           {/* Desktop nav */}
@@ -87,8 +88,8 @@ export function Navbar() {
             <button
               type="button"
               onClick={toggleLocale}
-              className="inline-flex min-h-11 items-center rounded-lg border border-white/10 px-3 py-2 text-xs text-zinc-300 transition-colors hover:border-white/20 hover:text-white"
-              aria-label="Toggle language"
+              className={btnNavGhost}
+              aria-label={t.nav.toggleLanguage}
             >
               {locale === "en" ? "EN | PT" : "PT | EN"}
             </button>
@@ -97,7 +98,7 @@ export function Navbar() {
               href={resolveHref("#contact")}
               data-analytics-event="portfolio-navigation-click"
               data-cta="navbar-contact"
-              className="bg-white text-black text-sm font-semibold px-5 py-2 rounded-lg hover:bg-zinc-200 transition-colors"
+              className={btnPrimary}
             >
               {t.nav.contact}
             </Link>
@@ -108,7 +109,7 @@ export function Navbar() {
             type="button"
             className="md:hidden relative z-50 flex h-11 w-11 items-center justify-center rounded-lg text-zinc-400 transition-colors hover:text-white"
             onClick={() => setMobileOpen((prev) => !prev)}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-label={mobileOpen ? t.nav.closeMenu : t.nav.openMenu}
             aria-expanded={mobileOpen}
             aria-controls="mobile-navigation"
           >
@@ -190,7 +191,7 @@ export function Navbar() {
                   onClick={() => {
                     toggleLocale();
                   }}
-                  className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-zinc-500 transition-colors hover:bg-white/[0.04] hover:text-white"
+                  className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-zinc-400 transition-colors hover:bg-white/[0.04] hover:text-white"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 }}
@@ -198,9 +199,7 @@ export function Navbar() {
                   <span className="text-xs font-mono">
                     {locale === "en" ? "EN" : "PT"}
                   </span>
-                  {locale === "en"
-                    ? "Switch to Portuguese"
-                    : "Mudar para Ingles"}
+                  {t.nav.switchLanguage}
                 </motion.button>
 
                 {/* Spacer */}
@@ -212,7 +211,7 @@ export function Navbar() {
                   data-analytics-event="lead-cta-click"
                   data-cta="mobile-menu-email"
                   data-offer="diagnosis-first-milestone"
-                  className="flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-black transition-colors hover:bg-zinc-200"
+                  className={btnPrimary}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35 }}

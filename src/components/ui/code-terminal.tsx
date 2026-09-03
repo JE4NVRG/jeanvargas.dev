@@ -15,7 +15,7 @@ interface CodeTerminalProps {
 }
 
 const toneClass = {
-  muted: "text-zinc-500",
+  muted: "text-zinc-400",
   success: "text-emerald-400",
   info: "text-cyan-300",
   warning: "text-amber-300",
@@ -36,7 +36,7 @@ export function CodeTerminal({
           <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
           <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
         </div>
-        <span className="font-mono text-xs text-zinc-500">{title}</span>
+        <span className="font-mono text-xs text-zinc-400">{title}</span>
       </div>
 
       <div className="space-y-3 p-4 font-mono text-xs leading-6 sm:text-sm">

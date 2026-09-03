@@ -33,6 +33,33 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: securityHeaders,
       },
+      {
+        source: "/videos/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/projects/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/images/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
     ];
   },
   /**
@@ -57,6 +84,46 @@ const nextConfig: NextConfig = {
       {
         source: "/projects/:slug((?!.*\\.).*)",
         destination: "/en/projects/:slug",
+        permanent: true,
+      },
+      {
+        source: "/terms",
+        destination: "/en/termos",
+        permanent: true,
+      },
+      {
+        source: "/privacy",
+        destination: "/en/privacidade",
+        permanent: true,
+      },
+      {
+        source: "/en/terms",
+        destination: "/en/termos",
+        permanent: true,
+      },
+      {
+        source: "/en/privacy",
+        destination: "/en/privacidade",
+        permanent: true,
+      },
+      {
+        source: "/pt/terms",
+        destination: "/pt/termos",
+        permanent: true,
+      },
+      {
+        source: "/pt/privacy",
+        destination: "/pt/privacidade",
+        permanent: true,
+      },
+      {
+        source: "/:locale(pt|en)/projects/gestaoml",
+        destination: "/:locale/projects/fullcommerce360",
+        permanent: true,
+      },
+      {
+        source: "/projects/gestaoml",
+        destination: "/en/projects/fullcommerce360",
         permanent: true,
       },
     ];

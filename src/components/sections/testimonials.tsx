@@ -38,7 +38,7 @@ export function Testimonials() {
                       <p className="truncate text-sm font-semibold text-white">
                         {testimonial.name}
                       </p>
-                      <p className="truncate text-xs text-zinc-500">
+                      <p className="truncate text-xs text-zinc-400">
                         {testimonial.role}
                       </p>
                     </div>

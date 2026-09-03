@@ -71,7 +71,7 @@ export function Services() {
                   <h3 className="text-lg font-semibold text-white">
                     {service.title}
                   </h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-500">
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-400">
                     {service.description}
                   </p>
                   <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">

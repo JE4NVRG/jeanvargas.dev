@@ -7,11 +7,15 @@ export const pt: Translations = {
     services: "Serviços",
     stack: "Stack",
     contact: "Entre em contato",
+    toggleLanguage: "Alternar idioma",
+    openMenu: "Abrir menu",
+    closeMenu: "Fechar menu",
+    switchLanguage: "Mudar para inglês",
   },
   hero: {
-    badge: "Engenharia de produto founder-led · Brasil → mundo",
-    title: "SaaS, sistemas e automações com IA",
-    titleHighlight: "construídos para operar de verdade.",
+    badge: "Jean Carlos Vargas · JE4NDEV · Brasil e remoto",
+    title: "Desenvolvimento de SaaS, sistemas e automações com IA",
+    titleHighlight: "para operar de verdade.",
     subtitle:
       "Transformo processos manuais e ideias validadas em produto funcionando — interface, backend, integrações e deploy. Você fala direto comigo, acompanha por marcos e valida cada entrega em um preview navegável.",
     subtitleMobile:
@@ -26,8 +30,8 @@ export const pt: Translations = {
     proof:
       "Estratégia, produto, interface, backend, banco, integrações e operação em uma entrega responsável.",
     stats: [
-      { value: "12", label: "cases catalogados" },
-      { value: "6", label: "produtos públicos" },
+      { value: "14", label: "cases catalogados" },
+      { value: "8", label: "produtos públicos" },
       { value: "Full-stack", label: "entrega ponta a ponta" },
       { value: "PT/EN", label: "atuação global" },
     ],
@@ -130,14 +134,14 @@ export const pt: Translations = {
     githubCta: "Ver código e projetos públicos",
   },
   githubProof: {
-    label: "Código aberto · histórico verificável",
-    title: "Não dependa só da copy deste site",
+    label: "GitHub público",
+    title: "github.com/JE4NVRG",
     subtitle:
-      "Use os links públicos para inspecionar como eu penso produto, organizo código e documento sistemas. Quando a prova é privada ou editorial, o case sinaliza isso claramente.",
+      "O perfil público é inspecionável. A maior parte dos produtos da JE4NDEV fica em repositórios privados. Este site não inventa estatística de GitHub.",
     bullets: [
       {
         title: "Produtos públicos navegáveis",
-        body: "ArchScene, NexPanel, Vultrix 3D e StopUltimate mostram interface, fluxo e proposta em funcionamento.",
+        body: "ArchScene, Arremata Radar, FullCommerce360, NexPanel e Vultrix 3D mostram interface, fluxo e proposta em funcionamento.",
       },
       {
         title: "Infraestrutura de agentes open source",
@@ -152,12 +156,11 @@ export const pt: Translations = {
         body: "Projetos Web3 e Solidity permanecem disponíveis como prova técnica complementar, sem diluir a oferta principal de produto.",
       },
     ],
-    metricsTitle: "Prova rápida",
+    metricsTitle: "Neste site",
     metrics: [
-      { label: "Cases catalogados", value: "12" },
-      { label: "Produtos públicos", value: "6" },
-      { label: "Open source", value: "MIT" },
-      { label: "Idiomas", value: "PT/EN" },
+      { label: "Cases neste site", value: "14" },
+      { label: "URLs públicas de produto", value: "8" },
+      { label: "Idiomas neste site", value: "PT/EN" },
     ],
     verificationNote:
       "Links, repositórios e páginas de case indicam o nível de prova disponível antes de qualquer proposta.",
@@ -165,6 +168,9 @@ export const pt: Translations = {
   },
   footer: {
     copyright: "(c) 2026 Jean Carlos Vargas",
+    terms: "Termos de uso",
+    privacy: "Política de privacidade",
+    createdBy: "Criado por",
   },
   testimonials: {
     label: "Prova social",
@@ -209,7 +215,7 @@ export const pt: Translations = {
     subtitle: "",
   },
   universe: {
-    label: "Arquivo de projetos · 12 cases catalogados",
+    label: "Arquivo de projetos · 14 cases catalogados",
     title: "Mais produtos, sistemas e experimentos",
     subtitle:
       "Os três cases acima são a vitrine principal. Aqui você pode filtrar o restante do repertório por área e abrir a evidência disponível de cada projeto.",
@@ -232,6 +238,8 @@ export const pt: Translations = {
     proofEditorial: "Case editorial",
     showAll: "Ver arquivo completo",
     showLess: "Mostrar menos",
+    openLive: "Abrir site ao vivo",
+    openGithub: "Abrir GitHub",
     footer: "Cada card informa o tipo de prova disponível e abre um case com contexto, stack e próximos links.",
   },
   pricing: {
@@ -345,5 +353,6 @@ export const pt: Translations = {
     ctaWhatsapp: "Conversar sobre meu projeto",
     ctaEmail: "Enviar email",
     nextProject: "Próximo projeto",
+    stackLabel: "Stack",
   },
 };

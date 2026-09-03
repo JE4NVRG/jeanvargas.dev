@@ -92,7 +92,7 @@ export function Process() {
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/[0.08] bg-gradient-to-br from-cyan-500/15 to-violet-500/15 transition-transform group-hover:scale-110">
                       <Icon className="h-5 w-5 text-cyan-300" />
                     </div>
-                    <span className="font-mono text-xs uppercase tracking-widest text-zinc-500">
+                    <span className="font-mono text-xs uppercase tracking-widest text-zinc-400">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
