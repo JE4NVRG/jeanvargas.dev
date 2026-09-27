@@ -168,7 +168,8 @@ export const en = {
     copyright: "(c) 2026 Jean Carlos Vargas",
     terms: "Terms of use",
     privacy: "Privacy policy",
-    createdBy: "Created by",
+    github: "GitHub",
+    byline: "Websites, systems and AI agents — by Jean Carlos Vargas",
   },
   testimonials: {
     label: "Social proof",
@@ -450,7 +451,8 @@ export type Translations = {
     copyright: string;
     terms: string;
     privacy: string;
-    createdBy: string;
+    github: string;
+    byline: string;
   };
   testimonials: {
     label: string;

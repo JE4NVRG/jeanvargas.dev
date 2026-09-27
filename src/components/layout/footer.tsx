@@ -11,7 +11,7 @@ export function Footer() {
   return (
     <footer className="border-t border-white/[0.06] bg-[#050505]">
       <div className="mx-auto flex max-w-3xl flex-col items-center px-6 py-14">
-        <Je4nDevSignature createdBy={t.footer.createdBy} />
+        <Je4nDevSignature byline={t.footer.byline} />
 
         <nav
           aria-label="Legal"
@@ -22,6 +22,14 @@ export function Footer() {
           </a>
           <a className="transition-colors hover:text-zinc-300" href={COMPANY.whatsappUrl}>
             WhatsApp
+          </a>
+          <a
+            className="transition-colors hover:text-zinc-300"
+            href="https://github.com/JE4NVRG"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.footer.github}
           </a>
           <Link className="transition-colors hover:text-zinc-300" href={`/${locale}/termos`}>
             {t.footer.terms}

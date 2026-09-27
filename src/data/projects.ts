@@ -9,30 +9,30 @@ export const projects: Project[] = [
     slug: "nexpanel",
     title: "NexPanel",
     description: {
-      en: "Operations SaaS for IPTV reseller businesses",
-      pt: "SaaS operacional para revendas IPTV",
+      en: "Operations SaaS for client management",
+      pt: "SaaS operacional para gestão de clientes",
     },
     shortDescription: {
-      en: "Clients, servers, credits, activations, due dates, financial controls and team permissions in one reseller dashboard.",
-      pt: "Clientes, servidores, créditos, ativações, vencimentos, financeiro e permissões de equipe em um só dashboard de revenda.",
+      en: "Clients, servers, credits, activations, due dates, financial controls and team permissions in one dashboard.",
+      pt: "Clientes, servidores, créditos, ativações, vencimentos, financeiro e permissões de equipe em um só dashboard.",
     },
     longDescription: {
-      en: "NexPanel replaces spreadsheet-based IPTV reseller operations with a tenant-aware product for client lifecycle, servers, apps, credits, activations, renewals, finance and team access. The public evidence includes the live commercial surface, signup flow and a reviewed dashboard capture; customer records and activation integrations remain private.",
-      pt: "O NexPanel substitui a operação de revenda IPTV em planilhas por um produto com isolamento por tenant para ciclo de clientes, servidores, apps, créditos, ativações, renovações, financeiro e acesso da equipe. A prova pública inclui a superfície comercial ao vivo, o cadastro e uma captura revisada do dashboard; registros de clientes e integrações de ativação permanecem privados.",
+      en: "NexPanel replaces spreadsheet-based operations with a tenant-aware product for client lifecycle, servers, apps, credits, activations, renewals, finance and team access. The public evidence includes the live commercial surface, signup flow and a reviewed dashboard capture; customer records and activation integrations remain private.",
+      pt: "O NexPanel substitui a gestão em planilhas por um produto com isolamento por tenant para ciclo de clientes, servidores, apps, créditos, ativações, renovações, financeiro e acesso da equipe. A prova pública inclui a superfície comercial ao vivo, o cadastro e uma captura revisada do dashboard; registros de clientes e integrações de ativação permanecem privados.",
     },
     status: "live",
     role: "client-saas",
-    audience: ["revendedores-iptv", "operacoes-com-servidores", "equipes-de-revenda"],
+    audience: ["gestao-de-clientes", "operacoes-com-servidores", "equipes-operacionais"],
     proofLevel: "public-live",
     visualKind: "dashboard",
     scope: { en: "Product + full-stack SaaS", pt: "Produto + SaaS full-stack" },
     dateRange: { en: "2026 - Present", pt: "Desde 2026" },
     category: "SaaS Platform",
-    tags: ["saas", "iptv", "billing", "multi-tenant", "credits"],
+    tags: ["saas", "operations", "billing", "multi-tenant", "credits"],
     technologies: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
     problem: {
-      en: "IPTV resellers were splitting client due dates, server credits, activations and cash flow across spreadsheets and messages, making handoffs and accountability fragile.",
-      pt: "Revendas IPTV separavam vencimentos de clientes, créditos dos servidores, ativações e caixa entre planilhas e mensagens, tornando handoffs e responsabilização frágeis.",
+      en: "Operations teams were splitting client due dates, server credits, activations and cash flow across spreadsheets and messages, making handoffs and accountability fragile.",
+      pt: "Operações de clientes separavam vencimentos, créditos dos servidores, ativações e caixa entre planilhas e mensagens, tornando handoffs e responsabilização frágeis.",
     },
     solution: {
       en: "I shaped and built a single operational workflow with client status, servers, credit consumption, activation queue, finance, role-based access and an action log.",
@@ -40,16 +40,16 @@ export const projects: Project[] = [
     },
     deliveryRecord: {
       responsibility: {
-        en: "Product architecture, UX, full-stack delivery and operational modelling with the reseller workflow.",
-        pt: "Arquitetura de produto, UX, entrega full-stack e modelagem operacional junto ao fluxo da revenda.",
+        en: "Product architecture, UX, full-stack delivery and operational modelling with the operations workflow.",
+        pt: "Arquitetura de produto, UX, entrega full-stack e modelagem operacional junto ao fluxo da operação.",
       },
       architecture: {
         en: "Next.js and TypeScript application backed by Supabase, tenant-scoped data, role permissions and modules for clients, servers, credits, activations and finance.",
         pt: "Aplicação Next.js e TypeScript com Supabase, dados por tenant, permissões por papel e módulos de clientes, servidores, créditos, ativações e financeiro.",
       },
       currentState: {
-        en: "The public product, signup and reseller dashboard are live; the reviewed capture demonstrates the operational modules with sanitized data.",
-        pt: "O produto público, o cadastro e o dashboard da revenda estão no ar; a captura revisada demonstra os módulos operacionais com dados sanitizados.",
+        en: "The public product, signup and operations dashboard are live; the reviewed capture demonstrates the operational modules with sanitized data.",
+        pt: "O produto público, o cadastro e o dashboard da operação estão no ar; a captura revisada demonstra os módulos operacionais com dados sanitizados.",
       },
       limitations: {
         en: "Public proof does not expose customer records, activation-provider credentials, private APIs, performance volume or revenue claims.",
@@ -74,8 +74,8 @@ export const projects: Project[] = [
       sourceUrl: "https://nexpanel.agenciamep.com",
       reviewedAt: "2026-09-02",
       note: {
-        en: "Live public product and sanitized reseller-dashboard capture reviewed on 2026-08-10; no customer records or activation credentials are exposed.",
-        pt: "Produto público ao vivo e captura sanitizada do dashboard da revenda revisados em 10/08/2026; nenhum registro de cliente ou credencial de ativação é exposto.",
+        en: "Live public product and sanitized dashboard capture reviewed on 2026-08-10; no customer records or activation credentials are exposed.",
+        pt: "Produto público ao vivo e captura sanitizada do dashboard revisados em 10/08/2026; nenhum registro de cliente ou credencial de ativação é exposto.",
       },
     },
     gallery: [

@@ -170,7 +170,8 @@ export const pt: Translations = {
     copyright: "(c) 2026 Jean Carlos Vargas",
     terms: "Termos de uso",
     privacy: "Política de privacidade",
-    createdBy: "Criado por",
+    github: "GitHub",
+    byline: "Sites, sistemas e agentes de IA — por Jean Carlos Vargas",
   },
   testimonials: {
     label: "Prova social",
