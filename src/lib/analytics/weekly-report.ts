@@ -310,9 +310,8 @@ export function renderWeeklyFunnelMarkdown(summary: WeeklyFunnelSummary, options
     renderBreakdown("Lead status", summary.leadStatusBreakdown),
     [
       "## 30-day target, ending 2026-09-09",
-      "- 10 qualified leads",
-      "- 3 proposals sent",
-      "- 1 paid project originated or assisted by je4ndev.com",
+      "- 5 qualified conversations",
+      "- 2 proposal-ready opportunities",
     ].join("\n"),
   ];
 
