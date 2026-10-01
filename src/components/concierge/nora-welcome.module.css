@@ -1,0 +1,44 @@
+.panel {
+  color: var(--nora-ink, #142725);
+  overflow-wrap: anywhere;
+}
+
+.header { margin-bottom: 20px; }
+.eyebrow { margin: 0 0 9px; color: var(--nora-action, #143e39); font-size: 10px; font-weight: 650; letter-spacing: .1em; line-height: 1.6; text-transform: uppercase; }
+.title { margin: 0; color: var(--nora-ink, #142725); font-size: 25px; font-weight: 650; letter-spacing: -.75px; line-height: 1.2; }
+.intro { margin: 10px 0 0; color: var(--nora-muted, #5e706e); font-size: 13px; line-height: 1.65; }
+.email { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; margin-top: 7px; color: var(--nora-action, #143e39); font-size: 12px; line-height: 1.5; text-decoration: underline; text-underline-offset: 3px; }
+.email svg { flex-shrink: 0; }
+.email:focus-visible { outline: 2px solid #168976; outline-offset: 3px; }
+.form { display: grid; min-width: 0; gap: 14px; }
+.intents { display: grid; min-width: 0; gap: 8px; margin: 0 0 2px; padding: 0; border: 0; }
+.intents legend { padding: 0 0 9px; color: var(--nora-ink, #142725); font-size: 12px; font-weight: 600; line-height: 1.5; }
+.intent { display: flex; align-items: flex-start; gap: 10px; min-height: 44px; padding: 12px; border: 1px solid var(--nora-line, #dce5e3); border-radius: 12px; background: #fff; cursor: pointer; }
+.intent:has(input:checked) { border-color: #69a99b; background: #e7f3ee; box-shadow: inset 3px 0 var(--nora-action, #143e39); }
+.intent input { flex: 0 0 auto; width: 17px; height: 17px; margin: 2px 0 0; accent-color: var(--nora-action, #143e39); }
+.intent span { min-width: 0; }
+.intent strong { display: block; color: var(--nora-ink, #142725); font-size: 12px; font-weight: 600; line-height: 1.55; }
+.intent small { display: block; margin-top: 3px; color: #425e57; font-size: 11px; line-height: 1.55; }
+.intents:disabled .intent { cursor: default; }
+.field { display: grid; min-width: 0; gap: 7px; color: var(--nora-ink, #142725); font-size: 12px; font-weight: 550; line-height: 1.5; }
+.control { box-sizing: border-box; width: 100%; min-width: 0; min-height: 46px; padding: 11px 12px; border: 1px solid #c9d7d2; border-radius: 10px; background: #fff; color: var(--nora-ink, #142725); font: inherit; font-size: 16px; font-weight: 400; line-height: 1.4; }
+.control::placeholder { color: #70817d; opacity: 1; }
+.control:disabled { background: #edf2ef; color: #425e57; opacity: 1; }
+.phoneFields { display: grid; grid-template-columns: 105px minmax(0, 1fr); gap: 9px; }
+.help { margin: -6px 0 0; color: var(--nora-muted, #5e706e); font-size: 11px; line-height: 1.6; }
+.permission { padding-top: 2px; }
+.consent { display: flex; align-items: flex-start; gap: 10px; min-height: 44px; padding: 8px 0; color: var(--nora-ink, #142725); font-size: 12px; line-height: 1.65; cursor: pointer; }
+.consent input { flex: 0 0 auto; width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--nora-action, #143e39); }
+.consent:has(input:disabled) { cursor: default; }
+.privacy { display: flex; align-items: flex-start; gap: 7px; margin: 4px 0 0; color: var(--nora-muted, #5e706e); font-size: 10px; line-height: 1.65; }
+.privacy svg { flex: 0 0 auto; margin-top: 2px; }
+.notice { margin: 0; padding: 10px 12px; border-left: 2px solid #69a99b; background: #e7f3ee; color: #425e57; font-size: 11px; line-height: 1.6; }
+.confirmed { display: flex; align-items: flex-start; gap: 8px; margin: 0; color: var(--nora-action, #143e39); font-size: 12px; line-height: 1.6; }
+.confirmed svg { flex: 0 0 auto; margin-top: 2px; }
+.error { margin: 0; padding: 12px; border: 1px solid #ebd3a4; border-radius: 10px; background: #fff7e8; color: #725015; font-size: 12px; line-height: 1.65; }
+.submit { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 48px; padding: 12px 15px; border: 1px solid var(--nora-action, #143e39); border-radius: 11px; background: var(--nora-action, #143e39); color: #fff; font: inherit; font-size: 13px; font-weight: 600; line-height: 1.5; text-align: left; cursor: pointer; }
+.submit:hover:enabled { background: #075e50; border-color: #075e50; }
+.submit:disabled { border-color: #d2dfd8; background: #d2dfd8; color: #425e57; cursor: default; opacity: 1; }
+.submit svg { flex: 0 0 auto; }
+.control:focus-visible, .submit:focus-visible, .intent:focus-within, .consent:focus-within { outline: 2px solid #168976; outline-offset: 3px; }
+@media (max-width: 360px) { .phoneFields { grid-template-columns: 88px minmax(0, 1fr); } .control { padding-inline: 9px; } }

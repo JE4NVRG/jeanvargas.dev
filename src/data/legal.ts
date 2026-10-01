@@ -15,7 +15,7 @@ export interface LegalDocument {
   sections: LegalSection[];
 }
 
-const UPDATED_AT = "2026-09-02";
+const UPDATED_AT = "2026-09-23";
 
 const termsPt: LegalDocument = {
   slug: "termos",
@@ -48,6 +48,7 @@ const termsPt: LegalDocument = {
       paragraphs: [
         `Canal principal: e-mail ${COMPANY.email} ou WhatsApp ${COMPANY.whatsappDisplay}.`,
         "Mensagens enviadas por esses canais podem ser usadas para responder pedidos, elaborar proposta e registrar o atendimento.",
+        "O assistente de IA ajuda a entender o pedido, mas pode cometer erros. Ele não confirma contratação, preço ou prazo e não envia mensagens ao WhatsApp automaticamente.",
       ],
     },
     {
@@ -85,7 +86,7 @@ const privacyPt: LegalDocument = {
   slug: "privacidade",
   title: "Política de privacidade",
   description: `Como a ${COMPANY.brand} trata dados pessoais no site e nos canais de contato, em conformidade com a LGPD.`,
-  updatedAt: UPDATED_AT,
+  updatedAt: "2026-10-01",
   sections: [
     {
       title: "1. Controlador",
@@ -119,8 +120,34 @@ const privacyPt: LegalDocument = {
     {
       title: "5. Cookies e analytics",
       paragraphs: [
-        "Usamos cookies estritamente necessários ao funcionamento do site, inclusive preferência de idioma.",
+        "Usamos cookies estritamente necessários ao funcionamento do site, inclusive preferência de idioma e uma sessão da Nora vinculada a este navegador para continuidade e controles de uso. Essa sessão não comprova a identidade da pessoa em um dispositivo compartilhado.",
         "O analytics do portfólio é first-party. Não usamos pixels de anúncio neste site, salvo se isso for informado de forma explícita no futuro.",
+      ],
+    },
+    {
+      title: "Atendimento com inteligência artificial",
+      paragraphs: [
+        "Ao enviar uma mensagem ao assistente, seu texto e o contexto da conversa são processados por uma instância dedicada do Hermes em nossa infraestrutura e pelo OpenCode Go, com o modelo DeepSeek V4.1 Flash. Esse processamento pode ocorrer fora do Brasil. Não envie senhas, tokens, dados sensíveis ou informações confidenciais.",
+        "Para iniciar a conversa, pedimos nome, WhatsApp e autorização para registrar esses dados e um resumo do atendimento. O cadastro distingue demonstração de interesse em um projeto e não autoriza marketing. A Nora recebe seu nome para personalizar o atendimento; seu WhatsApp fica no registro de contato e não é incluído no contexto enviado ao modelo.",
+        "O nome, contato e um resumo atualizado das necessidades, orientações da Nora, restrições e dúvidas podem ser registrados na planilha privada da equipe no Google Sheets para organizar o atendimento. Esse resumo é separado da memória opcional e não contém automaticamente a transcrição completa. O Google pode processar esses dados fora do Brasil.",
+        "Usamos Cloudflare Turnstile para verificar o acesso e reduzir automação abusiva. O navegador se comunica com a Cloudflare para essa verificação; o servidor valida o token antes de aceitar um novo cadastro ou uma mensagem. Não enviamos o conteúdo da conversa nem os dados do cadastro nessa validação.",
+        "O histórico não é salvo no armazenamento persistente do navegador. O runtime de atendimento pode registrar conversas e dados técnicos no servidor para operação, diagnóstico e atendimento. O conteúdo do chat não é enviado ao analytics do portfólio. Para controles de abuso, o mecanismo de quota usa um identificador derivado do IP por hash, sem salvar o IP em texto nesse registro.",
+        `Você pode solicitar esclarecimentos ou exclusão pelo e-mail ${COMPANY.email}. Para atendimento sem IA, use diretamente os links de e-mail ou WhatsApp. O botão de WhatsApp prepara uma mensagem para sua revisão; o envio depende de você.`,
+      ],
+    },
+    {
+      title: "Pedidos de retorno e Telegram",
+      paragraphs: [
+        "O formulário de retorno solicita nome, e-mail ou WhatsApp, um contato alternativo opcional e um resumo que você pode revisar. O envio exige seu consentimento explícito. O pedido é salvo em nosso servidor e esses dados são encaminhados ao Telegram privado da equipe JE4NDEV para atendimento. Não enviamos automaticamente o histórico completo da conversa.",
+        "Salvar o pedido não significa que a notificação já foi entregue ou que a equipe leu a mensagem. A interface distingue o pedido registrado da entrega confirmada. Essa autorização é para responder à sua solicitação, não para campanhas de marketing.",
+        "O registro do pedido, a mensagem no Telegram e eventuais registros de atendimento ou backup são cópias distintas. Apagar a memória da Nora não exclui essas cópias; pedidos de acesso, correção ou exclusão devem ser feitos pelo contato informado nesta política.",
+      ],
+    },
+    {
+      title: "Memória opcional da Nora",
+      paragraphs: [
+        "A memória é desativada por padrão e exige uma permissão separada do cadastro e do pedido de contato. Quando ativada, fatos sobre seus projetos podem ser salvos no servidor por até 30 dias após a última atualização. Você pode vinculá-los ao número informado no cadastro e a um código pessoal de recuperação para retomar em outro navegador. Somente informar o número não dá acesso à memória; esse mecanismo não verifica a titularidade do WhatsApp. Guarde o código em local privado.",
+        "Você pode visualizar, editar e apagar os fatos salvos, excluir projetos ou apagar toda a memória pelos controles da Nora. Pessoas que utilizem o mesmo navegador podem acessar esse contexto. A exclusão da memória não apaga automaticamente os registros separados de atendimento, do provedor de IA ou de backup.",
       ],
     },
     {
@@ -170,6 +197,7 @@ const termsEn: LegalDocument = {
       paragraphs: [
         `Primary channels: ${COMPANY.email} or WhatsApp ${COMPANY.whatsappDisplay}.`,
         "Messages sent through these channels may be used to reply, prepare a proposal and keep a record of the conversation.",
+        "The AI assistant helps clarify inquiries but can make mistakes. It does not confirm contracts, prices or deadlines and does not automatically send WhatsApp messages.",
       ],
     },
     {
@@ -204,7 +232,7 @@ const privacyEn: LegalDocument = {
   slug: "privacidade",
   title: "Privacy policy",
   description: `How ${COMPANY.brand} handles personal data on this site under Brazil's LGPD.`,
-  updatedAt: UPDATED_AT,
+  updatedAt: "2026-10-01",
   sections: [
     {
       title: "1. Controller",
@@ -237,7 +265,33 @@ const privacyEn: LegalDocument = {
     {
       title: "5. Cookies and analytics",
       paragraphs: [
-        "We use strictly necessary cookies, including language preference, and first-party analytics. This site does not run ad pixels unless that is later disclosed explicitly.",
+        "We use strictly necessary cookies, including language preference and a Nora session linked to this browser for continuity and usage controls, plus first-party analytics. This session does not verify who is using a shared device. This site does not run ad pixels unless that is later disclosed explicitly.",
+      ],
+    },
+    {
+      title: "AI-assisted inquiries",
+      paragraphs: [
+        "When you send a message to the assistant, your text and conversation context are processed by a dedicated Hermes instance on our infrastructure and by OpenCode Go using DeepSeek V4.1 Flash. Processing may occur outside Brazil. Do not submit passwords, tokens, sensitive personal data or confidential information.",
+        "Before starting a conversation, we ask for your name, WhatsApp and permission to register those details and a support summary. Registration distinguishes a demonstration from interest in a project and does not authorize marketing. Nora receives your name to personalize the conversation; your WhatsApp stays in the contact record and is not included in the model context.",
+        "Your name, contact and an updated summary of your needs, Nora's guidance, constraints and questions may be saved in the team's private Google Sheets to organize follow-up. This summary is separate from optional memory and does not automatically contain a full transcript. Google may process these details outside Brazil.",
+        "We use Cloudflare Turnstile to verify access and reduce automated abuse. Your browser communicates with Cloudflare for verification; our server validates the token before accepting a new registration or message. We do not send conversation content or registration details in that validation.",
+        "Chat history is not saved in persistent browser storage. The assistant runtime may record conversations and technical data on the server for operation, troubleshooting and support. Chat content is not sent to portfolio analytics. Abuse quotas use an IP-derived hash identifier rather than saving the plain IP in that quota record.",
+        `For questions or deletion requests, contact ${COMPANY.email}. To contact us without AI, use the email or WhatsApp links directly. The WhatsApp button prepares a message for your review; you decide whether to send it.`,
+      ],
+    },
+    {
+      title: "Reply requests and Telegram",
+      paragraphs: [
+        "The reply form asks for your name, email or WhatsApp, an optional alternate contact and a summary you can review. Submission requires your explicit consent. The request is saved on our server and these details are forwarded to the private JE4NDEV team Telegram for follow-up. We do not automatically send the full conversation history.",
+        "Saving a request does not mean the notification has been delivered or that the team has read it. The interface distinguishes a saved request from confirmed delivery. This permission is for responding to your inquiry, not for marketing campaigns.",
+        "The request record, Telegram message and any follow-up or backup records are separate copies. Forgetting Nora memory does not delete these copies; use the contact in this policy to request access, correction or deletion.",
+      ],
+    },
+    {
+      title: "Optional Nora memory",
+      paragraphs: [
+        "Memory is off by default and requires permission separate from registration and contact requests. When enabled, project facts may be saved on the server for up to 30 days after their last update. You can link them to the registered number and a personal recovery code to restore them in another browser. The number alone cannot access memory; this mechanism does not verify WhatsApp ownership. Keep the code private.",
+        "You can view, edit and delete saved facts, delete projects or forget all memory through Nora's controls. People using the same browser may access this context. Deleting memory does not automatically delete separate follow-up, AI-provider or backup records.",
       ],
     },
     {

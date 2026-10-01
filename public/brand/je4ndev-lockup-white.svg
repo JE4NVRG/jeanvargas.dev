@@ -1,12 +1,5 @@
-<svg width="720" height="120" viewBox="0 0 720 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="1276" height="254" viewBox="0 0 1276 254" fill="none" role="img" aria-labelledby="title description">
   <title id="title">JE4NDEV</title>
-  <desc id="description">Monochrome white JE4NDEV lockup with JD monogram</desc>
-  <g fill="#FAFAFA" stroke="#FAFAFA">
-    <path d="M38 22v36c0 10-6 16-15 16-5 0-9-2-12-6" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M38 22h12c14 0 24 11 24 26S64 74 50 74H38" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="110" y="84" stroke="none" font-family="Geist, Helvetica Neue, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="8">JE</text>
-    <path d="M259 30 228 70h42" fill="none" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M259 30v66" fill="none" stroke-width="11" stroke-linecap="round"/>
-    <text x="283" y="84" stroke="none" font-family="Geist, Helvetica Neue, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="8">NDEV</text>
-  </g>
+  <desc id="description">Marca JE4NDEV: símbolo encaixado e nome completo em contornos vetoriais.</desc>
+  <g fill="#FAFAFA" fill-rule="evenodd"><path d="M135 4H188C195 4 197 10 191 16L89 118Q84 123 89 128L144 181Q149 186 144 191L113 222Q108 227 103 222L8 132Q0 124 8 116L120 12Q128 4 135 4Z M196 36Q201 33 206 39L298 131Q306 139 298 147L194 244Q187 250 177 250H119Q112 250 118 243L217 143Q222 138 217 133L164 80Q157 74 163 68L191 40Q194 37 196 36Z"/><path transform="translate(330 52)" d="M87 4H121V96C121 119 103 137 81 137H4V105H76C83 105 87 101 87 94Z M135 4H248V36H169V55H232V86H169V105H248V137H135Z M331 4H372V137H339V116H259V82Z M339 43L300 84H339Z M391 4H425L489 89V4H523V137H485L425 59V137H391Z M538 4H625C646 4 663 21 663 43V98C663 120 646 137 625 137H538Z M571 36H618Q631 36 631 49V92Q631 105 618 105H571Z M677 4H790V36H711V55H774V86H711V105H790V137H677Z M798 4H836L870 101L903 4H942L892 137H846Z"/></g>
 </svg>

@@ -1,4 +1,5 @@
 import { projects, getProjectBySlug } from "@/data/projects";
+import { getProjectSeoDescription } from "@/data/project-seo";
 import { CaseStudy } from "@/components/projects/case-study";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -24,8 +25,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) return {};
 
   const isEn = locale === "en";
-  const title = `${project.title} | JE4NDEV`;
-  const description = project.description[locale];
+  const title = project.slug === "nora"
+    ? (isEn ? "Nora: Custom AI website assistant | JE4NDEV" : "Nora: Assistente de IA para sites | JE4NDEV")
+    : `${project.title} | JE4NDEV`;
+  const description = getProjectSeoDescription(project.slug, locale);
   const url = `${SITE_URL}/${locale}/projects/${slug}`;
   const ogImage = project.image
     ? `${SITE_URL}${project.image}`
@@ -47,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       project.category,
       ...project.technologies.slice(0, 6),
       "je4ndev",
-      "Jean Carlos Vargas",
+      "JE4NDEV",
       isEn ? "product engineering" : "engenharia de produto",
     ],
     openGraph: {
@@ -96,7 +99,7 @@ export default async function ProjectPage({ params }: Props) {
       headline: project.title,
       url: projectUrl,
       image: ogImage,
-      description: project.description[locale],
+      description: getProjectSeoDescription(project.slug, locale),
       inLanguage: isEn ? "en" : "pt-BR",
       keywords: [project.category, ...project.technologies].join(", "),
       creator: {
@@ -106,7 +109,7 @@ export default async function ProjectPage({ params }: Props) {
       },
       author: {
         "@type": "Person",
-        name: "Jean Carlos Vargas",
+        name: "JE4NDEV",
         url: SITE_URL,
       },
       ...(project.links.live ? { sameAs: [project.links.live] } : {}),

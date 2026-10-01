@@ -14,8 +14,11 @@ import { getProjectBySlug, getNextProject } from "@/data/projects";
 import type { Project } from "@/types/project";
 import { ProjectLinks } from "@/components/projects/project-links";
 import { ProjectMediaFrame } from "@/components/projects/project-media-frame";
+import { RelatedServices } from "@/components/projects/related-services";
+import { COMPANY } from "@/data/company";
+import { contactEmailHref } from "@/lib/contact-email";
 
-function StatusBadge({ status }: { status: "live" | "mvp" | "development" | "case" | "internal" | "demo" }) {
+function StatusBadge({ status, locale }: { status: Project["status"]; locale: "en" | "pt" }) {
   const config = {
     live: {
       cls: "bg-green-500/10 text-green-400 ring-1 ring-green-500/20",
@@ -31,6 +34,10 @@ function StatusBadge({ status }: { status: "live" | "mvp" | "development" | "cas
     },
     case: {
       cls: "bg-purple-500/10 text-purple-300 ring-1 ring-purple-500/20",
+      dot: false,
+    },
+    archived: {
+      cls: "bg-zinc-500/10 text-zinc-300 ring-1 ring-zinc-500/20",
       dot: false,
     },
     internal: {
@@ -53,7 +60,7 @@ function StatusBadge({ status }: { status: "live" | "mvp" | "development" | "cas
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-500" />
         </span>
       )}
-      {status.toUpperCase()}
+      {status === "archived" ? (locale === "pt" ? "ARQUIVADO" : "ARCHIVED") : status.toUpperCase()}
     </span>
   );
 }
@@ -72,8 +79,6 @@ const metricTextColor: Record<string, string> = {
   pink: "text-pink-400",
 };
 
-const WHATSAPP_URL =
-  "https://wa.me/5511948477047?text=Oi%20Jean%2C%20quero%20conversar%20sobre%20um%20sistema%20parecido.";
 
 interface CaseStudyProps {
   slug: string;
@@ -196,7 +201,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
         <section className="grid items-center gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14">
           <SectionReveal delay={0.04}>
             <div className="flex flex-wrap items-center gap-2.5">
-              <StatusBadge status={project.status} />
+              <StatusBadge status={project.status} locale={locale} />
               <span className="rounded-full border border-white/[0.08] px-3 py-1 text-xs font-medium text-zinc-400">
                 {project.scope[locale]}
               </span>
@@ -209,14 +214,19 @@ export function CaseStudy({ slug }: CaseStudyProps) {
               {project.category} · {project.role.replaceAll("-", " ")}
             </p>
             <h1 className="mt-4 text-4xl font-extrabold leading-[1.02] tracking-tight text-white sm:text-6xl">
-              {project.title}
+              {project.slug === "nora" ? (locale === "pt" ? "Nora — assistente de IA para sites" : "Nora — custom AI website assistant") : project.title}
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-zinc-300 sm:text-lg">
               {project.shortDescription[locale]}
             </p>
 
             <div className="mt-7">
-              <ProjectLinks project={project} labels={projectLinkLabels} />
+              {project.slug === "nora" ? <div className="flex flex-wrap gap-3"><button type="button" onClick={() => window.dispatchEvent(new Event("je4ndev:open-nora"))} data-cta="nora-case-try" className="inline-flex min-h-12 items-center gap-2 rounded-full bg-cyan-300 px-5 py-3 text-sm font-semibold text-black hover:bg-cyan-200"><MessageCircle size={17} aria-hidden="true"/>{locale === "pt" ? "Teste a Nora" : "Try Nora"}</button><a href={contactEmailHref(locale, "Nora")} data-analytics-event="lead-cta-click" data-cta="nora-case-email" className="inline-flex min-h-12 items-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm text-zinc-200 hover:bg-white/5"><Mail size={17} aria-hidden="true"/>{locale === "pt" ? "Quero um assistente assim" : "Build an assistant for me"}</a></div> : <ProjectLinks project={project} labels={projectLinkLabels} />}
+              {project.slug === "urlpivot" ? (
+                <a href="https://urlpivot.app/p/urlpivot" target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-cyan-200 underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300">
+                  {locale === "pt" ? "Ver Page oficial do URLPivot" : "View URLPivot's official Page"}
+                </a>
+              ) : null}
             </div>
 
             <div className="mt-7 border-l border-cyan-300/25 pl-4">
@@ -363,7 +373,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
         </SectionReveal>
 
         {/* Key Metrics */}
-        <SectionReveal delay={0.15} className="mt-16">
+        {project.metrics.length > 0 && <SectionReveal delay={0.15} className="mt-16">
           <div
             className={`grid gap-4 ${
               project.metrics.length === 4
@@ -389,6 +399,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
           </div>
         </SectionReveal>
 
+        }
         {/* Tech Stack */}
         <SectionReveal delay={0.18} className="mt-16">
           <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-zinc-400">
@@ -406,6 +417,10 @@ export function CaseStudy({ slug }: CaseStudyProps) {
           </div>
         </SectionReveal>
 
+        <div className="mt-16">
+          <RelatedServices projectSlug={project.slug} locale={locale} />
+        </div>
+
         {/* Conversion CTA */}
         <SectionReveal delay={0.21} className="mt-20">
           <div className="overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.03] p-8 sm:p-10">
@@ -421,7 +436,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
 
               <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
                 <a
-                  href={WHATSAPP_URL}
+                  href={`${COMPANY.whatsappUrl}?text=${encodeURIComponent(locale === "pt" ? `Olá! Quero conversar sobre um projeto parecido com ${project.title}.` : `Hi! I would like to discuss a project similar to ${project.title}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   data-analytics-event="lead-cta-click"

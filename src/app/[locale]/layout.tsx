@@ -5,6 +5,10 @@ import { LanguageProvider, type Locale } from "@/i18n";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { PortfolioAnalytics } from "@/components/analytics/portfolio-analytics";
+import { UmamiAnalytics } from "@/components/analytics/umami-analytics";
+import { PortfolioConcierge } from "@/components/concierge/portfolio-concierge";
+import { COMPANY } from "@/data/company";
+import { serviceOffers } from "@/data/services";
 import "../globals.css";
 
 const SUPPORTED_LOCALES = ["pt", "en"] as const;
@@ -41,30 +45,30 @@ export async function generateMetadata({ params }: { params: RouteParams }): Pro
   const isEn = locale === "en";
   const canonical = `${SITE_URL}/${locale}`;
   const title = isEn
-    ? "Jean Carlos Vargas | JE4NDEV | SaaS, systems and AI automation"
-    : "Jean Carlos Vargas | JE4NDEV | SaaS, sistemas e automações com IA";
+    ? "JE4NDEV | Websites, systems and personalized AI assistants"
+    : "JE4NDEV | Sites, sistemas e assistentes de IA personalizados";
   const description = isEn
-    ? "Jean Carlos Vargas builds SaaS, custom systems, automations and private AI agents, from a navigable first milestone to production."
-    : "Jean Carlos Vargas desenvolve SaaS, sistemas sob medida, automações e agentes de IA privados, do primeiro marco navegável à produção.";
+    ? "Websites, custom systems, automation and personalized AI assistants for individuals and businesses. Turn your idea into a product or simplify your everyday work."
+    : "Sites, sistemas, automações e assistentes de IA personalizados para pessoas físicas e jurídicas. Transforme sua ideia em produto ou simplifique sua rotina.";
   const keywords = isEn
     ? [
-        "Jean Carlos Vargas",
         "JE4NDEV",
         "SaaS development",
         "custom software development",
         "internal systems",
         "AI automation",
         "private AI agents",
+        "personalized AI assistants",
         "product engineer",
         "full-stack developer Brazil",
       ]
     : [
-        "Jean Carlos Vargas",
         "JE4NDEV",
         "desenvolvimento SaaS",
         "sistemas sob medida",
         "automação com IA",
         "agentes de IA privados",
+        "assistentes de IA personalizados",
         "engenharia de produto",
         "desenvolvedor full-stack Brasil",
       ];
@@ -74,7 +78,7 @@ export async function generateMetadata({ params }: { params: RouteParams }): Pro
     title,
     description,
     keywords,
-    authors: [{ name: "Jean Carlos Vargas" }],
+    authors: [{ name: "JE4NDEV" }],
     creator: "JE4NDEV",
     publisher: "JE4NDEV",
     alternates: {
@@ -86,8 +90,8 @@ export async function generateMetadata({ params }: { params: RouteParams }): Pro
       },
     },
     icons: {
-      icon: [{ url: "/brand-icon.svg", type: "image/svg+xml" }],
-      apple: [{ url: "/brand-icon.svg", type: "image/svg+xml" }],
+      icon: [{ url: "/brand-icon.svg", type: "image/svg+xml", sizes: "any" }],
+      apple: [{ url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
     },
     manifest: "/site.webmanifest",
     openGraph: {
@@ -104,8 +108,8 @@ export async function generateMetadata({ params }: { params: RouteParams }): Pro
           width: 1200,
           height: 630,
           alt: isEn
-            ? "Jean Carlos Vargas / JE4NDEV product engineering"
-            : "Jean Carlos Vargas / JE4NDEV engenharia de produto",
+            ? "JE4NDEV — websites, systems and personalized AI assistants"
+            : "JE4NDEV — sites, sistemas e assistentes de IA personalizados",
         },
       ],
     },
@@ -141,20 +145,17 @@ function buildStructuredData(locale: Locale) {
       "@type": ["Organization", "ProfessionalService"],
       "@id": `${SITE_URL}/#organization`,
       name: "JE4NDEV",
-      legalName: "JEAN CARLOS VARGAS DA SILVA",
-      alternateName: ["VRG SOLUÇÕES", "VRG SOLUCOES", "Je4nDev"],
+      alternateName: ["Je4nDev"],
       knowsAbout: isEn
-        ? ["SaaS development", "custom internal systems", "AI automation", "private AI agents"]
-        : ["desenvolvimento SaaS", "sistemas sob medida", "automação com IA", "agentes de IA privados"],
-      taxID: "12.349.878/0001-16",
+        ? ["Professional websites", "landing pages", "SaaS development", "custom internal systems", "AI automation", "personalized AI assistants"]
+        : ["criação de sites", "landing pages", "desenvolvimento SaaS", "sistemas sob medida", "automação com IA", "assistentes de IA personalizados"],
       url: SITE_URL,
       email: "jean@je4ndev.com",
-      telephone: "+55-11-94847-7047",
+      telephone: COMPANY.whatsappDisplay,
       image: `${SITE_URL}/og-image.png`,
       description: isEn
-        ? "Founder-led development of SaaS, internal systems, integrations, automations and AI agents."
-        : "Desenvolvimento founder-led de SaaS, sistemas internos, integrações, automações e agentes de IA.",
-      founder: { "@id": `${SITE_URL}/#person` },
+        ? "Websites, custom systems, automation and personalized AI assistants for individuals and businesses."
+        : "Sites, sistemas sob medida, automações e assistentes de IA personalizados para pessoas físicas e jurídicas.",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Paranavaí",
@@ -164,53 +165,18 @@ function buildStructuredData(locale: Locale) {
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: isEn ? "Product engineering services" : "Serviços de engenharia de produto",
-        itemListElement: [
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: isEn ? "Custom SaaS and internal systems" : "SaaS e sistemas sob medida",
-            },
+        itemListElement: serviceOffers.map(offer => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: offer.title[locale],
+            description: offer.metaDescription[locale],
+            url: `${SITE_URL}/${locale}/services/${offer.slugs[locale]}`,
           },
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: isEn ? "Automation and integrations" : "Automações e integrações",
-            },
-          },
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: isEn ? "AI agents on private infrastructure" : "Agentes de IA em infraestrutura privada",
-            },
-          },
-        ],
+        })),
       },
-      sameAs: [
-        "https://github.com/JE4NVRG",
-        "https://www.linkedin.com/in/je4ndev/",
-      ],
+      sameAs: ["https://www.linkedin.com/in/je4ndev/"],
       areaServed: ["BR", "Worldwide"],
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "@id": `${SITE_URL}/#person`,
-      name: "Jean Carlos Vargas",
-      alternateName: ["JE4NDEV", "Je4nDev"],
-      jobTitle: "Founder and Product Engineer",
-      knowsAbout: isEn
-        ? ["SaaS", "product engineering", "AI agents", "marketplace operations"]
-        : ["SaaS", "engenharia de produto", "agentes de IA", "operação de marketplace"],
-      url: SITE_URL,
-      image: `${SITE_URL}/images/jean-about.png`,
-      worksFor: { "@id": `${SITE_URL}/#organization` },
-      sameAs: [
-        "https://github.com/JE4NVRG",
-        "https://www.linkedin.com/in/je4ndev/",
-      ],
     },
     {
       "@context": "https://schema.org",
@@ -254,9 +220,11 @@ export default async function LocaleLayout({
       >
         <LanguageProvider locale={activeLocale}>
           <PortfolioAnalytics locale={activeLocale} />
+          <UmamiAnalytics />
           <Navbar />
           {children}
           <Footer />
+          <PortfolioConcierge key={activeLocale} locale={activeLocale} />
         </LanguageProvider>
       </body>
     </html>

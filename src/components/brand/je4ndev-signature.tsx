@@ -1,3 +1,5 @@
+import { BrandLogo } from "@/components/brand/brand-logo";
+
 const MARK_HREF = "https://je4ndev.com";
 
 /**
@@ -18,11 +20,9 @@ export function Je4nDevSignature({
         target="_blank"
         rel="noopener noreferrer"
         aria-label="JE4NDEV — site oficial"
-        className="inline-flex items-center justify-center px-3 py-1 transition-opacity hover:opacity-85"
+        className="inline-flex max-w-full items-center justify-center py-1 transition-opacity hover:opacity-85"
       >
-        <span className="font-sans text-[26px] font-semibold uppercase leading-none tracking-[0.32em] text-[#d8c098]">
-          JE4NDEV
-        </span>
+        <BrandLogo size="lg" />
       </a>
       {byline ? <p className="text-sm text-zinc-400">{byline}</p> : null}
     </div>

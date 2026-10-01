@@ -29,6 +29,15 @@ const SEARCH_SOURCES: Array<[RegExp, string]> = [
   [/(^|\.)search\.yahoo\.com$/, "yahoo"],
 ];
 
+const AI_REFERRER_SOURCES: Array<[string, string]> = [
+  ["chatgpt.com", "chatgpt"],
+  ["chat.openai.com", "chatgpt"],
+  ["perplexity.ai", "perplexity"],
+  ["claude.ai", "claude"],
+  ["gemini.google.com", "gemini"],
+  ["copilot.microsoft.com", "copilot"],
+];
+
 const REFERRAL_SOURCES: Array<[RegExp, string]> = [
   [/(^|\.)t\.co$/, "x"],
   [/(^|\.)x\.com$/, "x"],
@@ -73,7 +82,15 @@ function readExternalReferrerHost(referrer: string, siteHost: string) {
   }
 }
 
+function matchAllowedHost(hostname: string, allowedHost: string) {
+  return hostname === allowedHost || hostname.endsWith(`.${allowedHost}`);
+}
+
 function classifyReferrer(hostname: string) {
+  for (const [allowedHost, source] of AI_REFERRER_SOURCES) {
+    if (matchAllowedHost(hostname, allowedHost)) return { source, medium: "ai-referral" };
+  }
+
   for (const [pattern, source] of SEARCH_SOURCES) {
     if (pattern.test(hostname)) return { source, medium: "organic" };
   }
@@ -106,10 +123,11 @@ export function deriveAttribution({
   const content = sanitizeAnalyticsToken(params.get("utm_content"));
   const referrerHost = readExternalReferrerHost(referrer, siteHost);
   const referral = referrerHost ? classifyReferrer(referrerHost) : undefined;
+  const utmAiReferral = utmSource && AI_REFERRER_SOURCES.some(([allowedHost]) => matchAllowedHost(utmSource, allowedHost));
 
   return {
     source: utmSource ?? referral?.source ?? "direct",
-    medium: utmMedium ?? (utmSource ? "campaign" : referral?.medium ?? "direct"),
+    medium: utmMedium ?? (utmAiReferral ? "ai-referral" : utmSource ? "campaign" : referral?.medium ?? "direct"),
     campaign,
     content,
     landingPath: landingPath.startsWith("/") ? landingPath.slice(0, 256) : "/",

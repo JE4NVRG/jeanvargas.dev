@@ -4,9 +4,10 @@ export const COMPANY = {
   tradeName: "VRG SOLUÇÕES",
   cnpj: "12.349.878/0001-16",
   email: "jean@je4ndev.com",
-  whatsappDisplay: "+55 11 94847-7047",
-  whatsappUrl: "https://wa.me/5511948477047",
+  whatsappDisplay: "+55 11 91482-6568",
+  whatsappUrl: "https://wa.me/5511914826568",
   siteUrl: "https://je4ndev.com",
+  githubUrl: "https://github.com/JE4NVRG",
   activityPt:
     "Desenvolvimento e licenciamento de software, SaaS, sistemas, automações e produtos digitais.",
   activityEn:

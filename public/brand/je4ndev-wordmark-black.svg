@@ -1,10 +1,5 @@
-<svg width="610" height="120" viewBox="0 0 610 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="946" height="141" viewBox="0 0 946 141" fill="none" role="img" aria-labelledby="title description">
   <title id="title">JE4NDEV</title>
-  <desc id="description">Monochrome black JE4NDEV wordmark</desc>
-  <g fill="#050505" stroke="#050505">
-    <text x="8" y="84" stroke="none" font-family="Geist, Helvetica Neue, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="8">JE</text>
-    <path d="M157 30 126 70h42" fill="none" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M157 30v66" fill="none" stroke-width="11" stroke-linecap="round"/>
-    <text x="181" y="84" stroke="none" font-family="Geist, Helvetica Neue, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="8">NDEV</text>
-  </g>
+  <desc id="description">Nome completo JE4NDEV com o 4 no lugar do A de Jean, em contornos vetoriais.</desc>
+  <path fill="#050505" fill-rule="evenodd" d="M87 4H121V96C121 119 103 137 81 137H4V105H76C83 105 87 101 87 94Z M135 4H248V36H169V55H232V86H169V105H248V137H135Z M331 4H372V137H339V116H259V82Z M339 43L300 84H339Z M391 4H425L489 89V4H523V137H485L425 59V137H391Z M538 4H625C646 4 663 21 663 43V98C663 120 646 137 625 137H538Z M571 36H618Q631 36 631 49V92Q631 105 618 105H571Z M677 4H790V36H711V55H774V86H711V105H790V137H677Z M798 4H836L870 101L903 4H942L892 137H846Z"/>
 </svg>

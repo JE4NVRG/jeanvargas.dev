@@ -21,6 +21,7 @@ const statusStyles: Record<Project["status"], string> = {
   mvp: "bg-yellow-500/10 text-yellow-300 ring-yellow-500/20",
   development: "bg-blue-500/10 text-blue-300 ring-blue-500/20",
   case: "bg-purple-500/10 text-purple-300 ring-purple-500/20",
+  archived: "bg-zinc-500/10 text-zinc-300 ring-zinc-500/20",
   internal: "bg-cyan-500/10 text-cyan-300 ring-cyan-500/20",
   demo: "bg-cyan-500/10 text-cyan-300 ring-cyan-500/20",
 };
@@ -32,7 +33,7 @@ const metricTextColor: Record<string, string> = {
   pink: "text-pink-300",
 };
 
-function StatusBadge({ status }: { status: Project["status"] }) {
+function StatusBadge({ status, locale }: { status: Project["status"]; locale: "en" | "pt" }) {
   const isLive = status === "live";
 
   return (
@@ -45,7 +46,7 @@ function StatusBadge({ status }: { status: Project["status"] }) {
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-400" />
         </span>
       )}
-      {status}
+      {status === "archived" ? (locale === "pt" ? "Arquivado" : "Archived") : status}
     </span>
   );
 }
@@ -208,7 +209,7 @@ function ProjectCard({
 
         <div className="flex flex-1 flex-col p-6">
           <div className="flex flex-wrap items-center gap-3">
-            <StatusBadge status={project.status} />
+            <StatusBadge status={project.status} locale={locale} />
             <span className="text-xs text-zinc-600">
               {typeof project.dateRange === "string"
                 ? project.dateRange

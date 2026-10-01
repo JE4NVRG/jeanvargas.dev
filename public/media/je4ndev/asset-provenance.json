@@ -1,0 +1,284 @@
+{
+  "assets": [
+    {
+      "bytes": 84758,
+      "codec": "webp",
+      "customer_result_claim": false,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "duration_seconds": null,
+      "file": "studio-architecture.webp",
+      "kind": "conceptual-art-still",
+      "public_path": "/media/je4ndev/studio-architecture.webp",
+      "sha256": "1413aefec0bbaa16c289f4011d5aff16c84ba3ff83e84d03d60735e802d9b2fd",
+      "source_ids": [
+        "concept-art"
+      ],
+      "target_max_bytes": 400000
+    },
+    {
+      "bytes": 38462,
+      "codec": "webp",
+      "customer_result_claim": false,
+      "dimensions": [
+        900,
+        720
+      ],
+      "duration_seconds": null,
+      "file": "studio-architecture-mobile.webp",
+      "kind": "conceptual-art-mobile-crop",
+      "public_path": "/media/je4ndev/studio-architecture-mobile.webp",
+      "sha256": "3ebb91970dc4ad6ebe9d4bdc460b5b77fb8adfac4843fe67c2934642dc5fd00c",
+      "source_ids": [
+        "concept-art"
+      ],
+      "target_max_bytes": 220000
+    },
+    {
+      "audio_streams": 0,
+      "bytes": 947454,
+      "codec": "h264",
+      "customer_result_claim": false,
+      "dimensions": [
+        1280,
+        720
+      ],
+      "duration_seconds": 7.0,
+      "faststart": true,
+      "file": "studio-architecture-loop.mp4",
+      "frame_rate": "24/1",
+      "frames": 168,
+      "kind": "local-deterministic-still-camera-film",
+      "pixel_format": "yuv420p",
+      "public_path": "/media/je4ndev/studio-architecture-loop.mp4",
+      "sha256": "7f31e8e1fb420cc9200b19d96b0a8d441125ab197801e13c77e495a1ec03713f",
+      "silent_intentional": true,
+      "source_ids": [
+        "concept-art"
+      ],
+      "target_max_bytes": 2500000
+    },
+    {
+      "audio_streams": 0,
+      "bytes": 2389493,
+      "codec": "h264",
+      "customer_result_claim": false,
+      "dimensions": [
+        1280,
+        720
+      ],
+      "duration_seconds": 10.5,
+      "faststart": true,
+      "file": "studio-product-reel.mp4",
+      "frame_rate": "24/1",
+      "frames": 252,
+      "kind": "editorial-real-public-capture-reel",
+      "pixel_format": "yuv420p",
+      "public_path": "/media/je4ndev/studio-product-reel.mp4",
+      "sha256": "c4c5965e608f3dc8afc28b759dfc2525e082d6ed640bcfd19ffb2b236e7b10fd",
+      "silent_intentional": true,
+      "source_ids": [
+        "archscene",
+        "fullcommerce360",
+        "urlpivot"
+      ],
+      "target_max_bytes": 3000000
+    },
+    {
+      "bytes": 58612,
+      "codec": "webp",
+      "customer_result_claim": false,
+      "dimensions": [
+        1280,
+        720
+      ],
+      "duration_seconds": null,
+      "file": "studio-product-reel-poster.webp",
+      "kind": "decoded-product-reel-frame-poster",
+      "public_path": "/media/je4ndev/studio-product-reel-poster.webp",
+      "sha256": "a6d07d9b15c5c82911d3007b0b2f13a9c2ea2d5edec25c248e88f07b4d5fd48a",
+      "source_ids": [
+        "archscene"
+      ],
+      "target_max_bytes": 220000
+    }
+  ],
+  "delivery_status": "private-visual-candidate-not-production-or-Jean-acceptance",
+  "excluded_existing_media": {
+    "file": "public/videos/archscene-kitchen.mp4",
+    "inspected_seconds": [
+      0,
+      4.51875015,
+      8.53541695
+    ],
+    "reason": "Kitchen camera footage does not add authentic interface evidence for this capture-only three-product reel; its generation/customer provenance is not asserted.",
+    "sha256": "c959277408bed4a67394a14e9a8560602e509fd255610112ac6650bf7078600c",
+    "used": false
+  },
+  "generation_metadata_user_supplied_not_independently_server_verified": {
+    "imagegen_request_id": "7672e589-820d-40d1-bd45-420e96f12cde",
+    "model_verified": false,
+    "note": "The PNG does not verify the server model or requested high quality. No new provider call was made.",
+    "pixel_size": [
+      1672,
+      941
+    ],
+    "reported_quality": "low",
+    "reported_size": "1672x941",
+    "requested_model": "gpt-image-2.5-sunburst",
+    "requested_quality": "high",
+    "server_model": null
+  },
+  "owner": "je4ndev-builder-original-motion-20260930-f15f37",
+  "recipes": {
+    "studio-architecture-loop.mp4": {
+      "ai_still_to_video": false,
+      "first_last_camera_state_identical": true,
+      "fps": 24,
+      "frames": 168,
+      "method": "Pillow affine camera over unchanged source geometry, encoded locally with FFmpeg",
+      "pan_max_source_pixels": 2,
+      "periodic_cosine": true,
+      "zoom_range": [
+        1.002,
+        1.028
+      ]
+    },
+    "studio-architecture-mobile.webp": {
+      "dimensions": [
+        900,
+        720
+      ],
+      "note": "Near-square mobile artwork retains the three panels and their connection; use natural aspect or contain, not a forced narrow portrait crop.",
+      "source_crop_xyxy": [
+        496,
+        0,
+        1672,
+        941
+      ],
+      "webp_quality": 88
+    },
+    "studio-architecture.webp": {
+      "source_aspect_preserved": true,
+      "webp_method": 6,
+      "webp_quality": 88
+    },
+    "studio-product-reel-poster.webp": {
+      "decoded_video_frame_index": 0,
+      "source_video": "studio-product-reel.mp4",
+      "webp_quality": 88
+    },
+    "studio-product-reel.mp4": {
+      "crossfade_seconds": 0.75,
+      "fps": 24,
+      "metrics_note": "Any figures within FullCommerce360 are pre-existing sanitized demo UI, not new metrics or customer results.",
+      "overlap_frames": 18,
+      "scene_frames": 96,
+      "scene_order": [
+        "ArchScene",
+        "FullCommerce360",
+        "URLPivot"
+      ],
+      "source_view": "Top-anchored 16:9 crop of unchanged authentic captures; lower capture content omitted, not reconstructed",
+      "transition_offsets_seconds": [
+        3.25,
+        6.5
+      ],
+      "typography": "Native Windows Segoe UI / Semibold via Pillow, not embedded or redistributed",
+      "viewport_dimensions": [
+        1008,
+        567
+      ],
+      "zoom_range": [
+        1.002,
+        1.014
+      ]
+    }
+  },
+  "rights_and_claims": {
+    "customer_claims": false,
+    "generated_concept_art_is_product_evidence": false,
+    "inspiration_site_license_copied": false,
+    "new_ai_generation": false,
+    "site_claims_independently_verified": false,
+    "third_party_reference_media_reused": false
+  },
+  "schema_version": 1,
+  "script_sha256": "5b23e5fab54f848b6ea43d9412f1fea9615f27c0b770a970751511f3e1eb83d4",
+  "sources": [
+    {
+      "bytes": 1810696,
+      "customer_result_claim": false,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "file": "openai_codex_gpt-image-2.5-sunburst_20260930_134911_3df3bae2.png",
+      "id": "concept-art",
+      "kind": "conceptual-generated-art",
+      "public_source_url": null,
+      "reuse_basis": "User-authorized original conceptual derivative; private visual candidate only",
+      "sha256": "4799082966a89c0ce62d31e8d128948616a886db4c4039446e1a1276e4d03ee8"
+    },
+    {
+      "bytes": 99566,
+      "customer_result_claim": false,
+      "dimensions": [
+        1265,
+        712
+      ],
+      "file": "public/projects/captures/archscene-home-latest.png",
+      "id": "archscene",
+      "kind": "existing-project-owned-public-capture",
+      "public_source_url": "https://archscene.com",
+      "reuse_basis": "Existing project-owned capture/reuse, provided in the checkout; not newly recaptured",
+      "sha256": "880ad146fc2f71a56f015a838331416ed0ec29e94bafb4b52581969f415355bb"
+    },
+    {
+      "bytes": 323110,
+      "customer_result_claim": false,
+      "dimensions": [
+        1440,
+        900
+      ],
+      "file": "public/projects/captures/fullcommerce360-home-latest.png",
+      "id": "fullcommerce360",
+      "kind": "existing-project-owned-public-capture",
+      "public_source_url": "https://fullcommerce360.com",
+      "reuse_basis": "Existing project-owned capture/reuse, provided in the checkout; not newly recaptured",
+      "sha256": "f403595fb14ad51d9c22cef965135d738b2460ba6966c7a53aaceb4fe82fed8b"
+    },
+    {
+      "bytes": 211775,
+      "customer_result_claim": false,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "file": "public/projects/captures/urlpivot-home-latest.png",
+      "id": "urlpivot",
+      "kind": "existing-project-owned-public-capture",
+      "public_source_url": "https://urlpivot.app",
+      "reuse_basis": "Existing project-owned capture/reuse, provided in the checkout; not newly recaptured",
+      "sha256": "be7dd19c4606060513228e1784b6c52c11428fb0ff636d31092dc304d81e4885"
+    }
+  ],
+  "toolchain": {
+    "ffmpeg": "ffmpeg version n9.0.1-11-ge47273f4d9-20260831 Copyright (c) 2000-2026 the FFmpeg developers",
+    "ffprobe": "ffprobe version n9.0.1-11-ge47273f4d9-20260831 Copyright (c) 2007-2026 the FFmpeg developers",
+    "native_fonts": [
+      {
+        "file": "segoeui.ttf",
+        "sha256": "8134dbcd09e7b123c9a7f229d49cffbcb01352cc72ea5e1076b65d0dca9f73cd"
+      },
+      {
+        "file": "seguisb.ttf",
+        "sha256": "2d9b22d71f72de2823fee5d9c8bc1b0fc32b2577c4c27b9ec6abdbb8df0e1731"
+      }
+    ],
+    "pillow": "12.3.0",
+    "python": "3.14.7"
+  }
+}

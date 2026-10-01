@@ -13,9 +13,10 @@ export const projectSchema = z.object({
   description: localizedTextSchema,
   shortDescription: localizedTextSchema,
   longDescription: localizedTextSchema,
-  status: z.enum(["live", "mvp", "development", "case", "internal", "demo"]),
+  status: z.enum(["live", "mvp", "development", "case", "archived", "internal", "demo"]),
   role: z.enum([
     "client-saas",
+    "own-product",
     "internal-tool",
     "agency-platform",
     "open-source",
@@ -55,7 +56,7 @@ export const projectSchema = z.object({
       color: z.string().min(1),
       verified: z.boolean(),
     }),
-  ).min(1),
+  ),
   links: z.object({
     live: projectLinkSchema,
     github: projectLinkSchema,

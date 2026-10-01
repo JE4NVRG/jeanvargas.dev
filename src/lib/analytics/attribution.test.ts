@@ -86,6 +86,62 @@ test("sanitizes campaign tokens and detects explicit campaign parameters", () =>
   assert.equal(hasCampaignAttribution("?q=service-agents"), false);
 });
 
+test("classifies known AI assistants as bounded ai-referrals", () => {
+  const cases = [
+    ["https://chatgpt.com/", "chatgpt"],
+    ["https://sub.perplexity.ai/search", "perplexity"],
+    ["https://claude.ai/", "claude"],
+    ["https://gemini.google.com/", "gemini"],
+    ["https://copilot.microsoft.com/", "copilot"],
+  ] as const;
+
+  for (const [referrer, source] of cases) {
+    const attribution = deriveAttribution({ search: "", referrer, siteHost: "je4ndev.com", landingPath: "/en" });
+    assert.equal(attribution.source, source);
+    assert.equal(attribution.medium, "ai-referral");
+  }
+});
+
+test("uses AI UTM sources only when medium is absent and preserves explicit campaign behavior", () => {
+  const ai = deriveAttribution({
+    search: "?utm_source=chatgpt.com&utm_campaign=agents",
+    referrer: "",
+    siteHost: "je4ndev.com",
+    landingPath: "/en/services/private-ai-agents",
+  });
+  assert.equal(ai.source, "chatgpt.com");
+  assert.equal(ai.medium, "ai-referral");
+
+  const explicit = deriveAttribution({
+    search: "?utm_source=chatgpt.com&utm_medium=partner",
+    referrer: "",
+    siteHost: "je4ndev.com",
+    landingPath: "/en",
+  });
+  assert.equal(explicit.medium, "partner");
+
+  const campaign = deriveAttribution({
+    search: "?utm_source=newsletter",
+    referrer: "",
+    siteHost: "je4ndev.com",
+    landingPath: "/en",
+  });
+  assert.equal(campaign.medium, "campaign");
+});
+
+test("does not classify lookalike or suffix-spoofed assistant domains as AI referrals", () => {
+  for (const hostname of ["chatgpt.com.evil.test", "notchatgpt.com", "perplexity.ai.attacker.org", "fake-claude.ai"]) {
+    const attribution = deriveAttribution({
+      search: "",
+      referrer: `https://${hostname}/`,
+      siteHost: "je4ndev.com",
+      landingPath: "/en",
+    });
+    assert.equal(attribution.medium, "referral", hostname);
+    assert.notEqual(attribution.medium, "ai-referral", hostname);
+  }
+});
+
 test("schema rejects undeclared or privacy-sensitive fields", () => {
   const accepted = analyticsEventSchema.safeParse({
     event: "whatsapp-click",

@@ -13,18 +13,18 @@ export const pt: Translations = {
     switchLanguage: "Mudar para inglês",
   },
   hero: {
-    badge: "Jean Carlos Vargas · JE4NDEV · Brasil e remoto",
-    title: "Desenvolvimento de SaaS, sistemas e automações com IA",
-    titleHighlight: "para operar de verdade.",
+    badge: "JE4NDEV · Agência de produto digital · Brasil e remoto",
+    title: "Da sua ideia",
+    titleHighlight: "a um produto real.",
     subtitle:
-      "Transformo processos manuais e ideias validadas em produto funcionando — interface, backend, integrações e deploy. Você fala direto comigo, acompanha por marcos e valida cada entrega em um preview navegável.",
+      "Atendemos pessoas físicas e jurídicas. Transformamos sua experiência em produtos digitais e criamos sites, sistemas e assistentes de IA personalizados para sua rotina ou seu negócio.",
     subtitleMobile:
-      "Do processo manual ao produto em produção, com escopo claro, preview navegável e revisão direta do founder.",
+      "Sites, sistemas e assistentes de IA personalizados para pessoas físicas e jurídicas. Sua ideia, sua rotina ou seu negócio podem ser o ponto de partida.",
     terminalTitle: "je4ndev/product-engineering",
     terminalCommand: "ship produto --saas --automacao --agentes",
     terminalOutput: "problema -> escopo -> preview -> producao",
-    cta: "Ver 3 cases principais",
-    secondaryCta: "Descrever meu projeto",
+    cta: "Explore os produtos",
+    secondaryCta: "Conte sua ideia",
     email: "jean@je4ndev.com",
     whatsapp: "Falar no WhatsApp",
     proof:
@@ -36,15 +36,16 @@ export const pt: Translations = {
       { value: "PT/EN", label: "atuação global" },
     ],
     strengths: [
-      "MVPs SaaS com auth, billing e painel admin",
+      "Sua experiência de mercado transformada em um MVP SaaS",
       "Sistemas internos que substituem planilhas e retrabalho",
       "Automações e integrações conectadas à operação real",
-      "Agentes de IA com memória, permissões e revisão humana",
+      "Hermes e OpenClaw com integrações, permissões e revisão humana",
     ],
   },
   work: {
-    label: "Nossos produtos · live em produção",
-    title: "Construímos, entregamos e mantemos",
+    label: "Projetos selecionados",
+    title: "Produtos que você pode conhecer.",
+    subtitle: "Quatro projetos reais, da interface à operação. Explore o que construímos e imagine o que podemos criar para você.",
     viewCase: "Ver estudo de caso",
     viewProject: "Ver projeto",
     hoverProblem: "Problema",
@@ -53,12 +54,12 @@ export const pt: Translations = {
     hoverCtaLive: "Acessar demo",
     hoverCtaCode: "Ver código",
     hoverCtaLike: "Quero algo parecido",
-    likeWhatsappTemplate: "Oi Jean, quero algo parecido com {project}.",
+    likeWhatsappTemplate: "Olá! Quero algo parecido com {project}.",
   },
   about: {
-    label: "Sobre",
-    name: "Jean Carlos Vargas",
-    bio: "Desenvolvedor full-stack, fundador da JE4NDEV e criador de produtos próprios. Há mais de 10 anos transformo problemas de operação em software: plataformas SaaS, sistemas internos, automações, integrações e agentes de IA. Baseado em Paranavaí, Paraná, com atuação remota no Brasil e no exterior.",
+    label: "Quem somos",
+    name: "JE4NDEV",
+    bio: "A JE4NDEV é uma agência de produto digital para pessoas físicas e jurídicas. Construímos sites, sistemas sob medida, automações e assistentes de IA personalizados — da rotina pessoal a produtos SaaS e operações de empresas. Há mais de 10 anos transformamos problemas reais em software, do recorte da ideia ao primeiro marco verificável, evoluindo com feedback real.",
     experience: "10+ anos",
   },
   stack: {
@@ -75,103 +76,48 @@ export const pt: Translations = {
     },
   },
   services: {
-    label: "Capacidades",
-    title: "O que resolvemos",
+    label: "Como posso ajudar",
+    title: "Comece pelo que você precisa",
     items: [
       {
-        title: "SaaS e sistemas sob medida",
-        description:
-          "Produtos com autenticação, permissões, billing, painel admin, multi-tenant e métricas conectadas ao negócio",
+        title: "Um site que explica bem o seu trabalho",
+        description: "Um site profissional ou landing page para as pessoas certas entenderem sua oferta e saberem como falar com você.",
       },
       {
-        title: "Automações e integrações",
-        description:
-          "APIs, CRMs, ERPs, marketplaces, pagamentos e WhatsApp conectados para reduzir tarefa manual e retrabalho",
+        title: "Um sistema para facilitar a rotina",
+        description: "Uma ferramenta para seu trabalho, um produto baseado na sua experiência ou um sistema para sua equipe. Definimos o primeiro escopo e conectamos as ferramentas que você já usa.",
       },
       {
-        title: "Agentes de IA na sua infraestrutura",
-        description:
-          "Agentes com contexto, memória, ferramentas, permissões e aprovação humana rodando na sua VPS ou ambiente privado",
-      },
-      {
-        title: "Plataformas e experiências web",
-        description:
-          "Sites de produto, portais, dashboards e aplicações responsivas com foco em clareza, conversão e operação",
-      },
-      {
-        title: "Evolução e recuperação técnica",
-        description:
-          "Diagnóstico, arquitetura, observabilidade, correção de integrações e evolução de produtos que já estão em uso",
-      },
-      {
-        title: "Web3 e Solidity sob demanda",
-        description:
-          "Smart contracts, plataformas Web3 e revisão de segurança como capacidade especializada quando o produto exige",
+        title: "Um assistente de IA feito para você",
+        description: "Um assistente personalizado para organizar tarefas, apoiar estudos e pesquisas ou automatizar etapas do trabalho. Configuramos contexto, ferramentas e permissões conforme sua rotina.",
       },
     ],
-    cta: "Avaliar meu caso",
-    whatsappMessage: "Oi Jean, quero avaliar meu caso de {service}.",
+    cta: "Conte o que você precisa",
+    whatsappMessage: "Olá! Quero conversar sobre {service}. Minha necessidade é: ",
   },
   contact: {
     title: "Vamos tirar o gargalo",
     titleHighlight: "da ideia e colocar em produção.",
     subtitle:
-      "Me conte o que hoje é manual, lento, desconectado ou difícil de medir. Eu devolvo perguntas objetivas e um próximo passo claro — sem proposta genérica.",
+      "Conte o que hoje é manual, lento, desconectado ou difícil de medir. A JE4NDEV devolve perguntas objetivas e um próximo passo claro — sem proposta genérica.",
     whatsapp: "Descrever meu projeto",
     trustline:
-      "Contato direto com o founder · primeiro marco verificável · escopo e investimento definidos antes de construir",
-    founderName: "Jean Carlos Vargas",
-    founderRole: "Founder · Product Engineer · Full-stack",
-    founderLocation: "Paranavaí · PR · Atendimento remoto no Brasil e exterior",
-    terminalTitle: "projeto/intake.md",
-    terminalLines: [
-      "descreva o gargalo ou oportunidade",
-      "mapeamos fluxo, integrações e risco",
-      "definimos o primeiro marco verificável",
-      "preview navegável antes do próximo marco",
-      "deploy e operação conforme o escopo",
-    ],
-    githubCta: "Ver código e projetos públicos",
+      "Contato direto · primeiro marco verificável · escopo e investimento definidos antes de construir",
+    cardTitle: "Fale com a JE4NDEV",
+    cardSubtitle: "Atendimento a pessoas físicas e jurídicas.",
   },
-  githubProof: {
-    label: "GitHub público",
-    title: "github.com/JE4NVRG",
+  partners: {
+    label: "Parceiros",
+    title: "Marcas que crescem com a JE4NDEV",
     subtitle:
-      "O perfil público é inspecionável. A maior parte dos produtos da JE4NDEV fica em repositórios privados. Este site não inventa estatística de GitHub.",
-    bullets: [
-      {
-        title: "Produtos públicos navegáveis",
-        body: "ArchScene, Arremata Radar, FullCommerce360, NexPanel e Vultrix 3D mostram interface, fluxo e proposta em funcionamento.",
-      },
-      {
-        title: "Infraestrutura de agentes open source",
-        body: "O Hermes Workspace documenta uma base real para agentes com ferramentas, memória, contexto e operação local.",
-      },
-      {
-        title: "Cases com contexto e limites",
-        body: "Cada página separa problema, construção, resultado e tipo de evidência — sem apresentar conceito como produto validado.",
-      },
-      {
-        title: "Capacidade técnica especializada",
-        body: "Projetos Web3 e Solidity permanecem disponíveis como prova técnica complementar, sem diluir a oferta principal de produto.",
-      },
-    ],
-    metricsTitle: "Neste site",
-    metrics: [
-      { label: "Cases neste site", value: "14" },
-      { label: "URLs públicas de produto", value: "8" },
-      { label: "Idiomas neste site", value: "PT/EN" },
-    ],
-    verificationNote:
-      "Links, repositórios e páginas de case indicam o nível de prova disponível antes de qualquer proposta.",
-    cta: "Abrir GitHub",
+      "Produtos e negócios reais construídos e operados em parceria com a JE4NDEV — do design à infraestrutura.",
+    note: "Cada marca acima tem site público navegável. Sem números inventados, sem vitrine de fachada.",
   },
   footer: {
-    copyright: "(c) 2026 Jean Carlos Vargas",
+    copyright: "© 2026 JE4NDEV · Todos os direitos reservados",
     terms: "Termos de uso",
     privacy: "Política de privacidade",
-    github: "GitHub",
-    byline: "Sites, sistemas e agentes de IA — por Jean Carlos Vargas",
+    byline: "Sites, sistemas e assistentes de IA para você e seu negócio",
   },
   testimonials: {
     label: "Prova social",
@@ -180,33 +126,33 @@ export const pt: Translations = {
   },
   process: {
     label: "Como entregamos",
-    title: "Um primeiro marco pequeno o bastante para validar. Completo o bastante para gerar valor.",
+    title: "Um caminho claro da conversa inicial à entrega.",
     subtitle:
-      "Cada etapa termina em evidência que você consegue abrir, testar e aprovar. O prazo final nasce do escopo — não de uma promessa genérica.",
+      "Combinamos o objetivo e a próxima entrega antes de começar. Escopo, prazo e investimento são conversados juntos, de acordo com o que o projeto precisa.",
     steps: [
       {
-        title: "Diagnóstico e critério de sucesso",
+        title: "Conte o que você precisa",
         description:
-          "Mapeamos o gargalo, os usuários, o fluxo atual, as integrações e o que precisa ser verdade para chamar o primeiro marco de pronto.",
-        deliverable: "PROBLEMA → ESCOPO",
+          "Conversamos sobre sua rotina, seu projeto ou negócio e o que você quer facilitar ou tornar possível.",
+        deliverable: "ENTENDIMENTO EM COMUM",
       },
       {
-        title: "Primeiro marco navegável",
+        title: "Combinamos o primeiro passo",
         description:
-          "Construímos o menor fluxo ponta a ponta que prova a direção do produto. Você testa em preview e corrige o rumo antes de ampliar.",
-        deliverable: "PREVIEW → FEEDBACK",
+          "Sugiro um escopo prático, com prioridades, responsabilidades, prazo e investimento definidos antes de começar.",
+        deliverable: "ESCOPO E PLANO",
       },
       {
-        title: "QA técnico e de produto",
+        title: "Acompanhamos o trabalho juntos",
         description:
-          "Testes automatizados onde fazem sentido, revisão manual no browser, segurança proporcional ao risco e registro dos limites conhecidos.",
-        deliverable: "GATES → ACEITE",
+          "Você acompanha o andamento, testa o que está sendo feito e compartilha feedback nos pontos combinados.",
+        deliverable: "ANDAMENTO E FEEDBACK",
       },
       {
-        title: "Deploy, handoff e próximo marco",
+        title: "Encerramos com clareza",
         description:
-          "Colocamos em produção quando isso faz parte do escopo, entregamos acessos e documentação e definimos suporte ou evolução sem dependência forçada.",
-        deliverable: "PRODUÇÃO → PRÓXIMO MARCO",
+          "Revisamos o que foi combinado, organizamos a entrega e conversamos sobre os próximos passos, se fizer sentido.",
+        deliverable: "ENTREGA",
       },
     ],
   },
@@ -247,7 +193,7 @@ export const pt: Translations = {
     label: "Entrada comercial",
     title: "Diagnóstico + primeiro marco navegável.",
     subtitle:
-      "Você descreve o gargalo. Eu devolvo perguntas objetivas, escopo, critério de sucesso e o menor fluxo ponta a ponta que vale construir primeiro — com prazo, investimento e exclusões definidos antes do build.",
+      "Você descreve o gargalo. A JE4NDEV devolve perguntas objetivas, escopo, critério de sucesso e o menor fluxo ponta a ponta que vale construir primeiro — com prazo, investimento e exclusões definidos antes do build.",
     plans: [
       {
         name: "Diagnóstico + primeiro marco navegável",
@@ -291,7 +237,7 @@ export const pt: Translations = {
     items: [
       {
         q: "Como isso é diferente de contratar um freela ou uma agência tradicional?",
-        a: "A operação é founder-led: você fala diretamente comigo, eu defino a arquitetura e reviso a entrega. Automação e agentes aceleram tarefas, mas escopo, decisões críticas e responsabilidade final continuam sob revisão humana.",
+        a: "A operação é direta: você fala com as pessoas que definem a arquitetura e revisam a entrega. Automação e agentes aceleram tarefas, mas escopo, decisões críticas e responsabilidade final continuam sob revisão humana.",
       },
       {
         q: "Como vocês definem prazo e investimento?",
@@ -350,7 +296,7 @@ export const pt: Translations = {
     limitationsLabel: "Limite da prova",
     ctaTitle: "Quer validar um gargalo parecido?",
     ctaSubtitle:
-      "Descreva o fluxo que hoje é manual, lento ou difícil de medir. Eu devolvo perguntas objetivas e um primeiro marco verificável — sem compromisso com um projeto infinito.",
+      "Descreva o fluxo que hoje é manual, lento ou difícil de medir. Você recebe perguntas objetivas e um primeiro marco verificável — sem compromisso com um projeto infinito.",
     ctaWhatsapp: "Conversar sobre meu projeto",
     ctaEmail: "Enviar email",
     nextProject: "Próximo projeto",

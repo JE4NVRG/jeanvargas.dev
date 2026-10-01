@@ -1,0 +1,94 @@
+.root {
+  --nora-look-x: 0px;
+  --nora-look-y: 0px;
+  display: inline-grid;
+  width: 64px;
+  height: 64px;
+  flex: 0 0 auto;
+  place-items: center;
+  vertical-align: middle;
+  line-height: 0;
+  user-select: none;
+}
+
+.root[data-size="header"] { width: 44px; height: 44px; }
+.canvas { display: block; width: 100%; height: 100%; overflow: visible; }
+.creature { transform-box: view-box; transform-origin: 50px 85px; animation: breathe 4.8s ease-in-out infinite; }
+.shadow { transform-box: view-box; transform-origin: 50px 93px; animation: ground 4.8s ease-in-out infinite; }
+.eyes { transform-box: view-box; transform-origin: 50px 48px; animation: blink 6.8s ease-in-out infinite; }
+.pupils { transform: translate(var(--nora-look-x), var(--nora-look-y)); transition: transform 130ms ease-out; }
+.leftHand { transform-box: view-box; transform-origin: 19px 68px; }
+.leaf { transform-box: view-box; transform-origin: 49px 22px; }
+.leftBrow, .rightBrow { transform-box: view-box; transition: transform 220ms ease-out; }
+.leftBrow { transform-origin: 34px 31px; }
+.rightBrow { transform-origin: 66px 31px; }
+.smile { transform-box: view-box; transform-origin: 50px 71px; }
+.openMouth { display: none; transform-box: view-box; transform-origin: 50px 71px; }
+
+.root[data-state="thinking"] .creature { animation: thinking 3.2s ease-in-out infinite; }
+.root[data-state="thinking"] .pupils { animation: lookingUp 4s ease-in-out infinite; transition: none; }
+.root[data-state="thinking"] .rightBrow { transform: translateY(-2px) rotate(-7deg); }
+.root[data-state="thinking"] .smile { transform: scaleX(.7); }
+.root[data-state="speaking"] .creature { animation: speaking 2.4s ease-in-out infinite; }
+.root[data-state="speaking"] .smile { display: none; }
+.root[data-state="speaking"] .openMouth { display: inline; animation: talk 850ms ease-in-out infinite; }
+.root[data-state="speaking"] .leftBrow { transform: translateY(-1px); }
+.root[data-state="speaking"] .rightBrow { transform: translateY(-1px); }
+
+@keyframes breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-1.5px) scale(1.015, 1.02); }
+}
+@keyframes ground {
+  0%, 100% { transform: scaleX(1); opacity: .13; }
+  50% { transform: scaleX(.93); opacity: .1; }
+}
+@keyframes blink {
+  0%, 91%, 96%, 100% { transform: scaleY(1); }
+  93%, 94% { transform: scaleY(.06); }
+}
+@keyframes thinking {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-1.5px) rotate(1deg); }
+}
+@keyframes lookingUp {
+  0%, 100% { transform: translate(0, -1.3px); }
+  35%, 65% { transform: translate(2px, -2px); }
+}
+@keyframes speaking {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px) scale(1.01, 1.015); }
+}
+@keyframes talk {
+  0%, 100% { transform: scale(1, .65); }
+  40% { transform: scale(.9, 1); }
+  70% { transform: scale(1.05, .8); }
+}
+@keyframes greet {
+  0%, 100% { transform: translateY(-1px) rotate(0); }
+  35% { transform: translateY(-2px) rotate(-3deg); }
+  70% { transform: translateY(-2px) rotate(2deg); }
+}
+@keyframes wave {
+  0%, 100% { transform: rotate(0); }
+  35% { transform: rotate(12deg); }
+  70% { transform: rotate(-5deg); }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .root[data-state="idle"]:hover .creature,
+  button:hover .root[data-state="idle"] .creature { animation: greet 1.8s ease-in-out infinite; }
+  .root[data-state="idle"]:hover .leftHand,
+  button:hover .root[data-state="idle"] .leftHand { animation: wave 1.8s ease-in-out infinite; }
+  .root[data-state="idle"]:hover .rightBrow,
+  button:hover .root[data-state="idle"] .rightBrow { transform: translateY(-1px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creature, .shadow, .eyes, .pupils, .leftHand, .leaf, .openMouth {
+    animation: none !important;
+    transition: none !important;
+  }
+  .leftBrow, .rightBrow { transition: none; }
+  .pupils { transform: none !important; }
+}

@@ -1,7 +1,7 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none" role="img" aria-labelledby="title description">
   <title id="title">JE4NDEV</title>
+  <desc id="description">Símbolo JE4NDEV sobre fundo preto, com barra em areia.</desc>
   <rect width="512" height="512" rx="96" fill="#050505"/>
-  <path d="M186 156 86 256l100 100" stroke="#FAFAFA" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M326 156l100 100-100 100" stroke="#FAFAFA" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M292 150 220 362" stroke="#D8C098" stroke-width="40" stroke-linecap="round"/>
+  <path transform="translate(76 106.588) scale(1.176471)" fill="#FAFAFA" fill-rule="evenodd" d="M135 4H188C195 4 197 10 191 16L89 118Q84 123 89 128L144 181Q149 186 144 191L113 222Q108 227 103 222L8 132Q0 124 8 116L120 12Q128 4 135 4Z M196 36Q201 33 206 39L298 131Q306 139 298 147L194 244Q187 250 177 250H119Q112 250 118 243L217 143Q222 138 217 133L164 80Q157 74 163 68L191 40Q194 37 196 36Z"/>
+  <path d="M292 146 220 366" stroke="#D8C098" stroke-width="36" stroke-linecap="round"/>
 </svg>

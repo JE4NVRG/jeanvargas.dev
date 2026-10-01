@@ -1,6 +1,5 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title description">
-  <title id="title">JE4NDEV symbol</title>
-  <desc id="description">Monochrome black JD monogram meaning Jean and Dev</desc>
-  <path d="M224 80v240c0 60-36 96-92 96-32 0-56-12-76-36" stroke="#050505" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M224 80h72c88 0 152 72 152 168s-64 168-152 168h-72" stroke="#050505" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="306" height="254" viewBox="0 0 306 254" fill="none" role="img" aria-labelledby="title description">
+  <title id="title">JE4NDEV</title>
+  <desc id="description">Símbolo JE4NDEV: dois traços angulares encaixados inspirados em código.</desc>
+  <path fill="#050505" fill-rule="evenodd" d="M135 4H188C195 4 197 10 191 16L89 118Q84 123 89 128L144 181Q149 186 144 191L113 222Q108 227 103 222L8 132Q0 124 8 116L120 12Q128 4 135 4Z M196 36Q201 33 206 39L298 131Q306 139 298 147L194 244Q187 250 177 250H119Q112 250 118 243L217 143Q222 138 217 133L164 80Q157 74 163 68L191 40Q194 37 196 36Z"/>
 </svg>

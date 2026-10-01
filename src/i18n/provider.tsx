@@ -8,6 +8,7 @@ import {
 } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { en } from "./translations/en";
+import { localizedPath } from "./localized-path";
 import { pt } from "./translations/pt";
 import type { Translations } from "./translations/en";
 
@@ -60,9 +61,10 @@ export function LanguageProvider({
 
   const toggleLocale = useCallback(() => {
     const next: Locale = locale === "en" ? "pt" : "en";
-    // Replace the leading /pt or /en segment with the new one.
-    const nextPath = pathname.replace(/^\/(pt|en)(?=$|\/)/, `/${next}`);
-    router.push(nextPath || `/${next}`);
+    // Service pages can have different PT/EN slugs. Prefer their canonical alternate.
+    const hreflang = next === "en" ? "en-US" : "pt-BR";
+    const alternate = document.querySelector<HTMLLinkElement>(`link[rel="alternate"][hreflang="${hreflang}"]`);
+    router.push(localizedPath(pathname, next, alternate?.href));
   }, [locale, pathname, router]);
 
   return (

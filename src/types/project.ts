@@ -13,7 +13,7 @@
  * UI components (universe, case-study, showcase) continuarão lendo campos existentes até Fase 2/3.
  */
 
-export type ProjectStatus = "live" | "mvp" | "development" | "case" | "internal" | "demo";
+export type ProjectStatus = "live" | "mvp" | "development" | "case" | "archived" | "internal" | "demo";
 
 export type ProofLevel = "public-live" | "public-demo" | "private-demo" | "internal" | "case-only";
 
@@ -29,6 +29,7 @@ export type VisualKind =
 
 export type ProjectRole =
   | "client-saas"
+  | "own-product"
   | "internal-tool"
   | "agency-platform"
   | "open-source"

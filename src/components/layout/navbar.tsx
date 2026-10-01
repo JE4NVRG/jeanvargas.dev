@@ -4,7 +4,9 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Github } from "lucide-react";
 import { BrandLogo } from "@/components/brand/brand-logo";
+import { COMPANY } from "@/data/company";
 import { btnNavGhost, btnPrimary } from "@/components/ui/button-classes";
 import { useTranslation } from "@/i18n";
 
@@ -21,6 +23,9 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const localeRoot = `/${locale}`;
+  const githubLabel = locale === "pt"
+    ? "GitHub de Jean (abre em nova aba)"
+    : "Jean's GitHub (opens in a new tab)";
   const anchorPrefix = pathname === localeRoot ? "" : localeRoot;
   const resolveHref = useCallback(
     (href: string) => `${anchorPrefix}${href}`,
@@ -72,7 +77,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-7">
+          <div className="hidden md:flex items-center gap-4 lg:gap-7">
             {navLinks.filter(l => l.key !== "contact").map((link) => (
               <Link
                 key={link.key}
@@ -84,6 +89,19 @@ export function Navbar() {
             ))}
 
             <div className="w-px h-4 bg-white/10" />
+
+            <a
+              href={COMPANY.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={githubLabel}
+              data-analytics-event="portfolio-navigation-click"
+              data-cta="navbar-github"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full px-2 text-sm text-zinc-300 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            >
+              <Github size={18} aria-hidden="true" />
+              GitHub
+            </a>
 
             <button
               type="button"
@@ -105,6 +123,19 @@ export function Navbar() {
           </div>
 
           {/* Mobile hamburger / close */}
+          <div className="flex items-center gap-1 md:hidden">
+            <a
+              href={COMPANY.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={githubLabel}
+              title={githubLabel}
+              data-analytics-event="portfolio-navigation-click"
+              data-cta="navbar-mobile-github"
+              className="relative z-50 inline-flex h-11 w-11 items-center justify-center rounded-lg text-zinc-300 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              <Github size={21} aria-hidden="true" />
+            </a>
           <button
             type="button"
             className="md:hidden relative z-50 flex h-11 w-11 items-center justify-center rounded-lg text-zinc-400 transition-colors hover:text-white"
@@ -131,6 +162,7 @@ export function Navbar() {
               />
             </div>
           </button>
+          </div>
         </div>
       </motion.nav>
 

@@ -10,6 +10,7 @@ import {
   type Attribution,
 } from "@/lib/analytics/attribution";
 import type { AnalyticsEventInput } from "@/lib/analytics/schema";
+import { handleNoraAnalyticsSignal, isAnalyticsExcluded, safeAnalyticsDestinationPath } from "@/lib/analytics/funnel";
 
 function sendEvent(payload: AnalyticsEventInput) {
   const body = JSON.stringify(payload);
@@ -54,9 +55,7 @@ function getLinkContext(element: HTMLElement) {
     return {
       channel,
       destinationHost: destinationHost || undefined,
-      destinationPath: destination.pathname.startsWith("/")
-        ? destination.pathname.slice(0, 256)
-        : undefined,
+      destinationPath: safeAnalyticsDestinationPath(channel, destination.pathname),
     };
   } catch {
     return { channel: "other" as const };
@@ -81,8 +80,20 @@ function readCtaLabel(element: HTMLElement) {
 export function PortfolioAnalytics({ locale }: { locale: "pt" | "en" }) {
   const pathname = usePathname();
   const attributionRef = useRef<Attribution | null>(null);
+  const excludedRef = useRef(false);
 
   useEffect(() => {
+    // QA exclusion follows this tab across internal navigation, never a visitor ID.
+    try {
+      excludedRef.current ||= window.sessionStorage.getItem("portfolio-analytics-excluded") === "1";
+    } catch { /* Some browsers disable storage; retain the in-memory preference. */ }
+    excludedRef.current = isAnalyticsExcluded(window.location.search, excludedRef.current);
+    try {
+      if (excludedRef.current) window.sessionStorage.setItem("portfolio-analytics-excluded", "1");
+      else window.sessionStorage.removeItem("portfolio-analytics-excluded");
+    } catch { /* Analytics must never block the user journey. */ }
+    if (excludedRef.current) return;
+
     const currentPath = pathname || window.location.pathname || "/";
     const incomingAttribution = deriveAttribution({
       search: window.location.search,
@@ -133,6 +144,11 @@ export function PortfolioAnalytics({ locale }: { locale: "pt" | "en" }) {
 
     const depthThresholds = [50, 75, 90] as const;
     const sentDepths = new Set<number>();
+    const seenNoraSignals = new Set<string>();
+    const handleNoraSignal = (event: Event) => {
+      const detail = (event as CustomEvent<unknown>).detail;
+      handleNoraAnalyticsSignal(detail, seenNoraSignals, sendEvent, basePayload);
+    };
     let scrollFrame: number | null = null;
 
     const measureScrollDepth = () => {
@@ -194,6 +210,7 @@ export function PortfolioAnalytics({ locale }: { locale: "pt" | "en" }) {
     };
 
     document.addEventListener("click", handleClick);
+    document.addEventListener("portfolio:nora-analytics", handleNoraSignal);
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("scroll", handleScroll, { passive: true });
     scheduleEngagement();
@@ -201,6 +218,7 @@ export function PortfolioAnalytics({ locale }: { locale: "pt" | "en" }) {
 
     return () => {
       document.removeEventListener("click", handleClick);
+      document.removeEventListener("portfolio:nora-analytics", handleNoraSignal);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("scroll", handleScroll);
       if (scrollFrame !== null) window.cancelAnimationFrame(scrollFrame);

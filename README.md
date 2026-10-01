@@ -1,5 +1,7 @@
 <!-- markdownlint-disable MD013 MD033 MD041 -->
 
+**English** · [Português (Brasil)](README.pt-BR.md)
+
 <div align="center">
 
 <picture>
@@ -8,168 +10,174 @@
   <img src="docs/screenshots/readme/brand-black.svg" alt="JE4NDEV" width="300" />
 </picture>
 
-# Da sua ideia a um produto real.
+# From your idea to a working product.
 
-**Sites, sistemas e assistentes de IA para pessoas físicas e jurídicas.**
+**Websites, custom software and AI assistants for individuals and businesses.**
 
-Portfólio e site do estúdio JE4NDEV, criado por Jean Carlos Vargas. Uma apresentação dos produtos que construímos e uma experiência real de atendimento com a **Nora**.
+JE4NDEV is Jean Carlos Vargas's digital product agency, based in Brazil and working remotely in English and Portuguese. We help you present your work, simplify a process or turn your expertise into a product you can use and improve.
 
-[![Site](https://img.shields.io/badge/site-je4ndev.com-111111?style=flat-square)](https://je4ndev.com/pt) [![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=next.js)](https://nextjs.org) [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org) [![Licença](https://img.shields.io/badge/licença-MIT-168577?style=flat-square)](LICENSE)
+[![Website](https://img.shields.io/badge/website-je4ndev.com-111111?style=flat-square)](https://je4ndev.com/en) [![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=next.js)](https://nextjs.org) [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org) [![License](https://img.shields.io/badge/license-MIT-168577?style=flat-square)](LICENSE)
 
-[Site em português](https://je4ndev.com/pt) · [English website](https://je4ndev.com/en) · [Nora](#nora) · [Produtos](#produtos) · [Desenvolvimento](#desenvolvimento)
+[Visit the English website](https://je4ndev.com/en) · [Explore our products](#products) · [Meet Nora](#nora) · [Discuss your project](mailto:jean@je4ndev.com)
 
-<img src="docs/screenshots/readme/home-desktop.png" alt="Página inicial atual da JE4NDEV: marca, apresentação de serviços, cena animada e acesso à Nora" width="100%" />
+<img src="docs/screenshots/readme/home-desktop.png" alt="JE4NDEV portfolio homepage in Portuguese, showing its brand, services, animated scene and Nora chat entry" width="100%" />
 
 </div>
 
-## O projeto
+## What we can build together
 
-A JE4NDEV transforma ideias e problemas da rotina em produtos digitais: uma presença profissional na internet, um sistema sob medida, uma integração entre ferramentas ou um assistente de IA personalizado.
+You do not need a complete specification to start. Bring the idea, the task that takes too much work, or the problem your current tools do not solve. We define a first scope with something you can open, test or review before deciding what comes next.
 
-O site combina identidade própria, movimento, projetos com contexto e contato direto com quem conduz o trabalho. A Nora participa dessa experiência: ajuda o visitante a explicar o que precisa e organiza as informações para uma conversa com a equipe.
+- **A website that explains your offer.** A portfolio, business website or landing page that helps people understand what you do and how to reach you.
+- **Software that fits how you work.** A custom internal system, connected tools or a SaaS product built around your expertise and the people who will use it.
+- **An AI assistant for your own needs.** Support for personal tasks, study, research or business operations, with context, integrations and permissions defined for the job.
+- **A clearer workflow.** Automations and integrations that connect existing tools and handle the exceptions your process needs.
 
-- Experiência responsiva em **português e inglês**.
-- Projetos apresentados com problema, entrega, tecnologias e links disponíveis.
-- Páginas de serviço e cases com conteúdo indexável.
-- Vídeo, animações e alternativas para quem prefere movimento reduzido.
-- GitHub acessível no cabeçalho, na seção Sobre e no rodapé.
-- Atendimento para pessoas físicas, profissionais autônomos e empresas.
+This repository powers the JE4NDEV website and its **Nora** assistant. The site includes English and Portuguese content, responsive layouts, reduced-motion alternatives, service pages and project case studies. Each case explains the work, available evidence and relevant limitations.
 
-## Produtos
+## Products
 
-Os quatro destaques atuais representam diferentes tipos de entrega. Os cases informam o nível de prova disponível, incluindo demonstrações e dados fictícios quando utilizados.
+These four featured projects show different kinds of work. Public pages and labelled demonstrations let you inspect the product; they are not claims about customer numbers, revenue or guaranteed results.
 
-| Produto | O que apresenta | Conhecer |
+| Product | What you can explore | Links |
 | --- | --- | --- |
-| **MepMail** | E-mail transacional integrado a aplicações e agentes, com API, SMTP e MCP sobre Amazon SES. Adaptação e operação sobre uma base open source atribuída. | [Case](https://je4ndev.com/pt/projects/mepmail) · [Produto](https://mepmail.je4ndev.com) |
-| **ArchScene** | Fluxo de renders arquitetônicos com IA, organização por projeto e processamento de cenas em lote. | [Case](https://je4ndev.com/pt/projects/archscene) · [Produto](https://archscene.com) |
-| **FullCommerce360** | Organização da operação de marketplace, produtos e contas conectadas. A apresentação inclui demonstrações identificadas. | [Case](https://je4ndev.com/pt/projects/fullcommerce360) · [Produto](https://fullcommerce360.com) |
-| **URLPivot** | Links com destino editável, QR Codes reutilizáveis e Pages, com integração para agentes via MCP. | [Case](https://je4ndev.com/pt/projects/urlpivot) · [Produto](https://urlpivot.app) |
+| **MepMail** | Transactional email for applications and AI agents, with API, SMTP and MCP integration on Amazon SES. Maintained and operated on an attributed open-source foundation. | [Case study](https://je4ndev.com/en/projects/mepmail) · [Product](https://mepmail.je4ndev.com) |
+| **ArchScene** | An AI-assisted architectural rendering workflow with project organization and batch scene processing. | [Case study](https://je4ndev.com/en/projects/archscene) · [Product](https://archscene.com) |
+| **FullCommerce360** | Marketplace operations, product organization and connected accounts. Its presentation includes labelled demonstrations. | [Case study](https://je4ndev.com/en/projects/fullcommerce360) · [Product](https://fullcommerce360.com) |
+| **URLPivot** | Managed links with editable destinations, reusable QR codes and campaign Pages, with MCP integration for agents. | [Case study](https://je4ndev.com/en/projects/urlpivot) · [Product](https://urlpivot.app) |
 
-[Explore os projetos no site →](https://je4ndev.com/pt#work)
+**MepMail attribution:** JE4NDEV adapts, maintains and operates the product; its open-source foundation retains its **AGPL** licence and attribution. This does not claim authorship of the original upstream code. [MepMail source](https://github.com/JE4NVRG/mepmail).
+
+[Explore the projects on the website →](https://je4ndev.com/en#work)
 
 ## Nora
 
-**Um assistente de IA em produção e um case do que podemos criar para seu site, aplicativo ou rotina.**
+**A working AI assistant on the JE4NDEV website, and an example of what we can build for your website, app or everyday work.**
 
-A Nora ajuda tanto quem chega com um projeto definido quanto quem ainda precisa descobrir o primeiro passo. Ela conversa sobre sites, sistemas, integrações e assistentes personalizados, considerando o objetivo, as ferramentas existentes e as restrições informadas.
+Try Nora to explore an idea or see how an assistant could help you. She discusses websites, software, integrations and personalized assistants, using the goals, existing tools and constraints you share. Trying the assistant is separate from requesting a proposal.
 
-### Da conversa ao atendimento
+### From a conversation to a useful next step
 
-1. **Entrada com contexto.** O visitante escolhe entre experimentar a Nora ou conversar sobre um assistente para seu projeto. Informa nome e WhatsApp com DDI e autoriza o registro. Testar não equivale a pedir orçamento.
-2. **Levantamento da necessidade.** A conversa organiza objetivo, situação atual, solução desejada, restrições e dúvidas pendentes. A Nora pode sugerir um primeiro escopo e perguntas para a avaliação humana.
-3. **Resumo revisável.** O visitante pode revisar o texto e pedir retorno da equipe. A Nora não confirma contratação, preço, prazo ou ações que a equipe ainda não executou.
-4. **Contato organizado.** A integração atualiza o mesmo registro em uma planilha privada do Google Sheets. Resumo, escopo e próximos passos acompanham o contato; status de atendimento e responsável permanecem sob controle da equipe.
-5. **Continuidade opcional.** O visitante pode ativar memória de projetos, revisar fatos e apagá-los. A recuperação usa o número cadastrado **mais um código pessoal**; o telefone sozinho não abre a memória.
+1. **Choose why you are here.** Try Nora or explore an assistant for a personal, professional or business project. Enter your name and WhatsApp number with a country code, then authorize registration. Registration does not enable marketing or optional memory.
+2. **Explain what you need.** Nora organizes your goal, current situation, desired solution, constraints and unanswered questions. She can suggest a first scope and questions for human review.
+3. **Review before requesting contact.** You can review the summary and ask the team to reply. Nora does not confirm a contract, price, deadline or work the team has not performed.
+4. **Keep the handoff organized.** The integration updates the same contact record in the team's private Google Sheets. The summary, proposed scope and next steps stay with the contact; the team controls the manual status and assignee fields.
+5. **Choose whether to keep project memory.** Optional memory lets you review, edit and delete saved facts. Cross-browser recovery requires the registered number **and a personal recovery code**. The number alone cannot retrieve memory.
 
-<img src="docs/screenshots/readme/nora-conversation.png" alt="Nora respondendo a um cenário fictício de validação: levantamento de escopo de um assistente para pedidos de aula, com revisão humana e pagamentos fora da primeira etapa" width="100%" />
+<img src="docs/screenshots/readme/nora-conversation.png" alt="Nora's Portuguese conversation in a fictional validation scenario, outlining an assistant for lesson requests with human review and payments outside the first scope" width="100%" />
 
-*Conversa real de validação com cenário fictício. A imagem não contém contatos ou dados de clientes.*
+*An actual validation conversation using a fictional scenario. No customer contacts or customer data appear in the capture. The English interface is available on the live website; these existing captures show the Portuguese interface.*
 
-### Experiência em diferentes telas
+### Desktop, mobile and the first conversation
 
 <table>
   <tr>
     <td width="50%" valign="top">
-      <strong>Site no celular</strong><br /><br />
-      <img src="docs/screenshots/readme/home-mobile-390.png" alt="JE4NDEV em tela de 390 pixels, com GitHub no cabeçalho e mascote da Nora" width="100%" />
+      <strong>Mobile website</strong><br /><br />
+      <img src="docs/screenshots/readme/home-mobile-390.png" alt="JE4NDEV's Portuguese website on a 390-pixel screen, with the GitHub header link and Nora mascot" width="100%" />
     </td>
     <td width="50%" valign="top">
-      <strong>Primeiro contato com a Nora</strong><br /><br />
-      <img src="docs/screenshots/readme/nora-onboarding.png" alt="Entrada da Nora com escolha de intenção e campos vazios para nome e WhatsApp" width="100%" />
+      <strong>Meeting Nora</strong><br /><br />
+      <img src="docs/screenshots/readme/nora-onboarding.png" alt="Nora's Portuguese registration screen with intent choices and empty name and WhatsApp fields" width="100%" />
     </td>
   </tr>
 </table>
 
-### Memória, privacidade e proteção
+### Memory, privacy and practical limits
 
-- A memória de fatos do visitante é **opcional**, separada do cadastro de atendimento, com até cinco projetos e expiração de 30 dias após a última atualização.
-- O visitante pode editar a memória ou solicitar sua exclusão pela interface. O vínculo por número e código de recuperação não é uma verificação de titularidade do WhatsApp.
-- O modelo é acessado por uma ponte autenticada no servidor. O navegador não recebe credenciais do provedor nem acesso às ferramentas e arquivos do operador.
-- Turnstile, CSRF, validação de origem e ingresso confiável, limites de requisição e concorrência protegem os endpoints públicos.
-- A fila de contatos mantém tentativas de sincronização com o Sheets e preserva campos manuais. Avisos privados no Telegram são uma integração separada; um registro sincronizado não significa atendimento humano concluído.
-- A concorrência da IA tem seu próprio limite. Visitar o site não ocupa uma inferência; quando o chat está ocupado, o texto é preservado para uma nova tentativa manual. A versão atual não oferece fila automática de conversas.
+- Project memory is **optional**, separate from the contact registration. It supports up to five projects and expires 30 days after the last update.
+- You can edit or delete saved memory. Deleting memory does not erase the separately authorized contact record. Number-and-code recovery does not verify ownership of a WhatsApp number, and it does not restore the full chat transcript.
+- The browser receives neither provider credentials nor access to the operator's tools and files. Model access runs through an authenticated server bridge.
+- Public endpoints use Turnstile, CSRF and origin/ingress validation, with request and concurrency limits. These are abuse controls, not a guaranteed financial cap or a claim that every malicious prompt can be detected.
+- Contact synchronization has its own retry queue and preserves the team's manual fields. Private Telegram notifications are a separate integration; a saved or synchronized record does not mean a human has read or answered it. Nora does not send WhatsApp messages automatically.
+- Visiting the website does not use an inference slot. If the assistant is busy, your text is kept for a manual retry. The current chat has limited concurrent capacity and no automatic conversation queue.
 
-O processamento de IA e a retenção de dados estão descritos na [política de privacidade](https://je4ndev.com/pt/privacidade). Cadastro, memória e pedido de contato têm finalidades distintas.
+AI processing and data retention are described in the [privacy policy](https://je4ndev.com/en/privacidade). Registration, optional memory and a request for contact serve different purposes.
 
-[Experimente a Nora no site →](https://je4ndev.com/pt)
+[Try Nora on the English website →](https://je4ndev.com/en) · [Nora case study](https://je4ndev.com/en/projects/nora)
 
-## Arquitetura
+## Discuss your project
+
+Tell us what you want to build or make easier. A personal project, an independent practice and a business operation can all be starting points. We work remotely in English and Portuguese; scope and investment are agreed before the build.
+
+[Email Jean](mailto:jean@je4ndev.com) · [WhatsApp](https://wa.me/5511914826568) · [English website](https://je4ndev.com/en) · [GitHub @JE4NVRG](https://github.com/JE4NVRG) · [LinkedIn](https://www.linkedin.com/in/je4ndev/)
+
+## For developers
+
+<details>
+<summary>Architecture, local development and delivery</summary>
+
+### Architecture
 
 ```mermaid
 flowchart LR
-  Visitante["Visitante · PT/EN"] --> Site["Site e interface da Nora"]
-  Site --> API["API Next.js"]
-  API --> Modelo["Hermes dedicado · modelo de IA"]
-  API --> Memoria["Sessão e memória do visitante"]
-  API --> Contatos["Estado e fila de contatos"]
-  Contatos --> Sheets["Google Sheets privado"]
-  Contatos --> Equipe["Aviso privado para a equipe"]
+  Visitor["Visitor · EN/PT"] --> Site["Website and Nora interface"]
+  Site --> API["Next.js API"]
+  API --> Model["Dedicated Hermes bridge · AI model"]
+  API --> Memory["Visitor session and optional memory"]
+  API --> Contacts["Contact state and outbox"]
+  Contacts --> Sheets["Private Google Sheets"]
+  Contacts --> Team["Private team notification"]
 ```
 
-| Camada | Implementação |
+| Layer | Implementation |
 | --- | --- |
-| Interface | Next.js 16.3, React 19, TypeScript e Tailwind CSS |
-| Movimento | Framer Motion, GSAP, Lenis e mídia com controle de reprodução |
-| Conteúdo | Dados tipados, Zod, traduções PT/EN e páginas de case |
-| Descoberta | Metadata API, canonical, hreflang, Open Graph, JSON-LD, sitemap e regras de crawling |
-| Nora | API no servidor, ponte autenticada para Hermes, briefing estruturado e memória opcional |
-| Contatos | Persistência no servidor, sincronização assinada com Apps Script/Sheets e notificações |
-| Qualidade | ESLint, TypeScript strict, testes e auditorias locais |
-| Produção | Runtime Next.js standalone construído localmente e promovido na VPS |
+| Interface | Next.js 16.3, React 19, TypeScript and Tailwind CSS |
+| Motion | Framer Motion, GSAP, Lenis and media playback controls |
+| Content | Typed data, Zod, English/Portuguese translations and case pages |
+| Discovery | Metadata API, canonical, hreflang, Open Graph, JSON-LD, sitemap and crawling rules |
+| Nora | Server API, authenticated Hermes bridge, structured briefing and optional memory |
+| Contacts | Server persistence, signed Apps Script/Sheets synchronization and notifications |
+| Quality | ESLint, strict TypeScript, tests and local audits |
+| Production | Next.js standalone runtime built locally and promoted to the VPS |
 
 ```text
-src/app/                 Páginas localizadas e APIs de conversa, visitantes e contatos
-src/components/          Marca, layout, projetos, movimento e interface da Nora
-src/data/                Empresa, serviços, catálogo, apresentações e conteúdo de SEO
-src/i18n/                Traduções e navegação em português e inglês
-src/lib/concierge/       Validação, quotas, contexto, sessões e memória
-src/lib/leads/           Registros de contato, sincronização e retenção
-integrations/nora-sheets/ Relay autenticado para Google Sheets
-scripts/                 Auditorias e jobs operacionais
-docs/                    Documentação e capturas
+src/app/                 Localized pages and conversation, visitor and contact APIs
+src/components/          Brand, layout, projects, motion and Nora interface
+src/data/                Company, services, catalogue, presentations and SEO content
+src/i18n/                English/Portuguese translations and navigation
+src/lib/concierge/       Validation, quotas, context, sessions and memory
+src/lib/leads/           Contact records, synchronization and retention
+integrations/nora-sheets/ Authenticated Google Sheets relay
+scripts/                 Audits and operational jobs
+docs/                    Documentation and captures
 ```
 
-## Desenvolvimento
+### Local development
 
-Requer **Node.js 20.9 ou superior** e npm. No checkout existente:
+Requires **Node.js 20.9 or later** and npm. Reuse the existing checkout and environment. If dependencies are not installed, run `npm ci`, then start development:
 
 ```bash
-npm ci
 npm run dev
 ```
 
-Abra [localhost:3000/pt](http://localhost:3000/pt) ou [localhost:3000/en](http://localhost:3000/en).
+Open [localhost:3000/en](http://localhost:3000/en) or [localhost:3000/pt](http://localhost:3000/pt).
 
-Para configurar as integrações, use [.env.example](.env.example) como referência e mantenha os valores reais em um arquivo local ignorado pelo Git ou na configuração privada do servidor. A Nora depende de sessão, ingresso confiável e ponte de IA configurados; instalar o frontend não provisiona o modelo ou a planilha.
+Use [.env.example](.env.example) as the integration configuration reference. Keep real values in a Git-ignored local file or private server configuration. Nora requires a session, trusted ingress and a configured AI bridge; installing the frontend does not provision a model or a spreadsheet.
 
-| Comando | Finalidade |
+| Command | Purpose |
 | --- | --- |
-| `npm run dev` | Desenvolvimento local com Turbopack |
-| `npm run lint` | Análise com ESLint |
-| `npm run typecheck` | Tipos das rotas e TypeScript |
-| `npm test` | Testes de analytics, conversa, memória, contatos e conteúdo |
-| `npm run audit:projects` | Integridade do catálogo e dos assets |
-| `npm run audit:seo` | Auditoria de metadados e conteúdo de descoberta |
-| `npm run audit:links` | Verificação dos links públicos dos projetos |
-| `npm run gate` | Lint, tipos, testes e auditoria de projetos |
-| `npm run validate` | Gate, validação dos links de campanha e build |
-| `npm run build` | Construção do artefato de produção |
-| `npm run sync:leads` | Sincronização de contatos com o Sheets, quando configurada |
-| `npm run notify:leads` | Job de avisos de contatos, quando configurado |
+| `npm run dev` | Local development with Turbopack |
+| `npm run lint` | ESLint checks |
+| `npm run typecheck` | Route types and TypeScript checks |
+| `npm test` | Analytics, conversation, memory, contact and content tests |
+| `npm run audit:projects` | Catalogue and asset integrity |
+| `npm run audit:seo` | Metadata and discovery-content audit |
+| `npm run audit:links` | Public project-link checks |
+| `npm run gate` | Lint, types, tests and project audit |
+| `npm run validate` | Gate, campaign-link validation and build |
+| `npm run build` | Production artifact build |
+| `npm run sync:leads` | Contact synchronization to Sheets, when configured |
+| `npm run notify:leads` | Contact-notification job, when configured |
 
-### Entrega
+### Delivery
 
-Desenvolvimento, testes e build rodam localmente. A publicação promove um artefato mínimo, verifica a revisão servida e a jornada afetada, e preserva um rollback válido. A validação da revisão em produção incluiu **291 testes aprovados**, build Linux local, smoke do runtime e jornadas no navegador; isso não representa um benchmark de carga.
+Development, tests and builds run locally. Publication promotes a minimal artifact, verifies the served revision and affected journey, and preserves a valid rollback. The recorded 2026-10-01 production validation included **291 passing tests**, a local Linux build, runtime smoke checks and browser journeys. Those release checks are not a load benchmark.
 
-A rotina `scripts/deploy-vps.sh` é histórica e faz build remoto. Ela não é o fluxo vigente de entrega. Chaves, cookies, `.env`, contatos, códigos de recuperação e estado do runtime ficam fora do repositório e das imagens de documentação.
+`scripts/deploy-vps.sh` is a historical remote-build script, not the current delivery workflow. Keys, cookies, environment values, contacts, recovery codes and runtime state stay out of the repository and documentation captures.
 
-## Contato
+</details>
 
-Quer construir algo assim? Conte a ideia ou o problema que deseja resolver.
+## License
 
-[je4ndev.com](https://je4ndev.com/pt) · [WhatsApp](https://wa.me/5511914826568) · [jean@je4ndev.com](mailto:jean@je4ndev.com) · [GitHub @JE4NVRG](https://github.com/JE4NVRG) · [LinkedIn](https://www.linkedin.com/in/je4ndev/)
-
-## Licença
-
-O código deste portfólio está disponível sob a [licença MIT](LICENSE). Produtos e bases open source mencionados nos cases têm suas próprias licenças e atribuições.
+This portfolio's code is available under the [MIT license](LICENSE). Products and open-source foundations referenced in the case studies retain their own licences and attribution, including MepMail's AGPL foundation.

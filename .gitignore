@@ -121,3 +121,30 @@ temp/
 
 # Temporary screenshots (root level)
 /*.png
+
+# Private runtime data, credentials and browser authentication
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.db
+*.db-shm
+*.db-wal
+*.jsonl
+*.har
+*.zip
+/runtime/
+/backups/
+/private/
+/secrets/
+.auth/
+auth-state.json
+storage-state.json
+storageState.json
+
+# Local QA artifacts belong outside the repository
+/playwright-report/
+/test-results/
+/qa-artifacts/

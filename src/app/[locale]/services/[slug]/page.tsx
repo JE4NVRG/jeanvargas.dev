@@ -3,6 +3,8 @@ import { ArrowLeft, ArrowRight, Check, MessageCircle } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProjectBySlug } from "@/data/projects";
+import { COMPANY } from "@/data/company";
+import { contactEmailHref } from "@/lib/contact-email";
 import {
   getServiceOffer,
   serviceOffers,
@@ -13,8 +15,8 @@ interface Props {
   params: Promise<{ locale: ServiceLocale; slug: string }>;
 }
 
-const SITE_URL = "https://je4ndev.com";
-const WHATSAPP_URL = "https://wa.me/5511948477047";
+const SITE_URL = COMPANY.siteUrl;
+const WHATSAPP_URL = COMPANY.whatsappUrl;
 
 export function generateStaticParams() {
   return serviceOffers.flatMap((offer) =>
@@ -75,6 +77,7 @@ export default async function ServicePage({ params }: Props) {
   if (!offer) notFound();
 
   const isPt = locale === "pt";
+  const isWebOffer = ["business-websites", "landing-page-development"].includes(offer.slugs.en);
   const pageUrl = `${SITE_URL}/${locale}/services/${offer.slugs[locale]}`;
   const relatedProjects = offer.relatedProjectSlugs
     .map((projectSlug) => getProjectBySlug(projectSlug))
@@ -145,7 +148,7 @@ export default async function ServicePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <section className="relative border-b border-white/[0.06] px-6 py-20 sm:py-28">
+      <section className="relative border-b border-white/[0.06] px-6 py-10 sm:py-28">
         <div className="pointer-events-none absolute left-1/2 top-0 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-cyan-500/[0.08] blur-[140px]" />
         <div className="relative mx-auto max-w-5xl">
           <Link
@@ -153,10 +156,10 @@ export default async function ServicePage({ params }: Props) {
             className="inline-flex min-h-11 items-center gap-2 text-sm text-zinc-300 transition-colors hover:text-cyan-200"
           >
             <ArrowLeft className="h-4 w-4" />
-            {isPt ? "Voltar às capacidades" : "Back to capabilities"}
+            {isPt ? "Voltar aos serviços" : "Back to services"}
           </Link>
 
-          <p className="mt-12 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
+          <p className="mt-8 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300 sm:mt-12">
             {offer.label[locale]}
           </p>
           <h1 className="mt-5 max-w-4xl text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
@@ -165,15 +168,11 @@ export default async function ServicePage({ params }: Props) {
           <p className="mt-8 max-w-3xl text-xl leading-8 text-zinc-200 sm:text-2xl sm:leading-9">
             {offer.hero[locale]}
           </p>
-          <p className="mt-6 max-w-3xl text-base leading-7 text-zinc-400 sm:text-lg">
-            {offer.intro[locale]}
-          </p>
-
           <div className="mt-10 flex flex-wrap gap-4">
             <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={isPt ? whatsappHref : contactEmailHref(locale, offer.label[locale])}
+              target={isPt ? "_blank" : undefined}
+              rel={isPt ? "noopener noreferrer" : undefined}
               data-analytics-event="lead-cta-click"
               data-cta={`service-page-${offer.id}-hero`}
               data-service={offer.id}
@@ -181,7 +180,7 @@ export default async function ServicePage({ params }: Props) {
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cyan-300 px-6 py-3 text-sm font-bold text-black transition-colors hover:bg-cyan-200"
             >
               <MessageCircle className="h-4 w-4" />
-              {isPt ? "Avaliar meu caso" : "Evaluate my case"}
+              {isPt ? "Avaliar meu caso" : "Discuss your project"}
             </a>
             <a
               href="#process"
@@ -190,6 +189,10 @@ export default async function ServicePage({ params }: Props) {
               {isPt ? "Ver como começa" : "See how it starts"}
             </a>
           </div>
+          <p className="mt-6 max-w-3xl text-base leading-7 text-zinc-400 sm:text-lg">
+            {offer.intro[locale]}
+          </p>
+          <p className="mt-4 text-sm leading-6 text-cyan-200/80">{isPt ? "Projetos remotos em português e inglês. Atendimento a pessoas físicas e empresas." : "Based in Brazil. Remote projects in English and Portuguese, for individuals and businesses."}</p>
         </div>
       </section>
 
@@ -287,13 +290,35 @@ export default async function ServicePage({ params }: Props) {
                   {project.category}
                 </p>
                 <h3 className="mt-4 text-xl font-bold">{project.title}</h3>
-                <p className="mt-3 line-clamp-3 text-sm leading-6 text-zinc-400">
+                <p className="mt-3 text-sm leading-6 text-zinc-300">
+                  {offer.relatedProjectReasons[project.slug]?.[locale]}
+                </p>
+                <p className="mt-2 line-clamp-3 text-sm leading-6 text-zinc-500">
                   {project.shortDescription[locale]}
                 </p>
                 <span className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-cyan-300">
                   {isPt ? "Abrir case" : "Open case"}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-white/[0.06] bg-white/[0.015] px-6 py-16">
+        <div className="mx-auto max-w-6xl">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-purple-300">
+            {isPt ? "Outras formas de ajudar" : "Other ways I can help"}
+          </p>
+          <h2 className="mt-4 text-2xl font-bold sm:text-3xl">
+            {isPt ? "Serviços complementares" : "Complementary services"}
+          </h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {serviceOffers.filter((service) => service.id !== offer.id).map((service) => (
+              <Link key={service.id} href={`/${locale}/services/${service.slugs[locale]}`} className="rounded-2xl border border-white/[0.08] p-5 transition-colors hover:border-cyan-300/30">
+                <h3 className="font-semibold text-white">{service.title[locale]}</h3>
+                <p className="mt-2 text-sm leading-6 text-zinc-400">{service.hero[locale]}</p>
               </Link>
             ))}
           </div>
@@ -322,12 +347,18 @@ export default async function ServicePage({ params }: Props) {
       <section className="px-6 pb-28">
         <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-300/20 bg-gradient-to-br from-cyan-400/[0.10] via-white/[0.025] to-purple-500/[0.10] p-8 text-center sm:p-12">
           <h2 className="text-3xl font-bold sm:text-4xl">
-            {isPt ? "Qual gargalo você quer tirar da operação?" : "Which bottleneck do you want to remove?"}
+            {isWebOffer
+              ? (isPt ? "Vamos criar a página do seu negócio?" : "Ready to build your business page?")
+              : (isPt ? "Qual gargalo você quer tirar da operação?" : "Which bottleneck do you want to remove?")}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-zinc-300">
-            {isPt
-              ? "Descreva o fluxo atual, quem usa e onde ele trava. Eu devolvo perguntas objetivas e um primeiro marco possível."
-              : "Describe the current workflow, who uses it and where it breaks. I will return objective questions and a possible first milestone."}
+            {isWebOffer
+              ? (isPt
+                ? "Conte o que sua empresa oferece, quem você quer alcançar e o que precisa na página. Definimos o escopo antes de combinar investimento e prazo."
+                : "Tell me what your business offers, who you want to reach and what the page needs. We define scope before agreeing on pricing and a timeline.")
+              : (isPt
+                ? "Descreva o fluxo atual, quem usa e onde ele trava. Eu devolvo perguntas objetivas e um primeiro marco possível."
+                : "Describe the current workflow, who uses it and where it breaks. I will return objective questions and a possible first milestone.")}
           </p>
           <a
             href={whatsappHref}

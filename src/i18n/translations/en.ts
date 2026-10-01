@@ -11,18 +11,18 @@ export const en = {
     switchLanguage: "Switch to Portuguese",
   },
   hero: {
-    badge: "Jean Carlos Vargas · JE4NDEV · Brazil and remote",
-    title: "SaaS, systems and AI automation development",
-    titleHighlight: "built to run real operations.",
+    badge: "JE4NDEV · Remote projects · English and Portuguese",
+    title: "From your idea",
+    titleHighlight: "to a real product.",
     subtitle:
-      "I turn manual workflows and validated ideas into working products — interface, backend, integrations and deployment. You work directly with me, approve clear milestones and test every delivery in a navigable preview.",
+      "We turn your domain expertise into digital products. Custom websites, software and AI assistants for individuals and businesses, from the first scope to launch. Remote collaboration in English and Portuguese.",
     subtitleMobile:
-      "From manual workflow to production product, with clear scope, a navigable preview and direct founder review.",
+      "Custom websites, systems and AI assistants for individuals and businesses. Remote collaboration in English and Portuguese.",
     terminalTitle: "je4ndev/product-engineering",
     terminalCommand: "ship product --saas --automation --agents",
     terminalOutput: "problem -> scope -> preview -> production",
-    cta: "See 3 flagship cases",
-    secondaryCta: "Describe my project",
+    cta: "Explore the products",
+    secondaryCta: "Discuss your project",
     email: "jean@je4ndev.com",
     whatsapp: "Talk on WhatsApp",
     proof:
@@ -34,15 +34,16 @@ export const en = {
       { value: "PT/EN", label: "global reach" },
     ],
     strengths: [
-      "SaaS MVPs with auth, billing and admin panels",
+      "Your domain expertise turned into a SaaS MVP",
       "Internal systems that replace spreadsheets and rework",
       "Automations and integrations tied to real operations",
-      "AI agents with memory, permissions and human review",
+      "Hermes and OpenClaw with integrations, permissions and human review",
     ],
   },
   work: {
-    label: "Our products · live in production",
-    title: "We build, ship and maintain",
+    label: "Selected projects",
+    title: "Products you can explore.",
+    subtitle: "Four real projects, from interface to operations. Explore what we have built and imagine what we could create for you.",
     viewCase: "View case study",
     viewProject: "View project",
     hoverProblem: "Problem",
@@ -51,12 +52,12 @@ export const en = {
     hoverCtaLive: "Visit live demo",
     hoverCtaCode: "View code",
     hoverCtaLike: "I want something similar",
-    likeWhatsappTemplate: "Hey Jean, I want something similar to {project}.",
+    likeWhatsappTemplate: "Hey! I want something similar to {project}.",
   },
   about: {
-    label: "About",
-    name: "Jean Carlos Vargas",
-    bio: "Full-stack developer, founder of JE4NDEV and builder of independent products. For over 10 years, I have turned operational problems into software: SaaS platforms, internal systems, automations, integrations and AI agents. Based in Paranavaí, Paraná, working remotely across Brazil and worldwide.",
+    label: "Who we are",
+    name: "JE4NDEV",
+    bio: "JE4NDEV is a digital product agency for individuals and businesses. We build websites, custom systems, automation and personalized AI assistants — from everyday personal needs to SaaS products and business operations. For over 10 years we have turned real problems into software, from scoping the idea to a verifiable first milestone, evolving with real feedback.",
     experience: "10+ years",
   },
   stack: {
@@ -73,103 +74,48 @@ export const en = {
     },
   },
   services: {
-    label: "Capabilities",
-    title: "What we solve",
+    label: "Ways to work together",
+    title: "Start with what you need",
     items: [
       {
-        title: "Custom SaaS and internal systems",
-        description:
-          "Products with authentication, permissions, billing, admin panels, multi-tenancy and business-connected metrics",
+        title: "A website that makes your offer clear",
+        description: "A professional website or landing page that helps the right people understand what you do and how to get in touch.",
       },
       {
-        title: "Automations and integrations",
-        description:
-          "Connect APIs, CRMs, ERPs, marketplaces, payments and WhatsApp to reduce manual work and rework",
+        title: "A system that makes work easier",
+        description: "A tool for your work, a product based on your expertise or a system for your team. We define the first scope and connect the tools you already use.",
       },
       {
-        title: "AI agents on your infrastructure",
-        description:
-          "Agents with context, memory, tools, permissions and human approval running on your VPS or private environment",
-      },
-      {
-        title: "Web platforms and product experiences",
-        description:
-          "Product sites, portals, dashboards and responsive applications designed for clarity, conversion and operations",
-      },
-      {
-        title: "Technical evolution and recovery",
-        description:
-          "Diagnosis, architecture, observability, integration recovery and product evolution for systems already in use",
-      },
-      {
-        title: "Web3 and Solidity on demand",
-        description:
-          "Smart contracts, Web3 platforms and security review as a specialist capability when the product requires it",
+        title: "An AI assistant made for you",
+        description: "A personalized assistant to organize tasks, support study and research or automate steps in your work. We configure its context, tools and permissions around your routine.",
       },
     ],
-    cta: "Evaluate my case",
-    whatsappMessage: "Hi Jean, I want to evaluate my {service} case.",
+    cta: "Tell me what you need",
+    whatsappMessage: "Hi! I would like to discuss {service}. What I need is: ",
   },
   contact: {
     title: "Let's remove the bottleneck",
     titleHighlight: "and put the next step in production.",
     subtitle:
-      "Tell me what is manual, slow, disconnected or hard to measure today. I will return objective questions and a clear next step — not a generic proposal.",
+      "Tell us what is manual, slow, disconnected or hard to measure today. JE4NDEV returns objective questions and a clear next step — not a generic proposal.",
     whatsapp: "Describe my project",
     trustline:
-      "Direct founder contact · verifiable first milestone · scope and investment defined before the build",
-    founderName: "Jean Carlos Vargas",
-    founderRole: "Founder · Product Engineer · Full-stack",
-    founderLocation: "Paranavaí · PR · Remote across Brazil and worldwide",
-    terminalTitle: "project/intake.md",
-    terminalLines: [
-      "describe the bottleneck or opportunity",
-      "map workflow, integrations and risk",
-      "define the first verifiable milestone",
-      "review a navigable preview before the next milestone",
-      "deploy and operate according to scope",
-    ],
-    githubCta: "View public code and projects",
+      "Direct contact · verifiable first milestone · scope and investment defined before the build",
+    cardTitle: "Talk to JE4NDEV",
+    cardSubtitle: "Working with individuals and businesses.",
   },
-  githubProof: {
-    label: "Public GitHub",
-    title: "github.com/JE4NVRG",
+  partners: {
+    label: "Partners",
+    title: "Brands growing with JE4NDEV",
     subtitle:
-      "The public profile is inspectable. Most JE4NDEV products stay in private repositories. This site does not invent GitHub stats.",
-    bullets: [
-      {
-        title: "Navigable public products",
-        body: "ArchScene, Arremata Radar, FullCommerce360, NexPanel and Vultrix 3D show working interfaces, flows and product propositions.",
-      },
-      {
-        title: "Open-source agent infrastructure",
-        body: "Hermes Workspace documents a real foundation for agents with tools, memory, context and local operation.",
-      },
-      {
-        title: "Cases with context and limits",
-        body: "Each page separates problem, build, outcome and evidence type — without presenting a concept as a validated product.",
-      },
-      {
-        title: "Specialist technical capability",
-        body: "Web3 and Solidity projects remain available as complementary technical proof without diluting the main product offer.",
-      },
-    ],
-    metricsTitle: "On this site",
-    metrics: [
-      { label: "Cases on this site", value: "14" },
-      { label: "Public product URLs", value: "8" },
-      { label: "Languages on this site", value: "PT/EN" },
-    ],
-    verificationNote:
-      "Links, repositories and case pages state the available evidence level before any proposal.",
-    cta: "Open GitHub",
+      "Real products and businesses built and operated in partnership with JE4NDEV — from design to infrastructure.",
+    note: "Every brand above has a navigable public site. No invented numbers, no fake storefront.",
   },
   footer: {
-    copyright: "(c) 2026 Jean Carlos Vargas",
+    copyright: "© 2026 JE4NDEV · All rights reserved",
     terms: "Terms of use",
     privacy: "Privacy policy",
-    github: "GitHub",
-    byline: "Websites, systems and AI agents — by Jean Carlos Vargas",
+    byline: "Websites, systems and AI assistants for you and your business",
   },
   testimonials: {
     label: "Social proof",
@@ -178,33 +124,33 @@ export const en = {
   },
   process: {
     label: "How we ship",
-    title: "A first milestone small enough to validate. Complete enough to create value.",
+    title: "A clear path from first conversation to handoff.",
     subtitle:
-      "Every stage ends in evidence you can open, test and approve. The final timeline comes from the scope — not a generic promise.",
+      "We agree on the goal and the next deliverable before work begins. Scope, timing and investment are discussed together, based on what the project needs.",
     steps: [
       {
-        title: "Diagnosis and success criteria",
+        title: "Tell me what you need",
         description:
-          "We map the bottleneck, users, current workflow, integrations and what must be true to call the first milestone done.",
-        deliverable: "PROBLEM → SCOPE",
+          "We talk through your routine, project or business and what you want to make easier or possible.",
+        deliverable: "A SHARED UNDERSTANDING",
       },
       {
-        title: "First navigable milestone",
+        title: "Agree on a first step",
         description:
-          "We build the smallest end-to-end flow that proves the product direction. You test a preview and correct course before expanding.",
-        deliverable: "PREVIEW → FEEDBACK",
+          "I suggest a practical scope with clear priorities, responsibilities, timing and investment before work starts.",
+        deliverable: "SCOPE AND PLAN",
       },
       {
-        title: "Technical and product QA",
+        title: "Review the work together",
         description:
-          "Automated tests where useful, manual browser review, security proportional to risk and an honest record of known limits.",
-        deliverable: "GATES → ACCEPTANCE",
+          "You can see progress, try what is being built and share feedback at agreed checkpoints.",
+        deliverable: "PROGRESS AND FEEDBACK",
       },
       {
-        title: "Deployment, handoff and next milestone",
+        title: "Wrap up with clarity",
         description:
-          "We deploy when included in scope, transfer access and documentation, and define support or evolution without forced dependency.",
-        deliverable: "PRODUCTION → NEXT MILESTONE",
+          "We review the agreed work, hand over what is included and discuss any useful next step.",
+        deliverable: "HANDOFF",
       },
     ],
   },
@@ -245,7 +191,7 @@ export const en = {
     label: "Commercial entry point",
     title: "Diagnosis + first navigable milestone.",
     subtitle:
-      "You describe the bottleneck. I return focused questions, scope, success criteria and the smallest end-to-end workflow worth building first — with timeline, investment and exclusions defined before the build.",
+      "You describe the bottleneck. JE4NDEV returns focused questions, scope, success criteria and the smallest end-to-end workflow worth building first — with timeline, investment and exclusions defined before the build.",
     plans: [
       {
         name: "Diagnosis + first navigable milestone",
@@ -289,7 +235,7 @@ export const en = {
     items: [
       {
         q: "How is this different from hiring a freelancer or traditional dev shop?",
-        a: "This is a founder-led operation: you work directly with me, I define the architecture and review delivery. Automation and agents accelerate tasks, but scope, critical decisions and final responsibility remain under human review.",
+        a: "This is a direct operation: you talk to the people who define the architecture and review every delivery. Automation and agents accelerate tasks, but scope, critical decisions and final responsibility remain under human review.",
       },
       {
         q: "How do you define timeline and investment?",
@@ -348,7 +294,7 @@ export const en = {
     limitationsLabel: "Proof boundary",
     ctaTitle: "Need to validate a similar bottleneck?",
     ctaSubtitle:
-      "Describe the workflow that is manual, slow or hard to measure today. I will return focused questions and a verifiable first milestone — without locking you into an endless project.",
+      "Describe the workflow that is manual, slow or hard to measure today. You get focused questions and a verifiable first milestone — without locking you into an endless project.",
     ctaWhatsapp: "Talk about my project",
     ctaEmail: "Send an email",
     nextProject: "Next project",
@@ -388,6 +334,7 @@ export type Translations = {
   work: {
     label: string;
     title: string;
+    subtitle: string;
     viewCase: string;
     viewProject: string;
     hoverProblem: string;
@@ -430,28 +377,19 @@ export type Translations = {
     subtitle: string;
     whatsapp: string;
     trustline: string;
-    founderName: string;
-    founderRole: string;
-    founderLocation: string;
-    terminalTitle: string;
-    terminalLines: ReadonlyArray<string>;
-    githubCta: string;
+    cardTitle: string;
+    cardSubtitle: string;
   };
-  githubProof: {
+  partners: {
     label: string;
     title: string;
     subtitle: string;
-    bullets: ReadonlyArray<{ title: string; body: string }>;
-    metricsTitle: string;
-    metrics: ReadonlyArray<{ label: string; value: string }>;
-    verificationNote: string;
-    cta: string;
+    note: string;
   };
   footer: {
     copyright: string;
     terms: string;
     privacy: string;
-    github: string;
     byline: string;
   };
   testimonials: {

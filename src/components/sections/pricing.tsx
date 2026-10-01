@@ -5,8 +5,9 @@ import { gsap } from "@/lib/gsap";
 import { useTranslation } from "@/i18n";
 import { Check, MessageCircle, Rocket, Users, Crown } from "lucide-react";
 import { btnPrimary, btnSecondary } from "@/components/ui/button-classes";
+import { COMPANY } from "@/data/company";
 
-const WHATSAPP_URL = "https://wa.me/5511948477047";
+const WHATSAPP_URL = COMPANY.whatsappUrl;
 
 const PLAN_ICONS = [Rocket, Users, Crown];
 const PLAN_ACCENTS = [
@@ -63,8 +64,8 @@ export function Pricing() {
             const ctaKey = `offer-${offerId}`;
             const whatsappMessage = encodeURIComponent(
               locale === "pt"
-                ? `Oi Jean, quero conversar sobre ${plan.name}.`
-                : `Hi Jean, I'd like to discuss ${plan.name}.`,
+                ? `Olá! Quero conversar sobre ${plan.name}.`
+                : `Hi! I'd like to discuss ${plan.name}.`,
             );
             return (
               <div

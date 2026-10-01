@@ -11,6 +11,11 @@ const pathSchema = z.string().min(1).max(256).startsWith("/");
 export const ANALYTICS_EVENT_NAMES = [
   "email-click",
   "lead-cta-click",
+  "nora-contact-form-open",
+  "nora-conversation-response",
+  "nora-lead-delivered",
+  "nora-lead-saved",
+  "nora-open",
   "portfolio-click",
   "portfolio-engaged-30s",
   "portfolio-navigation-click",

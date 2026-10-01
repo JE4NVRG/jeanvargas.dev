@@ -2,8 +2,9 @@
 
 import { BookOpen, ExternalLink, Github, MessageCircle } from "lucide-react";
 import type { Project } from "@/types/project";
+import { COMPANY } from "@/data/company";
 
-const WHATSAPP_BASE = "https://wa.me/5511948477047";
+const WHATSAPP_BASE = COMPANY.whatsappUrl;
 
 type LinkLabels = {
   live: string;
@@ -19,7 +20,7 @@ interface ProjectLinksProps {
 }
 
 function getContactUrl(project: Project) {
-  const message = `Oi Jean, quero conversar sobre um sistema parecido com ${project.title}.`;
+  const message = `Olá! Quero conversar sobre um sistema parecido com ${project.title}.`;
   return `${WHATSAPP_BASE}?text=${encodeURIComponent(message)}`;
 }
 

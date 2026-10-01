@@ -104,7 +104,7 @@ function checkV2Fields(slug: string, p: ProjectV2) {
     'shortDescription', 'role', 'audience', 'proofLevel', 'visualKind',
     'tags', 'primaryCta', 'casePriority'
   ];
-  const priorityCaseSlugs = new Set(['archscene', 'arremata-radar', 'fullcommerce360']);
+  const priorityCaseSlugs = new Set(['mepmail', 'archscene', 'fullcommerce360', 'urlpivot']);
 
   for (const f of required) {
     const val = p[f];

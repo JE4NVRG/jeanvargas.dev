@@ -1,233 +1,47 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { Mail, MessageCircle, ShieldCheck, Github, MapPin } from "lucide-react";
-import { motion } from "framer-motion";
+import { Mail, MessageCircle, ArrowUpRight, Video } from "lucide-react";
+import { BrandSymbol } from "@/components/brand/brand-symbol";
 import { SectionReveal } from "@/components/ui/section-reveal";
-import { MagneticButton } from "@/components/ui/magnetic-button";
 import { useTranslation } from "@/i18n";
+import { COMPANY } from "@/data/company";
+import { contactEmailHref } from "@/lib/contact-email";
 
-const WHATSAPP_URL =
-  "https://wa.me/5511948477047?text=Oi%20Jean%2C%20quero%20conversar%20sobre%20um%20projeto.";
-const EMAIL_URL = "mailto:jean@je4ndev.com";
-const GITHUB_URL = "https://github.com/JE4NVRG";
-
-/**
- * Final CTA — "última cena" before the footer.
- *
- * Two-column layout:
- *  - Left: founder card (photo + name + role + location + 3 CTAs + trustline)
- *  - Right: live terminal that types `$ briefing recebido → ... → deploy em produção`
- *    on scroll-into-view, then loops back to the cursor blinking on the last line.
- *
- * The terminal is hand-rolled instead of reusing CodeTerminal so we can drive
- * the per-line stagger from IntersectionObserver (CodeTerminal fires on mount).
- */
 export function Contact() {
-  const { t } = useTranslation();
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [linesShown, setLinesShown] = useState(0);
-
-  const lines = t.contact.terminalLines;
-  const totalLines = lines.length;
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-    const timers: number[] = [];
-    if (typeof IntersectionObserver === "undefined") {
-      const fallbackTimer = window.setTimeout(() => setLinesShown(totalLines), 0);
-      return () => window.clearTimeout(fallbackTimer);
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            // Stagger the lines in — 420ms apart, matches the rest of the page.
-            for (let i = 0; i < totalLines; i++) {
-              timers.push(
-                window.setTimeout(
-                  () => setLinesShown((prev) => Math.max(prev, i + 1)),
-                  420 * (i + 1),
-                ),
-              );
-            }
-            observer.disconnect();
-            return;
-          }
-        }
-      },
-      { threshold: 0.25 }
-    );
-
-    observer.observe(sectionRef.current);
-    return () => {
-      observer.disconnect();
-      timers.forEach((timer) => window.clearTimeout(timer));
-    };
-  }, [totalLines]);
+  const { t, locale } = useTranslation();
+  const message = locale === "pt"
+    ? "Olá! Quero conversar sobre um projeto. Minha necessidade é: "
+    : "Hi! I would like to discuss a project. What I need is: ";
+  const whatsappUrl = `${COMPANY.whatsappUrl}?text=${encodeURIComponent(message)}`;
+  const emailLink = <a href={contactEmailHref(locale)} data-analytics-event="lead-cta-click" data-cta="contact-email" data-offer="diagnosis-first-milestone" className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-colors ${locale === "en" ? "bg-white text-[#101010] hover:bg-cyan-100" : "border border-white/15 text-zinc-200 hover:border-white/30 hover:bg-white/[0.04]"}`}><Mail className="h-4 w-4"/>{COMPANY.email}</a>;
+  const whatsappLink = <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" data-analytics-event="lead-cta-click" data-cta="contact-whatsapp" data-offer="diagnosis-first-milestone" className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-colors ${locale === "pt" ? "bg-white text-[#101010] hover:bg-cyan-100" : "border border-white/15 text-zinc-200 hover:border-white/30 hover:bg-white/[0.04]"}`}><MessageCircle className="h-4 w-4"/>{locale === "pt" ? "Conversar pelo WhatsApp" : "Message us on WhatsApp"}<ArrowUpRight className="h-4 w-4"/></a>;
 
   return (
-    <section id="contact" className="relative overflow-hidden py-32" ref={sectionRef}>
-      {/* Brighter gradient orb behind the card — pulls the eye in */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <div
-          className="h-[700px] w-[700px] rounded-full opacity-30"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(139,92,246,0.55) 0%, rgba(6,182,212,0.35) 35%, transparent 70%)",
-            filter: "blur(90px)",
-          }}
-        />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
+    <section id="contact" className="relative overflow-hidden border-t border-white/[0.07] py-24 sm:py-32">
+      <div aria-hidden="true" className="pointer-events-none absolute -right-40 top-0 h-[30rem] w-[30rem] rounded-full bg-cyan-500/[0.08] blur-[110px]" />
+      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
         <SectionReveal>
-          <div className="text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-cyan-300/90">
-              {t.nav.contact}
-            </p>
-            <h2 className="mt-3 text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl">
-              {t.contact.title}{" "}
-              <span className="animate-gradient-flow bg-gradient-to-r from-cyan-300 via-violet-300 to-pink-300 bg-clip-text text-transparent">
-                {t.contact.titleHighlight}
-              </span>
-            </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-7 text-zinc-300">
-              {t.contact.subtitle}
-            </p>
-          </div>
-        </SectionReveal>
-
-        <SectionReveal delay={0.15} className="mt-14">
-          <div className="grid gap-6 lg:grid-cols-[1.05fr_1fr]">
-            {/* Founder card */}
-            <div className="overflow-hidden rounded-3xl border border-white/[0.1] bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-8 shadow-[0_30px_120px_-40px_rgba(139,92,246,0.45)] backdrop-blur sm:p-10">
-              <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-                <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl border border-white/[0.1] bg-white/[0.04] sm:h-28 sm:w-28">
-                  <Image
-                    src="/images/jean-about.png"
-                    alt={t.contact.founderName}
-                    fill
-                    sizes="(max-width: 640px) 96px, 112px"
-                    className="object-cover object-[50%_35%]"
-                  />
+          <div className="grid gap-12 lg:grid-cols-[1fr_0.8fr] lg:items-end">
+            <div>
+              <p className="text-sm font-medium text-cyan-200">{locale === "pt" ? "Vamos conversar" : "Start a conversation"}</p>
+              <h2 className="mt-4 max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl">{locale === "pt" ? "Tem um projeto em mente?" : "Have a project in mind?"}</h2>
+              <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-300 sm:text-lg sm:leading-8">{locale === "pt" ? "Pode ser um site para apresentar seu trabalho, um sistema para sua equipe ou um assistente de IA personalizado para sua rotina. Conte o que você precisa, como pessoa física ou empresa. A conversa inicial serve para entender o contexto e combinar um próximo passo, sem compromisso." : "It could be a website to showcase your work, a system for your team or a personalized AI assistant for your everyday life. Tell us what you need, as an individual or a business. The first conversation is simply to understand the context and agree on a next step, with no obligation."}</p>
+            </div>
+            <div className="rounded-3xl border border-white/10 bg-white/[0.035] p-6 sm:p-8">
+              <div className="flex items-center gap-4">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-[#d8c098]/25 bg-[#d8c098]/[0.06]">
+                  <BrandSymbol />
                 </div>
                 <div>
-                  <p className="text-xs font-mono uppercase tracking-widest text-emerald-300">
-                    {"/// founder"}
-                  </p>
-                  <h3 className="mt-1 text-2xl font-bold text-white sm:text-3xl">
-                    {t.contact.founderName}
-                  </h3>
-                  <p className="mt-1 text-sm leading-5 text-zinc-300 sm:text-base">
-                    {t.contact.founderRole}
-                  </p>
-                  <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-zinc-400">
-                    <MapPin className="h-3 w-3" />
-                    {t.contact.founderLocation}
-                  </p>
+                  <h3 className="text-lg font-semibold text-white">{t.contact.cardTitle}</h3>
+                  <p className="mt-1 text-sm text-zinc-400">{t.contact.cardSubtitle}</p>
                 </div>
               </div>
-
-              {/* CTAs */}
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <MagneticButton
-                  as="a"
-                  href={EMAIL_URL}
-                  data-analytics-event="lead-cta-click"
-                  data-cta="contact-email"
-                  data-offer="diagnosis-first-milestone"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black shadow-[0_8px_40px_-8px_rgba(94,234,212,0.5)] transition-colors hover:bg-zinc-100 sm:text-base"
-                >
-                  <Mail className="h-4 w-4" />
-                  jean@je4ndev.com
-                </MagneticButton>
-
-                <MagneticButton
-                  as="a"
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-analytics-event="lead-cta-click"
-                  data-cta="contact-whatsapp"
-                  data-offer="diagnosis-first-milestone"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/[0.06] px-7 py-3.5 text-sm font-semibold text-emerald-300 backdrop-blur transition-colors hover:border-emerald-400/60 hover:bg-emerald-500/[0.1] sm:text-base"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  {t.contact.whatsapp}
-                </MagneticButton>
-
-                <a
-                  href={GITHUB_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-analytics-event="proof-cta-click"
-                  data-cta="contact-github"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.04] px-7 py-3.5 text-sm font-medium text-zinc-300 backdrop-blur transition-colors hover:border-white/[0.32] hover:bg-white/[0.08] sm:text-base"
-                >
-                  <Github className="h-4 w-4" />
-                  {t.contact.githubCta}
-                </a>
+              <div className="mt-7 grid gap-3">
+                {locale === "en" ? <>{emailLink}{whatsappLink}</> : <>{whatsappLink}{emailLink}</>}
+                <a href={contactEmailHref(locale, locale === "pt" ? "Conversa por vídeo" : "Discovery call")} data-analytics-event="lead-cta-click" data-cta="contact-call-request" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-4 py-3 text-sm text-cyan-200 hover:bg-white/5"><Video className="h-4 w-4" aria-hidden="true"/>{locale === "pt" ? "Combinar uma conversa por vídeo" : "Request a discovery call"}</a>
               </div>
-
-              {/* Trustline */}
-              <p className="mt-7 inline-flex items-center gap-2 text-sm text-zinc-400">
-                <ShieldCheck className="h-4 w-4 text-emerald-400" />
-                {t.contact.trustline}
-              </p>
-            </div>
-
-            {/* Terminal */}
-            <div className="overflow-hidden rounded-3xl border border-white/[0.08] bg-[#060708]/95 shadow-2xl shadow-black/40">
-              <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.03] px-4 py-3">
-                <div className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
-                </div>
-                <span className="font-mono text-xs text-zinc-400">
-                  {t.contact.terminalTitle}
-                </span>
-              </div>
-
-              <div className="space-y-4 p-5 font-mono text-xs leading-6 sm:p-6 sm:text-sm">
-                {lines.map((line, index) => {
-                  const visible = index < linesShown;
-                  const isLast = index === lines.length - 1;
-                  return (
-                    <motion.div
-                      key={line}
-                      initial={false}
-                      animate={
-                        visible
-                          ? { opacity: 1, y: 0 }
-                          : { opacity: 0, y: 8 }
-                      }
-                      transition={{ duration: 0.35, ease: "easeOut" }}
-                      className="flex items-baseline gap-2"
-                    >
-                      <span className="text-emerald-400">$</span>
-                      <span className="text-zinc-200">{line}</span>
-                      {isLast && visible && (
-                        <span className="ml-1 inline-block h-3.5 w-1.5 translate-y-0.5 animate-pulse bg-cyan-300/80" />
-                      )}
-                    </motion.div>
-                  );
-                })}
-
-                {linesShown >= totalLines && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.2 }}
-                    className="mt-2 border-t border-white/[0.06] pt-4 text-[11px] uppercase tracking-widest text-emerald-300/90"
-                  >
-                    {"/// pronto pra começar"}
-                  </motion.div>
-                )}
-              </div>
+              <p className="mt-5 text-center text-xs leading-5 text-zinc-400">{locale === "pt" ? "Atendimento remoto em português e inglês. Chamadas são combinadas por e-mail, conforme seu fuso e disponibilidade." : "Remote collaboration in English and Portuguese. Call times are agreed by email around your time zone and availability."}</p>
             </div>
           </div>
         </SectionReveal>

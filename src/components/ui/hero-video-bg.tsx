@@ -9,40 +9,71 @@ import { useEffect, useState } from "react";
  * has `prefers-reduced-motion` / `Save-Data` we render a static CSS blob
  * instead so first paint stays cheap.
  */
+type HeroVideoPolicy = {
+  isMobile: boolean;
+  reducedMotion: boolean;
+  saveData: boolean;
+  effectiveType?: string;
+};
+
+/** Pure policy kept separate so the video opt-out conditions are regression-tested. */
+export function shouldLoadHeroVideo({
+  isMobile,
+  reducedMotion,
+  saveData,
+  effectiveType,
+}: HeroVideoPolicy): boolean {
+  return !isMobile && !reducedMotion && !saveData &&
+    !(effectiveType && /^(slow-2g|2g|3g)$/.test(effectiveType));
+}
+
 export function HeroVideoBg({ src = "/videos/hero-blob.mp4" }: { src?: string }) {
   const [allowVideo, setAllowVideo] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    const policy = (): HeroVideoPolicy => {
+      const connection = (
+        navigator as Navigator & {
+          connection?: { saveData?: boolean; effectiveType?: string };
+        }
+      ).connection;
+      return {
+        isMobile: window.matchMedia("(max-width: 767px)").matches,
+        reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+        saveData: connection?.saveData === true,
+        effectiveType: connection?.effectiveType,
+      };
+    };
 
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (reduceMotion) return;
-
-    // Save-Data hint from cellular / low-bandwidth users
-    const connection = (
-      navigator as Navigator & {
-        connection?: { saveData?: boolean; effectiveType?: string };
+    let idle: number | undefined;
+    let fallback: number | undefined;
+    const schedule = () => {
+      if (document.visibilityState !== "visible" || !shouldLoadHeroVideo(policy())) return;
+      const enable = () => {
+        idle = undefined;
+        fallback = undefined;
+        // Re-check at callback time; the tab or user preference may have changed.
+        if (document.visibilityState === "visible" && shouldLoadHeroVideo(policy())) {
+          setAllowVideo(true);
+        }
+      };
+      idle = window.requestIdleCallback?.(enable, { timeout: 2500 });
+      if (idle == null) fallback = window.setTimeout(enable, 2500);
+    };
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "visible") schedule();
+      else {
+        if (idle != null) window.cancelIdleCallback?.(idle);
+        if (fallback != null) window.clearTimeout(fallback);
+        idle = undefined;
+        fallback = undefined;
       }
-    ).connection;
-    if (connection?.saveData) return;
-    if (
-      connection?.effectiveType &&
-      /^(slow-2g|2g|3g)$/.test(connection.effectiveType)
-    ) {
-      return;
-    }
+    };
 
-    // Mobile gets the static fallback — the autoplay video is too heavy for
-    // first paint and the blob is decorative anyway.
-    const isMobile = window.matchMedia("(max-width: 767px)").matches;
-    if (isMobile) return;
-
-    const enable = () => setAllowVideo(true);
-    const idle = window.requestIdleCallback?.(enable, { timeout: 2500 });
-    const fallback = idle == null ? window.setTimeout(enable, 2500) : null;
+    schedule();
+    document.addEventListener("visibilitychange", onVisibilityChange);
     return () => {
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       if (idle != null) window.cancelIdleCallback?.(idle);
       if (fallback != null) window.clearTimeout(fallback);
     };

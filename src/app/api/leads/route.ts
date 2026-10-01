@@ -1,0 +1,18 @@
+import { dispatchSheetsOutbox, errorResponse, processLeadRequest } from "@/lib/leads/leads";
+import { after } from "next/server";
+import { upgradeVisitor } from "@/lib/concierge/visitor";
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export async function POST(request: Request) {
+  try {
+    const bodyRequest = request.clone();
+    const { visitorProfile, ...receipt } = await processLeadRequest(request);
+    let registration: "upgraded" | "unavailable" = "unavailable";
+    try {
+      const body = await bodyRequest.json() as { requestId?: unknown };
+      if (typeof body.requestId === "string") { await upgradeVisitor(request, receipt.leadId, body.requestId, process.env, new Date(), visitorProfile); registration = "upgraded"; }
+    } catch { /* Lead is already durably saved; registration status is separate. */ }
+    after(async () => { await dispatchSheetsOutbox().catch(() => undefined); });
+    return Response.json({ ...receipt, registration }, { headers: { "cache-control": "no-store" } });
+  } catch (error) { return errorResponse(error); }
+}

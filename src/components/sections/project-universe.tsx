@@ -54,6 +54,10 @@ const STATUS_STYLE: Record<
     className: "bg-violet-500/10 text-violet-300 ring-violet-500/30",
     label: { en: "Case", pt: "Case" },
   },
+  archived: {
+    className: "bg-zinc-500/10 text-zinc-300 ring-zinc-500/30",
+    label: { en: "Archived", pt: "Arquivado" },
+  },
   internal: {
     className: "bg-cyan-500/10 text-cyan-300 ring-cyan-500/30",
     label: { en: "Internal", pt: "Interno" },
