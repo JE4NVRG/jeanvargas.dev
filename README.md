@@ -20,7 +20,7 @@ JE4NDEV is Jean Carlos Vargas's digital product agency, based in Brazil and work
 
 [Visit the English website](https://je4ndev.com/en) · [Explore our products](#products) · [Meet Nora](#nora) · [Discuss your project](mailto:jean@je4ndev.com)
 
-<img src="docs/screenshots/readme/home-desktop.png" alt="JE4NDEV portfolio homepage in Portuguese, showing its brand, services, animated scene and Nora chat entry" width="100%" />
+<img src="docs/screenshots/readme/home-en-desktop.jpg" alt="JE4NDEV portfolio homepage in English, showing its brand, services, animated scene and Nora chat entry" width="100%" />
 
 </div>
 
@@ -66,7 +66,7 @@ Try Nora to explore an idea or see how an assistant could help you. She discusse
 
 <img src="docs/screenshots/readme/nora-conversation.png" alt="Nora's Portuguese conversation in a fictional validation scenario, outlining an assistant for lesson requests with human review and payments outside the first scope" width="100%" />
 
-*An actual validation conversation using a fictional scenario. No customer contacts or customer data appear in the capture. The English interface is available on the live website; these existing captures show the Portuguese interface.*
+*An actual validation conversation using a fictional scenario. No customer contacts or customer data appear in the capture. The English interface is available on the live website; the conversation and mobile captures show the Portuguese interface.*
 
 ### Desktop, mobile and the first conversation
 
