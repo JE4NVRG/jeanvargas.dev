@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
 import { serviceOffers } from "@/data/services";
+import { GUIDE_SLUG } from "@/data/guides";
 
 const BASE_URL = "https://je4ndev.com";
 const LOCALES = ["pt", "en"] as const;
@@ -73,5 +74,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  return [...homeEntries, ...serviceEntries, ...projectEntries, ...legalEntries];
+  const guideEntries = LOCALES.flatMap((locale) =>
+    ["guides", `guides/${GUIDE_SLUG}`].map<MetadataRoute.Sitemap[number]>((route) => ({
+      url: `${BASE_URL}/${locale}/${route}`,
+      alternates: {
+        languages: {
+          "pt-BR": `${BASE_URL}/pt/${route}`,
+          "en-US": `${BASE_URL}/en/${route}`,
+          "x-default": `${BASE_URL}/en/${route}`,
+        },
+      },
+    }))
+  );
+
+  return [...homeEntries, ...serviceEntries, ...projectEntries, ...guideEntries, ...legalEntries];
 }

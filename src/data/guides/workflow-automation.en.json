@@ -1,0 +1,173 @@
+{
+  "title": "AI agent or workflow automation: which do you need?",
+  "description": "Compare workflow automation, AI-assisted workflows and agents. Use a support example and JE4NDEV's live Nora assistant to decide what to build first.",
+  "lead": "Use rules for predictable steps. Add AI where language needs interpretation. Evaluate an agent when it must choose the next step using information from approved tools. Start by mapping one task and deciding who checks the result.",
+  "sections": [
+    {
+      "id": "map-the-task",
+      "title": "Start with one task you can describe",
+      "paragraphs": [
+        "Write down what starts the work, what information arrives, what a correct result looks like and who owns exceptions. For example: a support form creates a ticket, the ticket needs a category and the support lead reviews uncertain requests.",
+        "If the inputs and routing rules are already clear, connect the form to the ticket system and validate the fields. You may need an API integration and a failure alert before you need AI."
+      ],
+      "bullets": [],
+      "links": []
+    },
+    {
+      "id": "choose-the-control",
+      "title": "Interpretation does not always require an agent",
+      "paragraphs": [
+        "An AI-assisted workflow can follow a fixed sequence: read a message, suggest a category, validate the output and ask a person to approve it. The model performs one part of the process; application code controls the path.",
+        "An agent has more freedom to select its next action from permitted tools as information arrives. That can help when the path varies, but it also means more decisions to inspect and limit. A chat interface alone does not tell you which design is underneath."
+      ],
+      "bullets": [],
+      "links": [
+        {
+          "label": "Anthropic's distinction between workflows and agents",
+          "href": "https://www.anthropic.com/engineering/building-effective-agents"
+        }
+      ]
+    },
+    {
+      "id": "support-example",
+      "title": "An illustrative example: routing a support request",
+      "paragraphs": [
+        "This example is hypothetical; it is not a customer deployment or a measured savings claim.",
+        "A form contains the product, category and urgency. A rule routes it to the right queue. If a required field is missing, the ticket goes to review instead of receiving a guessed value.",
+        "Now let visitors describe the issue in their own words. An AI step can suggest a category and draft a reply from approved documentation. Keep the routing, source restrictions and review requirement explicit.",
+        "If resolving the request requires different lookups depending on what each tool returns, consider a bounded agent. It could read the ticket and relevant account information, then propose a next step. Sending a reply, issuing a refund or changing an account needs its own permission and approval policy."
+      ],
+      "bullets": [],
+      "links": []
+    },
+    {
+      "id": "operating-boundaries",
+      "title": "Agree the boundaries before connecting accounts",
+      "paragraphs": [
+        "Define what the system may read, change and send, and when it must stop for a person. A useful draft and permission to send it are separate decisions.",
+        "Private hosting does not automatically mean a local model. Record which providers receive data, what is retained and how access can be revoked."
+      ],
+      "bullets": [
+        "Name the process owner, permitted tools and human approvals.",
+        "Set failure handling, retry limits and a manual fallback.",
+        "Agree hosting, model usage, third-party costs and maintenance.",
+        "Document account ownership, logs, retention and handoff."
+      ],
+      "links": []
+    },
+    {
+      "id": "evaluate-first",
+      "title": "Test a small slice before expanding",
+      "paragraphs": [
+        "Use representative requests, including incomplete inputs, conflicting details and unavailable tools. Define the correct outcome before running the test, then compare the proposed design with the current process or a simple rules-based version.",
+        "Record incorrect outputs, completed tasks, human corrections, review time, failures and actual usage costs. Track drafts separately from approved actions. Expand only when the evidence supports the added complexity; a short test does not establish annual savings."
+      ],
+      "bullets": [],
+      "links": []
+    }
+  ],
+  "comparison": {
+    "title": "Compare what controls the workflow",
+    "afterSection": "choose-the-control",
+    "columns": [
+      "Decision",
+      "Workflow automation",
+      "AI-assisted workflow",
+      "Bounded AI agent"
+    ],
+    "rows": [
+      [
+        "Path",
+        "Rules choose the steps",
+        "Fixed path with an AI step",
+        "Model chooses permitted next steps"
+      ],
+      [
+        "Input",
+        "Structured fields",
+        "Free text within a defined task",
+        "Context changes across tool results"
+      ],
+      [
+        "Example",
+        "Route a form by category",
+        "Suggest a category and draft a reply",
+        "Choose which approved records to inspect"
+      ],
+      [
+        "Exceptions",
+        "Explicit fallback branch",
+        "Reject or review unsuitable output",
+        "Stop on limits, missing access or uncertainty"
+      ],
+      [
+        "Review",
+        "Validate rules and side effects",
+        "Check interpretation and generated text",
+        "Check choices, tool use and side effects"
+      ],
+      [
+        "Costs to inspect",
+        "Runtime and integration usage",
+        "Those costs plus model calls",
+        "Those costs plus variable steps and review"
+      ]
+    ],
+    "note": "These are design options, not a quality ranking. All three need ownership, validation and failure handling."
+  },
+  "case": {
+    "title": "Nora: a conversation that prepares the human handoff",
+    "afterSection": "support-example",
+    "label": "JE4NDEV's own live product",
+    "paragraphs": [
+      "Nora is the public website assistant on JE4NDEV, available in English and Portuguese. It helps a visitor clarify a project goal, constraints and open questions, then prepares a brief the visitor can review.",
+      "Contact registration is consent-based. The brief prepares a conversation with Jean, who agrees scope, pricing and delivery commitments. Project memory is optional and expires after 30 days."
+    ],
+    "limitations": [
+      "A registered contact does not confirm human follow-up, a proposal or a contract.",
+      "Memory recovery requires the registered number and a personal code; it does not verify WhatsApp ownership."
+    ],
+    "note": "Nora shows an implemented assistant and its operating boundaries. It is not a customer testimonial or a benchmark for another business.",
+    "link": {
+      "label": "Explore Nora's implementation and limits",
+      "href": "/en/projects/nora"
+    }
+  },
+  "faqs": [
+    {
+      "question": "Does workflow automation need AI?",
+      "answer": "No. Start with rules and integrations when they can handle the inputs and decisions. Add AI for a specific interpretation or generation task, then check its output."
+    },
+    {
+      "question": "Can automation and an AI agent work together?",
+      "answer": "Yes. An agent can propose an action while application code validates permissions, records the result and controls execution. Define exactly where a person approves the action."
+    },
+    {
+      "question": "Will an agent make the workflow cheaper or faster?",
+      "answer": "That needs to be measured in your workflow. Include model usage, integrations, retries, human review and maintenance when comparing costs and completion time."
+    },
+    {
+      "question": "What should I prepare before discussing a project?",
+      "answer": "Bring one recurring task, the tools involved, a sanitized example, the expected result and common exceptions. Avoid sending passwords, private customer records or other sensitive data in the initial email."
+    }
+  ],
+  "cta": {
+    "title": "Describe the task you want to improve",
+    "text": "Tell Jean what starts the work, which tools you use and where it gets stuck. JE4NDEV works with individuals and businesses in English and Portuguese. The next step is to scope a useful first slice and its review requirements.",
+    "label": "Discuss my workflow by email",
+    "email": "jean@je4ndev.com",
+    "subject": "Workflow automation or AI agent — project enquiry",
+    "body": "Hi Jean,\n\nThe recurring task I want to improve:\nWhat starts it:\nTools and systems involved:\nWhat a correct result looks like:\nCommon exceptions and actions requiring approval:\nTimeline or constraints:\n\nMy preferred language and, if a call would help, time zone and availability:\n",
+    "note": "The button opens an email draft. Review it before sending; opening it does not send a message or schedule a call.",
+    "links": [
+      {
+        "label": "Workflow automation and API integrations",
+        "href": "/en/services/ai-automation"
+      },
+      {
+        "label": "Custom AI assistants and agents",
+        "href": "/en/services/private-ai-agents"
+      }
+    ]
+  }
+}

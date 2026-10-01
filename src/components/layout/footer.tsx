@@ -37,6 +37,9 @@ export function Footer() {
           <a className="transition-colors hover:text-zinc-300" href={COMPANY.whatsappUrl}>
             WhatsApp
           </a>
+          <Link className="transition-colors hover:text-zinc-300" href={`/${locale}/guides`} data-analytics-event="portfolio-navigation-click" data-cta="footer-guides">
+            {locale === "pt" ? "Guias" : "Guides"}
+          </Link>
           <Link className="transition-colors hover:text-zinc-300" href={`/${locale}/termos`}>
             {t.footer.terms}
           </Link>

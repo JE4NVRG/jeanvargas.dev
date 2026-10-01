@@ -2,8 +2,11 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   parseSearchConsoleCsv,
+  assertCompleteWeeklyRead,
   renderWeeklyFunnelMarkdown,
   summarizeWeeklyFunnel,
+  parseWeeklyReportFilters,
+  weeklyReportReadParams,
   type FunnelAnalyticsRow,
   type FunnelLeadRow,
 } from "../src/lib/analytics/weekly-report";
@@ -13,7 +16,10 @@ const LEADS_TABLE = "portfolio_funnel_leads";
 
 function readArg(name: string) {
   const index = process.argv.indexOf(name);
-  return index >= 0 ? process.argv[index + 1] : undefined;
+  if (index < 0) return undefined;
+  const value = process.argv[index + 1];
+  if (!value || value.startsWith("--")) throw new Error(`Missing value for ${name}`);
+  return value;
 }
 
 function readDays() {
@@ -40,34 +46,30 @@ async function fetchRows<T>(options: {
   url: string;
   key: string;
   table: string;
-  select: string;
-  timeField: string;
-  since: string;
-  until: string;
+  params: URLSearchParams;
 }) {
   const endpoint = new URL(`${options.url}/rest/v1/${options.table}`);
-  endpoint.searchParams.set("select", options.select);
-  endpoint.searchParams.set(
-    "and",
-    `(${options.timeField}.gte.${options.since},${options.timeField}.lte.${options.until})`,
-  );
-  endpoint.searchParams.set("order", `${options.timeField}.desc`);
-  endpoint.searchParams.set("limit", "10000");
+  endpoint.search = options.params.toString();
 
   const response = await fetch(endpoint, {
     headers: {
       apikey: options.key,
       authorization: `Bearer ${options.key}`,
+      prefer: "count=exact",
     },
   });
   if (!response.ok) {
     throw new Error(`${options.table} query failed with HTTP ${response.status}`);
   }
-  return (await response.json()) as T[];
+  const rows: unknown = await response.json();
+  if (!Array.isArray(rows)) throw new Error("Weekly report query did not return a row array.");
+  assertCompleteWeeklyRead(response.headers.get("content-range"), rows.length);
+  return rows as T[];
 }
 
 async function main() {
   const days = readDays();
+  const filters = parseWeeklyReportFilters({ locale: readArg("--locale"), medium: readArg("--medium") });
   const { url, key } = requireConfig();
   const endedAtDate = new Date();
   const endedAt = endedAtDate.toISOString();
@@ -82,26 +84,20 @@ async function main() {
   ).toISOString().slice(0, 10);
   const searchConsoleEndDate = endedAt.slice(0, 10);
   const searchConsolePath = readArg("--search-console");
+  const window = { startedAt, endedAt, searchConsoleStartDate, searchConsoleEndDate };
 
   const [analytics, leads] = await Promise.all([
     fetchRows<FunnelAnalyticsRow>({
       url,
       key,
       table: ANALYTICS_TABLE,
-      select: "occurred_at,event_name,page_path,source,medium,campaign,landing_path",
-      timeField: "occurred_at",
-      since: startedAt,
-      until: endedAt,
+      params: weeklyReportReadParams("analytics", window),
     }),
     fetchRows<FunnelLeadRow>({
       url,
       key,
       table: LEADS_TABLE,
-      select:
-        "lead_code,business_name,status,source,medium,campaign,channel,landing_path,created_at,first_contact_at,conversation_started_at,qualified_at,proposal_sent_at,closed_at,deal_value_brl,updated_at",
-      timeField: "updated_at",
-      since: startedAt,
-      until: endedAt,
+      params: weeklyReportReadParams("leads", window),
     }),
   ]);
 
@@ -115,12 +111,8 @@ async function main() {
     analytics,
     leads,
     searchConsole,
-    window: {
-      startedAt,
-      endedAt,
-      searchConsoleStartDate,
-      searchConsoleEndDate,
-    },
+    window,
+    filters,
   });
   process.stdout.write(
     renderWeeklyFunnelMarkdown(summary, {

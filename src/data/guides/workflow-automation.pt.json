@@ -1,0 +1,132 @@
+{
+  "title": "Agente de IA ou automação: qual faz sentido para sua rotina?",
+  "description": "Compare automação, fluxos com IA e agentes. Um exemplo de suporte e a Nora, assistente da JE4NDEV, ajudam a decidir por onde começar.",
+  "lead": "Use regras para etapas previsíveis. Acrescente IA quando for preciso interpretar linguagem. Avalie um agente quando ele precisar escolher o próximo passo com base nas informações das ferramentas autorizadas. Comece por uma tarefa e defina quem confere o resultado.",
+  "sections": [
+    {
+      "id": "map-the-task",
+      "title": "Comece por uma tarefa que você consegue descrever",
+      "paragraphs": [
+        "Anote o que inicia o trabalho, quais informações chegam, como reconhecer um resultado correto e quem cuida das exceções. Por exemplo: um formulário abre um chamado, o chamado precisa de uma categoria e a pessoa responsável pelo suporte revisa os pedidos que geram dúvida.",
+        "Se os dados e as regras de encaminhamento já estão claros, conecte o formulário ao sistema de chamados e valide os campos. Uma integração por API e um alerta de falha podem resolver o problema antes de acrescentar IA."
+      ],
+      "bullets": [],
+      "links": []
+    },
+    {
+      "id": "choose-the-control",
+      "title": "Interpretar uma mensagem nem sempre exige um agente",
+      "paragraphs": [
+        "Um fluxo com IA pode seguir uma sequência fixa: ler a mensagem, sugerir uma categoria, validar a saída e pedir aprovação a uma pessoa. O modelo executa uma parte do processo; o código da aplicação define o caminho.",
+        "Um agente tem mais liberdade para escolher a próxima ação entre as ferramentas permitidas, conforme recebe informações. Isso pode ajudar quando o caminho varia, mas também cria mais decisões para conferir e limitar. Uma interface de chat, por si só, não mostra qual desses desenhos está por trás."
+      ],
+      "bullets": [],
+      "links": [
+        {
+          "label": "Como a Anthropic distingue fluxos e agentes (em inglês)",
+          "href": "https://www.anthropic.com/engineering/building-effective-agents"
+        }
+      ]
+    },
+    {
+      "id": "support-example",
+      "title": "Exemplo ilustrativo: encaminhar um pedido de suporte",
+      "paragraphs": [
+        "Este exemplo é hipotético. Não representa uma implantação em cliente nem uma economia medida.",
+        "O formulário informa o produto, a categoria e a urgência. Uma regra encaminha o pedido para a fila correta. Se faltar um campo obrigatório, o chamado vai para revisão em vez de receber um valor inventado.",
+        "Agora deixe a pessoa descrever o problema com as próprias palavras. Uma etapa de IA pode sugerir a categoria e preparar um rascunho de resposta com base na documentação autorizada. As regras de encaminhamento, as fontes permitidas e a revisão continuam explícitas.",
+        "Se a resolução exigir consultas diferentes conforme o retorno de cada ferramenta, considere um agente com limites definidos. Ele poderia ler o chamado e os dados pertinentes da conta, depois propor o próximo passo. Enviar uma resposta, emitir um reembolso ou alterar uma conta exige permissões e critérios de aprovação próprios."
+      ],
+      "bullets": [],
+      "links": []
+    },
+    {
+      "id": "operating-boundaries",
+      "title": "Combine os limites antes de conectar contas",
+      "paragraphs": [
+        "Defina o que o sistema pode consultar, alterar e enviar, além das situações em que deve parar para uma pessoa decidir. Preparar um bom rascunho e ter autorização para enviá-lo são decisões separadas.",
+        "Hospedagem privada não significa automaticamente usar um modelo local. Registre quais provedores recebem dados, o que fica armazenado e como os acessos podem ser revogados."
+      ],
+      "bullets": [
+        "Defina o responsável pelo processo, as ferramentas permitidas e as aprovações humanas.",
+        "Preveja tratamento de falhas, limites de novas tentativas e uma alternativa manual.",
+        "Combine hospedagem, uso do modelo, custos de terceiros e manutenção.",
+        "Documente a propriedade das contas, os registros de execução, a retenção e a transferência de controle."
+      ],
+      "links": []
+    },
+    {
+      "id": "evaluate-first",
+      "title": "Teste uma parte pequena antes de ampliar",
+      "paragraphs": [
+        "Escolha pedidos representativos, incluindo informações incompletas, detalhes contraditórios e ferramentas indisponíveis. Defina o resultado correto antes do teste e compare a proposta com o processo atual ou uma versão simples baseada em regras.",
+        "Registre saídas incorretas, tarefas concluídas, correções humanas, tempo de revisão, falhas e custos reais de uso. Conte rascunhos e ações aprovadas separadamente. Amplie quando a evidência justificar a complexidade; um teste curto não comprova economia anual."
+      ],
+      "bullets": [],
+      "links": []
+    }
+  ],
+  "comparison": {
+    "title": "Compare quem decide o caminho do processo",
+    "afterSection": "choose-the-control",
+    "columns": ["Critério", "Automação", "Fluxo com IA", "Agente de IA com limites"],
+    "rows": [
+      ["Caminho", "Regras definem as etapas", "Sequência fixa com uma etapa de IA", "Modelo escolhe os próximos passos permitidos"],
+      ["Entrada", "Campos estruturados", "Texto livre dentro de uma tarefa definida", "Contexto muda conforme o retorno das ferramentas"],
+      ["Exemplo", "Encaminhar um formulário pela categoria", "Sugerir uma categoria e redigir uma resposta", "Escolher quais registros autorizados consultar"],
+      ["Exceções", "Caminho alternativo definido", "Rejeitar ou revisar uma saída inadequada", "Parar diante de limites, falta de acesso ou incerteza"],
+      ["Revisão", "Conferir regras e efeitos das ações", "Conferir interpretação e texto gerado", "Conferir escolhas, uso de ferramentas e efeitos das ações"],
+      ["Custos a avaliar", "Execução e uso das integrações", "Esses custos mais chamadas ao modelo", "Esses custos mais etapas variáveis e revisão"]
+    ],
+    "note": "São opções de implementação. A escolha depende da tarefa, e todas precisam de responsável, validação e tratamento de falhas."
+  },
+  "case": {
+    "title": "Nora: uma conversa que prepara o atendimento humano",
+    "afterSection": "support-example",
+    "label": "Produto próprio da JE4NDEV em operação",
+    "paragraphs": [
+      "A Nora é a assistente pública do site da JE4NDEV, disponível em português e inglês. Ela ajuda o visitante a esclarecer o objetivo de um projeto, suas restrições e dúvidas, depois organiza um resumo que a pessoa pode revisar.",
+      "O contato é registrado com consentimento. O resumo prepara o atendimento humano, no qual Jean define escopo, preço e compromissos de entrega. A memória é opcional e tem prazo de 30 dias."
+    ],
+    "limitations": [
+      "Um contato registrado não confirma atendimento, proposta ou contratação.",
+      "A memória usa o número cadastrado e um código pessoal, sem comprovar a titularidade do WhatsApp."
+    ],
+    "note": "A Nora demonstra um produto implementado e seus limites. Não é um depoimento de cliente nem uma promessa de resultado para outra empresa.",
+    "link": {
+      "label": "Veja o case da Nora e os detalhes da implementação",
+      "href": "/pt/projects/nora"
+    }
+  },
+  "faqs": [
+    {
+      "question": "Toda automação precisa de IA?",
+      "answer": "Não. Comece por regras e integrações quando elas resolvem as entradas e decisões do processo. Acrescente IA para uma tarefa específica de interpretação ou geração e confira a saída."
+    },
+    {
+      "question": "Uma automação e um agente de IA podem trabalhar juntos?",
+      "answer": "Sim. O agente pode propor uma ação enquanto o código da aplicação valida permissões, registra o resultado e controla a execução. Defina exatamente quando uma pessoa precisa aprovar a ação."
+    },
+    {
+      "question": "Um agente vai deixar o processo mais barato ou rápido?",
+      "answer": "Isso precisa ser medido na sua rotina. Considere uso do modelo, integrações, novas tentativas, revisão humana e manutenção ao comparar custos e tempo de conclusão."
+    },
+    {
+      "question": "O que devo preparar antes de conversar sobre um projeto?",
+      "answer": "Traga uma tarefa recorrente, as ferramentas envolvidas, um exemplo sem dados sensíveis, o resultado esperado e as exceções comuns. No primeiro e-mail, evite senhas, registros privados de clientes e outras informações sensíveis."
+    }
+  ],
+  "cta": {
+    "title": "Descreva a tarefa que você quer melhorar",
+    "text": "Conte ao Jean o que inicia o trabalho, quais ferramentas você usa e onde o processo trava. A JE4NDEV atende pessoas físicas e empresas em português e inglês. O próximo passo é definir um primeiro recorte útil e o que precisa de revisão.",
+    "label": "Conversar sobre minha rotina por e-mail",
+    "email": "jean@je4ndev.com",
+    "subject": "Automação ou agente de IA — conversa sobre projeto",
+    "body": "Olá, Jean!\n\nA tarefa recorrente que quero melhorar:\nO que inicia o trabalho:\nFerramentas e sistemas envolvidos:\nComo reconhecer um resultado correto:\nExceções comuns e ações que precisam de aprovação:\nPrazo ou restrições:\n\nMeu idioma preferido e, se uma conversa por vídeo ajudar, meu fuso e horários disponíveis:\n",
+    "note": "O botão abre um rascunho de e-mail. Revise antes de enviar; abrir o rascunho não envia a mensagem nem agenda uma conversa.",
+    "links": [
+      { "label": "Automações e integrações por API", "href": "/pt/services/automacoes-ia" },
+      { "label": "Assistentes e agentes de IA personalizados", "href": "/pt/services/agentes-ia-privados" }
+    ]
+  }
+}

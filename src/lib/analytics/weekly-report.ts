@@ -5,6 +5,7 @@ export type FunnelAnalyticsRow = {
   occurred_at: string;
   event_name: string;
   page_path: string;
+  locale?: "en" | "pt" | null;
   source: string;
   medium: string;
   campaign: string | null;
@@ -12,16 +13,16 @@ export type FunnelAnalyticsRow = {
 };
 
 export type FunnelLeadRow = {
-  lead_code: string;
-  business_name: string;
+  lead_code?: string;
+  business_name?: string;
   status: FunnelLeadStatus;
   source: string;
   medium: string;
   campaign: string | null;
-  channel: string;
+  channel?: string;
   landing_path: string | null;
   created_at: string;
-  first_contact_at: string | null;
+  first_contact_at?: string | null;
   conversation_started_at: string | null;
   qualified_at: string | null;
   proposal_sent_at: string | null;
@@ -38,10 +39,12 @@ export type SearchConsoleDay = {
 };
 
 export type WeeklyFunnelSummary = {
+  filters: WeeklyReportFilters;
   events: number;
   pageViews: number;
   leadClicks: number;
   clicksPerPageView: number | null;
+  registeredContacts: number;
   conversations: number;
   qualified: number;
   proposals: number;
@@ -67,7 +70,71 @@ export type WeeklyReportingWindow = {
   searchConsoleEndDate: string;
 };
 
+// Existing attribution outputs and acquisition campaign media; this list only
+// restricts the report's CLI filter, not event ingestion or stored UTM values.
+export const WEEKLY_REPORT_MEDIA = [
+  "organic", "ai-referral", "direct", "referral", "campaign", "organic-social",
+  "email", "video", "community", "dm", "unknown",
+] as const;
+
+export type WeeklyReportFilters = {
+  locale?: "en" | "pt";
+  medium?: (typeof WEEKLY_REPORT_MEDIA)[number];
+};
+
+export function parseWeeklyReportFilters(input: { locale?: unknown; medium?: unknown }): WeeklyReportFilters {
+  if (input.locale !== undefined && input.locale !== "en" && input.locale !== "pt") {
+    throw new Error("--locale must be en or pt");
+  }
+  if (input.medium !== undefined && !WEEKLY_REPORT_MEDIA.some((medium) => medium === input.medium)) {
+    throw new Error(`--medium must be one of: ${WEEKLY_REPORT_MEDIA.join(", ")}`);
+  }
+  return {
+    ...(input.locale === undefined ? {} : { locale: input.locale as "en" | "pt" }),
+    ...(input.medium === undefined ? {} : { medium: input.medium as WeeklyReportFilters["medium"] }),
+  };
+}
+
+export function weeklyReportReadParams(kind: "analytics" | "leads", window: WeeklyReportingWindow) {
+  resolveReportingWindow(window);
+  const params = new URLSearchParams();
+  if (kind === "analytics") {
+    params.set("select", "occurred_at,event_name,page_path,locale,source,medium,campaign,landing_path");
+    params.set("and", `(occurred_at.gte.${window.startedAt},occurred_at.lte.${window.endedAt})`);
+    params.set("order", "occurred_at.desc");
+  } else {
+    params.set("select", "status,source,medium,campaign,landing_path,created_at,conversation_started_at,qualified_at,proposal_sent_at,closed_at,deal_value_brl,updated_at");
+    // Do not restrict qualification and other progress to this week's new leads.
+    const timestamps = ["created_at", "conversation_started_at", "qualified_at", "proposal_sent_at", "closed_at", "updated_at"];
+    params.set("or", `(${timestamps.map((field) => `and(${field}.gte.${window.startedAt},${field}.lte.${window.endedAt})`).join(",")})`);
+    params.set("order", "updated_at.desc");
+  }
+  params.set("limit", "10000");
+  return params;
+}
+
+export function assertCompleteWeeklyRead(contentRange: string | null, rowCount: number) {
+  if (contentRange === "*/0" && rowCount === 0) return;
+  const match = contentRange?.match(/^(\d+)-(\d+)\/(\d+)$/);
+  if (!match) throw new Error("Weekly report coverage is unknown; a complete exact Content-Range is required.");
+  const first = Number(match[1]);
+  const last = Number(match[2]);
+  const total = Number(match[3]);
+  if (![first, last, total, rowCount].every(Number.isSafeInteger) ||
+    first !== 0 || total <= 0 || last !== total - 1 || rowCount !== total) {
+    throw new Error("Weekly report coverage is incomplete; do not report capped or inconsistent rows as totals.");
+  }
+}
+
 const LEAD_EVENTS = new Set(["whatsapp-click", "email-click", "lead-cta-click"]);
+
+function pathLocale(path: string | null) {
+  return path?.match(/^\/(en|pt)(?:\/|$)/)?.[1];
+}
+
+function matchesMedium(medium: string, filters: WeeklyReportFilters) {
+  return filters.medium === undefined || medium === filters.medium;
+}
 
 function countBy<T>(rows: T[], getKey: (row: T) => string | null | undefined) {
   const counts = new Map<string, number>();
@@ -201,25 +268,40 @@ export function summarizeWeeklyFunnel(input: {
   leads: FunnelLeadRow[];
   searchConsole?: SearchConsoleDay[];
   window: WeeklyReportingWindow;
+  filters?: WeeklyReportFilters;
 }): WeeklyFunnelSummary {
   const { startedAt, endedAt } = resolveReportingWindow(input.window);
-  const pageViews = input.analytics.filter((row) => row.event_name === "portfolio-page-view");
-  const leadClicks = input.analytics.filter((row) => LEAD_EVENTS.has(row.event_name));
+  const filters = parseWeeklyReportFilters(input.filters ?? {});
+  const analytics = input.analytics.filter((row) =>
+    isInstantWithin(row.occurred_at, startedAt, endedAt) &&
+    matchesMedium(row.medium, filters) &&
+    (filters.locale === undefined ||
+      (pathLocale(row.page_path) === filters.locale && (!row.locale || row.locale === filters.locale))),
+  );
+  const leads = input.leads.filter((lead) =>
+    matchesMedium(lead.medium, filters) &&
+    (filters.locale === undefined || pathLocale(lead.landing_path) === filters.locale),
+  );
+  const pageViews = analytics.filter((row) => row.event_name === "portfolio-page-view");
+  const leadClicks = analytics.filter((row) => LEAD_EVENTS.has(row.event_name));
   const searchConsole = (input.searchConsole ?? []).filter(
     (row) =>
       row.date >= input.window.searchConsoleStartDate &&
       row.date <= input.window.searchConsoleEndDate,
   );
-  const conversations = input.leads.filter((lead) =>
+  const registeredContacts = leads.filter((lead) =>
+    isInstantWithin(lead.created_at, startedAt, endedAt),
+  );
+  const conversations = leads.filter((lead) =>
     isInstantWithin(lead.conversation_started_at, startedAt, endedAt),
   );
-  const qualified = input.leads.filter((lead) =>
+  const qualified = leads.filter((lead) =>
     isInstantWithin(lead.qualified_at, startedAt, endedAt),
   );
-  const proposals = input.leads.filter((lead) =>
+  const proposals = leads.filter((lead) =>
     isInstantWithin(lead.proposal_sent_at, startedAt, endedAt),
   );
-  const closedWon = input.leads.filter(
+  const closedWon = leads.filter(
     (lead) =>
       lead.status === "closed_won" &&
       isInstantWithin(lead.closed_at, startedAt, endedAt),
@@ -236,10 +318,12 @@ export function summarizeWeeklyFunnel(input: {
   );
 
   return {
-    events: input.analytics.length,
+    filters,
+    events: analytics.length,
     pageViews: pageViews.length,
     leadClicks: leadClicks.length,
     clicksPerPageView: pageViews.length > 0 ? leadClicks.length / pageViews.length : null,
+    registeredContacts: registeredContacts.length,
     conversations: conversations.length,
     qualified: qualified.length,
     proposals: proposals.length,
@@ -247,7 +331,7 @@ export function summarizeWeeklyFunnel(input: {
     closedValueBrl: closedWon.reduce((sum, lead) => sum + (lead.deal_value_brl ?? 0), 0),
     sourceBreakdown: countBy(pageViews, (row) => `${row.source} / ${row.medium}`),
     campaignBreakdown: countBy(pageViews, (row) => row.campaign),
-    leadStatusBreakdown: countBy(input.leads, (lead) => lead.status),
+    leadStatusBreakdown: countBy(leads, (lead) => lead.status),
     searchConsole: {
       provided: searchConsole.length > 0,
       days: searchConsole.length,
@@ -281,11 +365,13 @@ export function renderWeeklyFunnelMarkdown(summary: WeeklyFunnelSummary, options
   const sections = [
     `# JE4NDEV weekly funnel report, last ${options.days} days`,
     `Generated at: ${options.generatedAt}`,
+    `Scope: locale=${summary.filters.locale ?? "all"}; medium=${summary.filters.medium ?? "all"}. Locale describes the page language, not the visitor's country.`,
     [
       "## Funnel",
       `- Page views: ${summary.pageViews}`,
       `- Lead CTA clicks: ${summary.leadClicks}`,
       `- CTA clicks per page view: ${formatNumber(summary.clicksPerPageView)}`,
+      `- Contacts registered manually: ${summary.registeredContacts}`,
       `- Conversations initiated: ${summary.conversations}`,
       `- Qualified leads: ${summary.qualified}`,
       `- Proposals sent: ${summary.proposals}`,
@@ -300,19 +386,20 @@ export function renderWeeklyFunnelMarkdown(summary: WeeklyFunnelSummary, options
           `- Impressions: ${search.impressions}`,
           `- CTR: ${formatPercent(search.ctr)}`,
           `- Average position, impression-weighted: ${formatNumber(search.averagePosition)}`,
+          "- CSV scope: externally filtered Google Search data. The daily CSV cannot verify locale, medium or country filters.",
         ].join("\n")
       : [
           "## Search Console",
-          "- Not imported. Export daily aggregated data and pass --search-console <csv>.",
+          "- Not imported. Export daily aggregated data with compatible external filters and pass --search-console <csv>.",
         ].join("\n"),
     renderBreakdown("Acquisition by source / medium", summary.sourceBreakdown),
     renderBreakdown("Campaigns", summary.campaignBreakdown),
     renderBreakdown("Lead status", summary.leadStatusBreakdown),
     [
-      "## 30-day target, ending 2026-09-09",
-      "- 10 qualified leads",
-      "- 3 proposals sent",
-      "- 1 paid project originated or assisted by je4ndev.com",
+      "## Measurement limits",
+      "- Page views are events, not people or unique entries. CTA clicks do not prove a received contact.",
+      "- Manual registrations use created_at; qualifications and other stages use their own timestamps, including contacts created before this period.",
+      "- Nora UI events are observability only. There is no automatic Nora/Google Sheets bridge to portfolio_funnel_leads.",
     ].join("\n"),
   ];
 

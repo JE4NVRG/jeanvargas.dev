@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { getProjectBySlug } from "@/data/projects";
 import { COMPANY } from "@/data/company";
 import { contactEmailHref } from "@/lib/contact-email";
+import { GUIDE_SLUG } from "@/data/guides";
 import {
   getServiceOffer,
   serviceOffers,
@@ -343,6 +344,17 @@ export default async function ServicePage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {(offer.id === "automation" || offer.id === "agents") && (
+        <section className="px-6 pb-14">
+          <div className="mx-auto max-w-5xl rounded-2xl border border-white/10 p-6 sm:p-8">
+            <p className="text-sm leading-7 text-zinc-400">{isPt ? "Ainda comparando as opções?" : "Still deciding what your workflow needs?"}</p>
+            <Link href={`/${locale}/guides/${GUIDE_SLUG}`} data-analytics-event="portfolio-navigation-click" data-cta="service-workflow-guide" className="mt-3 inline-flex min-h-11 items-center gap-3 text-base leading-7 text-[#d8caa9] hover:underline">
+              {isPt ? "Agente de IA ou automação: veja o guia" : "AI agent or workflow automation: read the guide"}<ArrowRight size={18} aria-hidden="true" className="shrink-0" />
+            </Link>
+          </div>
+        </section>
+      )}
 
       <section className="px-6 pb-28">
         <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-300/20 bg-gradient-to-br from-cyan-400/[0.10] via-white/[0.025] to-purple-500/[0.10] p-8 text-center sm:p-12">

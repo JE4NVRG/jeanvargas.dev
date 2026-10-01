@@ -3,6 +3,7 @@ import test from "node:test";
 import sitemap from "@/app/sitemap";
 import { projects } from "@/data/projects";
 import { serviceOffers } from "@/data/services";
+import { GUIDE_SLUG } from "@/data/guides";
 
 const BASE = "https://je4ndev.com";
 const entries = sitemap();
@@ -15,6 +16,10 @@ test("sitemap preserves all expected localized routes exactly once", () => {
     ...serviceOffers.flatMap((offer) => [
       `${BASE}/pt/services/${offer.slugs.pt}`,
       `${BASE}/en/services/${offer.slugs.en}`,
+    ]),
+    ...["pt", "en"].flatMap((locale) => [
+      `${BASE}/${locale}/guides`,
+      `${BASE}/${locale}/guides/${GUIDE_SLUG}`,
     ]),
     ...["pt", "en"].flatMap((locale) => ["termos", "privacidade"].map((slug) => `${BASE}/${locale}/${slug}`)),
   ];
