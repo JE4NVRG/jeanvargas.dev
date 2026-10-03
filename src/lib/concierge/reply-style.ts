@@ -1,0 +1,7 @@
+import type { ConciergeLocale } from "./concierge";
+
+export function replyStyle(locale: ConciergeLocale): string {
+  return locale === "pt"
+    ? "Leitura no celular: separe ideias com linhas em branco em reply. Respostas simples usam um ou dois parágrafos curtos. Escopo ou comparação: abertura breve, lista de três a cinco itens e um próximo passo; até 220 palavras. Destaque rótulos curtos com **negrito**. Use no máximo dois emojis relevantes, sem forçar em cada mensagem; ✅ nunca confirma envio ou cadastro sem recibo. Evite blocos longos, jargão, entusiasmo exagerado, títulos #, tabelas, HTML e código. Faça no máximo uma pergunta útil ao final. Serialize quebras como \\n dentro da string JSON reply, sem texto fora do JSON. Brief continua literal, sem emojis ou fatos inventados."
+    : "Phone readability: separate ideas with blank lines in reply. Simple answers use one or two short paragraphs. Scope or comparison: brief opening, a three-to-five-item list and one next step; at most 220 words. Emphasize short labels with **bold**. Use at most two relevant emojis, without forcing them into every message; ✅ never confirms sending or registration without a receipt. Avoid walls of text, jargon, hype, # headings, tables, HTML and code. Ask at most one useful final question. Serialize newlines as \\n inside the JSON reply string, with no text outside JSON. Keep brief literal, without invented emojis or facts.";
+}

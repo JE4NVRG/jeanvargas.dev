@@ -13,7 +13,7 @@ export * from "./lead-contract";
 
 type Locale = "pt" | "en";
 
-export function LeadCapture({ locale, registeredProfile, initialSummary, onSummaryChange, onLockChange, csrfToken, verificationToken, onVerificationUsed, onSaved, onClose }: { locale: Locale; registeredProfile?: VisitorSnapshot["profile"]; initialSummary: string; onSummaryChange: (summary: string) => void; onLockChange: (locked: boolean) => void; csrfToken?: string; verificationToken?:string; onVerificationUsed?:()=>void; onSaved?: (leadId: string) => void; onClose: () => void }) {
+export function LeadCapture({ locale, registeredProfile, initialSummary, onSummaryChange, onLockChange, csrfToken, verificationToken, onVerificationUsed, onSaved, onRegistrationChanged, onClose }: { locale: Locale; registeredProfile?: VisitorSnapshot["profile"]; initialSummary: string; onSummaryChange: (summary: string) => void; onLockChange: (locked: boolean) => void; csrfToken?: string; verificationToken?:string; onVerificationUsed?:()=>void; onSaved?: (leadId: string) => void; onRegistrationChanged?: () => Promise<void>; onClose: () => void }) {
   const t = leadCopy[locale];
   const [name, setName] = useState<string | undefined>(undefined);
   const [useOtherContact, setUseOtherContact] = useState(false);
@@ -55,7 +55,7 @@ export function LeadCapture({ locale, registeredProfile, initialSummary, onSumma
         return;
       }
       body = usingSavedContact
-        ? savedContactRequestBody({ locale, summary, sourcePath: window.location.pathname, consent: true })
+        ? savedContactRequestBody({registeredContactId: registeredProfile!.leadId, locale, summary, sourcePath: window.location.pathname, consent: true })
         : leadRequestBody({ locale, name: leadName, contactType, contact, ...(alternateContact.trim() ? {alternateContact} : {}), summary, sourcePath: window.location.pathname, consent: true });
       if (new TextEncoder().encode(JSON.stringify(body)).byteLength > 8192) { setError(locale === "pt" ? "O resumo é muito grande para enviar. Reduza o texto e tente novamente." : "The summary is too large to send. Shorten it and try again."); return; }
       setAttempt(body);
@@ -68,6 +68,12 @@ export function LeadCapture({ locale, registeredProfile, initialSummary, onSumma
       const response = await fetch("/api/leads", { method: "POST", headers: { "content-type": "application/json", ...(csrfToken ? { "x-nora-csrf": csrfToken } : {}), ...(verificationToken ? {"x-nora-turnstile":verificationToken}: {}) }, credentials: "same-origin", body: JSON.stringify(body), signal: AbortSignal.timeout(15_000) });
       const payload: unknown = await response.json().catch(() => null);
       if (!response.ok) {
+        if(response.status===409 && payload && typeof payload === "object" && "error" in payload && payload.error === "registration_changed") {
+          setAttempt(null);setConsent(false);onLockChange(false);
+          setError(locale === "pt" ? "Seu cadastro mudou em outra aba. Atualizamos o contato: revise o nome e o resumo e autorize novamente. Nenhum pedido foi enviado por esta tentativa." : "Your registration changed in another tab. We refreshed the contact: review the name and summary and authorize again. This attempt did not send a request.");
+          try{await onRegistrationChanged?.();}catch{setError(locale === "pt" ? "Não conseguimos atualizar seu cadastro. Seu resumo foi preservado; reabra o site antes de autorizar o retorno." : "We could not refresh your registration. Your summary was preserved; reopen the site before authorizing a callback.");}
+          return;
+        }
         if (mayReleaseLeadAttempt(response.status, !!attempt)) { setAttempt(null); setError(t.saveError); return; }
         if (response.status === 409) { setError(t.conflict); return; }
         throw new Error(t.saveError);

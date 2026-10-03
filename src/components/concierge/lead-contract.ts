@@ -18,6 +18,7 @@ export type SavedContactRequestBody = {
   sourcePath: string;
   consent: true;
   useSavedContact: true;
+  registeredContactId: string;
 };
 export type LeadAttemptBody = LeadRequestBody | SavedContactRequestBody;
 export type LeadReceipt = { leadId: string; saved: true; notification: "pending" | "sent" | "unconfirmed" };
@@ -59,6 +60,6 @@ export function savedContactRequestBody(input: Omit<SavedContactRequestBody, "re
     requestId: crypto.randomUUID(), locale: input.locale,
     summary: input.summary.trim().slice(0, 1500),
     sourcePath: input.sourcePath.split(/[?#]/, 1)[0].slice(0, 256),
-    consent: true, useSavedContact: true,
+    consent: true, useSavedContact: true, registeredContactId: input.registeredContactId,
   };
 }

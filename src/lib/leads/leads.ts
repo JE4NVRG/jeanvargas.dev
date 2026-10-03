@@ -10,11 +10,12 @@ import { containsRecoveryCode } from "../concierge/recovery-code";
 import { ProtectionError, verifyNoraProtection, rateNoraVerification } from "../concierge/protection";
 import { leadReference } from "./reference";
 type LeadConversation = { updatedAt: string; summary: string; brief?: ConversationBrief; nextStep: string; stage: SheetLeadPayload["stage"]; memoryEnabled: boolean; sheets: "pending" | "synced"; nextSyncAt?: string };
-type LeadRecord = LeadInput & { leadId: string; clientKey: string; createdAt: string; notification: "pending" | "sent" | "ambiguous"; nextAttemptAt?: string; delivery?: { messageId: number; chatId: string }; conversation?: LeadConversation };
+type LeadRecord = LeadInput & { sourceContactLeadId?: string; leadId: string; clientKey: string; createdAt: string; notification: "pending" | "sent" | "ambiguous"; nextAttemptAt?: string; delivery?: { messageId: number; chatId: string }; conversation?: LeadConversation };
 type State = { day: string; total: number; demoTotal?: number; clients: Record<string, number>; leads: Record<string, LeadRecord> };
 export class LeadError extends Error { constructor(public status: number, public code: string) { super(code); } }
 const MAX_BODY = 8192, CLIENT_LIMIT = 5, GLOBAL_LIMIT = 50, LOCK_MS = 5000;
 const control = /[\u0000-\u001f\u007f-\u009f]/;
+type CallbackContext = { sourceContactLeadId: string; brief?: ConversationBrief; memoryEnabled: boolean };
 function validConversation(v: LeadConversation | undefined) {
   if (!v) return true;
   return Number.isFinite(Date.parse(v.updatedAt)) && typeof v.summary === "string" && v.summary.length <= 1500 && typeof v.nextStep === "string" && v.nextStep.length <= 500 && ["demo","exploring","contact_requested"].includes(v.stage) && typeof v.memoryEnabled === "boolean" && ["pending","synced"].includes(v.sheets) && (!v.nextSyncAt || Number.isFinite(Date.parse(v.nextSyncAt))) && (!v.brief || ["goal","situation","desiredSolution","constraints","openQuestions"].every(field => typeof v.brief![field as keyof ConversationBrief] === "string" && v.brief![field as keyof ConversationBrief].length <= 500));
@@ -66,7 +67,7 @@ function repeatedReceipt(old: LeadRecord, clientKey: string, digest: string) {
   if(old.clientKey !== clientKey || createHash("sha256").update(JSON.stringify(canonical)).digest("hex") !== digest) throw new LeadError(409,"conflict");
   return {leadId:old.leadId,saved:true as const,notification:old.notification === "ambiguous" ? "unconfirmed" as const : old.notification};
 }
-export async function submitLead(inputValue: unknown, clientIp: string, env: NodeJS.ProcessEnv = process.env, now = new Date(), verifyNew?:()=>Promise<void>) {
+export async function submitLead(inputValue: unknown, clientIp: string, env: NodeJS.ProcessEnv = process.env, now = new Date(), verifyNew?:()=>Promise<void>, callbackContext?: CallbackContext) {
   const input = validateLead(inputValue); if (!clientIp || clientIp.length > 128 || control.test(clientIp)) throw new LeadError(503, "temporarily_unavailable");
   const cfg = await prepare(env), clientKey = createHash("sha256").update(`${cfg.salt}:${clientIp}`).digest("hex"), digest = createHash("sha256").update(JSON.stringify(input)).digest("hex"), day = now.toISOString().slice(0, 10);
   if(verifyNew) {
@@ -80,7 +81,8 @@ export async function submitLead(inputValue: unknown, clientIp: string, env: Nod
     if (old) return repeatedReceipt(old,clientKey,digest);
     if ((input.intent === "nora_demo" ? (s.demoTotal ?? 0) >= 3000 : s.total >= GLOBAL_LIMIT) || (s.clients[clientKey] ?? 0) >= CLIENT_LIMIT) throw new LeadError(429, "rate_limited");
     if (Object.keys(s.leads).length >= 10_000) throw new LeadError(503, "temporarily_unavailable");
-    const record: LeadRecord = { ...input, leadId: randomUUID(), clientKey, createdAt: now.toISOString(), notification: "pending", conversation: {updatedAt:now.toISOString(),summary:input.summary,nextStep:input.intent === "nora_demo" ? "Conhecer a Nora e explorar ideias." : "Entender a necessidade antes de confirmar uma proposta.",stage:input.intent === "nora_demo" ? "demo" : input.intent === "assistant_project" ? "exploring" : "contact_requested",memoryEnabled:false,sheets:"pending"} };
+    const record: LeadRecord = { ...input, ...(callbackContext ? {sourceContactLeadId:callbackContext.sourceContactLeadId} : {}), leadId: randomUUID(), clientKey, createdAt: now.toISOString(), notification: "pending", conversation: {updatedAt:now.toISOString(),summary:input.summary,nextStep:input.intent === "nora_demo" ? "Conhecer a Nora e explorar ideias." : "Entender a necessidade antes de confirmar uma proposta.",stage:input.intent === "nora_demo" ? "demo" : input.intent === "assistant_project" ? "exploring" : "contact_requested",memoryEnabled:callbackContext?.memoryEnabled ?? false,sheets:"pending",...(callbackContext?.brief ? {brief:callbackContext.brief} : {})} };
+    if(callbackContext) record.conversation!.nextStep=input.locale === "pt" ? "Retorno autorizado: revisar o resumo aprovado e combinar o próximo passo com Jean." : "Callback authorized: review the approved summary and agree the next step with Jean.";
     if (input.intent === "nora_demo") s.demoTotal = (s.demoTotal ?? 0) + 1; else s.total++;
     s.clients[clientKey] = (s.clients[clientKey] ?? 0) + 1; s.leads[input.requestId] = record; await saveState(cfg.file, s);
     return { leadId: record.leadId, saved: true as const, notification: "pending" as const };
@@ -102,27 +104,38 @@ export async function processLeadRequest(request: Request, env: NodeJS.ProcessEn
   let parsed: unknown; try { parsed = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(body)); } catch { throw new LeadError(400, "invalid_request"); }
   let input: LeadInput;
   let reusedContactLeadId: string | undefined;
+  let callbackContext: CallbackContext | undefined;
   const reuseSavedContact = !!parsed && typeof parsed === "object" && !Array.isArray(parsed) && (parsed as Record<string, unknown>).useSavedContact === true;
   if (reuseSavedContact) {
     const data = parsed as Record<string, unknown>;
-    const keys = ["requestId", "locale", "summary", "sourcePath", "consent", "useSavedContact"];
-    if (Object.keys(data).length !== keys.length || Object.keys(data).some(key => !keys.includes(key))) return fail();
+    const keys = ["requestId", "locale", "summary", "sourcePath", "consent", "useSavedContact", "registeredContactId"];
+    if (Object.keys(data).some(key => !keys.includes(key))) return fail();
+    if (Object.keys(data).length === keys.length-1 && !Object.hasOwn(data,"registeredContactId")) throw new LeadError(409,"registration_changed");
+    if (Object.keys(data).length !== keys.length || typeof data.registeredContactId !== "string" || !/^[0-9a-f-]{36}$/i.test(data.registeredContactId)) return fail();
     let contact: Awaited<ReturnType<typeof getRegisteredLeadContact>>;
-    try { contact = await getRegisteredLeadContact(request, env, now); }
+    try { contact = await getRegisteredLeadContact(request, env, now, true); }
     catch (error) { if (error instanceof VisitorError) throw new LeadError(error.status, error.code); throw error; }
     if (!contact) throw new LeadError(401, "registration_required");
+    if(contact.leadId !== data.registeredContactId) {
+      const cfg=await prepare(env),clientKey=createHash("sha256").update(cfg.salt+":"+(request.headers.get("x-real-ip") || "")).digest("hex");
+      const retry=await withLock(cfg.dir,async()=>{const state=await loadState(cfg.file,"0000-00-00");const old=state.leads[String(data.requestId).toLowerCase()];return old?.leadId===contact!.leadId && old.sourceContactLeadId===data.registeredContactId && old.clientKey===clientKey;});
+      if(!retry) throw new LeadError(409,"registration_changed");
+    }
     reusedContactLeadId = contact.leadId;
     input = validateLead({requestId:data.requestId,locale:data.locale,summary:data.summary,sourcePath:data.sourcePath,consent:data.consent,name:contact.name,contactType:"whatsapp",contact:contact.whatsapp});
+    const prior=contact.context?.brief;
+    const reviewed=Object.fromEntries(["goal","situation","desiredSolution","constraints","openQuestions"].map(field=>{const value=prior?.[field as keyof ConversationBrief] ?? "";return [field,value && input.summary.includes(value) ? value : ""];})) as ConversationBrief;
+    callbackContext={sourceContactLeadId:data.registeredContactId,memoryEnabled:contact.context?.memoryEnabled ?? false,...(Object.values(reviewed).some(Boolean)?{brief:reviewed}:{})};
   } else input = validateLead(parsed);
   const receipt = await submitLead(input, request.headers.get("x-real-ip") || "", env, now, async()=>{
     try {await rateNoraVerification(request,env,now);await verifyNoraProtection(request,env,protectionFetcher);}
     catch(error){if(error instanceof ProtectionError)throw new LeadError(error.status,error.code);throw error;}
-  });
+  }, callbackContext);
   return { ...receipt, ...(reusedContactLeadId ? { reusedContactLeadId } : {}), visitorProfile: { name: input.name, hasWhatsApp: input.contactType === "whatsapp" || !!input.alternateContact, leadId: receipt.leadId, ...(input.intent?{intent:input.intent}:{}) } };
 }
 
 /** The contact is resolved from the server profile, never a caller-supplied phone or lead ID. */
-export async function getRegisteredLeadContact(request: Request, env = process.env, now = new Date()) {
+export async function getRegisteredLeadContact(request: Request, env = process.env, now = new Date(), includeContext = false) {
   assertCsrf(request, env, now);
   const visitor = await peekVisitorSnapshot(request, env, now);
   if (!visitor.profile?.hasWhatsApp) return null;
@@ -131,7 +144,7 @@ export async function getRegisteredLeadContact(request: Request, env = process.e
     const state = await loadState(cfg.file, "0000-00-00");
     const lead = Object.values(state.leads).find(item => item.leadId === visitor.profile!.leadId);
     const whatsapp = lead?.contactType === "whatsapp" ? lead.contact : lead?.alternateContact;
-    return lead && whatsapp && /^\+[1-9]\d{7,14}$/.test(whatsapp) ? {leadId:lead.leadId,name:lead.name,whatsapp} : null;
+    return lead && whatsapp && /^\+[1-9]\d{7,14}$/.test(whatsapp) ? {leadId:lead.leadId,name:lead.name,whatsapp,...(includeContext ? {context:{brief:lead.conversation?.brief,memoryEnabled:visitor.memory.enabled}} : {})} : null;
   });
 }
 

@@ -1,0 +1,35 @@
+.content {
+  display: grid;
+  min-width: 0;
+  gap: 0.65em;
+  color: inherit;
+  font: inherit;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.content p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.content ul,
+.content ol {
+  display: grid;
+  gap: 0.4em;
+  margin: 0;
+  padding-inline-start: 1.3em;
+}
+
+.content ul { list-style-type: disc; }
+.content ol { list-style-type: decimal; }
+
+.content li {
+  padding-inline-start: 0.15em;
+  white-space: pre-wrap;
+}
+
+.content strong {
+  color: inherit;
+  font-weight: 650;
+}

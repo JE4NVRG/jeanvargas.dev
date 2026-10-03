@@ -6,7 +6,7 @@ import path from 'node:path';
 import test from 'node:test';
 import {buildMessages,processConciergeRequest} from './concierge';
 import {processVisitorRequest,upgradeVisitor,peekVisitorSnapshot,VisitorError} from './visitor';
-import {LeadError,processLeadRequest} from '../leads/leads';
+import {LeadError,processLeadRequest,recordNoraConversation} from '../leads/leads';
 
 async function fixture(){
  const dir=await mkdtemp(path.join(os.tmpdir(),'nora-registration-'));
@@ -48,7 +48,7 @@ test('registered PT/EN model context acknowledges saved contact without exposing
 test('saved-contact callback uses canonical server contact, explicit consent and idempotent receipt',async()=>{
  const f=await fixture();try{
   const registered=await f.register();
-  const body={requestId:randomUUID(),locale:'pt',summary:'Quero uma conversa com Jean sobre um assistente para o site.',sourcePath:'/pt',consent:true,useSavedContact:true};
+  const body={requestId:randomUUID(),locale:'pt',summary:'Quero uma conversa com Jean sobre um assistente para o site.',sourcePath:'/pt',consent:true,useSavedContact:true,registeredContactId:(await peekVisitorSnapshot(f.request({}),f.env)).profile?.leadId ?? "00000000-0000-4000-8000-000000000099"};
   await assert.rejects(processLeadRequest(f.request({...body,consent:false}),f.env,new Date(),f.verify),(e:unknown)=>e instanceof LeadError&&e.status===400);
   await assert.rejects(processLeadRequest(f.request({...body,leadId:randomUUID()}),f.env,new Date(),f.verify),(e:unknown)=>e instanceof LeadError&&e.status===400);
   const first=await processLeadRequest(f.request(body),f.env,new Date(),f.verify);
@@ -66,7 +66,7 @@ test('saved-contact callback uses canonical server contact, explicit consent and
 
 test('anonymous session cannot borrow a saved contact or submit without CSRF',async()=>{
  const f=await fixture();try{
-  const body={requestId:randomUUID(),locale:'en',summary:'Please ask Jean to call back about an assistant.',sourcePath:'/en',consent:true,useSavedContact:true};
+  const body={requestId:randomUUID(),locale:'en',summary:'Please ask Jean to call back about an assistant.',sourcePath:'/en',consent:true,useSavedContact:true,registeredContactId:(await peekVisitorSnapshot(f.request({}),f.env)).profile?.leadId ?? "00000000-0000-4000-8000-000000000099"};
   await assert.rejects(processLeadRequest(f.request(body),f.env,new Date(),f.verify),(e:unknown)=>e instanceof LeadError&&e.status===401);
   await assert.rejects(processLeadRequest(f.request(body,{'x-nora-csrf':'forged'}),f.env,new Date(),f.verify),(e:unknown)=>e instanceof LeadError&&e.status===403);
   assert.equal(f.verifyCalls(),0);
@@ -80,7 +80,7 @@ test('callback reusing a confirmed contact preserves linked project memory and s
   await processVisitorRequest(f.request({action:'linkMemory'}),f.env);
   await processVisitorRequest(f.request({action:'createProject',title:'Synthetic assistant project'}),f.env);
   const before=await peekVisitorSnapshot(f.request({}),f.env);assert.equal(before.memory.linked,true);
-  const body={requestId:randomUUID(),locale:'en',summary:'Please ask Jean to call back about this assistant project.',sourcePath:'/en',consent:true,useSavedContact:true};
+  const body={requestId:randomUUID(),locale:'en',summary:'Please ask Jean to call back about this assistant project.',sourcePath:'/en',consent:true,useSavedContact:true,registeredContactId:(await peekVisitorSnapshot(f.request({}),f.env)).profile?.leadId ?? "00000000-0000-4000-8000-000000000099"};
   const saved=await processLeadRequest(f.request(body),f.env,new Date(),f.verify);
   const after=await upgradeVisitor(f.request({}),saved.leadId,body.requestId,f.env,new Date(),saved.visitorProfile,saved.reusedContactLeadId);
   assert.equal(after.memory.linked,true);assert.equal(after.memory.enabled,true);assert.deepEqual(after.memory.projects,before.memory.projects);assert.equal(after.quota.used,before.quota.used);
@@ -90,7 +90,7 @@ test('callback reusing a confirmed contact preserves linked project memory and s
 test('contact changed by another tab cannot attach the old callback to its new linked memory',async()=>{
  const f=await fixture();try{
   await f.register();
-  const body={requestId:randomUUID(),locale:'en',summary:'Please ask Jean to call back about the original assistant.',sourcePath:'/en',consent:true,useSavedContact:true};
+  const body={requestId:randomUUID(),locale:'en',summary:'Please ask Jean to call back about the original assistant.',sourcePath:'/en',consent:true,useSavedContact:true,registeredContactId:(await peekVisitorSnapshot(f.request({}),f.env)).profile?.leadId ?? "00000000-0000-4000-8000-000000000099"};
   const oldCallback=await processLeadRequest(f.request(body),f.env,new Date(),f.verify);
   const other={...f.initial,requestId:randomUUID(),name:'Grace Example',contact:'+15550101445'};
   const newContact=await processLeadRequest(f.request(other),f.env,new Date(),f.verify);
@@ -102,5 +102,51 @@ test('contact changed by another tab cannot attach the old callback to its new l
   await assert.rejects(upgradeVisitor(f.request({}),oldCallback.leadId,body.requestId,f.env,new Date(),oldCallback.visitorProfile,oldCallback.reusedContactLeadId),(e:unknown)=>e instanceof VisitorError&&e.code==='registration_changed');
   const after=await peekVisitorSnapshot(f.request({}),f.env);
   assert.deepEqual(after.profile,before.profile);assert.deepEqual(after.memory,before.memory);assert.equal(after.profile?.name,'Grace Example');
+ }finally{await f.cleanup();}
+});
+
+
+test('saved callback carries approved brief and live memory preference, and replays after profile upgrade',async()=>{
+ const f=await fixture();try{
+  const initial=await f.register();
+  await processVisitorRequest(f.request({action:'consent',enabled:true}),f.env);
+  const brief={goal:'Quero um site para minha consultoria.',situation:'Hoje uso apenas WhatsApp.',desiredSolution:'Quero apresentar serviços e receber pedidos.',constraints:'Sem pagamentos no site.',openQuestions:'Não defini prazo.'};
+  await recordNoraConversation(f.request({}),{leadId:initial.leadId,reply:'Podemos definir o primeiro escopo.',lastUser:brief.goal,brief},f.env);
+  const body={requestId:randomUUID(),locale:'pt',summary:Object.values(brief).join('\n'),sourcePath:'/pt',consent:true,useSavedContact:true,registeredContactId:initial.leadId};
+  const saved=await processLeadRequest(f.request(body),f.env,new Date(),f.verify);
+  let state=JSON.parse(await readFile(path.join(f.env.PORTFOLIO_LEADS_STATE_DIR!,'portfolio-leads.json'),'utf8'));
+  const row=state.leads[body.requestId];assert.deepEqual(row.conversation.brief,brief);assert.equal(row.conversation.memoryEnabled,true);assert.equal(row.summary,body.summary);assert.equal(row.conversation.stage,'contact_requested');assert.match(row.conversation.nextStep,/Retorno autorizado/);
+  await upgradeVisitor(f.request({}),saved.leadId,body.requestId,f.env,new Date(),saved.visitorProfile,saved.reusedContactLeadId);
+  const count=f.verifyCalls();
+  const retry=await processLeadRequest(f.request(body,{'x-nora-turnstile':''}),f.env,new Date(),f.verify);
+  assert.equal(retry.leadId,saved.leadId);assert.equal(f.verifyCalls(),count);
+  state=JSON.parse(await readFile(path.join(f.env.PORTFOLIO_LEADS_STATE_DIR!,'portfolio-leads.json'),'utf8'));assert.equal(Object.keys(state.leads).length,2);assert.deepEqual(state.leads[body.requestId].conversation.brief,brief);
+ }finally{await f.cleanup();}
+});
+
+test('editing the approved summary does not revive removed fields from the prior conversation',async()=>{
+ const f=await fixture();try{
+  const initial=await f.register();
+  const brief={goal:'Quero um site para minha consultoria.',situation:'Hoje uso apenas WhatsApp.',desiredSolution:'Quero apresentar serviços.',constraints:'Sem pagamentos no site.',openQuestions:'Não defini prazo.'};
+  await recordNoraConversation(f.request({}),{leadId:initial.leadId,reply:'Podemos definir o primeiro escopo.',lastUser:brief.goal,brief},f.env);
+  const body={requestId:randomUUID(),locale:'pt',summary:brief.goal+' Agora quero incluir pagamentos.',sourcePath:'/pt',consent:true,useSavedContact:true,registeredContactId:initial.leadId};
+  await processLeadRequest(f.request(body),f.env,new Date(),f.verify);
+  const state=JSON.parse(await readFile(path.join(f.env.PORTFOLIO_LEADS_STATE_DIR!,'portfolio-leads.json'),'utf8'));const row=state.leads[body.requestId];
+  assert.equal(row.conversation.brief.goal,brief.goal);assert.equal(row.conversation.brief.constraints,'');assert.equal(row.summary,body.summary);
+ }finally{await f.cleanup();}
+});
+
+test('a stale form cannot silently borrow the new contact from another tab',async()=>{
+ const f=await fixture();try{
+  const initial=await f.register();
+  const body={requestId:randomUUID(),locale:'pt',summary:'Quero um retorno sobre meu assistente.',sourcePath:'/pt',consent:true,useSavedContact:true,registeredContactId:initial.leadId};
+  const other={...f.initial,requestId:randomUUID(),name:'Grace Example',contact:'+15550101445'};
+  const changed=await processLeadRequest(f.request(other),f.env,new Date(),f.verify);
+  await upgradeVisitor(f.request({}),changed.leadId,other.requestId,f.env,new Date(),changed.visitorProfile);
+  const count=f.verifyCalls();
+  await assert.rejects(processLeadRequest(f.request(body),f.env,new Date(),f.verify),(e:unknown)=>e instanceof LeadError&&e.code==='registration_changed');assert.equal(f.verifyCalls(),count);
+  const state=JSON.parse(await readFile(path.join(f.env.PORTFOLIO_LEADS_STATE_DIR!,'portfolio-leads.json'),'utf8'));assert.equal(Object.keys(state.leads).length,2);assert.equal(state.leads[body.requestId],undefined);
+  const {registeredContactId:omitted,...legacy}=body;void omitted;
+  await assert.rejects(processLeadRequest(f.request(legacy),f.env,new Date(),f.verify),(e:unknown)=>e instanceof LeadError&&e.code==='registration_changed');
  }finally{await f.cleanup();}
 });
