@@ -11,6 +11,15 @@ export type LeadRequestBody = {
   consent: true;
   intent?: "nora_demo" | "assistant_project";
 };
+export type SavedContactRequestBody = {
+  requestId: string;
+  locale: "pt" | "en";
+  summary: string;
+  sourcePath: string;
+  consent: true;
+  useSavedContact: true;
+};
+export type LeadAttemptBody = LeadRequestBody | SavedContactRequestBody;
 export type LeadReceipt = { leadId: string; saved: true; notification: "pending" | "sent" | "unconfirmed" };
 
 export function mayReleaseLeadAttempt(status: number, retrying: boolean): boolean {
@@ -43,3 +52,13 @@ export function leadRequestBody(input: Omit<LeadRequestBody, "requestId">): Lead
   };
 }
 
+
+// Whitelist the callback fields; canonical contact stays on the server.
+export function savedContactRequestBody(input: Omit<SavedContactRequestBody, "requestId" | "useSavedContact">): SavedContactRequestBody {
+  return {
+    requestId: crypto.randomUUID(), locale: input.locale,
+    summary: input.summary.trim().slice(0, 1500),
+    sourcePath: input.sourcePath.split(/[?#]/, 1)[0].slice(0, 256),
+    consent: true, useSavedContact: true,
+  };
+}

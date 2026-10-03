@@ -211,12 +211,12 @@ export function PortfolioConcierge({ locale }: { locale: Locale }) {
     if (requestsWhatsApp(clean)) {
       const next = [...history, { role: "user" as const, content: clean }];
       if (!summaryEdited.current) setApprovedSummary(reviewedContactSummary(next, locale, briefContext.current));
-      setMessages([...next, { role: "assistant", content: locale === "pt" ? "Claro, sem cadastro. Revise o texto em “Revisar resumo para o contato” e use o botão WhatsApp: a mensagem já abre preenchida com esse resumo. Você pode editar antes de enviar. Eu não envio nem confirmo a entrega por você." : "Of course, no registration needed. Review the text under “Review your contact summary” and use the WhatsApp button: the message opens prefilled with that summary. You can edit it before sending. I do not send it or confirm delivery for you." }]);
+      setMessages([...next, { role: "assistant", content: locale === "pt" ? "Claro. Revise o texto em “Revisar resumo para o contato” e use o botão WhatsApp: a mensagem já abre preenchida com esse resumo. Você pode editar antes de enviar. Eu não envio nem confirmo a entrega por você." : "Of course. Review the text under “Review your contact summary” and use the WhatsApp button: the message opens prefilled with that summary. You can edit it before sending. I do not send it or confirm delivery for you." }]);
       setLeadOpen(false); setMemoryOpen(false); setDraft(""); setFailed(false); setContactDismissed(true);
       return;
     }
     if (requestsContact(clean)) {
-      setMessages([...history, { role: "user", content: clean }, { role: "assistant", content: t.contactOpened }]);
+      setMessages([...history, { role: "user", content: clean }, { role: "assistant", content: snapshot?.profile?.hasWhatsApp ? (locale === "pt" ? "Claro. Já temos o WhatsApp que você cadastrou na entrada. Revise o resumo no formulário e autorize o retorno da equipe." : "Of course. We already have the WhatsApp you registered at the start. Review the summary in the form and authorize the team to follow up.") : t.contactOpened }]);
       if (!summaryEdited.current) setApprovedSummary(reviewedContactSummary([...history, { role: "user", content: clean }], locale, briefContext.current));
       setDraft(""); setFailed(false); openLeadForm();
       return;
@@ -248,7 +248,7 @@ export function PortfolioConcierge({ locale }: { locale: Locale }) {
           {failed && <div role="alert" className={styles.error}><p>{failureMessage}</p>{errorKind !== "rate_limited" && <button type="button" disabled={loading} className={styles.retry} onClick={() => void requestReply(messages)}>{t.retry}</button>}</div>}
           {sessionError && <div role="alert" className={styles.error}><p>{sessionError}</p>{!snapshot && errorKind !== "rate_limited" && <button type="button" disabled={loading} className={styles.retry} onClick={() => void bootstrap()}>{t.retry}</button>}</div>}{snapshot && <p className={styles.loading} aria-live="polite">{quotaText}</p>}
           {limited && <p className={styles.error}>{ui.quotaLimit}</p>}{messages.length === 0 && <div className={styles.suggestions}>{t.prompts.map((prompt) => <button type="button" key={prompt} disabled={loading || !snapshot || limited} onClick={() => void submit(prompt)}>{prompt}<ChevronRight size={15} aria-hidden="true"/></button>)}</div>}</div>
-        <div hidden={!leadOpen || memoryOpen}><LeadCapture key={conversationKey} onLockChange={setLeadAttemptLocked} locale={locale} csrfToken={snapshot?.csrfToken} verificationToken={verificationToken} onVerificationUsed={() => {setVerificationToken("");setVerificationAttempt(value=>value+1);}} initialSummary={approvedSummary || contactSummary(messages, locale)} onSummaryChange={changeApprovedSummary} onSaved={refreshAfterLead} onClose={() => setLeadOpen(false)}/></div>
+        <div hidden={!leadOpen || memoryOpen}><LeadCapture registeredProfile={snapshot?.profile} key={conversationKey} onLockChange={setLeadAttemptLocked} locale={locale} csrfToken={snapshot?.csrfToken} verificationToken={verificationToken} onVerificationUsed={() => {setVerificationToken("");setVerificationAttempt(value=>value+1);}} initialSummary={approvedSummary || contactSummary(messages, locale)} onSummaryChange={changeApprovedSummary} onSaved={refreshAfterLead} onClose={() => setLeadOpen(false)}/></div>
         {memoryOpen && <section data-nora-memory-panel className={memoryStyles.panel} aria-labelledby="nora-memory-title"><h3 id="nora-memory-title">{ui.memoryTitle}</h3><p className={memoryStyles.intro}>{ui.memoryIntro}</p>
           {memoryError && <p role="alert" className={styles.error}>{memoryError}</p>}
           {!snapshot ? <p role="status">{sessionError || ui.unavailable}</p> : <>

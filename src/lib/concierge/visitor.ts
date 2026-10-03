@@ -154,17 +154,21 @@ export async function loadVisitorForChat(req:Request,env=process.env,now=new Dat
  },now);
 }
 /** Called only after canonical lead persistence and idempotency checks succeed. */
-export async function upgradeVisitor(req:Request,leadId:string,requestId:string,env=process.env,now=new Date(),profile?:VisitorSnapshot["profile"]) {
+export async function upgradeVisitor(req:Request,leadId:string,requestId:string,env=process.env,now=new Date(),profile?:VisitorSnapshot["profile"],expectedContactLeadId?:string) {
  const proof=assertCsrf(req,env,now);
  if(!/^[0-9a-f-]{36}$/i.test(leadId)||!/^[0-9a-f-]{36}$/i.test(requestId))throw new VisitorError(400,"invalid_request");
+ if(expectedContactLeadId!==undefined&&!/^[0-9a-f-]{36}$/i.test(expectedContactLeadId))throw new VisitorError(400,"invalid_request");
  if(profile && (!profile.name.trim() || profile.name.length>100 || /[\u0000-\u001f\u007f-\u009f]/.test(profile.name) || profile.leadId!==leadId || typeof profile.hasWhatsApp!=="boolean"))throw new VisitorError(400,"invalid_request");
  return locked(env,async store=>{
   const s=store.sessions[proof.id];if(!s)throw new VisitorError(401,"session_expired");
+  // The contact resolved before lead persistence must still own this session.
+  // Another tab may change the profile while the lead lock is released.
+  if(expectedContactLeadId&&s.profile?.leadId!==expectedContactLeadId)throw new VisitorError(409,"registration_changed");
   store.registrations??={};const old=store.registrations[requestId];
   if(old&&(old.leadId!==leadId||old.owner!==proof.id))throw new VisitorError(409,"registration_owner_conflict");
   if(!old)store.registrations[requestId]={leadId,owner:proof.id};
   if(s.day<today(now)){s.day=today(now);s.used=0;}else if(s.day>today(now))throw new VisitorError(503,"temporarily_unavailable");
-  if(profile&&s.accountId&&s.profile?.leadId!==profile.leadId)disconnectMemory(s,store);
+  if(profile&&s.accountId&&s.profile?.leadId!==profile.leadId&&!expectedContactLeadId)disconnectMemory(s,store);
   s.tier="registered";if(profile)s.profile={...profile,name:profile.name.trim()};
   return snapshot(s,proof.token,config(env).salt,now,env,store);
  },now);

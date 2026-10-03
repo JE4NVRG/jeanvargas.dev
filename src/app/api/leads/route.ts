@@ -6,11 +6,11 @@ export const dynamic = "force-dynamic";
 export async function POST(request: Request) {
   try {
     const bodyRequest = request.clone();
-    const { visitorProfile, ...receipt } = await processLeadRequest(request);
+    const { visitorProfile, reusedContactLeadId, ...receipt } = await processLeadRequest(request);
     let registration: "upgraded" | "unavailable" = "unavailable";
     try {
       const body = await bodyRequest.json() as { requestId?: unknown };
-      if (typeof body.requestId === "string") { await upgradeVisitor(request, receipt.leadId, body.requestId, process.env, new Date(), visitorProfile); registration = "upgraded"; }
+      if (typeof body.requestId === "string") { await upgradeVisitor(request, receipt.leadId, body.requestId, process.env, new Date(), visitorProfile, reusedContactLeadId); registration = "upgraded"; }
     } catch { /* Lead is already durably saved; registration status is separate. */ }
     after(async () => { await dispatchSheetsOutbox().catch(() => undefined); });
     return Response.json({ ...receipt, registration }, { headers: { "cache-control": "no-store" } });

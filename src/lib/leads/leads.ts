@@ -100,12 +100,25 @@ export async function processLeadRequest(request: Request, env: NodeJS.ProcessEn
   try { const timeout = new Promise<never>((_, reject) => { timer = setTimeout(() => reject(new LeadError(408, "request_timeout")), 5000); }); for (;;) { const { done, value } = await Promise.race([reader.read(), timeout]); if (done) break; bytes += value.byteLength; if (bytes > MAX_BODY) throw new LeadError(413, "request_too_large"); chunks.push(value); } } finally { clearTimeout(timer); void reader.cancel().catch(() => undefined); reader.releaseLock(); }
   const body = new Uint8Array(bytes); let off = 0; for (const c of chunks) { body.set(c, off); off += c.length; }
   let parsed: unknown; try { parsed = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(body)); } catch { throw new LeadError(400, "invalid_request"); }
-  const input = validateLead(parsed);
+  let input: LeadInput;
+  let reusedContactLeadId: string | undefined;
+  const reuseSavedContact = !!parsed && typeof parsed === "object" && !Array.isArray(parsed) && (parsed as Record<string, unknown>).useSavedContact === true;
+  if (reuseSavedContact) {
+    const data = parsed as Record<string, unknown>;
+    const keys = ["requestId", "locale", "summary", "sourcePath", "consent", "useSavedContact"];
+    if (Object.keys(data).length !== keys.length || Object.keys(data).some(key => !keys.includes(key))) return fail();
+    let contact: Awaited<ReturnType<typeof getRegisteredLeadContact>>;
+    try { contact = await getRegisteredLeadContact(request, env, now); }
+    catch (error) { if (error instanceof VisitorError) throw new LeadError(error.status, error.code); throw error; }
+    if (!contact) throw new LeadError(401, "registration_required");
+    reusedContactLeadId = contact.leadId;
+    input = validateLead({requestId:data.requestId,locale:data.locale,summary:data.summary,sourcePath:data.sourcePath,consent:data.consent,name:contact.name,contactType:"whatsapp",contact:contact.whatsapp});
+  } else input = validateLead(parsed);
   const receipt = await submitLead(input, request.headers.get("x-real-ip") || "", env, now, async()=>{
     try {await rateNoraVerification(request,env,now);await verifyNoraProtection(request,env,protectionFetcher);}
     catch(error){if(error instanceof ProtectionError)throw new LeadError(error.status,error.code);throw error;}
   });
-  return { ...receipt, visitorProfile: { name: input.name, hasWhatsApp: input.contactType === "whatsapp" || !!input.alternateContact, leadId: receipt.leadId, ...(input.intent?{intent:input.intent}:{}) } };
+  return { ...receipt, ...(reusedContactLeadId ? { reusedContactLeadId } : {}), visitorProfile: { name: input.name, hasWhatsApp: input.contactType === "whatsapp" || !!input.alternateContact, leadId: receipt.leadId, ...(input.intent?{intent:input.intent}:{}) } };
 }
 
 /** The contact is resolved from the server profile, never a caller-supplied phone or lead ID. */
