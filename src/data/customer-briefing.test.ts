@@ -49,6 +49,7 @@ test("initial context is omitted rather than truncating the latest visitor messa
 
   assert.ok(formatted.length <= 1500);
   assert.match(formatted, new RegExp(latest.slice(-80).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.ok(formatted.includes(latest.trim()), "the complete latest message is retained when it fits");
   assert.doesNotMatch(formatted, /Contexto inicial \(antes dos ajustes\)/);
 });
 
@@ -101,3 +102,68 @@ test("source-only supplement preserves omitted earlier requirements in a real-st
     assert.ok(!summary.includes("Restrições: Não informado"));
   }
 });
+
+for (const [locale, fixture] of Object.entries({
+  "pt": {
+    "initial": "Sou fotógrafo e trabalho com outra pessoa. Os pedidos chegam por WhatsApp e ficam em anotações soltas. Não sei se preciso de site ou sistema; quero organizar o trabalho que já entrou, sem pagamentos nesta primeira versão e ainda sem orçamento definido.",
+    "latest": "Corrigindo: também já recebemos arquivos CAD de arquitetos para preparar as imagens dos projetos. Preciso vincular esses arquivos ao cliente e registrar cada retorno no mesmo pedido, sem gerar uma venda nova. As duas pessoas devem acompanhar o status pelo computador e pelo celular, sem área pública.",
+    "brief": {
+      "goal": "Organizar pedidos, arquivos CAD e retornos num painel para duas pessoas, sem depender de papéis",
+      "situation": "Fotógrafo; dois usuários; pedidos chegam no WhatsApp",
+      "desiredSolution": "Painel interno com arquivos e histórico",
+      "constraints": "Sem pagamentos, disparos automáticos, login de clientes ou área pública; orçamento ainda não foi definido",
+      "openQuestions": "Quais etapas e campos incluir no pedido?"
+    }
+  },
+  "en": {
+    "initial": "I am a photographer working with one other person. Requests arrive on WhatsApp and end up in separate notes. I am unsure whether we need a website or a system. I want to organize existing work; payments are out of scope for the first version and I have no budget yet.",
+    "latest": "Correction: architects also send CAD files for us to prepare project images. I need to link those files to the customer and log each follow-up under the same request, without creating another sale. Both people must be able to check the status from a computer and phone; we do not need a public area.",
+    "brief": {
+      "goal": "Organize requests, CAD files and follow-ups in an internal dashboard for our two-user workflow.",
+      "situation": "Photographer; 2 users; jobs arrive through WhatsApp.",
+      "desiredSolution": "Internal dashboard with files and logs.",
+      "constraints": "No payments, automatic messages, customer accounts or public area; a budget has not been set for this yet",
+      "openQuestions": "Which steps and fields should a job have"
+    }
+  }
+}) as ["pt" | "en", {initial: string; latest: string; brief: typeof emptyBrief}][]) {
+  test(locale + ": compact photographer briefing preserves every current field and the CAD correction", () => {
+    assert.deepEqual(Object.values(fixture.brief).map(value => value.length), [95, 52, 39, 105, 40]);
+    const turns = [
+      {role: "user" as const, content: fixture.initial},
+      {role: "assistant" as const, content: "An invented payment integration must not enter the summary."},
+      {role: "user" as const, content: fixture.latest},
+    ];
+    const labels = {"pt":["Objetivo","Contexto","Solução desejada","Restrições","Em aberto"],"en":["Goal","Context","Desired solution","Constraints","Open questions"]}[locale];
+    for (const summary of [
+      formatConversationBrief(fixture.brief, locale, fixture.latest, fixture.initial, 1000),
+      reviewedContactSummary(turns, locale, fixture.brief),
+    ]) {
+      Object.values(fixture.brief).forEach((value, index) => assert.ok(summary.includes(labels[index] + ": " + value), value));
+      assert.ok(summary.includes(fixture.latest), "latest CAD and follow-up correction is complete");
+      assert.doesNotMatch(summary, /invented payment integration/);
+      assert.ok(summary.length <= 1500);
+    }
+    assert.ok(formatConversationBrief(fixture.brief, locale, fixture.latest, fixture.initial, 1000).length <= 1000);
+  });
+
+  test(locale + ": oversized current fields use reclaimed space and omit old context before clipping", () => {
+    const allLong = Object.fromEntries(Object.keys(emptyBrief).map((field, index) => [field, String.fromCharCode(65 + index).repeat(500)])) as typeof emptyBrief;
+    const uneven = {...allLong, goal: "G".repeat(1200), situation: "S".repeat(52), desiredSolution: "D".repeat(39), constraints: "C".repeat(105), openQuestions: "Q".repeat(40)};
+    const initial = "OUTDATED CONTEXT ".repeat(30);
+    for (const brief of [allLong, uneven]) {
+      const summary = formatConversationBrief(brief, locale, fixture.latest, initial);
+      assert.ok(summary.length <= 1500);
+      assert.ok(summary.endsWith(fixture.latest), "latest correction is never cut to keep old context");
+      assert.ok(!summary.includes("OUTDATED CONTEXT"));
+      ({"pt":["Objetivo","Contexto","Solução desejada","Restrições","Em aberto"],"en":["Goal","Context","Desired solution","Constraints","Open questions"]})[locale].forEach(label => assert.ok(summary.includes(label + ": ")));
+      assert.ok(summary.includes("…"), "oversized current content is visibly bounded");
+      if (brief === uneven) {
+        for (const field of ["situation", "desiredSolution", "constraints", "openQuestions"] as const) {
+          assert.ok(summary.includes(brief[field]), field + " keeps the entire shorter value");
+        }
+        assert.ok(summary.includes("G".repeat(500)), "the long field receives the shorter fields' unused allocation");
+      }
+    }
+  });
+}

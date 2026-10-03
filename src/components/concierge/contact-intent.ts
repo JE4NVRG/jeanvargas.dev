@@ -91,15 +91,50 @@ const briefLabels = {
 } as const;
 export function formatConversationBrief(brief: BriefFields, locale: "pt" | "en", latestVisitorMessage = "", initialVisitorMessage = "", maxChars = 1500): string {
   if (!Object.values(brief).some(value => value.trim()) && !latestVisitorMessage.trim()) return "";
-  // Reserve space for every field instead of cutting off the last correction.
-  const latest = latestVisitorMessage.trim().slice(-1200);
-  const suffix = latest ? `\n${locale === "pt" ? "Última mensagem do visitante" : "Latest visitor message"}: ${latest}` : "";
-  const initialBudget = Math.min(220, Math.max(0, maxChars - suffix.length - 330));
-  const initial = initialVisitorMessage.trim().slice(0, initialBudget);
-  const prefix = initial && initial !== latest ? `${locale === "pt" ? "Contexto inicial (antes dos ajustes)" : "Initial context (before changes)"}: ${initial}\n` : "";
-  const fieldBudget = Math.min(260, Math.max(20, Math.floor((maxChars - suffix.length - prefix.length - 110) / 5)));
-  const excerpt = (value: string) => value.length <= fieldBudget ? value : `${value.slice(0, fieldBudget - 1).trimEnd()}…`;
-  return prefix + (Object.keys(briefLabels[locale]) as (keyof BriefFields)[]).map(field => `${briefLabels[locale][field]}: ${excerpt(brief[field].trim()) || (locale === "pt" ? "Não informado" : "Not provided")}`).join("\n") + suffix;
+  const limit = Number.isFinite(maxChars) ? Math.min(1500, Math.max(0, Math.floor(maxChars))) : 1500;
+  if (!limit) return "";
+  const fields = Object.keys(briefLabels[locale]) as (keyof BriefFields)[];
+  const missing = locale === "pt" ? "Não informado" : "Not provided";
+  const values = fields.map(field => brief[field].trim() || missing);
+  const labels = fields.map(field => briefLabels[locale][field] + ": ");
+  const fieldOverhead = labels.reduce((sum, label) => sum + label.length, fields.length - 1);
+  const latestLabel = "\n" + (locale === "pt" ? "Última mensagem do visitante" : "Latest visitor message") + ": ";
+  const latestText = latestVisitorMessage.trim();
+  // Keep the latest correction first, while reserving the field labels and
+  // a visible excerpt for each populated field (or the complete missing label).
+  const minimumBodies = fields.reduce((sum, field) => sum + (brief[field].trim() ? 1 : missing.length), 0);
+  if (limit < fieldOverhead + minimumBodies + (latestText ? latestLabel.length + 1 : 0)) {
+    return latestText ? latestText.slice(-limit) : fields.map((_, index) => labels[index] + values[index]).join("\n").slice(0, limit);
+  }
+  const latestBudget = Math.max(0, limit - fieldOverhead - minimumBodies - latestLabel.length);
+  const latest = latestText && latestBudget ? latestText.slice(-latestBudget) : "";
+  const suffix = latest ? latestLabel + latest : "";
+  const bodyBudget = limit - fieldOverhead - suffix.length;
+  const bodyLength = values.reduce((sum, value) => sum + value.length, 0);
+  const budgets = values.map(value => value.length);
+  if (bodyLength > bodyBudget) {
+    // Short fields retain their complete value; redistribute their unused
+    // share before truncating the remaining long fields.
+    const byLength = values.map((value, index) => ({ index, length: value.length }))
+      .filter(({ index }) => brief[fields[index]].trim()).sort((a, b) => a.length - b.length);
+    const missingBudget = fields.reduce((sum, field) => sum + (brief[field].trim() ? 0 : missing.length), 0);
+    let remaining = bodyBudget - missingBudget;
+    byLength.forEach(({ index, length }, position) => {
+      budgets[index] = Math.min(length, Math.floor(remaining / (byLength.length - position)));
+      remaining -= budgets[index];
+    });
+  }
+  const excerpt = (value: string, budget: number) => value.length <= budget ? value : value.slice(0, Math.max(0, budget - 1)).trimEnd() + "…";
+  const current = fields.map((_, index) => labels[index] + excerpt(values[index], budgets[index])).join("\n");
+  const initialText = initialVisitorMessage.trim();
+  const initialLabel = (locale === "pt" ? "Contexto inicial (antes dos ajustes)" : "Initial context (before changes)") + ": ";
+  // Old context only uses space left after complete current fields. Do not add
+  // it when the latest message itself already needed truncation.
+  const initialBudget = bodyLength <= bodyBudget && latest === latestText && initialText !== latestText
+    ? Math.min(220, Math.max(0, limit - current.length - suffix.length - initialLabel.length - 1))
+    : 0;
+  const prefix = initialText && initialBudget ? initialLabel + initialText.slice(0, initialBudget) + "\n" : "";
+  return prefix + current + suffix;
 }
 
 /** Bounded extractive fallback: opening need + latest visitor detail/correction.
