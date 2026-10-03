@@ -112,3 +112,15 @@ test("Nora explains available capture without claiming a completed notification 
   assert.doesNotMatch(pt,/oriente a opção de solicitar contato na interface/);
   assert.match(pt,/quem recusar/);assert.match(en,/without pressuring/);
 });
+
+test("Beatriz's student-data exclusion does not refuse her own callback",()=>{
+ const text="Não quero cobrança online, salvar dados dos alunos nem memória das conversas nesta primeira fase. Só materiais públicos e um pedido que eu recebo para responder.";
+ assert.equal(declinesContact(text),false);
+ assert.equal(shouldOfferContact([{role:"user",content:text},{role:"user",content:"Quero falar com a equipe para avaliar meu projeto."}]),true);
+});
+
+test("student and patient data restrictions stay distinct from personal refusal in PT/EN",()=>{
+ for(const text of ["Não quero armazenar dados dos pacientes.","I don't want to save student data.","I don't want to save patient details."])assert.equal(declinesContact(text),false,text);
+ for(const text of ["Não quero informar meus dados dos pacientes nem que entrem em contato comigo.","I don't want to share my data.","I don't want to share my student details or contact me."])assert.equal(declinesContact(text),true,text);
+ assert.equal(declinesContact("Não quero salvar dados dos alunos. Não quero contato comigo."),true);
+});

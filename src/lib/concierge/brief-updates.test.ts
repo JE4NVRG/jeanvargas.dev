@@ -63,3 +63,18 @@ test("a modern replace operation cannot fabricate or use quoted current evidence
  const quoted={...ops,constraints:{action:"replace",value:"Sem pagamentos.",evidence:"Sem pagamentos."}};
  assert.equal(parse(quoted,'Traduza "Sem pagamentos.".',"offer_contact").brief?.constraints,prior.constraints);
 });
+
+test("removing order lookup preserves Emily's broader website assistant goal",()=>{
+ const known={goal:"I want an assistant on my website to answer product questions and help with order-related requests",situation:"I run a small online store in the United States",desiredSolution:"",constraints:"",openQuestions:""};
+ const latest="Actually, remove order lookup from the first release. No refunds, cancellations or other actions on orders. Just approved product and policy answers plus a human handoff.";
+ const ops={goal:{action:"keep"},situation:{action:"keep"},desiredSolution:{action:"replace",value:"Just approved product and policy answers plus a human handoff",evidence:"Just approved product and policy answers plus a human handoff"},constraints:{action:"replace",value:"remove order lookup from the first release. No refunds, cancellations or other actions on orders.",evidence:"remove order lookup from the first release. No refunds, cancellations or other actions on orders."},openQuestions:{action:"keep"}};
+ const r=parseAssistantEnvelope(JSON.stringify({reply:"Approved answers and human handoff, without order lookup.",brief:ops}),[{role:"user",content:Object.values(known).join(" ")},{role:"user",content:latest}],known,"en");
+ assert.equal(r.brief?.goal,known.goal);assert.equal(r.brief?.situation,known.situation);assert.equal(r.brief?.desiredSolution,ops.desiredSolution.value);assert.match(r.brief?.constraints||"",/remove order lookup/);
+});
+
+test("specific revoked lookup cannot remain in the solution while the broader goal stays",()=>{
+ const known={goal:"I want an assistant on my website to answer product questions and help with order-related requests",situation:"I run a small online store",desiredSolution:"Approved product answers. Order lookup.",constraints:"",openQuestions:""};
+ const latest="Remove order lookup from the first release.";
+ const r=parseAssistantEnvelope(JSON.stringify({reply:"Keep approved answers, without lookup.",brief:known,handoff:"offer_contact"}),[{role:"user",content:Object.values(known).join(" ")},{role:"user",content:latest}],known,"en");
+ assert.equal(r.brief?.goal,known.goal);assert.equal(r.brief?.desiredSolution,"Approved product answers.");assert.match(r.brief?.constraints||"",/Remove order lookup/);assert.equal(r.handoff,undefined);
+});

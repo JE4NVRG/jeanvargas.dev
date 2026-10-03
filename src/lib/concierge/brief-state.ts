@@ -5,7 +5,7 @@ const empty = (): ConversationBrief => ({ goal: "", situation: "", desiredSoluti
 const fold = (text: string) => text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 const clauses = (text: string) => text.split(/(?<=[.!?;])\s+|\n+|,\s+/).map(part => part.trim()).filter(Boolean);
 const unquoted = (text: string) => text.replace(/"[^"\n]*"|“[^”\n]*”|‘[^’\n]*’|(?<!\p{L})'[^'\n]*'(?!\p{L})/gu, "");
-const ignoredWords = new Set("corrigindo correction actually verdade preciso quero need want sistema system painel dashboard projeto project primeira versao first version agora hoje today this that with com sem without nao not the and para uma um que fica ficar fora out fora inclui incluir include excluding remove excluir de do da dos das meu minha my nosso nossa our por ainda only so apenas precisa se it its is are on in as be eu i we a o os e em no na an to for cliente clientes customer customers client clients oficina workshop tecnico tecnicos team equipe".split(" "));
+const ignoredWords = new Set("corrigindo correction actually verdade preciso quero need want sistema system painel dashboard projeto project primeira versao first version agora hoje today this that with com sem without nao not the and para uma um que fica ficar fora out fora inclui incluir include excluding remove excluir de do da dos das meu minha my nosso nossa our por ainda only so apenas precisa se it its is are on in as be eu i we a o os e em no na an to for cliente clientes customer customers client clients oficina workshop tecnico tecnicos team equipe from release fase phase".split(" "));
 const clearTargets: Record<typeof BRIEF_FIELDS[number], RegExp> = {
   goal: /\b(?:objetivo|goal|pedido principal)\b/,
   situation: /\b(?:situacao|situation|contexto|context)\b/,
@@ -15,6 +15,13 @@ const clearTargets: Record<typeof BRIEF_FIELDS[number], RegExp> = {
 };
 const terms = (text: string) => new Set(fold(text).match(/[a-z0-9]{3,}/g)?.filter(word => !ignoredWords.has(word)).map(word => word.replace(/s$/, "")) || []);
 const overlaps = (a: string, b: string) => { const source = terms(a); return [...terms(b)].some(word => source.has(word)); };
+// A shared broad noun is not proof that the visitor revoked the whole fact.
+// Removing "order lookup" must not erase an assistant for product/order questions.
+const targetsFact = (fact: string, edit: string) => {
+  const factTerms = terms(fact), targetTerms = terms(edit);
+  return targetTerms.size > 0 && factTerms.size > 0
+    && ([...targetTerms].every(word => factTerms.has(word)) || [...factTerms].every(word => targetTerms.has(word)));
+};
 function exclusions(latest: string): string[] {
   // This is only a conservative stale-fact fence, not a semantic truth engine.
   // Field decisions remain in the single model envelope; quoted examples are not corrections.
@@ -83,12 +90,12 @@ export function resolveBriefUpdate(value: unknown, messages: readonly Message[],
   for (const field of BRIEF_FIELDS) {
     if (!brief[field] || explicitClears.has(field)) continue;
     const parts = clauses(brief[field]);
-    const remaining = parts.filter(part => !edits.some(excerpt => overlaps(part, excerpt) && (exclusions(part).length > 0) !== excluded.includes(excerpt)) || unquoted(latest).includes(part));
+    const remaining = parts.filter(part => !edits.some(excerpt => targetsFact(part, excerpt) && (exclusions(part).length > 0) !== excluded.includes(excerpt)) || unquoted(latest).includes(part));
     if (remaining.length !== parts.length) {
       brief[field] = remaining.join(" ");
       valid = false; // Model retained a stale fact; no automatic contact invitation.
       if (field === "constraints") {
-        const corrected = edits.filter(excerpt => parts.some(part => overlaps(part, excerpt) && (exclusions(part).length > 0) !== excluded.includes(excerpt)));
+        const corrected = edits.filter(excerpt => parts.some(part => targetsFact(part, excerpt) && (exclusions(part).length > 0) !== excluded.includes(excerpt)));
         const next = [...remaining, ...corrected.filter(excerpt => !remaining.includes(excerpt))].join(" ");
         brief.constraints = next.length <= 500 ? next : corrected.join(" ").slice(0, 500);
       }

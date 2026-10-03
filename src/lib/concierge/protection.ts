@@ -37,8 +37,11 @@ export async function rateNoraVerification(request: Request, env: NodeJS.Process
     let state:Record<string,number[]>={};
     try {
       if((await stat(file)).size>4_000_000)throw new Error("invalid state");
+      // An earlier-started request may acquire this lock after a newer one.
+      // Near-future entries stay counted against the same 20/minute cap.
+      // State more than one rate window ahead still fails closed.
       const value=JSON.parse(await readFile(file,"utf8"));
-      if(!value||typeof value!=="object"||Array.isArray(value)||Object.keys(value).length>10000||Object.entries(value).some(([key,times])=>!/^[a-f0-9]{64}$/.test(key)||!Array.isArray(times)||times.length>20||times.some(t=>!Number.isSafeInteger(t)||t<0||t>now.getTime())))throw new Error("invalid state");
+      if(!value||typeof value!=="object"||Array.isArray(value)||Object.keys(value).length>10000||Object.entries(value).some(([key,times])=>!/^[a-f0-9]{64}$/.test(key)||!Array.isArray(times)||times.length>20||times.some(t=>!Number.isSafeInteger(t)||t<0||t>now.getTime()+60_000)))throw new Error("invalid state");
       state=value;
     } catch(error) {if((error as NodeJS.ErrnoException).code!=="ENOENT")throw new ProtectionError(503,"protection_unavailable");}
     state=Object.fromEntries(Object.entries(state).map(([key,times])=>[key,times.filter(t=>t>now.getTime()-60_000)]).filter(([,times])=>(times as number[]).length>0));

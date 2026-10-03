@@ -2,16 +2,16 @@ type Turn = { role: "user" | "assistant"; content: string };
 const normalize = (text: string) => text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[’']/g, "").trim();
 
 // Use the same refusal boundary for form opening and proactive offers.
-const contactRefusal = /\b(nao|nunca|sem|not|never|dont|do not)\b.{0,45}\b(contato|contact|retorno|cadastro|register|registration|dados|details|telefone|email|phone|ligue|ligar|call|callback|falar|fale|conversar|chamar|talk|speak|me|mim)\b/;
+const contactRefusal = /\b(nao|nunca|sem|not|never|dont|do not)\b.{0,45}\b(contato|contact|retorno|cadastro|register|registration|dados|data|details|telefone|email|phone|ligue|ligar|call|callback|falar|fale|conversar|chamar|talk|speak|me|mim)\b/;
 function hasContactRefusal(text: string): boolean {
   // Evaluate each clause: a product exclusion must not swallow a later
   // personal refusal, nor let its negation reach a later handoff request.
   return normalize(text).split(/[.!?;\n]|\b(?:e|mas|and|but)\b/).some(clause => {
     if (!contactRefusal.test(clause)) return false;
-    const productRegistration = /\b(cadastro|register|registration|dados|details|telefone|email|phone)\b/.test(clause)
-      && /\b(clientes?|customers?|painel|dashboard|sistema|system|produto|product|app)\b/.test(clause);
+    const productRegistration = /\b(cadastro|register|registration|dados|data|details|telefone|email|phone)\b/.test(clause)
+      && /\b(clientes?|customers?|alunos?|students?|pacientes?|patients?|painel|dashboard|sistema|system|produto|product|app)\b/.test(clause);
     const personalTarget = /\b(comigo|mim|me|myself|jean|contato|contact|retorno|ligue|ligar|call|callback|falar|fale|conversar|chamar|talk|speak)\b/.test(clause)
-      || /\b(meu|minha|meus|minhas|my)\s+(?:cadastro|registration|dados|details|telefone|email|phone)\b/.test(clause);
+      || /\b(meu|minha|meus|minhas|my)\s+(?:cadastro|registration|dados|data|details|telefone|email|phone)\b/.test(clause);
     return !productRegistration || personalTarget;
   });
 }
