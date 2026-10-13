@@ -6,7 +6,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { PortfolioAnalytics } from "@/components/analytics/portfolio-analytics";
 import { UmamiAnalytics } from "@/components/analytics/umami-analytics";
-import { PortfolioConcierge } from "@/components/concierge/portfolio-concierge";
+import { EloziChat } from "@/components/communication/elozi-chat";
 import { COMPANY } from "@/data/company";
 import { serviceOffers } from "@/data/services";
 import "../globals.css";
@@ -224,7 +224,14 @@ export default async function LocaleLayout({
           <Navbar />
           {children}
           <Footer />
-          <PortfolioConcierge key={activeLocale} locale={activeLocale} />
+          <EloziChat
+            key={activeLocale}
+            locale={activeLocale}
+            apiOrigin="https://elozi.je4ndev.com"
+            tenantId="499f0367-4860-4fd1-98b3-3b1c90883a2f"
+            channelId="9266559b-cf66-4c0c-bca6-7edb7278624b"
+            whatsappUrl="https://wa.me/5511914826568"
+          />
         </LanguageProvider>
       </body>
     </html>
