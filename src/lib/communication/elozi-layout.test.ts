@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync, statSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { runInNewContext } from "node:vm";
@@ -187,7 +188,6 @@ test("all global layouts exclude legacy Nora imports/mounts and duplicate raw SD
 
 test("switching the global mount does not delete legacy Nora code, visitor data contracts or case pages", () => {
   const protectedPaths = [
-    ".env.example",
     "docs/brand/README.md",
     "src/components/concierge/portfolio-concierge.tsx",
     "src/components/concierge/chat.module.css",
@@ -202,6 +202,24 @@ test("switching the global mount does not delete legacy Nora code, visitor data 
     "src/data/nora-project.ts",
     "src/data/nora-reply-content.test.ts",
   ];
+  const templatePath = ".env.example";
+  const sourceManifestPath = process.env.PORTFOLIO_BUILD_SOURCE_MANIFEST;
+  if (sourceManifestPath) {
+    // The hermetic build omits all environment paths; prove the tracked template
+    // still belongs to the committed source instead of copying it into the build.
+    const snapshot = JSON.parse(readFileSync(sourceManifestPath, "utf8")) as {
+      sourceRevision: string; files: Record<string, string>; excludedSource: Record<string, string>;
+    };
+    assert.match(snapshot.sourceRevision, /^[a-f0-9]{40}$/);
+    assert.equal(snapshot.files[templatePath], undefined);
+    assert.match(snapshot.excludedSource[templatePath], /^[a-f0-9]{64}$/);
+    for (const path of ["package.json", "src/app/[locale]/layout.tsx", ...protectedPaths]) {
+      assert.equal(createHash("sha256").update(readFileSync(join(root, path))).digest("hex"), snapshot.files[path],
+        `Source snapshot differs: ${path}`);
+    }
+  } else {
+    assert.ok(statSync(join(root, templatePath)).isFile(), `Protected legacy template missing: ${templatePath}`);
+  }
   for (const path of protectedPaths) assert.ok(statSync(join(root, path)).isFile(), `Protected legacy artifact missing: ${path}`);
   assert.match(readFileSync(join(root, "src/data/nora-project.ts"), "utf8"), /export const noraProject/);
 });
