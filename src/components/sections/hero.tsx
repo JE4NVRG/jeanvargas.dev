@@ -13,6 +13,7 @@ import { projects } from "@/data/projects";
 import { useTranslation } from "@/i18n";
 import { COMPANY } from "@/data/company";
 import { contactEmailHref } from "@/lib/contact-email";
+import { ELOZI_OPEN_CHAT_EVENT, eloziCopy } from "@/lib/communication/elozi-widget";
 import styles from "./brand-hero.module.css";
 
 const sceneQuery = "(min-width: 1024px) and (min-height: 700px)";
@@ -178,8 +179,8 @@ export function Hero() {
               {t.hero.cta}<ArrowDown size={16} aria-hidden="true" />
             </a>
           </div>
-          <button type="button" data-cta="hero-nora-demo" onClick={() => window.dispatchEvent(new Event("je4ndev:open-nora"))} className={styles.nora}>
-            <MessageCircle size={15} aria-hidden="true" />{pt ? "Conheça a Nora, nossa assistente de IA" : "Meet Nora, our AI assistant"}
+          <button type="button" data-cta="hero-nora-demo" onClick={() => window.dispatchEvent(new Event(ELOZI_OPEN_CHAT_EVENT))} className={styles.nora}>
+            <MessageCircle size={15} aria-hidden="true" />{eloziCopy(locale).launcher}
           </button>
         </div>
         <div data-hero-field className={styles.field} aria-hidden="true">

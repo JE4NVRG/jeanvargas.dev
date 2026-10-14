@@ -16,6 +16,9 @@ export const ELOZI_SDK_PROVENANCE = {
   },
 } as const;
 
+/** Public open intent for the single page-owned chat; carries no visitor data. */
+export const ELOZI_OPEN_CHAT_EVENT = "je4ndev:open-chat";
+
 export type EloziLocale = "pt" | "pt-BR" | "en";
 export type EloziPublicConfig = {
   locale?: EloziLocale;
@@ -113,13 +116,28 @@ export function mountEloziWidget(config: EloziPublicConfig, {
   const resolved = resolveEloziConfig(config), owner = {};
   const duplicate = owners.has(doc);
   let disposed = false, widget: EloziWidget | undefined, labels: MutationObserver | undefined;
+  let pendingOpen = false;
   let timeout: ReturnType<Window["setTimeout"]> | undefined;
   let cancel!: () => void;
   const cancellation = new Promise<null>(resolve => { cancel = () => resolve(null); });
   if (resolved && !duplicate) owners.set(doc, owner);
+  const open = () => {
+    if (disposed || owners.get(doc) !== owner) return;
+    if (widget) widget.open();
+    else pendingOpen = true;
+  };
+  const close = () => {
+    pendingOpen = false;
+    if (!disposed) widget?.close();
+  };
+  // Reserve and listen synchronously, before the SDK loader's first microtask.
+  // The boolean intent belongs only to this owner, never the next locale/config.
+  if (resolved && !duplicate) view.addEventListener(ELOZI_OPEN_CHAT_EVENT, open);
   const destroy = () => {
     if (disposed) return;
     disposed = true;
+    pendingOpen = false;
+    if (resolved && !duplicate) view.removeEventListener(ELOZI_OPEN_CHAT_EVENT, open);
     cancel();
     if (timeout !== undefined) view.clearTimeout(timeout);
     labels?.disconnect();
@@ -156,6 +174,10 @@ export function mountEloziWidget(config: EloziPublicConfig, {
       const Observer = (view as Window & { MutationObserver: typeof MutationObserver }).MutationObserver;
       labels = new Observer(paintLabels);
       if (root) labels.observe(root, { subtree: true, childList: true, characterData: true });
+      if (pendingOpen) {
+        pendingOpen = false;
+        widget.open();
+      }
       onState?.("ready");
     } catch {
       if (!disposed) {
@@ -169,8 +191,8 @@ export function mountEloziWidget(config: EloziPublicConfig, {
   });
   return {
     ready,
-    open: () => { if (!disposed) widget?.open(); },
-    close: () => { if (!disposed) widget?.close(); },
+    open,
+    close,
     destroy,
   };
 }
