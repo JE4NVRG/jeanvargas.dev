@@ -9,6 +9,10 @@
 .projectNumber { color: #77777f; font-family: var(--font-geist-mono),monospace; font-size: 10px; font-weight: 400; }
 .projectTagline { margin-top: 7px; color: #93939c; font-size: 12px; line-height: 1.7; }
 .projectLink:focus-visible, .buildCta:focus-visible { outline: 2px solid #d8c098; outline-offset: 5px; }
+.projectLink[data-active="true"] { border-top-color: #e1cda8; }
+.projectLink[data-active="true"] .projectNumber { color: #e1cda8; }
+.storyRail { position: absolute; top: 0; bottom: 0; left: 0; width: 2px; background: rgb(255 255 255 / 8%); pointer-events: none; }
+.storyRail > span { display: block; height: 100%; transform: scaleY(var(--story, 0)); transform-origin: top center; background: #5eead4; }
 .buildCta { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 52px; margin-top: 32px; border-top: 1px solid rgb(216 192 152 / 26%); border-bottom: 1px solid rgb(216 192 152 / 26%); color: #e0caab; font-size: 14px; font-weight: 500; }
 .buildCta:hover { color: #fff; }
 @media (max-width:767px) {

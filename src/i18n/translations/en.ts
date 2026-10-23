@@ -160,10 +160,10 @@ export const en = {
     subtitle: "",
   },
   universe: {
-    label: "Project archive · 14 catalogued cases",
+    label: "Project archive",
     title: "More products, systems and experiments",
     subtitle:
-      "The three cases above are the main showcase. Filter the rest of the work by area and open the evidence available for each project.",
+      "The featured products above are the main showcase. Every other catalogued case is here, with the evidence available for that project.",
     filters: {
       all: "All",
       saas: "SaaS",
@@ -299,6 +299,22 @@ export const en = {
     ctaEmail: "Send an email",
     nextProject: "Next project",
     stackLabel: "Stack",
+  },
+  capabilities: {
+    label: "Capabilities",
+    title: "What this catalogue can show.",
+    subtitle: "Web, mobile, SaaS, agents and email, limited to work already documented on this site.",
+    webTitle: "Web",
+    webBody: "Professional websites and landing pages. Next.js, React, TypeScript and Tailwind CSS are the web stack named across the catalogue.",
+    mobileTitle: "Mobile",
+    mobileBody: "FlutterFlow is listed on the MepChat case, an archived 2024 MVP. No other mobile app is catalogued in this repository.",
+    saasTitle: "SaaS",
+    saasBody: "Custom systems and SaaS products with accounts, operational workflows and billing surfaces, as shown by the public cases.",
+    agentsTitle: "AI agents and MCP",
+    agentsBody: "Hermes and OpenClaw document scoped agents, tool permissions and human review. Nora is the public website assistant. MepMail and URLPivot document workspace MCP access.",
+    emailTitle: "Email infrastructure",
+    emailBody: "MepMail is the transactional-email product maintained and operated by JE4NDEV: a Resend-SDK-compatible API, SMTP and MCP, on Amazon SES.",
+    stackLabel: "Technologies named in the catalogue",
   },
 } as const;
 
@@ -503,6 +519,22 @@ export type Translations = {
     ctaWhatsapp: string;
     ctaEmail: string;
     nextProject: string;
+    stackLabel: string;
+  };
+  capabilities: {
+    label: string;
+    title: string;
+    subtitle: string;
+    webTitle: string;
+    webBody: string;
+    mobileTitle: string;
+    mobileBody: string;
+    saasTitle: string;
+    saasBody: string;
+    agentsTitle: string;
+    agentsBody: string;
+    emailTitle: string;
+    emailBody: string;
     stackLabel: string;
   };
 };

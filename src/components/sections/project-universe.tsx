@@ -14,10 +14,8 @@ import { getPrimaryProjectUrl } from "@/components/projects/project-links";
 /**
  * Project Universe — compact grid of every project we have in `projects.ts`.
  *
- * Showcase already does the cinematic alternating layout for the 6 flagships.
- * This section adds density of proof: shows ALL projects so the visitor sees
- * we actually shipped 12+ products, not just the 6 hero ones. Filter chips
- * narrow by category.
+ * Showcase keeps the cinematic stories for the flagship products.
+ * This section gives every other catalogued case its own card.
  */
 
 type FilterKey = "all" | "saas" | "ai" | "web3" | "internal" | "games";
@@ -73,7 +71,7 @@ export function ProjectUniverse() {
   const { t, locale } = useTranslation();
   const [filter, setFilter] = useState<FilterKey>("all");
   const [search, setSearch] = useState("");
-  const [expanded, setExpanded] = useState(false);
+  const skipFilterMotion = useRef(true);
 
   const filtered = useMemo(() => {
     let result = projects.filter(
@@ -95,34 +93,13 @@ export function ProjectUniverse() {
   }, [filter, search, locale]);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
-    const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>(".universe-card");
-      // Initial scroll reveal
-      gsap.fromTo(
-        cards,
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "expo.out",
-          stagger: { each: 0.04, from: "start" },
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 75%",
-            once: true,
-          },
-        }
-      );
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
-
-  // Re-animate cards on filter/search change (richer motion on interaction)
-  useEffect(() => {
-    const cards = document.querySelectorAll<HTMLElement>(".universe-card");
-    if (!cards.length) return;
+    if (skipFilterMotion.current) {
+      skipFilterMotion.current = false;
+      return;
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const cards = sectionRef.current?.querySelectorAll<HTMLElement>(".universe-card");
+    if (!cards?.length) return;
     gsap.fromTo(
       cards,
       { opacity: 0, y: 12, scale: 0.985 },
@@ -136,11 +113,10 @@ export function ProjectUniverse() {
         overwrite: "auto",
       }
     );
-  }, [filter, search, expanded]);
+  }, [filter, search]);
 
   const filterLabels = t.universe.filters;
-  const isDefaultView = filter === "all" && !search.trim();
-  const visibleProjects = isDefaultView && !expanded ? filtered.slice(0, 3) : filtered;
+  const visibleProjects = filtered;
 
   return (
     <section
@@ -229,7 +205,7 @@ export function ProjectUniverse() {
             return (
               <article
                 key={project.slug}
-                className="universe-card group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0a0a0a]/80 transition-colors hover:border-cyan-300/30"
+                className="universe-card group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0a0a0a]/80 transition-colors hover:border-cyan-300/30 motion-safe:hover:-translate-y-1 motion-reduce:transform-none"
               >
                 <div className={`relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${project.gradient}`}>
                   {artwork ? (
@@ -343,19 +319,6 @@ export function ProjectUniverse() {
             );
           })}
         </div>
-
-        {isDefaultView && filtered.length > 3 ? (
-          <div className="mt-8 flex justify-center">
-            <button
-              type="button"
-              onClick={() => setExpanded((current) => !current)}
-              aria-expanded={expanded}
-              className="inline-flex min-h-11 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-cyan-100 transition-colors hover:bg-cyan-400/15 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
-            >
-              {expanded ? t.universe.showLess : t.universe.showAll}
-            </button>
-          </div>
-        ) : null}
 
         {filtered.length === 0 ? (
           <div className="mt-8 rounded-2xl border border-dashed border-white/[0.1] bg-white/[0.02] px-6 py-12 text-center">

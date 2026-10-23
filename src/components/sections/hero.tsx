@@ -1,9 +1,10 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { ArrowDown, ArrowUpRight, MessageCircle, Sparkles } from "lucide-react";
-import { StudioAmbientMedia } from "@/components/ui/studio-hero-media";
+import { HeroSculptureFallback } from "@/components/ui/hero-sculpture-fallback";
 import { useStudioMotionPreferences } from "@/components/ui/studio-motion-provider";
 import { shouldLoadStudioMedia } from "@/lib/studio-motion-policy";
 import { btnPrimary, btnSecondary } from "@/components/ui/button-classes";
@@ -15,6 +16,11 @@ import { COMPANY } from "@/data/company";
 import { contactEmailHref } from "@/lib/contact-email";
 import { ELOZI_OPEN_CHAT_EVENT, eloziCopy } from "@/lib/communication/elozi-widget";
 import styles from "./brand-hero.module.css";
+
+const HeroSculptureCanvas = dynamic(
+  () => import("@/components/ui/hero-sculpture-canvas").catch(() => ({ default: function Unavailable() { return null; } })),
+  { ssr: false },
+);
 
 const sceneQuery = "(min-width: 1024px) and (min-height: 700px)";
 function subscribeSceneViewport(callback: () => void) {
@@ -33,6 +39,8 @@ export function Hero() {
   const wideScene = useSyncExternalStore(subscribeSceneViewport, sceneViewportSnapshot, staticSceneSnapshot);
   const immersive = wideScene && shouldLoadStudioMedia(profile);
   const [need, setNeed] = useState<number | null>(null);
+  const [sculptureArmed, setSculptureArmed] = useState(false);
+  const [sculptureReady, setSculptureReady] = useState(false);
   const pt = locale === "pt";
   const needs = pt
     ? [
@@ -48,6 +56,27 @@ export function Hero() {
   const message = (pt ? "Olá! " : "Hi! ") + (need === null
     ? (pt ? "Quero conversar sobre um projeto. Minha necessidade é: " : "I would like to discuss a project. What I need is: ")
     : needs[need].message);
+
+  useEffect(() => {
+    if (!immersive) return;
+    let cancelled = false;
+    let idle: number | undefined;
+    let timer: number | undefined;
+    const enable = () => {
+      if (!cancelled) setSculptureArmed(true);
+    };
+    const host = window as Window & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+    if (host.requestIdleCallback) idle = host.requestIdleCallback(enable, { timeout: 2200 });
+    else timer = window.setTimeout(enable, 1400);
+    return () => {
+      cancelled = true;
+      if (idle != null) host.cancelIdleCallback?.(idle);
+      if (timer != null) window.clearTimeout(timer);
+    };
+  }, [immersive]);
 
   useEffect(() => {
     const element = root.current;
@@ -158,11 +187,15 @@ export function Hero() {
   }, [immersive, locale]);
 
   return (
-    <section ref={root} className={styles.hero} aria-labelledby="hero-heading">
+    <section ref={root} className={styles.hero} data-hero-root data-need={need === null ? undefined : String(need)} aria-labelledby="hero-heading">
       <div ref={stage} className={styles.stage} tabIndex={-1} aria-label={pt ? "Sua ideia, a experiência e os produtos" : "Your idea, the experience and the products"}>
         <div className={styles.world}>
-          <StudioAmbientMedia locale={locale} poster="/media/je4ndev/idea-space-v2.webp"
-            videoSrc="/media/je4ndev/idea-space-v2.mp4" eager decorative allowMobilePlayback className={styles.scene} />
+          <div className={styles.scene} data-studio-parallax>
+            <HeroSculptureFallback hidden={sculptureReady} />
+            <div className={styles.sculpture}>
+              {immersive && sculptureArmed ? <HeroSculptureCanvas onReady={() => setSculptureReady(true)} /> : null}
+            </div>
+          </div>
           <div className={styles.shade} aria-hidden="true" />
         </div>
         <div className={styles.pointerLight} aria-hidden="true" />

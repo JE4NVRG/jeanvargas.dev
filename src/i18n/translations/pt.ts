@@ -162,10 +162,10 @@ export const pt: Translations = {
     subtitle: "",
   },
   universe: {
-    label: "Arquivo de projetos · 14 cases catalogados",
+    label: "Arquivo de projetos",
     title: "Mais produtos, sistemas e experimentos",
     subtitle:
-      "Os três cases acima são a vitrine principal. Aqui você pode filtrar o restante do repertório por área e abrir a evidência disponível de cada projeto.",
+      "Os produtos em destaque acima são a vitrine principal. Cada outro case catalogado está aqui, com a evidência disponível daquele projeto.",
     filters: {
       all: "Tudo",
       saas: "SaaS",
@@ -301,5 +301,21 @@ export const pt: Translations = {
     ctaEmail: "Enviar email",
     nextProject: "Próximo projeto",
     stackLabel: "Stack",
+  },
+  capabilities: {
+    label: "Capacidades",
+    title: "O que este catálogo consegue mostrar.",
+    subtitle: "Web, mobile, SaaS, agentes e e-mail, limitados ao trabalho já documentado neste site.",
+    webTitle: "Web",
+    webBody: "Sites profissionais e landing pages. Next.js, React, TypeScript e Tailwind CSS são a stack web citada no catálogo.",
+    mobileTitle: "Mobile",
+    mobileBody: "FlutterFlow aparece no case MepChat, um MVP arquivado de 2024. Nenhum outro aplicativo mobile está catalogado neste repositório.",
+    saasTitle: "SaaS",
+    saasBody: "Sistemas sob medida e produtos SaaS com contas, fluxos operacionais e superfícies de cobrança, como os cases públicos mostram.",
+    agentsTitle: "Agentes de IA e MCP",
+    agentsBody: "Hermes e OpenClaw documentam agentes com escopo, permissões de ferramentas e revisão humana. A Nora é o assistente público do site. MepMail e URLPivot documentam acesso MCP limitado ao workspace.",
+    emailTitle: "Infraestrutura de e-mail",
+    emailBody: "O MepMail é o produto de e-mail transacional mantido e operado pela JE4NDEV: API compatível com SDKs Resend, SMTP e MCP, sobre Amazon SES.",
+    stackLabel: "Tecnologias citadas no catálogo",
   },
 };

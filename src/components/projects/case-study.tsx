@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import {
   ArrowRight,
   ArrowLeft,
@@ -158,6 +159,27 @@ export function CaseStudy({ slug }: CaseStudyProps) {
   const { t, locale } = useTranslation();
   const project = getProjectBySlug(slug);
   const nextProject = getNextProject(slug);
+
+  useEffect(() => {
+    const root = document.querySelector<HTMLElement>("[data-case-story]");
+    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const beats = [...root.querySelectorAll<HTMLElement>("[data-case-beat]")];
+    const marks = [...root.querySelectorAll<HTMLElement>("[data-beat-index]")];
+    const onScroll = () => {
+      const rect = root.getBoundingClientRect();
+      const span = Math.max(rect.height - window.innerHeight * 0.35, 1);
+      const progress = Math.max(0, Math.min(1, (window.innerHeight * 0.35 - rect.top) / span));
+      root.style.setProperty("--case-story", progress.toFixed(3));
+      let active = 0;
+      beats.forEach((beat, index) => {
+        if (beat.getBoundingClientRect().top < window.innerHeight * 0.56) active = index;
+      });
+      marks.forEach((mark, index) => mark.toggleAttribute("data-active", index === active));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [slug, locale]);
 
   if (!project) return null;
 
@@ -342,8 +364,30 @@ export function CaseStudy({ slug }: CaseStudyProps) {
             </p>
           </div>
 
+          <div data-case-story className="relative lg:grid lg:grid-cols-[9.5rem_minmax(0,1fr)] lg:gap-8">
+            <div className="relative mb-6 hidden lg:block">
+              <div className="sticky top-28">
+                <span className="absolute bottom-0 left-0 top-0 w-px bg-white/10" aria-hidden="true">
+                  <span className="block h-full origin-top bg-cyan-300" style={{ transform: "scaleY(var(--case-story, 0))" }} />
+                </span>
+                <ol className="space-y-3 pl-4 text-xs font-semibold uppercase tracking-widest">
+                  {[t.project.before, t.project.build, t.project.result].map((label, index) => (
+                    <li key={label}>
+                      <button
+                        type="button"
+                        data-beat-index={index}
+                        className="min-h-11 text-left text-zinc-500 data-[active]:text-[#e1cda8]"
+                        onClick={() => document.querySelectorAll<HTMLElement>("[data-case-beat]")[index]?.scrollIntoView({ block: "center" })}
+                      >
+                        {label}
+                      </button>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
           <div className="grid gap-5 md:grid-cols-3">
-            <div className="rounded-2xl border border-red-500/20 bg-red-500/[0.03] p-7">
+            <div data-case-beat className="rounded-2xl border border-red-500/20 bg-red-500/[0.03] p-7">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-red-400">
                 {t.project.before}
               </h3>
@@ -351,7 +395,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
                 {project.problem[locale]}
               </p>
             </div>
-            <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/[0.03] p-7">
+            <div data-case-beat className="rounded-2xl border border-cyan-500/20 bg-cyan-500/[0.03] p-7">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-cyan-400">
                 {t.project.build}
               </h3>
@@ -359,7 +403,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
                 {project.solution[locale]}
               </p>
             </div>
-            <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.03] p-7">
+            <div data-case-beat className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.03] p-7">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-emerald-400">
                 {t.project.result}
               </h3>
@@ -369,6 +413,7 @@ export function CaseStudy({ slug }: CaseStudyProps) {
                   : project.metrics[0]?.label[locale]}
               </p>
             </div>
+          </div>
           </div>
         </SectionReveal>
 

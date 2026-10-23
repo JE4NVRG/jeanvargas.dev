@@ -61,9 +61,10 @@ function loadHero(window: Window & typeof globalThis) {
   const empty = () => null;
   return loadComponent<React.ComponentType>("src/components/sections/hero.tsx", {
     "react": React, "react/jsx-runtime": jsxRuntime,
+    "next/dynamic": { default: () => function HeroSculptureStub() { return null; } },
     "next/image": { default: empty },
     "lucide-react": { ArrowDown: empty, ArrowUpRight: empty, MessageCircle: empty, Sparkles: empty },
-    "@/components/ui/studio-hero-media": { StudioAmbientMedia: empty },
+    "@/components/ui/hero-sculpture-fallback": { HeroSculptureFallback: empty },
     "@/components/ui/studio-motion-provider": { useStudioMotionPreferences },
     "@/lib/studio-motion-policy": { shouldLoadStudioMedia },
     "@/components/ui/button-classes": { btnPrimary: "fixture-primary", btnSecondary: "fixture-secondary" },
