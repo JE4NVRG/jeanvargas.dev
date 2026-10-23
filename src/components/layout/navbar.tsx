@@ -12,6 +12,7 @@ import { useTranslation } from "@/i18n";
 
 const navLinks = [
   { key: "work" as const, href: "#work" },
+  { key: "stack" as const, href: "#capabilities" },
   { key: "services" as const, href: "#services" },
   { key: "about" as const, href: "#about" },
   { key: "contact" as const, href: "#contact" },

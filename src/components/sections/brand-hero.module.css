@@ -1,10 +1,26 @@
 .hero { --scene-pad: clamp(24px,5vw,80px); position: relative; padding-top: 76px; background: #04070b; border-bottom: 1px solid rgb(255 255 255 / 10%); }
 .stage { position: relative; isolation: isolate; min-height: 720px; overflow: hidden; }
 .world { position: absolute; z-index: -2; inset: 0; background: #04070b; }
-.scene { height: 100%; width: 100%; background: #04070b; }
-.scene [data-studio-parallax] { inset: 0; }
-.scene :is(img,video) { inset: auto 0 0; height: auto; max-height: 100%; object-fit: contain; object-position: center bottom; mask-image: linear-gradient(180deg,transparent,#000 25%,#000 88%,transparent),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); mask-composite: intersect; transform: translate3d(var(--scene-x,0px),var(--scene-y,0px),0); transition: transform 450ms cubic-bezier(.2,.7,.2,1); }
-.scene > button { top: 16px; bottom: auto; right: 24px; z-index: 8; border-radius: 999px; background: rgb(4 7 11 / 75%); }
+.scene { position: relative; height: 100%; width: 100%; background: #04070b; }
+.sculpture { position: absolute; left: 0; right: 0; bottom: 0; height: 64%; pointer-events: none; }
+.mark { position: absolute; left: 0; right: 0; bottom: 6%; display: grid; place-items: center; pointer-events: none; }
+.mark[data-hidden="true"] { visibility: hidden; }
+.markSvg { width: min(34vw, 380px); height: auto; overflow: visible; }
+.sheet, .plate, .core { transform-box: fill-box; transform-origin: center; transition: transform 700ms cubic-bezier(.2,.7,.2,1), opacity 700ms; }
+.plate { transform: translateY(26px) scale(0.72); opacity: 0.28; }
+.core { opacity: 0; transform: scale(0.72); }
+.hero[data-chapter="2"] .sheet { transform: translateY(48px) scaleY(0.16); }
+.hero[data-chapter="2"] .plate { transform: none; opacity: 1; }
+.hero[data-chapter="3"] .sheet, .hero[data-chapter="3"] .plate { opacity: 0; }
+.hero[data-chapter="3"] .core { opacity: 1; transform: none; }
+.hero[data-need="0"] .sheet { transform: none; opacity: 1; }
+.hero[data-need="0"] .plate { transform: translateY(26px) scale(0.72); opacity: 0.28; }
+.hero[data-need="0"] .core { opacity: 0; transform: scale(0.72); }
+.hero[data-need="1"] .sheet { transform: translateY(48px) scaleY(0.16); opacity: 1; }
+.hero[data-need="1"] .plate { transform: none; opacity: 1; }
+.hero[data-need="1"] .core { opacity: 0; }
+.hero[data-need="2"] .sheet, .hero[data-need="2"] .plate { opacity: 0; }
+.hero[data-need="2"] .core { opacity: 1; transform: none; }
 .shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg,rgb(4 7 11 / 65%),transparent 55%,rgb(4 7 11 / 35%)),radial-gradient(ellipse 50% 14% at 50% 43%,rgb(4 7 11 / 88%),transparent); }
 .pointerLight { position: absolute; z-index: -1; pointer-events: none; left: var(--light-x,50%); top: var(--light-y,65%); width: 360px; height: 360px; transform: translate(-50%,-50%); background: radial-gradient(circle,rgb(141 226 232 / 13%),transparent 68%); opacity: 0; transition: opacity 500ms; mix-blend-mode: screen; }
 .stage[data-pointer="active"] .pointerLight { opacity: 1; }
@@ -75,9 +91,8 @@
   .description { max-width: 620px; font-size: 15px; }
   .world { position: relative; z-index: 0; inset: auto; order: 2; width: 100%; aspect-ratio: 16/9; margin-top: 4px; }
   .shade { background: linear-gradient(180deg,#04070b 0%,transparent 24%,transparent 72%,#04070b 100%); }
-  .scene [data-studio-parallax] { inset: 0; }
-  .scene :is(img,video) { object-position: center; }
-  .scene > button { right: 20px; top: 15px; }
+  .sculpture, .mark { inset: 0; height: auto; bottom: auto; }
+  .markSvg { width: min(58%, 240px); }
   .field, .pointerLight { display: none; }
   .needs { position: relative; inset: auto; order: 1; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; padding: 0 24px; pointer-events: auto; }
   .need { position: static; max-width: none; gap: 8px; min-height: 44px; padding: 8px 12px; border: 1px solid #b8c9d32e; border-radius: 999px; font-size: 11px; }
@@ -100,7 +115,7 @@
   .node { display: none; }
 }
 @media (prefers-reduced-motion:reduce) {
-  .scene :is(img,video) { transform: none; transition: none; }
+  .sheet, .plate, .core { transition: none; }
   .field { transform: none; transition: none; }
   .pointerLight { display: none; }
   .need, .card, .chapters span { transition: none; }

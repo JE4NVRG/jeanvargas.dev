@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, ExternalLink, Github, MessageCircle } from "lucide-react";
-import { gsap } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { FLAGSHIP_SLUGS } from "@/data/flagships";
 import { getProductPresentation } from "@/data/product-presentation";
 import { COMPANY } from "@/data/company";
@@ -51,6 +51,34 @@ export function Showcase() {
       },
       sectionRef
     );
+    motion.add("(prefers-reduced-motion: no-preference)", () => {
+      const section = sectionRef.current;
+      if (!section) return;
+      const items = gsap.utils.toArray<HTMLElement>(".showcase-item", section);
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top bottom",
+        end: "bottom top",
+        onUpdate: () => {
+          let active: HTMLElement | null = null;
+          let best = 0;
+          for (const item of items) {
+            const rect = item.getBoundingClientRect();
+            const visible = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+            const ratio = rect.height > 0 ? visible / rect.height : 0;
+            item.style.setProperty("--story", Math.max(0, Math.min(1, ratio)).toFixed(3));
+            if (ratio > best) {
+              best = ratio;
+              active = item;
+            }
+          }
+          section.querySelectorAll("[data-story-link]").forEach((link) => link.removeAttribute("data-active"));
+          if (active && best > 0.2) {
+            section.querySelector(`[data-story-link="${active.dataset.product}"]`)?.setAttribute("data-active", "true");
+          }
+        },
+      });
+    });
     return () => motion.revert();
   }, []);
 
@@ -60,11 +88,12 @@ export function Showcase() {
         <p className="text-xs font-semibold uppercase tracking-widest text-cyan-300/80">{t.work.label}</p>
         <h2 className="mt-3 max-w-3xl text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">{t.work.title}</h2>
         <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-400">{t.work.subtitle}</p>
+        <a href="#universe" className="mt-6 inline-flex min-h-11 items-center text-sm text-[#e1cda8] underline decoration-[#e1cda8]/40 underline-offset-4">{t.universe.label}</a>
         <nav aria-label={locale === "pt" ? "Acesso direto aos projetos" : "Jump to a project"} className={styles.projectIndex}>
           {featured.map((project, index) => {
             const presentation = getProductPresentation(project.slug, locale);
             const image = presentation.images[0];
-            return <a key={project.slug} href={`#project-${project.slug}`} className={styles.projectLink}>
+            return <a key={project.slug} href={`#project-${project.slug}`} data-story-link={project.slug} className={styles.projectLink}>
               <div className={styles.projectPreview}>{image ? <Image src={image.src} alt="" width={image.width} height={image.height} sizes="(max-width: 767px) 45vw, 280px" className={styles.projectThumbnail} /> : null}</div>
               <div className={styles.projectName}><span className={styles.projectNumber}>{String(index + 1).padStart(2,"0")}</span><span>{project.title}</span><ArrowUpRight size={16} aria-hidden="true" /></div>
               <p className={styles.projectTagline}>{presentation.tagline}</p>
@@ -123,6 +152,7 @@ function ShowcaseItem({ project, index, total, alignRight, locale, viewLabel, t 
   return (
     <article id={`project-${project.slug}`} data-product={project.slug} data-align-right={alignRight}
       className="showcase-item relative scroll-mt-24 border-t border-white/[0.05]">
+      <span className={styles.storyRail} aria-hidden="true"><span /></span>
       <div className={styles.story}>
         <div className={`showcase-image ${styles.media}`}>
           <ProductShowcaseMedia key={`${project.slug}-${locale}`} slug={project.slug} title={project.title}
